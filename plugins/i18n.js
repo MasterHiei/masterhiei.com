@@ -10,8 +10,8 @@ export default ({ app, store }) => {
     locale: store.state.locale,
     fallbackLocale: 'zh-CN',
     messages: {
-      'zh-CN': require('~/locales/zh-CN.json'),
-      'ja-JP': require('~/locales/ja-JP.json')
+      'zh-CN': require('~/static/locales/zh-CN.json'),
+      'ja-JP': require('~/static/locales/ja-JP.json')
     }
   })
   app.i18n.path = (link) => {
