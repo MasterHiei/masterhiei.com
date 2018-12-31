@@ -28,7 +28,8 @@ module.exports = {
   ** Global CSS
   */
   css: [
-    '~/assets/style/app.styl'
+    '~/assets/style/app.styl',
+    '~/assets/css/fontawesome-all.min.css'
   ],
 
   router: {
@@ -44,7 +45,7 @@ module.exports = {
   ],
 
   generate: {
-    routers: ['/', '/about', 'zh-CN/', 'zh-CN/about']
+    routers: ['/', '/about', 'ja-JP/', 'ja-JP/about']
   },
 
   /*
