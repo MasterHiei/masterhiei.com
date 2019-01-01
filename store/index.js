@@ -24,4 +24,9 @@ export const mutations = {
 
 // Actions
 export const actions = {
+  changeLocale: (state, locale) => {
+    if (state.locale !== locale) {
+      state.commit('SET_LOCALE', locale)
+    }
+  }
 }

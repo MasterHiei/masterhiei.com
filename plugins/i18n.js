@@ -14,10 +14,4 @@ export default ({ app, store }) => {
       'ja-JP': require('~/static/locales/ja-JP.json')
     }
   })
-  app.i18n.path = (link) => {
-    if (app.i18n.locale === app.i18n.fallbackLocale) {
-      return `/${link}`
-    }
-    return `/${app.i18n.locale}/${link}`
-  }
 }

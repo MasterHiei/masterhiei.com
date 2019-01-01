@@ -4,13 +4,11 @@
       class="px-5"
       color="white"
       flat
-      fixed
       tabs
     >
       <v-toolbar-title>
         <nuxt-link
-          :to="$i18n.path('')"
-          active-class="none"
+          to="/"
           exact
         >
           Master Hiei
@@ -35,25 +33,13 @@
         <v-list>
           <v-list-tile v-if="!isLocatedAt('zh-CN')">
             <v-list-tile-title>
-              <nuxt-link
-                :to="$route.fullPath.replace(/^\/[^\/]+/, '')"
-                active-class="selected"
-                exact
-              >
-                简体中文
-              </nuxt-link>
+              <a @click="change('zh-CN')">简体中文</a>
             </v-list-tile-title>
           </v-list-tile>
 
           <v-list-tile v-if="!isLocatedAt('ja-JP')">
             <v-list-tile-title>
-              <nuxt-link
-                :to="`/ja-JP` + $route.fullPath"
-                active-class="selected"
-                exact
-              >
-                日本語
-              </nuxt-link>
+              <a @click="change('ja-JP')">日本語</a>
             </v-list-tile-title>
           </v-list-tile>
         </v-list>
@@ -74,6 +60,13 @@ import { mapGetters, mapActions } from 'vuex'
   export default {
     computed: {
       ...mapGetters(['isLocatedAt'])
+    },
+    methods: {
+      ...mapActions(['changeLocale']),
+      change (locale) {
+        this.changeLocale(locale)
+        this.$i18n.locale = locale
+      }
     }
   }
 </script>

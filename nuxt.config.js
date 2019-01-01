@@ -7,7 +7,7 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: pkg.name,
+    title: 'Master Hiei\'s Blog',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -32,7 +32,6 @@ module.exports = {
   ],
 
   router: {
-    middleware: 'i18n'
   },
 
   /*
@@ -44,7 +43,7 @@ module.exports = {
   ],
 
   generate: {
-    routers: ['/', '/about', 'ja-JP/', 'ja-JP/about']
+    routers: ['/about']
   },
 
   /*
