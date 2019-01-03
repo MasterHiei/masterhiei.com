@@ -2,17 +2,16 @@
   <v-app>
     <v-toolbar
       class="px-5"
-      color="white"
       flat
       tabs
+      dark
     >
-      <v-toolbar-title>
-        <nuxt-link
-          to="/"
-          exact
-        >
-          Master Hiei
-        </nuxt-link>
+      <v-toolbar-title
+        id="toolbar-title"
+        class="display-1"
+        @click="transTo('/')"
+      >
+        Master Hiei
       </v-toolbar-title>
 
       <v-spacer/>
@@ -27,7 +26,7 @@
           flat
         >
           <v-icon left>fas fa-globe</v-icon>
-          <span class="font-weight-bold">{{ $t('language') }}</span>
+          <span class="font-weight-bold subheading">{{ $t('links.locale') }}</span>
         </v-btn>
 
         <v-list>
@@ -50,6 +49,42 @@
       </v-btn>
     </v-toolbar>
 
+    <v-tabs
+      hide-slider="true"
+      grow
+      centered
+      dark
+    >
+      <v-spacer/>
+
+      <v-tab
+        class="subheading"
+        nuxt
+        to="/"
+        exact
+      >
+        {{ $t('links.home') }}
+      </v-tab>
+      <v-tab
+        class="subheading"
+        nuxt
+        to="/articles"
+        exact
+      >
+        {{ $t('links.articles') }}
+      </v-tab>
+      <v-tab
+        class="subheading"
+        nuxt
+        to="/about"
+        exact
+      >
+        {{ $t('links.about') }}
+      </v-tab>
+
+      <v-spacer/>
+    </v-tabs>
+
     <nuxt/>
   </v-app>
 </template>
@@ -66,12 +101,18 @@ import { mapGetters, mapActions } from 'vuex'
       change (locale) {
         this.changeLocale(locale)
         this.$i18n.locale = locale
+      },
+      transTo (path) {
+        this.$router.replace(path)
       }
     }
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
-  a
-    text-decoration-line none
+<style scope lang="stylus" rel="stylesheet/stylus">
+  #toolbar-title
+    cursor pointer
+  .v-tabs__item--active
+    font-weight bold
+    background-color red
 </style>
