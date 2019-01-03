@@ -50,7 +50,7 @@
     </v-toolbar>
 
     <v-tabs
-      hide-slider="true"
+      hide-slider
       grow
       centered
       dark
