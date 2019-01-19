@@ -38,8 +38,7 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@/plugins/vuetify',
-    '@/plugins/i18n'
+    '@/plugins/vuetify'
   ],
 
   generate: {
@@ -50,8 +49,30 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
-    // Doc: https://github.com/nuxt-community/axios-module#usage
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    ['nuxt-i18n', {
+      baseUrl: 'localhost:3001',
+      locales: [
+        {
+          code: 'zh-cn',
+          name: '简体中文',
+          iso: 'zh-CN'
+        },
+        {
+          code: 'ja',
+          name: '日本語',
+          iso: 'ja-JP'
+        }
+      ],
+      defaultLocale: 'zh-cn',
+      vueI18n: {
+        fallbackLocale: 'zh-cn',
+        messages: {
+          'zh-cn': require('./static/locales/zh-cn.json'),
+          'ja': require('./static/locales/ja.json'),
+        }
+      }
+    }]
   ],
   /*
   ** Axios module configuration
@@ -64,7 +85,6 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    vendor: ['vue-i18n'],
     /*
     ** You can extend webpack config here
     */

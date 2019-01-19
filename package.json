@@ -16,8 +16,9 @@
     "@nuxtjs/axios": "^5.0.0",
     "cross-env": "^5.2.0",
     "express": "^4.16.3",
+    "mongoose": "^5.4.4",
     "nuxt": "^2.0.0",
-    "vue-i18n": "^8.6.0",
+    "nuxt-i18n": "^5.5.0",
     "vuetify": "^1.4.0"
   },
   "devDependencies": {

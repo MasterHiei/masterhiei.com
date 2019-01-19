@@ -9,7 +9,7 @@
       <v-toolbar-title
         id="toolbar-title"
         class="display-1"
-        @click="transTo('/')"
+        @click="toIndex(localePath('index'))"
       >
         Master Hiei
       </v-toolbar-title>
@@ -30,16 +30,14 @@
         </v-btn>
 
         <v-list>
-          <v-list-tile v-if="!isLocatedAt('zh-CN')">
-            <v-list-tile-title>
-              <a @click="change('zh-CN')">简体中文</a>
-            </v-list-tile-title>
-          </v-list-tile>
-
-          <v-list-tile v-if="!isLocatedAt('ja-JP')">
-            <v-list-tile-title>
-              <a @click="change('ja-JP')">日本語</a>
-            </v-list-tile-title>
+          <v-list-tile
+            v-for="locale in locales"
+            :key="locale.code"
+            :to="switchLocalePath(locale.code)"
+            nuxt
+            exact
+          >
+            <v-list-tile-title>{{ locale.name }}</v-list-tile-title>
           </v-list-tile>
         </v-list>
       </v-menu>
@@ -61,25 +59,25 @@
       <v-spacer/>
 
       <v-tab
+        :to="localePath('index')"
         class="subheading"
         nuxt
-        to="/"
         exact
       >
         {{ $t('links.home') }}
       </v-tab>
       <v-tab
+        :to="localePath('articles')"
         class="subheading"
         nuxt
-        to="/articles"
         exact
       >
         {{ $t('links.articles') }}
       </v-tab>
       <v-tab
+        :to="localePath('about')"
         class="subheading"
         nuxt
-        to="/about"
         exact
       >
         {{ $t('links.about') }}
@@ -93,20 +91,15 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
-
   export default {
     computed: {
-      ...mapGetters(['isLocatedAt'])
+      locales () {
+        return this.$i18n.locales.filter(locale => locale.code !== this.$i18n.locale)
+      }
     },
     methods: {
-      ...mapActions(['changeLocale']),
-      change (locale) {
-        this.changeLocale(locale)
-        this.$i18n.locale = locale
-      },
-      transTo (path) {
-        this.$router.replace(path)
+      toIndex (localePath) {
+        this.$router.replace(localePath)
       }
     }
   }
