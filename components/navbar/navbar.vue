@@ -17,7 +17,6 @@
       <v-spacer/>
 
       <v-menu
-        open-on-hover
         offset-y
         transition="slide-y-transition"
       >

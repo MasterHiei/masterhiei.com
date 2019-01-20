@@ -1,10 +1,13 @@
-
 const express = require('express')
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
 const app = express()
 const host = process.env.HOST || '127.0.0.1'
 const port = process.env.PORT || 3001
+
+// Import mongodb
+const mongoose = require('mongoose')
+const db = require('./api/models/db')
 
 app.set('port', port)
 
@@ -26,10 +29,25 @@ async function start() {
   app.use(nuxt.render)
 
   // Listen the server
-  app.listen(port, host)
-  consola.ready({
-    message: `Server listening on http://${host}:${port}`,
-    badge: true
+  app.listen(port, host, () => {
+    // Print console log
+    consola.ready({
+      message: `Server listening on http://${host}:${port}`,
+      badge: true
+    })
+
+    // Connect mongodb
+    mongoose.connect(db.url, db.options)
+    .then(
+      () => consola.ready({
+        message: 'Mongoose: connected',
+        badge: true
+      }),
+      (error) => consola.error({
+        message: `Mongoose: connection error: ${error}`,
+        badge: true
+      })
+    )
   })
 }
 start()

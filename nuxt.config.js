@@ -42,7 +42,7 @@ module.exports = {
   ],
 
   generate: {
-    routers: ['/about']
+    routers: ['/about', '/ja/about']
   },
 
   /*
