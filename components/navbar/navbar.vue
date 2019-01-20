@@ -14,7 +14,7 @@
         Master Hiei
       </v-toolbar-title>
 
-      <v-spacer/>
+      <v-spacer />
 
       <v-menu
         offset-y
@@ -24,8 +24,12 @@
           slot="activator"
           flat
         >
-          <v-icon left>fas fa-globe</v-icon>
-          <span class="font-weight-bold subheading">{{ $t('links.locale') }}</span>
+          <v-icon left>
+            fas fa-globe
+          </v-icon>
+          <span class="font-weight-bold subheading">
+            {{ $t('links.locale') }}
+          </span>
         </v-btn>
 
         <v-list>
@@ -55,7 +59,7 @@
       centered
       dark
     >
-      <v-spacer/>
+      <v-spacer />
 
       <v-tab
         :to="localePath('index')"
@@ -82,10 +86,10 @@
         {{ $t('links.about') }}
       </v-tab>
 
-      <v-spacer/>
+      <v-spacer />
     </v-tabs>
 
-    <nuxt/>
+    <nuxt />
   </v-app>
 </template>
 
