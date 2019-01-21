@@ -22,14 +22,18 @@ const articleSchema = new Schema({
     type: Number,
     default: 0
   },
-  created_by: {
+  createdBy: {
     type: String,
     required: true
+  },
+  isDeleted: {
+    type: Boolean,
+    default: false
   }
 }, {
   timestamps: {
-    createdAt: 'created_at',
-    updatedAt: 'updated_at'
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
   }
 })
 
