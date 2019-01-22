@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const consola = require('consola')
 const morgan = require('morgan')
 const api = require('./api/index')
+const db = require('./api/models/db')
 const { Nuxt, Builder } = require('nuxt')
 const app = express()
 const host = process.env.HOST || '127.0.0.1'
@@ -10,16 +11,14 @@ const port = process.env.PORT || 3001
 
 app.set('port', port)
 
-// Import mongodb
-const db = require('./api/models/db')
-
-// Give routing to express
-app.use(api)
-
 // Import and Set Nuxt.js options
 let config = require('../nuxt.config.js')
 config.dev = !(process.env.NODE_ENV === 'production')
 
+// Give routing to express
+app.use(api)
+
+// Start Nuxt.js
 async function start() {
   // Init Nuxt.js
   const nuxt = new Nuxt(config)
