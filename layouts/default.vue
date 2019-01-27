@@ -1,5 +1,10 @@
 <template>
-  <navbar />
+  <v-app>
+    <navbar />
+    <v-container>
+      <nuxt />
+    </v-container>
+  </v-app>
 </template>
 
 <script>

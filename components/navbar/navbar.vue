@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <div>
     <v-toolbar
       class="px-5"
       flat
@@ -88,9 +88,7 @@
 
       <v-spacer />
     </v-tabs>
-
-    <nuxt />
-  </v-app>
+  </div>
 </template>
 
 <script>
