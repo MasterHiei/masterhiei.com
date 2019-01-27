@@ -1,18 +1,22 @@
 <template>
   <div>
-    <no-ssr>
-      {{ articles }}
-    </no-ssr>
+    {{ articles }}
+    {{ count }}
   </div>
 </template>
 
 <script>
-import { getArticles } from '~/api/index.js'
+import {mapGetters } from 'vuex'
 
 export default {
-  async asyncData () {
-    const data = await getArticles()
-    return { articles: data }
-  }
+  async fetch ({store}) {
+    await store.dispatch('articles/getArticles')
+  },
+  computed: {
+    ...mapGetters({
+      articles: 'articles/all',
+      count: 'articles/count',
+    })
+  },
 }
 </script>

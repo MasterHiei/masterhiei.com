@@ -18,7 +18,7 @@ request.interceptors.response.use(
     const data = res.data
     console.log(`API response code: ${data.code}`)
     if (data.code === CODE.OK) {
-      return data
+      return data.data
     } else {
       return Promise.reject(data.code)
     }
