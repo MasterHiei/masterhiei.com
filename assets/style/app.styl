@@ -2,5 +2,15 @@
 @require '~vuetify/src/stylus/main.styl'
 
 // Customize styling
-*
-  font-family -apple-system, BlinkMacSystemFont, YuGothic, "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "Microsoft YaHei", '微软雅黑', Arial, "Meiryo", sans-serif
+html:lang(ja-JP)
+  *
+    font-family \
+    -apple-system, BlinkMacSystemFont, 'Helvetica Neue', \
+    'Yu Gothic', YuGothic, Verdana, Meiryo, 'M+ 1p', sans-serif
+
+html:lang(zh-CN)
+  *
+    font-family 'Arial', 'Microsoft YaHei', '黑体', '宋体', sans-serif
+
+.fas:before, .fab:before
+  font-family 'Font Awesome 5 Free', 'Font Awesome 5 Brands'
