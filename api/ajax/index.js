@@ -8,7 +8,7 @@ const request = axios.create(config)
 
 // handling request
 request.interceptors.request.use(config => {
-  console.log(`API request: ${config.baseURL + config.url}`)
+  // TODO: Do something if need
   return config
 })
 
@@ -16,17 +16,16 @@ request.interceptors.request.use(config => {
 request.interceptors.response.use(
   res => {
     const data = res.data
-    console.log(`API response code: ${data.code}`)
     if (data.code === CODE.OK) {
       return data.data
     } else {
       return Promise.reject(data.code)
     }
-},
-err => {
-  console.log(err)
-  return Promise.reject(CODE.NOT_FOUND)
-})
+  },
+  err => {
+    console.log(err)
+    return Promise.reject(CODE.NOT_FOUND)
+  })
 
 // Axios request encapsulation
 export default {
