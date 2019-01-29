@@ -1,33 +1,46 @@
 const faker = require('faker')
+const co = require('co')
 const Article = require('../../models/article/article')
 
 /**
  * Get All Articles with desc
  * @param {Response} res
- * @returns All Articles with desc
+ * @returns {Void} All Articles with desc
  */
 exports.index = (_, res) => {
-  Article
-  .find()
-  .in('isDeleted', false)
-  .sort({ createdBy: 'desc' })
-  .exec()
-  .then(articles => {
-    // generate dummy data if docs is empty
-    if (articles.length < 1) generateArticles()
-    // TODO: return the newly generated data
-    res.json({ code: 0, data: articles })
+  co(function *() {
+    const articles = yield findArticles()
+    if (articles.length < 1) {
+      yield generateArticles()
+      const newArticles = yield findArticles()
+      res.json({ code: 0, data: newArticles })
+    } else {
+      res.json({ code: 0, data: articles })
+    }
   })
   .catch(err => {
     // TODO: Error handler
     console.error(err)
-    res.sendStatus(404)
+    res.sendStatus(500)
   })
+}
+
+/**
+ * Find articles from DB
+ * @returns {Promise<Array>} Articles
+ */
+const findArticles = () => {
+  return Article
+  .find()
+  .in('isDeleted', false)
+  .sort({ createdBy: 'desc' })
+  .exec()
 }
 
 /**
  * Generate dummy data of Article
  * @param {Number} times Number of data
+ * @returns {Promise<Array>} Result of generation
  */
 const generateArticles = (times = 12) => {
   let dummies = []
@@ -44,5 +57,5 @@ const generateArticles = (times = 12) => {
     }
     dummies.push(dummy)
   }
-  Article.insertMany(dummies, err => console.error(err))
+  return Article.insertMany(dummies)
 }
