@@ -11,12 +11,17 @@ const port = process.env.PORT || 3001
 
 app.set('port', port)
 
+// Give Morgan middleware to express
+app.use(morgan('dev', {
+  skip: (req, _) => req.path.indexOf('/api') < 0
+}))
+
+// Give Routing to express
+app.use(api)
+
 // Import and Set Nuxt.js options
 let config = require('../nuxt.config.js')
 config.dev = !(process.env.NODE_ENV === 'production')
-
-// Give routing to express
-app.use(api)
 
 // Start Nuxt.js
 async function start() {
@@ -31,9 +36,6 @@ async function start() {
 
   // Give nuxt middleware to express
   app.use(nuxt.render)
-
-  // Give Morgan middleware to express
-  app.use(morgan('dev'))
 
   // Listen the server
   app.listen(port, host, () => {
@@ -50,8 +52,8 @@ async function start() {
         message: `Mongoose connected to ${db.url}`,
         badge: true
       }),
-      (error) => consola.error({
-        message: `Mongoose connection error: ${error}`,
+      error => consola.error({
+        message: `${error}`,
         badge: true
       })
     )
