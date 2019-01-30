@@ -5,30 +5,20 @@
   >
     <v-layout
       row
+      wrap
     >
       <v-flex
         d-flex
         xs9
+        justify-center
       >
-        <v-layout
-          column
-        >
-          <v-flex
-            v-for="(article, index) in articles"
-            :id="article._id"
-            :key="index"
-            d-flex
-          >
-            <article-list
-              :article="article"
-            />
-          </v-flex>
-        </v-layout>
+        <article-list />
       </v-flex>
 
       <v-flex
         d-flex
         xs3
+        justify-center
       >
         right-side-area
       </v-flex>
@@ -37,7 +27,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import ArticleList from '~/components/articleList/articleList'
 
 export default {
@@ -46,12 +35,6 @@ export default {
   },
   components: {
     ArticleList
-  },
-  computed: {
-    ...mapGetters({
-      articles: 'articles/all',
-      count: 'articles/count',
-    }),
   },
 }
 </script>
