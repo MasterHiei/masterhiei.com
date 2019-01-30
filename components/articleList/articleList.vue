@@ -1,22 +1,15 @@
 <template>
   <div>
-    <no-ssr>
-      {{ articles }}
-      {{ count }}
-    </no-ssr>
+    {{ article }}
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    articles: {
-      type: Array,
-      default: () => []
-    },
-    count: {
-      type: Number,
-      default: 0
+    article: {
+      type: Object,
+      default: () => {}
     },
   },
 }
