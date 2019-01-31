@@ -33,8 +33,8 @@ module.exports = {
   ** Global CSS
   */
   css: [
-    '~/assets/style/app.styl',
-    '~/assets/css/fontawesome-all.min.css'
+    '~assets/style/app',
+    '~assets/css/fontawesome-all.min'
   ],
 
   router: {
@@ -44,7 +44,7 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@/plugins/vuetify'
+    '~plugins/vuetify'
   ],
 
   generate: {
@@ -57,7 +57,7 @@ module.exports = {
   modules: [
     '@nuxtjs/axios',
     ['nuxt-i18n', {
-      baseUrl: 'localhost:3001',
+      baseUrl: '127.0.0.1:3001',
       locales: [
         {
           code: 'zh-cn',
@@ -95,7 +95,7 @@ module.exports = {
     plugins: [new VuetifyLoaderPlugin()],
     loaders: {
       stylus: {
-        import: ["~assets/style/variables.styl"]
+        import: ["~assets/style/variables"]
       }
     },
     /*
