@@ -8,23 +8,22 @@ module.exports = {
     parser: 'babel-eslint'
   },
   extends: [
-    'eslint:recommended',
+    "eslint:recommended",
     // https://github.com/vuejs/eslint-plugin-vue#priority-a-essential-error-prevention
-    // より厳しいルールにするには`plugin:vue/strongly-recommended` もしくは `plugin:vue/recommended` に切り替えることを検討してください。
-    'plugin:vue/recommended',
-    'plugin:prettier/recommended'
+    // consider switching to `plugin:vue/strongly-recommended` or `plugin:vue/recommended` for stricter rules.
+    "plugin:vue/recommended",
+    "plugin:prettier/recommended"
   ],
-  // *.vue ファイルを lint にかけるために必要
+  // required to lint *.vue files
   plugins: [
     'vue'
   ],
-  // ここにカスタムルールを追加します。
+  // add your custom rules here
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'semi': [2, 'never'],
-    'no-console': 'off',
-    'vue/max-attributes-per-line': 'off',
-    'prettier/prettier': ['error', { 'semi': false }]
+    "semi": [2, "never"],
+    "vue/max-attributes-per-line": "off",
+    "prettier/prettier": ["error", { "semi": false }]
   }
 }
