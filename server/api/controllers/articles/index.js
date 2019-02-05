@@ -51,7 +51,7 @@ const generateArticles = (times = 12) => {
       type: faker.name.jobType(),
       tags: faker.lorem.words(),
       stars: faker.random.number({ min: 0, max: 200 }),
-      createdBy: faker.name.findName()
+      createdBy: faker.name.findName(),
     }
     dummies.push(dummy)
   }

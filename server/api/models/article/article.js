@@ -5,38 +5,38 @@ const articleSchema = new Schema(
   {
     title: {
       type: String,
-      required: true
+      required: true,
     },
     body: {
       type: String,
-      required: true
+      required: true,
     },
     type: {
       type: String,
-      required: true
+      required: true,
     },
     tags: {
       type: [String],
-      default: []
+      default: [],
     },
     stars: {
       type: Number,
-      default: 0
+      default: 0,
     },
     createdBy: {
       type: String,
-      required: true
+      required: true,
     },
     isDeleted: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   {
     timestamps: {
       createdAt: 'createdAt',
-      updatedAt: 'updatedAt'
-    }
+      updatedAt: 'updatedAt',
+    },
   }
 )
 

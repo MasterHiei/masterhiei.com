@@ -33,7 +33,7 @@ export default {
   },
   post: (url, data) => {
     return request.post(url, data)
-  }
+  },
 }
 
 /**

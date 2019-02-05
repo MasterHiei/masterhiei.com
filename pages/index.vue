@@ -20,7 +20,7 @@ export default {
     await store.dispatch('articles/getArticles')
   },
   components: {
-    ArticleList
-  }
+    ArticleList,
+  },
 }
 </script>

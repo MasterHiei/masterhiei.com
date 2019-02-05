@@ -3,7 +3,7 @@ import { getArticles } from '../api/index'
 
 // States
 export const state = () => ({
-  articles: []
+  articles: [],
 })
 
 // Getters
@@ -13,14 +13,14 @@ export const getters = {
   },
   all(state) {
     return state.articles || []
-  }
+  },
 }
 
 // Mutations
 export const mutations = {
   [SET_ARTICLES](state, articles) {
     state.articles = articles
-  }
+  },
 }
 
 // Actions
@@ -28,5 +28,5 @@ export const actions = {
   async getArticles({ commit }) {
     const articles = await getArticles()
     commit('SET_ARTICLES', articles)
-  }
+  },
 }

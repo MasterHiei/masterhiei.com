@@ -9,20 +9,20 @@ module.exports = {
    ** Headers of the page
    */
   head: {
-    title: "Master Hiei's Blog",
+    title: `Master Hiei's Blog`,
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: pkg.description }
+      { hid: 'description', name: 'description', content: pkg.description },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
         rel: 'stylesheet',
         href:
-          'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'
-      }
-    ]
+          'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons',
+      },
+    ],
   },
 
   /*
@@ -43,7 +43,7 @@ module.exports = {
   plugins: ['~plugins/vuetify'],
 
   generate: {
-    routers: ['/about', '/ja/about']
+    routers: ['/about', '/ja/about'],
   },
 
   /*
@@ -59,24 +59,24 @@ module.exports = {
           {
             code: 'zh-cn',
             name: '简体中文',
-            iso: 'zh-CN'
+            iso: 'zh-CN',
           },
           {
             code: 'ja',
             name: '日本語',
-            iso: 'ja-JP'
-          }
+            iso: 'ja-JP',
+          },
         ],
         defaultLocale: 'zh-cn',
         vueI18n: {
           fallbackLocale: 'zh-cn',
           messages: {
             'zh-cn': require('./static/locales/zh-cn.json'),
-            ja: require('./static/locales/ja.json')
-          }
-        }
-      }
-    ]
+            ja: require('./static/locales/ja.json'),
+          },
+        },
+      },
+    ],
   ],
   /*
    ** Axios module configuration
@@ -93,8 +93,8 @@ module.exports = {
     plugins: [new VuetifyLoaderPlugin()],
     loaders: {
       stylus: {
-        import: ['~assets/style/variables']
-      }
+        import: ['~assets/style/variables'],
+      },
     },
     /*
      ** You can extend webpack config here
@@ -106,9 +106,9 @@ module.exports = {
           enforce: 'pre',
           test: /\.(js|vue)$/,
           loader: 'eslint-loader',
-          exclude: /(node_modules)/
+          exclude: /(node_modules)/,
         })
       }
-    }
-  }
+    },
+  },
 }

@@ -17,13 +17,13 @@ import articleListItem from './articleListItem'
 
 export default {
   components: {
-    articleListItem
+    articleListItem,
   },
   computed: {
     ...mapGetters({
       articles: 'articles/all',
-      count: 'articles/count'
-    })
-  }
+      count: 'articles/count',
+    }),
+  },
 }
 </script>

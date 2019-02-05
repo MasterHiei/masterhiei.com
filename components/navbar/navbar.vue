@@ -64,13 +64,13 @@ export default {
       return this.$i18n.locales.filter(
         locale => locale.code !== this.$i18n.locale
       )
-    }
+    },
   },
   methods: {
     toIndex(localePath) {
       this.$router.replace(localePath)
-    }
-  }
+    },
+  },
 }
 </script>
 

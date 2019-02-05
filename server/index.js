@@ -14,7 +14,7 @@ app.set('port', port)
 // Give Morgan middleware to express
 app.use(
   morgan('dev', {
-    skip: req => req.path.indexOf('/api') < 0
+    skip: req => req.path.indexOf('/api') < 0,
   })
 )
 
@@ -44,7 +44,7 @@ async function start() {
     // Print console log
     consola.ready({
       message: `Server listening on http://${host}:${port}`,
-      badge: true
+      badge: true,
     })
 
     // Connect mongodb
@@ -52,12 +52,12 @@ async function start() {
       () =>
         consola.ready({
           message: `Mongoose connected to ${db.url}`,
-          badge: true
+          badge: true,
         }),
       error =>
         consola.error({
           message: `${error}`,
-          badge: true
+          badge: true,
         })
     )
   })

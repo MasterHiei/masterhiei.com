@@ -22,7 +22,7 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     semi: [2, 'never'],
     'vue/max-attributes-per-line': 'off',
-    'comma-dangle': ['error', 'only-multiline'],
-    'prettier/prettier': ['error', { singleQuote: true, semi: false }]
+    'comma-dangle': ['error', 'always-multiline'],
+    'prettier/prettier': ['error', { singleQuote: true, trailingComma: 'es5', semi: false }]
   }
 }
