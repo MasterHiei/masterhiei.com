@@ -1,6 +1,6 @@
-import ajax from './ajax/index'
+import ajax from "./ajax/index"
 
-const URL_ARTICLES = '/articles'
+const URL_ARTICLES = "/articles"
 
 /**
  * Get All Articles

@@ -1,97 +1,95 @@
-const pkg = require('./package')
+const pkg = require("./package")
 
-const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
+const VuetifyLoaderPlugin = require("vuetify-loader/lib/plugin")
 
 module.exports = {
-  mode: 'universal',
+  mode: "universal",
 
   /*
-  ** Headers of the page
-  */
+   ** Headers of the page
+   */
   head: {
-    title: 'Master Hiei\'s Blog',
+    title: "Master Hiei's Blog",
     meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: pkg.description }
+      { charset: "utf-8" },
+      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { hid: "description", name: "description", content: pkg.description }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
       {
-        rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'
+        rel: "stylesheet",
+        href:
+          "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons"
       }
     ]
   },
 
   /*
-  ** Customize the progress-bar color
-  */
-  loading: { color: '#fff' },
+   ** Customize the progress-bar color
+   */
+  loading: { color: "#fff" },
 
   /*
-  ** Global CSS
-  */
-  css: [
-    '~assets/style/app',
-    '~assets/css/fontawesome-all.min'
-  ],
+   ** Global CSS
+   */
+  css: ["~assets/style/app", "~assets/css/fontawesome-all.min"],
 
-  router: {
-  },
+  router: {},
 
   /*
-  ** Plugins to load before mounting the App
-  */
-  plugins: [
-    '~plugins/vuetify'
-  ],
+   ** Plugins to load before mounting the App
+   */
+  plugins: ["~plugins/vuetify"],
 
   generate: {
-    routers: ['/about', '/ja/about']
+    routers: ["/about", "/ja/about"]
   },
 
   /*
-  ** Nuxt.js modules
-  */
+   ** Nuxt.js modules
+   */
   modules: [
-    '@nuxtjs/axios',
-    ['nuxt-i18n', {
-      baseUrl: '127.0.0.1:3001',
-      locales: [
-        {
-          code: 'zh-cn',
-          name: '简体中文',
-          iso: 'zh-CN'
-        },
-        {
-          code: 'ja',
-          name: '日本語',
-          iso: 'ja-JP'
-        }
-      ],
-      defaultLocale: 'zh-cn',
-      vueI18n: {
-        fallbackLocale: 'zh-cn',
-        messages: {
-          'zh-cn': require('./static/locales/zh-cn.json'),
-          'ja': require('./static/locales/ja.json'),
+    "@nuxtjs/axios",
+    [
+      "nuxt-i18n",
+      {
+        baseUrl: "127.0.0.1:3001",
+        locales: [
+          {
+            code: "zh-cn",
+            name: "简体中文",
+            iso: "zh-CN"
+          },
+          {
+            code: "ja",
+            name: "日本語",
+            iso: "ja-JP"
+          }
+        ],
+        defaultLocale: "zh-cn",
+        vueI18n: {
+          fallbackLocale: "zh-cn",
+          messages: {
+            "zh-cn": require("./static/locales/zh-cn.json"),
+            ja: require("./static/locales/ja.json")
+          }
         }
       }
-    }]
+    ]
   ],
   /*
-  ** Axios module configuration
-  */
+   ** Axios module configuration
+   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
   },
 
   /*
-  ** Build configuration
-  */
+   ** Build configuration
+   */
   build: {
-    transpile: ['vuetify/lib'],
+    transpile: ["vuetify/lib"],
     plugins: [new VuetifyLoaderPlugin()],
     loaders: {
       stylus: {
@@ -99,15 +97,15 @@ module.exports = {
       }
     },
     /*
-    ** You can extend webpack config here
-    */
+     ** You can extend webpack config here
+     */
     extend(config, ctx) {
       // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {
         config.module.rules.push({
-          enforce: 'pre',
+          enforce: "pre",
           test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
+          loader: "eslint-loader",
           exclude: /(node_modules)/
         })
       }

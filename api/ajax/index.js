@@ -1,8 +1,5 @@
-import axios from 'axios'
-import {
-  config,
-  CODE
- } from './config'
+import axios from "axios"
+import { config, CODE } from "./config"
 
 const request = axios.create(config)
 
@@ -25,7 +22,8 @@ request.interceptors.response.use(
   err => {
     console.log(err)
     return Promise.reject(CODE.NOT_FOUND)
-  })
+  }
+)
 
 // Axios request encapsulation
 export default {
@@ -34,7 +32,7 @@ export default {
     return request.get(queryStr)
   },
   post: (url, data) => {
-   return request.post(url, data)
+    return request.post(url, data)
   }
 }
 
@@ -47,11 +45,11 @@ export default {
 const createQueryString = (url, data) => {
   let queryStr = url
   let query = []
-  Object.keys(data).forEach((key) => {
-    query.push(key + '=' + data[key])
+  Object.keys(data).forEach(key => {
+    query.push(key + "=" + data[key])
   })
   if (query.length > 0) {
-    queryStr += '?' + query.join('&')
+    queryStr += "?" + query.join("&")
   }
   return queryStr
 }

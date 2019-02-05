@@ -10,7 +10,7 @@ export default {
     article: {
       type: Object,
       default: () => {}
-    },
-  },
+    }
+  }
 }
 </script>

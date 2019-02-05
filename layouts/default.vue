@@ -8,11 +8,11 @@
 </template>
 
 <script>
-import navbar from '@/components/navbar/navbar'
+import navbar from "@/components/navbar/navbar"
 
-  export default {
-    components: {
-      navbar
-    }
+export default {
+  components: {
+    navbar
   }
+}
 </script>

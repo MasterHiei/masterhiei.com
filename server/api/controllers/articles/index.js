@@ -1,6 +1,6 @@
-const faker = require('faker')
-const co = require('co')
-const Article = require('../../models/article/article')
+const faker = require("faker")
+const co = require("co")
+const Article = require("../../models/article/article")
 
 /**
  * Get All Articles with desc
@@ -8,7 +8,7 @@ const Article = require('../../models/article/article')
  * @returns {Void} All Articles with desc
  */
 exports.index = (_, res) => {
-  co(function *() {
+  co(function*() {
     const articles = yield findArticles()
     if (articles.length < 1) {
       yield generateArticles()
@@ -17,8 +17,7 @@ exports.index = (_, res) => {
     } else {
       res.json({ code: 0, data: articles })
     }
-  })
-  .catch(err => {
+  }).catch(err => {
     // TODO: Error handler
     console.error(err)
     res.sendStatus(500)
@@ -30,11 +29,10 @@ exports.index = (_, res) => {
  * @returns {Promise<Array>} Articles
  */
 const findArticles = () => {
-  return Article
-  .find()
-  .in('isDeleted', false)
-  .sort({ createdBy: 'desc' })
-  .exec()
+  return Article.find()
+    .in("isDeleted", false)
+    .sort({ createdBy: "desc" })
+    .exec()
 }
 
 /**
@@ -52,7 +50,7 @@ const generateArticles = (times = 12) => {
       body: faker.lorem.sentence(10).repeat(100),
       type: faker.name.jobType(),
       tags: faker.lorem.words(),
-      stars: faker.random.number({ min: 0, max: 200}),
+      stars: faker.random.number({ min: 0, max: 200 }),
       createdBy: faker.name.findName()
     }
     dummies.push(dummy)
