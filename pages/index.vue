@@ -13,11 +13,11 @@
 </template>
 
 <script>
-import ArticleList from "~/components/articleList/articleList"
+import ArticleList from '~/components/articleList/articleList'
 
 export default {
   async fetch({ store }) {
-    await store.dispatch("articles/getArticles")
+    await store.dispatch('articles/getArticles')
   },
   components: {
     ArticleList

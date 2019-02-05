@@ -1,5 +1,5 @@
-import { SET_ARTICLES } from "./mutation-types"
-import { getArticles } from "../api/index"
+import { SET_ARTICLES } from './mutation-types'
+import { getArticles } from '../api/index'
 
 // States
 export const state = () => ({
@@ -27,6 +27,6 @@ export const mutations = {
 export const actions = {
   async getArticles({ commit }) {
     const articles = await getArticles()
-    commit("SET_ARTICLES", articles)
+    commit('SET_ARTICLES', articles)
   }
 }

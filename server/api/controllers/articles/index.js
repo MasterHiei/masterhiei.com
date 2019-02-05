@@ -1,6 +1,6 @@
-const faker = require("faker")
-const co = require("co")
-const Article = require("../../models/article/article")
+const faker = require('faker')
+const co = require('co')
+const Article = require('../../models/article/article')
 
 /**
  * Get All Articles with desc
@@ -30,8 +30,8 @@ exports.index = (_, res) => {
  */
 const findArticles = () => {
   return Article.find()
-    .in("isDeleted", false)
-    .sort({ createdBy: "desc" })
+    .in('isDeleted', false)
+    .sort({ createdBy: 'desc' })
     .exec()
 }
 

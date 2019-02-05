@@ -1,5 +1,5 @@
-import axios from "axios"
-import { config, CODE } from "./config"
+import axios from 'axios'
+import { config, CODE } from './config'
 
 const request = axios.create(config)
 
@@ -46,10 +46,10 @@ const createQueryString = (url, data) => {
   let queryStr = url
   let query = []
   Object.keys(data).forEach(key => {
-    query.push(key + "=" + data[key])
+    query.push(key + '=' + data[key])
   })
   if (query.length > 0) {
-    queryStr += "?" + query.join("&")
+    queryStr += '?' + query.join('&')
   }
   return queryStr
 }

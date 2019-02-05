@@ -17,7 +17,7 @@
             fas fa-globe
           </v-icon>
           <span class="font-weight-bold subheading">
-            {{ $t("links.locale") }}
+            {{ $t('links.locale') }}
           </span>
         </v-btn>
 
@@ -43,13 +43,13 @@
       <v-spacer />
 
       <v-tab :to="localePath('index')" class="subheading" nuxt exact>
-        {{ $t("links.home") }}
+        {{ $t('links.home') }}
       </v-tab>
       <v-tab :to="localePath('articles')" class="subheading" nuxt exact>
-        {{ $t("links.articles") }}
+        {{ $t('links.articles') }}
       </v-tab>
       <v-tab :to="localePath('about')" class="subheading" nuxt exact>
-        {{ $t("links.about") }}
+        {{ $t('links.about') }}
       </v-tab>
 
       <v-spacer />

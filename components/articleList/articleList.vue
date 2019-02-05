@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex"
-import articleListItem from "./articleListItem"
+import { mapGetters } from 'vuex'
+import articleListItem from './articleListItem'
 
 export default {
   components: {
@@ -21,8 +21,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      articles: "articles/all",
-      count: "articles/count"
+      articles: 'articles/all',
+      count: 'articles/count'
     })
   }
 }
