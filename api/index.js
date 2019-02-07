@@ -1,6 +1,6 @@
-import ajax from './ajax/index'
+import ajax from './ajax/index';
 
-const URL_ARTICLES = '/articles'
+const URL_ARTICLES = '/articles';
 
 /**
  * Get All Articles
@@ -8,5 +8,5 @@ const URL_ARTICLES = '/articles'
  * @returns {Promise} Articles
  */
 export const getArticles = (data = {}) => {
-  return ajax.get(URL_ARTICLES, data)
-}
+  return ajax.get(URL_ARTICLES, data);
+};

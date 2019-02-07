@@ -1,40 +1,40 @@
-import axios from 'axios'
-import { config, CODE } from './config'
+import axios from 'axios';
+import { config, CODE } from './config';
 
-const request = axios.create(config)
+const request = axios.create(config);
 
 // handling request
 request.interceptors.request.use(config => {
   // TODO: Do something if need
-  return config
-})
+  return config;
+});
 
 // handling response
 request.interceptors.response.use(
   res => {
-    const data = res.data
+    const data = res.data;
     if (data.code === CODE.OK) {
-      return data.data
+      return data.data;
     } else {
-      return Promise.reject(data.code)
+      return Promise.reject(data.code);
     }
   },
   err => {
-    console.log(err)
-    return Promise.reject(CODE.NOT_FOUND)
+    console.log(err);
+    return Promise.reject(CODE.NOT_FOUND);
   }
-)
+);
 
 // Axios request encapsulation
 export default {
   get: (url, data = {}) => {
-    const queryStr = createQueryString(url, data)
-    return request.get(queryStr)
+    const queryStr = createQueryString(url, data);
+    return request.get(queryStr);
   },
   post: (url, data) => {
-    return request.post(url, data)
+    return request.post(url, data);
   },
-}
+};
 
 /**
  * Create GET query string
@@ -43,13 +43,13 @@ export default {
  * @returns {String} Query String
  */
 const createQueryString = (url, data) => {
-  let queryStr = url
-  let query = []
+  let queryStr = url;
+  let query = [];
   Object.keys(data).forEach(key => {
-    query.push(key + '=' + data[key])
-  })
+    query.push(key + '=' + data[key]);
+  });
   if (query.length > 0) {
-    queryStr += '?' + query.join('&')
+    queryStr += '?' + query.join('&');
   }
-  return queryStr
-}
+  return queryStr;
+};

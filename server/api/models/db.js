@@ -3,4 +3,4 @@ module.exports = {
   options: {
     useNewUrlParser: true,
   },
-}
+};

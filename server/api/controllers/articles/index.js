@@ -1,6 +1,6 @@
-const faker = require('faker')
-const co = require('co')
-const Article = require('../../models/article/article')
+const faker = require('faker');
+const co = require('co');
+const Article = require('../../models/article/article');
 
 /**
  * Get All Articles with desc
@@ -9,20 +9,20 @@ const Article = require('../../models/article/article')
  */
 exports.index = (_, res) => {
   co(function*() {
-    const articles = yield findArticles()
+    const articles = yield findArticles();
     if (articles.length < 1) {
-      yield generateArticles()
-      const newArticles = yield findArticles()
-      res.json({ code: 0, data: newArticles })
+      yield generateArticles();
+      const newArticles = yield findArticles();
+      res.json({ code: 0, data: newArticles });
     } else {
-      res.json({ code: 0, data: articles })
+      res.json({ code: 0, data: articles });
     }
   }).catch(err => {
     // TODO: Error handler
-    console.error(err)
-    res.sendStatus(500)
-  })
-}
+    console.error(err);
+    res.sendStatus(500);
+  });
+};
 
 /**
  * Find articles from DB
@@ -32,8 +32,8 @@ const findArticles = () => {
   return Article.find()
     .in('isDeleted', false)
     .sort({ createdBy: 'desc' })
-    .exec()
-}
+    .exec();
+};
 
 /**
  * Generate dummy data of Article
@@ -41,7 +41,7 @@ const findArticles = () => {
  * @returns {Promise<Array>} Result of generation
  */
 const generateArticles = (times = 12) => {
-  let dummies = []
+  let dummies = [];
 
   // generate dummy data N times
   for (let i = 0; i < times; i++) {
@@ -52,8 +52,8 @@ const generateArticles = (times = 12) => {
       tags: faker.lorem.words(),
       stars: faker.random.number({ min: 0, max: 200 }),
       createdBy: faker.name.findName(),
-    }
-    dummies.push(dummy)
+    };
+    dummies.push(dummy);
   }
-  return Article.insertMany(dummies)
-}
+  return Article.insertMany(dummies);
+};

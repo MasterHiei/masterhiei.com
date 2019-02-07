@@ -1,9 +1,9 @@
-const express = require('express')
-const routers = require('./controllers/routers')
+const express = require('express');
+const routers = require('./controllers/routers');
 
-const router = express.Router()
+const router = express.Router();
 
 // Apply routers
-router.use(routers)
+router.use(routers);
 
-module.exports = router
+module.exports = router;

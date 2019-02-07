@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import articleListItem from './articleListItem'
+import { mapGetters } from 'vuex';
+import articleListItem from './articleListItem';
 
 export default {
   components: {
@@ -25,5 +25,5 @@ export default {
       count: 'articles/count',
     }),
   },
-}
+};
 </script>

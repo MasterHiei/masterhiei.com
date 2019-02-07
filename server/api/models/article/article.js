@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 const articleSchema = new Schema(
   {
@@ -38,6 +38,6 @@ const articleSchema = new Schema(
       updatedAt: 'updatedAt',
     },
   }
-)
+);
 
-module.exports = mongoose.model('article', articleSchema)
+module.exports = mongoose.model('article', articleSchema);

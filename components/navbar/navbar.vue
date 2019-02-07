@@ -63,15 +63,15 @@ export default {
     locales() {
       return this.$i18n.locales.filter(
         locale => locale.code !== this.$i18n.locale
-      )
+      );
     },
   },
   methods: {
     toIndex(localePath) {
-      this.$router.replace(localePath)
+      this.$router.replace(localePath);
     },
   },
-}
+};
 </script>
 
 <style scope lang="stylus" rel="stylesheet/stylus">

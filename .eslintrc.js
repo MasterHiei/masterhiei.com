@@ -20,9 +20,9 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    semi: [2, 'never'],
+    semi: ['error', 'always'],
     'vue/max-attributes-per-line': 'off',
     'comma-dangle': ['error', 'always-multiline'],
-    'prettier/prettier': ['error', { singleQuote: true, trailingComma: 'es5', semi: false }]
+    'prettier/prettier': ['error', { singleQuote: true, trailingComma: 'es5', semi: true }]
   }
 }
