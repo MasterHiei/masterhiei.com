@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <v-toolbar class="px-5" flat tabs dark>
+  <v-flex wrap>
+    <v-toolbar class="px-5" extended tabs>
       <v-toolbar-title
         id="toolbar-title"
         class="display-1"
@@ -41,7 +41,7 @@
       </v-btn>
     </v-toolbar>
 
-    <v-tabs hide-slider grow centered dark>
+    <v-tabs hide-slider grow centered>
       <v-spacer />
 
       <v-tab :to="localePath('index')" class="subheading" nuxt exact>
@@ -56,7 +56,7 @@
 
       <v-spacer />
     </v-tabs>
-  </div>
+  </v-flex>
 </template>
 
 <script>
@@ -79,7 +79,8 @@ export default {
 <style scope lang="stylus" rel="stylesheet/stylus">
 #toolbar-title
   cursor pointer
+.v-tabs__wrapper
+  background-color #f5f5f5
 .v-tabs__item--active
   font-weight bold
-  background-color red
 </style>
