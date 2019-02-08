@@ -28,7 +28,8 @@ module.exports = {
     'comma-dangle': ['error', 'always-multiline'],
     'prettier/prettier': [
       'error',
-      { singleQuote: true,
+      {
+        singleQuote: true,
         trailingComma: 'es5',
         semi: true,
       },
