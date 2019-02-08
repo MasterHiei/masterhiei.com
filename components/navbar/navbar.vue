@@ -29,7 +29,9 @@
             nuxt
             exact
           >
-            <v-list-tile-title>{{ locale.name }}</v-list-tile-title>
+            <v-list-tile-title>
+              {{ locale.name }}
+            </v-list-tile-title>
           </v-list-tile>
         </v-list>
       </v-menu>

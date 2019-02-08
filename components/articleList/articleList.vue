@@ -1,11 +1,6 @@
 <template>
   <v-layout column wrap>
-    <v-flex
-      v-for="(article, index) in articles"
-      :id="article._id"
-      :key="index"
-      d-flex
-    >
+    <v-flex v-for="(article, index) in articles" :id="article._id" :key="index">
       <article-list-item :article="article" />
     </v-flex>
   </v-layout>

@@ -22,6 +22,13 @@ module.exports = {
         href:
           'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons',
       },
+      {
+        rel: 'stylesheet',
+        href: 'https://use.fontawesome.com/releases/v5.7.1/css/all.css',
+        integers:
+          'sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr',
+        crossOrigin: 'anonymous',
+      },
     ],
   },
 
@@ -33,14 +40,14 @@ module.exports = {
   /*
    ** Global CSS
    */
-  css: ['~assets/style/app', '~assets/css/fontawesome-all.min'],
+  css: ['~assets/style/app'],
 
   router: {},
 
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~plugins/vuetify'],
+  plugins: ['~plugins/vuetify', '~plugins/timeago'],
 
   generate: {
     routers: ['/about', '/ja/about'],
@@ -57,7 +64,7 @@ module.exports = {
         baseUrl: '127.0.0.1:3001',
         locales: [
           {
-            code: 'zh-cn',
+            code: 'zh-CN',
             name: '简体中文',
             iso: 'zh-CN',
           },
@@ -67,11 +74,11 @@ module.exports = {
             iso: 'ja-JP',
           },
         ],
-        defaultLocale: 'zh-cn',
+        defaultLocale: 'zh-CN',
         vueI18n: {
-          fallbackLocale: 'zh-cn',
+          fallbackLocale: 'zh-CN',
           messages: {
-            'zh-cn': require('./static/locales/zh-cn.json'),
+            'zh-CN': require('./static/locales/zh-cn.json'),
             ja: require('./static/locales/ja.json'),
           },
         },
