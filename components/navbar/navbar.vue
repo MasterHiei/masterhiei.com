@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar height="120">
+  <v-toolbar class="hidden-sm-and-down" app height="80">
     <v-spacer />
 
     <v-flex class="text-xs-center" wrap>
@@ -12,7 +12,7 @@
     <v-flex class="text-xs-center" justify-center wrap>
       <v-btn
         :to="localePath('index')"
-        class="title font-weight-bold"
+        class="subheading font-weight-bold"
         round
         flat
         nuxt
@@ -22,7 +22,7 @@
       </v-btn>
       <v-btn
         :to="localePath('articles')"
-        class="title font-weight-bold"
+        class="subheading font-weight-bold"
         round
         flat
         nuxt
@@ -32,7 +32,7 @@
       </v-btn>
       <v-btn
         :to="localePath('about')"
-        class="title font-weight-bold"
+        class="subheading font-weight-bold"
         round
         flat
         nuxt

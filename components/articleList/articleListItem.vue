@@ -5,16 +5,14 @@
         <v-chip label color="green" text-color="white" disabled>
           {{ article.type }}
         </v-chip>
-        <span class="article-item-title title font-weight-bold">
+        <span class="article-item-title title font-weight-bold text-truncate">
           {{ article.title }}
         </span>
       </v-card-title>
 
-      <v-card-text
-        class="headline subheading font-weight-regular text-truncate"
-      >
+      <blockquote class="article-item-body blockquote font-weight-regular">
         {{ article.body }}
-      </v-card-text>
+      </blockquote>
 
       <v-card-actions>
         <v-layout wrap>
@@ -91,4 +89,6 @@ export default {
   border 0.5px solid lightgray
 .article-item-title
   padding 0 1rem
+.article-item-body
+  padding-top  0
 </style>

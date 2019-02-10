@@ -1,7 +1,14 @@
 <template>
   <v-app>
     <navbar />
-    <nuxt />
+
+    <v-content>
+      <nuxt />
+    </v-content>
+
+    <v-footer>
+      <div>footer</div>
+    </v-footer>
   </v-app>
 </template>
 
