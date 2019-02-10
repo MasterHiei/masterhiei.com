@@ -7,6 +7,8 @@ const URL_ARTICLES = '/articles';
  * @param {Object} data queries object
  * @returns {Promise} Articles
  */
-export const getArticles = (data = {}) => {
+const getArticles = (data = {}) => {
   return ajax.get(URL_ARTICLES, data);
 };
+
+export { getArticles };

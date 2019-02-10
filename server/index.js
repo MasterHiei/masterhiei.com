@@ -48,6 +48,7 @@ async function start() {
     });
 
     // Connect mongodb
+    mongoose.set('debug', true);
     mongoose.connect(db.url, db.options).then(
       () =>
         consola.ready({

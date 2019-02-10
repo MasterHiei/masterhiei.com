@@ -1,16 +1,48 @@
 <template>
-  <v-flex wrap>
-    <v-toolbar class="px-5" extended tabs>
-      <v-toolbar-title
-        id="toolbar-title"
-        class="display-1"
-        @click="toIndex(localePath('index'))"
+  <v-toolbar height="120">
+    <v-spacer />
+
+    <v-flex class="text-xs-center" wrap>
+      <nuxt-link :to="localePath('index')" extra>
+        <!-- prettier-ignore -->
+        <img src="~assets/img/logo.jpg" alt="logo">
+      </nuxt-link>
+    </v-flex>
+
+    <v-flex class="text-xs-center" justify-center wrap>
+      <v-btn
+        :to="localePath('index')"
+        class="title font-weight-bold"
+        round
+        flat
+        nuxt
+        exact
       >
-        Master Hiei
-      </v-toolbar-title>
+        {{ $t('links.home') }}
+      </v-btn>
+      <v-btn
+        :to="localePath('articles')"
+        class="title font-weight-bold"
+        round
+        flat
+        nuxt
+        exact
+      >
+        {{ $t('links.articles') }}
+      </v-btn>
+      <v-btn
+        :to="localePath('about')"
+        class="title font-weight-bold"
+        round
+        flat
+        nuxt
+        exact
+      >
+        {{ $t('links.about') }}
+      </v-btn>
+    </v-flex>
 
-      <v-spacer />
-
+    <v-flex class="text-xs-center" wrap>
       <v-menu offset-y transition="slide-y-transition">
         <v-btn slot="activator" flat>
           <v-icon left>
@@ -29,7 +61,9 @@
             nuxt
             exact
           >
-            <v-list-tile-title>
+            <v-list-tile-title
+              class="text-xs-center font-weight-bold subheading"
+            >
               {{ locale.name }}
             </v-list-tile-title>
           </v-list-tile>
@@ -39,24 +73,10 @@
       <v-btn icon href="https://github.com/MasterHiei">
         <v-icon>fab fa-github</v-icon>
       </v-btn>
-    </v-toolbar>
+    </v-flex>
 
-    <v-tabs hide-slider grow centered>
-      <v-spacer />
-
-      <v-tab :to="localePath('index')" class="subheading" nuxt exact>
-        {{ $t('links.home') }}
-      </v-tab>
-      <v-tab :to="localePath('articles')" class="subheading" nuxt exact>
-        {{ $t('links.articles') }}
-      </v-tab>
-      <v-tab :to="localePath('about')" class="subheading" nuxt exact>
-        {{ $t('links.about') }}
-      </v-tab>
-
-      <v-spacer />
-    </v-tabs>
-  </v-flex>
+    <v-spacer />
+  </v-toolbar>
 </template>
 
 <script>
@@ -68,19 +88,5 @@ export default {
       );
     },
   },
-  methods: {
-    toIndex(localePath) {
-      this.$router.replace(localePath);
-    },
-  },
 };
 </script>
-
-<style scope lang="stylus" rel="stylesheet/stylus">
-#toolbar-title
-  cursor pointer
-.v-tabs__wrapper
-  background-color #f5f5f5
-.v-tabs__item--active
-  font-weight bold
-</style>
