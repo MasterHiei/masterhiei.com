@@ -47,7 +47,7 @@ module.exports = {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~plugins/vuetify', '~plugins/timeago'],
+  plugins: ['~plugins/vuetify', '~plugins/timeago', '~plugins/vueScrollTo'],
 
   generate: {
     routers: ['/about', '/ja/about'],

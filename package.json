@@ -23,6 +23,7 @@
     "morgan": "^1.9.1",
     "nuxt": "^2.4.3",
     "nuxt-i18n": "^5.8.0",
+    "vue-scrollto": "^2.13.0",
     "vue-timeago": "^5.0.0",
     "vuetify": "^1.5.0",
     "vuetify-loader": "^1.2.0"

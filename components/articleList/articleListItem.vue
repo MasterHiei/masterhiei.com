@@ -10,7 +10,9 @@
         </span>
       </v-card-title>
 
-      <blockquote class="article-item-body blockquote font-weight-regular">
+      <blockquote
+        class="article-item-body blockquote font-weight-regular text-truncate"
+      >
         {{ article.body }}
       </blockquote>
 
