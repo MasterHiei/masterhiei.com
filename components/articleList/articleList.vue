@@ -1,6 +1,11 @@
 <template>
   <v-layout column wrap>
-    <v-flex v-for="(article, index) in articles" :id="article._id" :key="index">
+    <v-flex
+      v-for="(article, index) in articles"
+      :id="article._id"
+      :key="index"
+      class="article-item-container py-3"
+    >
       <article-list-item :article="article" />
     </v-flex>
   </v-layout>
@@ -22,3 +27,8 @@ export default {
   },
 };
 </script>
+
+<style scoped lang="stylus" rel="stylesheet/stylus">
+.article-item-container
+  border-bottom thin solid lightgray
+</style>
