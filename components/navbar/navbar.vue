@@ -28,7 +28,7 @@
         nuxt
         exact
       >
-        {{ $t('links.articles') }}
+        {{ $t('links.archives') }}
       </v-btn>
       <v-btn
         :to="localePath('about')"
