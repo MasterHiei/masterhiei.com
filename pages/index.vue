@@ -16,11 +16,11 @@
 import ArticleList from '~/components/articleList/articleList';
 
 export default {
-  async fetch({ store }) {
-    await store.dispatch('articles/getArticles');
-  },
   components: {
     ArticleList,
+  },
+  async fetch({ store }) {
+    await store.dispatch('articles/getArticles');
   },
 };
 </script>
