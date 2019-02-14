@@ -1,11 +1,11 @@
 <template>
   <v-container fluid grid-list-lg>
     <v-layout justify-center row wrap>
-      <v-flex lg6 sm10 xs11 offset-lg1>
+      <v-flex lg5 sm10 xs11>
         <article-list />
       </v-flex>
 
-      <v-flex class="hidden-md-and-down" lg2 offset-lg1>
+      <v-flex class="hidden-md-and-down text-xs-center" lg2>
         right-side-area
       </v-flex>
     </v-layout>
