@@ -30,8 +30,9 @@ exports.index = (_, res) => {
  */
 const findArticles = () => {
   return Article.find()
-    .in('isDeleted', false)
-    .sort({ createdBy: 'desc' })
+    .where('isDeleted')
+    .in(false)
+    .sort('-createdBy')
     .exec();
 };
 

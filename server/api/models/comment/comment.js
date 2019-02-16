@@ -1,32 +1,17 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const articleSchema = new Schema(
+const commentSchema = new Schema(
   {
-    title: {
+    content: {
       type: String,
       required: true,
     },
-    body: {
-      type: String,
-      required: true,
-    },
-    type: {
-      type: String,
-      required: true,
-    },
-    tags: {
-      type: [String],
-      default: [],
-    },
-    stars: {
-      type: Number,
-      default: 0,
-    },
-    comments: [
+    subject: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'Comment',
+        ref: 'Article',
+        required: true,
       },
     ],
     createdBy: {
@@ -46,4 +31,4 @@ const articleSchema = new Schema(
   }
 );
 
-module.exports = mongoose.model('article', articleSchema);
+module.exports = mongoose.model('comment', commentSchema);

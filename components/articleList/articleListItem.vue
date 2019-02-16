@@ -10,7 +10,7 @@
         <timeago :datetime="article.createdAt" :locale="$i18n.locale" />
       </v-flex>
       <v-flex d-inline wrap>
-        comments: 0
+        {{ article.comments.count }}
       </v-flex>
     </v-flex>
     <v-flex class="subheading font-weight-regular" px-0 warp>
