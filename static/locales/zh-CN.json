@@ -4,5 +4,11 @@
     "home": "首页",
     "archives": "归档",
     "about": "关于"
+  },
+  "article": {
+    "comments": {
+      "message": "评论",
+      "unit": "件"
+    }
   }
 }

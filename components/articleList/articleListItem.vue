@@ -7,17 +7,27 @@
     </v-flex>
     <v-flex px-0 wrap>
       <v-flex d-inline pl-0 wrap>
-        <timeago :datetime="article.createdAt" :locale="$i18n.locale" />
+        <v-chip color="white" text-color="grey darken-1" small outline disabled>
+          <v-avatar>
+            <v-icon>fas fa-clock</v-icon>
+          </v-avatar>
+          <timeago :datetime="article.createdAt" :locale="$i18n.locale" />
+        </v-chip>
       </v-flex>
       <v-flex d-inline wrap>
-        {{ article.comments.count }}
+        <v-chip color="white" text-color="grey darken-1" small outline disabled>
+          <v-avatar>
+            <v-icon>fas fa-comments</v-icon>
+          </v-avatar>
+          {{ numberOfComments() }}
+        </v-chip>
       </v-flex>
     </v-flex>
     <v-flex class="subheading font-weight-regular" px-0 warp>
-      {{ slice(article.body) }}
+      {{ slice() }}
     </v-flex>
-    <v-flex class="text-xs-right" py-0>
-      <v-btn color="lightgray" flat>
+    <v-flex class="text-xs-right" pt-0>
+      <v-btn class="font-weight-bold ma-0" color="lightgray" flat>
         [ Read More ]
       </v-btn>
     </v-flex>
@@ -33,11 +43,15 @@ export default {
     },
   },
   methods: {
-    slice: text => {
-      return text.slice(0, 200) + '...';
+    slice() {
+      return this.article.body.slice(0, 200) + '...';
+    },
+    numberOfComments() {
+      let message = this.article.comments.length;
+      message += ' ';
+      message += this.$t('article.comments.unit');
+      return message;
     },
   },
 };
 </script>
-
-<style scoped lang="stylus" rel="stylesheet/stylus"></style>

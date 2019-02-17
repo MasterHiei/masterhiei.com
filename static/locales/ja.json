@@ -4,5 +4,11 @@
     "home": "ホーム",
     "archives": "アーカイブ",
     "about": "このサイトについて"
+  },
+  "article": {
+    "comments": {
+      "message": "コメント",
+      "unit": "件"
+    }
   }
 }
