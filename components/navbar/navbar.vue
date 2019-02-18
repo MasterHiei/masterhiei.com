@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar class="hidden-sm-and-down" app height="80">
+  <v-toolbar class="hidden-sm-and-down" height="80">
     <v-spacer />
 
     <v-flex class="text-xs-center" wrap>

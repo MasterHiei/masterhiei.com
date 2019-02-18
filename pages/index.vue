@@ -1,6 +1,6 @@
 <template>
   <v-container fluid grid-list-lg>
-    <v-layout justify-center row wrap>
+    <v-layout justify-center row pt-3 wrap>
       <v-flex lg5 sm10 xs11>
         <article-list />
       </v-flex>

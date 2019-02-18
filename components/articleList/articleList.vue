@@ -4,7 +4,7 @@
       v-for="(article, index) in articles"
       :id="article._id"
       :key="index"
-      class="article-item-container pt-3 pb-0"
+      class="article-item-container"
     >
       <article-list-item :article="article" />
     </v-flex>
