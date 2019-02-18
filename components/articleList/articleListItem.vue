@@ -1,15 +1,13 @@
 <template>
   <v-flex pa-0 wrap>
-    <v-flex px-0 wrap>
-      <blockquote class="blockquote pa-0 display-1 font-weight-black">
-        {{ article.title }}
-      </blockquote>
+    <v-flex class="article-title font-weight-bold" px-0 wrap>
+      {{ article.title }}
     </v-flex>
     <v-flex wrap>
       <v-flex d-inline pl-0 wrap>
         <v-chip color="white" text-color="grey darken-1" small outline disabled>
           <v-avatar>
-            <v-icon color="#7F8688">
+            <v-icon color="#8e8e90 ">
               fas fa-clock
             </v-icon>
           </v-avatar>
@@ -19,7 +17,7 @@
       <v-flex d-inline wrap>
         <v-chip color="white" text-color="grey darken-1" small outline disabled>
           <v-avatar>
-            <v-icon color="#7F8688">
+            <v-icon color="#8e8e90 ">
               fas fa-comments
             </v-icon>
           </v-avatar>
@@ -44,13 +42,12 @@
     </v-flex>
     <v-flex wrap>
       <v-btn
-        class="font-weight-bold ma-0"
-        round
+        class="read-more-btn subheading font-weight-bold ma-0"
         block
         depressed
-        color="#C19434"
+        color="#d1bfa7"
       >
-        Read More
+        {{ $t('article.readMore') }}
       </v-btn>
     </v-flex>
   </v-flex>
@@ -88,6 +85,8 @@ export default {
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
+.article-title
+  font-size 2.5rem
 .content-hidden
   position relative
   max-height 480px
@@ -103,4 +102,6 @@ export default {
   background -moz-linear-gradient(to bottom, rgba(255, 255, 255, 0), #FAFAFA)
   background -o-linear-gradient(to bottom, rgba(255, 255, 255, 0), #FAFAFA)
   background linear-gradient(to bottom, rgba(255, 255, 255, 0), #FAFAFA)
+.read-more-btn
+  letter-spacing 1px
 </style>
