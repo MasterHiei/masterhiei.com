@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar class="hidden-sm-and-down" height="80">
+  <v-toolbar id="navbar" class="hidden-sm-and-down" height="80" app>
     <v-spacer />
 
     <v-flex class="text-xs-center" wrap>
@@ -90,3 +90,8 @@ export default {
   },
 };
 </script>
+
+<style scoped lang="stylus" rel="stylesheet/stylus">
+#navbar
+  z-index 1000
+</style>

@@ -3,8 +3,6 @@ const pkg = require('./package');
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');
 
 module.exports = {
-  mode: 'universal',
-
   /*
    ** Headers of the page
    */
@@ -30,12 +28,12 @@ module.exports = {
   /*
    ** Customize the progress-bar color
    */
-  loading: { color: '#fff' },
+  loading: false,
 
   /*
    ** Global CSS
    */
-  css: ['~assets/style/app'],
+  css: ['~assets/style/app', '~assets/style/variables'],
 
   router: {},
 

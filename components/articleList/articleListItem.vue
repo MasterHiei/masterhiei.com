@@ -7,7 +7,7 @@
       <v-flex d-inline pl-0 wrap>
         <v-chip color="white" text-color="grey darken-1" small outline disabled>
           <v-avatar>
-            <v-icon color="#8e8e90 ">
+            <v-icon color="#5A7670 ">
               fas fa-clock
             </v-icon>
           </v-avatar>
@@ -17,7 +17,7 @@
       <v-flex d-inline wrap>
         <v-chip color="white" text-color="grey darken-1" small outline disabled>
           <v-avatar>
-            <v-icon color="#8e8e90 ">
+            <v-icon color="#5A7670 ">
               fas fa-comments
             </v-icon>
           </v-avatar>
@@ -45,7 +45,8 @@
         class="read-more-btn subheading font-weight-bold ma-0"
         block
         depressed
-        color="#d1bfa7"
+        color="#438945"
+        dark
       >
         {{ $t('article.readMore') }}
       </v-btn>
@@ -98,10 +99,10 @@ export default {
   top 0
   left 0
   z-index 100
-  background -webkit-linear-gradient(to bottom, rgba(255, 255, 255, 0), #FAFAFA)
-  background -moz-linear-gradient(to bottom, rgba(255, 255, 255, 0), #FAFAFA)
-  background -o-linear-gradient(to bottom, rgba(255, 255, 255, 0), #FAFAFA)
-  background linear-gradient(to bottom, rgba(255, 255, 255, 0), #FAFAFA)
+  background -webkit-linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(250, 250, 250, 0.97))
+  background -moz-linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(250, 250, 250, 0.97))
+  background -o-linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(250, 250, 250, 0.97))
+  background linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(250, 250, 250, 0.97))
 .read-more-btn
   letter-spacing 1px
 </style>
