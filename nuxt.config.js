@@ -33,7 +33,7 @@ module.exports = {
   /*
    ** Global CSS
    */
-  css: ['~assets/style/app', '~assets/style/variables'],
+  css: ['~assets/style/app'],
 
   router: {},
 
@@ -109,6 +109,9 @@ module.exports = {
           exclude: /(node_modules)/,
         });
       }
+    },
+    analyze: {
+      analyzerMode: 'server',
     },
   },
 };

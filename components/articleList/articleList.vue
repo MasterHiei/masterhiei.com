@@ -22,7 +22,6 @@ export default {
   computed: {
     ...mapGetters({
       articles: 'articles/all',
-      count: 'articles/count',
     }),
   },
 };
