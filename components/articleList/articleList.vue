@@ -2,7 +2,7 @@
   <v-layout column wrap>
     <v-flex
       v-for="(article, index) in articles"
-      :id="article._id"
+      :id="article.id"
       :key="index"
       class="article-item-container"
     >

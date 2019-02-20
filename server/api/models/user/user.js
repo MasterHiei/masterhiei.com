@@ -1,19 +1,23 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const commentSchema = new Schema(
+const userSchema = new Schema(
   {
-    user: {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
+    email: {
+      type: String,
+      unique: true,
     },
-    article: {
-      type: Schema.Types.ObjectId,
-      ref: 'Article',
+    username: {
+      type: String,
+      default: '',
     },
-    content: {
+    password: {
       type: String,
       required: true,
+    },
+    avatar: {
+      type: String,
+      default: 'avatar.png',
     },
   },
   {
@@ -25,12 +29,12 @@ const commentSchema = new Schema(
 );
 
 // Transform the returned object
-commentSchema.set('toJSON', {
+userSchema.set('toJSON', {
   versionKey: false,
   transform(_, ret) {
-    ret.id = ret._id;
     delete ret._id;
+    delete ret.password;
   },
 });
 
-module.exports = mongoose.model('comment', commentSchema);
+module.exports = mongoose.model('user', userSchema);

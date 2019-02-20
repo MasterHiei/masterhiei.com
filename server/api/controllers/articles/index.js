@@ -46,15 +46,14 @@ exports.show = async (req, res) => {
  */
 const findArticles = () => {
   return Article.find()
-    .where('isDeleted')
-    .in(false)
-    .sort('-createdBy')
+    .sort('-created_by')
     .exec();
 };
 
 /**
  * Query article by id
  * @param {String} id MongoDB Document ID
+ * @returns {Promise<Object>} Article
  */
 const findArticlesById = id => {
   return Article.findById(id).exec();
@@ -72,11 +71,9 @@ const generateArticles = (times = 12) => {
   for (let i = 0; i < times; i++) {
     const dummy = {
       title: faker.name.title(),
-      body: faker.lorem.sentence(10).repeat(100),
-      type: faker.name.jobType(),
+      content: faker.lorem.sentence(10).repeat(100),
+      category: faker.name.jobType(),
       tags: faker.lorem.words(),
-      stars: faker.random.number({ min: 0, max: 200 }),
-      createdBy: faker.name.findName(),
     };
     dummies.push(dummy);
   }

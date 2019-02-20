@@ -11,7 +11,7 @@
               fas fa-clock
             </v-icon>
           </v-avatar>
-          <timeago :datetime="article.createdAt" :locale="$i18n.locale" />
+          <timeago :datetime="article.created_at" :locale="$i18n.locale" />
         </v-chip>
       </v-flex>
       <v-flex d-inline wrap>
@@ -27,7 +27,7 @@
     </v-flex>
     <v-flex pa-0>
       <v-flex
-        ref="bodyContainer"
+        ref="contentContainer"
         :class="[
           { 'content-hidden': isShowCover },
           'subheading font-weight-regular overflow-y-hidden',
@@ -35,7 +35,7 @@
         px-0
         warp
       >
-        {{ article.body }}
+        {{ article.content }}
 
         <div v-show="isShowCover" class="cover-view" />
       </v-flex>
@@ -47,7 +47,7 @@
         depressed
         color="#438945"
         dark
-        :to="'/articles/' + article._id"
+        :to="'/articles/' + article.id"
         nuxt
         extra
       >
@@ -72,7 +72,7 @@ export default {
     };
   },
   mounted() {
-    const height = this.$refs.bodyContainer.clientHeight;
+    const height = this.$refs.contentContainer.clientHeight;
     if (height > this.maxHeight) {
       this.isShowCover = true;
     }

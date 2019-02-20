@@ -7,13 +7,13 @@ const articleSchema = new Schema(
       type: String,
       required: true,
     },
-    body: {
+    content: {
       type: String,
       required: true,
     },
-    type: {
+    category: {
       type: String,
-      required: true,
+      default: '',
     },
     tags: {
       type: [String],
@@ -29,21 +29,26 @@ const articleSchema = new Schema(
         ref: 'Comment',
       },
     ],
-    createdBy: {
-      type: String,
-      required: true,
-    },
-    isDeleted: {
-      type: Boolean,
-      default: false,
+    views: {
+      type: Number,
+      default: 0,
     },
   },
   {
     timestamps: {
-      createdAt: 'createdAt',
-      updatedAt: 'updatedAt',
+      createdAt: 'created_at',
+      updatedAt: 'updated_at',
     },
   }
 );
+
+// Transform the returned object
+articleSchema.set('toJSON', {
+  versionKey: false,
+  transform(_, ret) {
+    ret.id = ret._id;
+    delete ret._id;
+  },
+});
 
 module.exports = mongoose.model('article', articleSchema);
