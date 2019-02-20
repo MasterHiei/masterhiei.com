@@ -6,9 +6,7 @@
       :key="index"
       class="article-item-container"
     >
-      <transition name="fade">
-        <article-list-item :article="article" />
-      </transition>
+      <article-list-item :article="article" />
     </v-flex>
   </v-layout>
 </template>
