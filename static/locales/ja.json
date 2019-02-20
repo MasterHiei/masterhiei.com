@@ -1,8 +1,8 @@
 {
   "links": {
     "locale": "日本語",
-    "home": "ホーム",
-    "archives": "アーカイブ",
+    "index": "ホーム",
+    "articles": "記事",
     "about": "このサイトについて"
   },
   "article": {

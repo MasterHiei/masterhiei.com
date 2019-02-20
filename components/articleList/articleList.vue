@@ -21,7 +21,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      articles: 'articles/all',
+      articles: 'article/all',
     }),
   },
 };

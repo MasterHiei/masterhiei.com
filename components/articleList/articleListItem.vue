@@ -47,7 +47,7 @@
         depressed
         color="#438945"
         dark
-        :to="'/article/' + article.id"
+        :to="'/articles/' + article.id"
         nuxt
         extra
       >

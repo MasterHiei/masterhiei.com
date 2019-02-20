@@ -11,7 +11,7 @@ export default {
   async asyncData({ store, params }) {
     const id = params.id;
     const article = await getArticle(id);
-    store.dispatch('articles/setArticle', article);
+    store.dispatch('article/setArticle', article);
     return { article };
   },
 };

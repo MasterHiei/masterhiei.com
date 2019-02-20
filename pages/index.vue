@@ -20,7 +20,7 @@ export default {
     ArticleList,
   },
   async fetch({ store }) {
-    await store.dispatch('articles/getArticles');
+    await store.dispatch('article/getArticles');
   },
 };
 </script>
