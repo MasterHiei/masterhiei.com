@@ -47,6 +47,9 @@
         depressed
         color="#438945"
         dark
+        :to="'/articles/' + article._id"
+        nuxt
+        extra
       >
         {{ $t('article.readMore') }}
       </v-btn>

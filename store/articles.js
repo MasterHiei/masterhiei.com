@@ -1,4 +1,4 @@
-import { SET_ARTICLES } from './mutation-types';
+import { SET_ARTICLES, SET_ARTICLE } from './mutation-types';
 import { getArticles } from '../api/index';
 
 // States
@@ -21,12 +21,28 @@ export const mutations = {
   [SET_ARTICLES](state, articles) {
     state.articles = articles;
   },
+  [SET_ARTICLE](state, article) {
+    let isExist = false;
+    let articles = state.articles;
+    for (let i = 0; i < articles.length; i++) {
+      if (articles[i]._id === article._id) {
+        articles[i] = article;
+        isExist = true;
+      }
+    }
+    if (!isExist) {
+      articles.push(article);
+    }
+  },
 };
 
 // Actions
 export const actions = {
-  async getArticles({ commit }) {
-    const articles = await getArticles();
+  async getArticles({ commit }, data = {}) {
+    const articles = await getArticles(data);
     commit('SET_ARTICLES', articles);
+  },
+  async setArticle({ commit }, article) {
+    commit('SET_ARTICLE', article);
   },
 };

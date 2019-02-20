@@ -5,7 +5,7 @@ const Article = require('../../models/article/article');
 /**
  * Get All Articles with desc
  * @param {Response} res
- * @returns {Void} All Articles with desc
+ * @returns {Void}
  */
 exports.index = (_, res) => {
   co(function*() {
@@ -25,6 +25,22 @@ exports.index = (_, res) => {
 };
 
 /**
+ * Get Article by id
+ * @param {Request} req
+ * @param {Response} res
+ * @returns {Void}
+ */
+exports.show = async (req, res) => {
+  const id = req.params.id;
+  const article = await findArticlesById(id);
+  if (article) {
+    res.json({ code: 0, data: article });
+  } else {
+    res.sendStatus(404);
+  }
+};
+
+/**
  * Find articles from DB
  * @returns {Promise<Array>} Articles
  */
@@ -34,6 +50,14 @@ const findArticles = () => {
     .in(false)
     .sort('-createdBy')
     .exec();
+};
+
+/**
+ * Query article by id
+ * @param {String} id MongoDB Document ID
+ */
+const findArticlesById = id => {
+  return Article.findById(id).exec();
 };
 
 /**

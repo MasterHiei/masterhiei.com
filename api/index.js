@@ -11,4 +11,8 @@ const getArticles = (data = {}) => {
   return ajax.get(URL_ARTICLES, data);
 };
 
-export { getArticles };
+const getArticle = id => {
+  return ajax.get(URL_ARTICLES + '/' + id);
+};
+
+export { getArticles, getArticle };
