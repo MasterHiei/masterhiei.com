@@ -1,4 +1,5 @@
 const pkg = require('./package');
+const { app } = require(`./server/env/${process.env.NODE_ENV}`);
 
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');
 
@@ -24,6 +25,11 @@ module.exports = {
       },
     ],
   },
+
+  /*
+   ** Enviroment variables
+   */
+  env: app,
 
   /*
    ** Customize the progress-bar color
@@ -54,7 +60,7 @@ module.exports = {
     [
       'nuxt-i18n',
       {
-        baseUrl: '127.0.0.1:3001',
+        baseUrl: app.baseUrl,
         locales: [
           {
             code: 'zh-CN',

@@ -2,19 +2,15 @@ const express = require('express');
 const mongoose = require('mongoose');
 const consola = require('consola');
 const morgan = require('morgan');
+const env = require(`./env/${process.env.NODE_ENV}`);
 const api = require('./api/index');
-const db = require('./api/models/db');
 const { Nuxt, Builder } = require('nuxt');
 const app = express();
-const host = process.env.HOST || '127.0.0.1';
-const port = process.env.PORT || 3001;
-
-app.set('port', port);
 
 // Give Morgan middleware to express
 app.use(
   morgan('dev', {
-    skip: req => req.path.indexOf('/api') < 0,
+    skip: req => req.path.indexOf(env.app.api) < 0,
   })
 );
 
@@ -40,19 +36,18 @@ async function start() {
   app.use(nuxt.render);
 
   // Listen the server
-  app.listen(port, host, () => {
-    // Print console log
+  app.listen(env.app.port, () => {
     consola.ready({
-      message: `Server listening on http://${host}:${port}`,
+      message: `Server listening on ${env.app.baseUrl}`,
       badge: true,
     });
 
     // Connect mongodb
     mongoose.set('debug', true);
-    mongoose.connect(db.url, db.options).then(
+    mongoose.connect(env.database.url, env.database.options).then(
       () =>
         consola.ready({
-          message: `Mongoose connected to ${db.url}`,
+          message: `Mongoose connected to ${env.database.url}`,
           badge: true,
         }),
       error =>

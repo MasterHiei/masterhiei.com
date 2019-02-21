@@ -5,7 +5,7 @@
     <v-flex class="text-xs-center" wrap>
       <nuxt-link :to="localePath('index')" extra>
         <!-- prettier-ignore -->
-        <img src="~assets/img/logo.jpg" alt="logo">
+        <img src="~static/logo.jpg" alt="logo">
       </nuxt-link>
     </v-flex>
 
