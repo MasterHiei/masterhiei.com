@@ -47,7 +47,7 @@
         depressed
         color="#438945"
         dark
-        :to="'/articles/' + article.id"
+        :to="localePath({ name: 'articles-id', params: { id: article.id } })"
         nuxt
         extra
       >
