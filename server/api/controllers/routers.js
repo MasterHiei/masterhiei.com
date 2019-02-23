@@ -1,12 +1,12 @@
 const express = require('express');
 const articlesController = require('./article/index');
-
 const router = express.Router();
+const { app } = require(`../../env/${process.env.NODE_ENV}`);
 
-const baseUrl = '/api/v1';
+const apiUrl = app.apiUrl;
 
 // Articles Request
-router.get(baseUrl + '/articles', articlesController.index);
-router.get(baseUrl + '/articles/:id', articlesController.show);
+router.get(apiUrl + '/articles', articlesController.index);
+router.get(apiUrl + '/articles/:id', articlesController.show);
 
 module.exports = router;

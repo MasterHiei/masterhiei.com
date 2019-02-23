@@ -10,7 +10,7 @@ const getArticles = (data = {}) => {
 };
 
 const getArticle = id => {
-  return ajax.get('/articles' + '/' + id);
+  return ajax.get(`/articles/${id}`);
 };
 
 export { getArticles, getArticle };

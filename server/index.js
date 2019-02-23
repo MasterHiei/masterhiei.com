@@ -10,7 +10,7 @@ const app = express();
 // Give Morgan middleware to express
 app.use(
   morgan('dev', {
-    skip: req => req.path.indexOf(env.app.api) < 0,
+    skip: req => req.path.indexOf(env.app.apiUrl) < 0,
   })
 );
 

@@ -9,7 +9,7 @@ const CODE = {
 
 // axios request config
 const config = {
-  baseURL: 'http://127.0.0.1:3001/api/v1',
+  baseURL: process.env.baseUrl + process.env.apiUrl,
   headers: { 'X-Requested-With': 'XMLHttpRequest' },
   timeout: 30000,
   httpAgent: new http.Agent({ keepAlive: true }),
