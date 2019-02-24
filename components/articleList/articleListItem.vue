@@ -28,10 +28,8 @@
     <v-flex pa-0>
       <v-flex
         ref="contentContainer"
-        :class="[
-          { 'content-hidden': isShowCover },
-          'subheading font-weight-regular overflow-y-hidden',
-        ]"
+        class="subheading font-weight-regular overflow-y-hidden"
+        :class="{ 'content-hidden': isShowCover }"
         px-0
         warp
       >
@@ -102,10 +100,10 @@ export default {
   top 0
   left 0
   z-index 100
-  background -webkit-linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(250, 250, 250, 0.97))
-  background -moz-linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(250, 250, 250, 0.97))
-  background -o-linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(250, 250, 250, 0.97))
-  background linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(250, 250, 250, 0.97))
+  background -webkit-linear-gradient(rgba(255, 255, 255, 0), rgba(250, 250, 250, 0.97))
+  background -moz-linear-gradient(rgba(255, 255, 255, 0), rgba(250, 250, 250, 0.97))
+  background -o-linear-gradient(rgba(255, 255, 255, 0), rgba(250, 250, 250, 0.97))
+  background linear-gradient(rgba(255, 255, 255, 0), rgba(250, 250, 250, 0.97))
 .read-more-btn
   letter-spacing 1px
 </style>

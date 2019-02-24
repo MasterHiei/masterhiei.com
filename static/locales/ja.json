@@ -11,5 +11,18 @@
       "unit": "件"
     },
     "readMore": "続きを読む"
+  },
+  "login": {
+    "message": "ログイン",
+    "email": "メールアドレス",
+    "password": "パスワード",
+    "errors": {
+      "email": "メールアドレスが間違っています",
+      "password": "パスワードが間違っています",
+      "invalid": "メールアドレスかパスワードが間違っています"
+    },
+    "register": {
+      "message": "登録"
+    }
   }
 }
