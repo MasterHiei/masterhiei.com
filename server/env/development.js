@@ -1,9 +1,8 @@
-const port = 3001;
-
 const app = {
-  baseUrl: `http://127.0.0.1:${port}`,
-  port: port,
-  apiUrl: '/api/v1',
+  protocol: 'http',
+  host: '127.0.0.1',
+  port: 3001,
+  api_prefix: '/api/v1',
 };
 
 const database = {

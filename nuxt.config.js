@@ -57,10 +57,10 @@ module.exports = {
    */
   modules: [
     '@nuxtjs/axios',
+    '@nuxtjs/auth',
     [
       'nuxt-i18n',
       {
-        baseUrl: app.baseUrl,
         locales: [
           {
             code: 'zh-CN',
@@ -84,12 +84,6 @@ module.exports = {
       },
     ],
   ],
-  /*
-   ** Axios module configuration
-   */
-  axios: {
-    // See https://github.com/nuxt-community/axios-module#options
-  },
 
   /*
    ** Build configuration

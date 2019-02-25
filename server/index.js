@@ -10,7 +10,7 @@ const app = express();
 // Give Morgan middleware to express
 app.use(
   morgan('dev', {
-    skip: req => req.path.indexOf(env.app.apiUrl) < 0,
+    skip: req => req.path.indexOf(env.app.api_prefix) < 0,
   })
 );
 
@@ -36,9 +36,11 @@ async function start() {
   app.use(nuxt.render);
 
   // Listen the server
-  app.listen(env.app.port, () => {
+  app.listen(env.app.port, env.app.host, () => {
     consola.ready({
-      message: `Server listening on ${env.app.baseUrl}`,
+      message: `Server listening on ${env.app.protocol}://${env.app.host}:${
+        env.app.port
+      }`,
       badge: true,
     });
 

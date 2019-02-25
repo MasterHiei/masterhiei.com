@@ -1,19 +1,16 @@
-import axios from 'axios';
-import { config, CODE } from './config';
-
-const request = axios.create(config);
+import axios from '@/plugins/axios';
 
 // handling request
-request.interceptors.request.use(config => {
+axios.interceptors.request.use(config => {
   // TODO: Do something if need
   return config;
 });
 
 // handling response
-request.interceptors.response.use(
+axios.interceptors.response.use(
   res => {
     const data = res.data;
-    if (data.code === CODE.OK) {
+    if (data.code === 0) {
       return data.data;
     } else {
       return Promise.reject(data.code);
@@ -21,7 +18,7 @@ request.interceptors.response.use(
   },
   err => {
     console.log(err);
-    return Promise.reject(CODE.NOT_FOUND);
+    return Promise.reject(404);
   }
 );
 
@@ -29,10 +26,10 @@ request.interceptors.response.use(
 export default {
   get: (url, data = {}) => {
     const queryStr = createQueryString(url, data);
-    return request.get(queryStr);
+    return axios.get(queryStr);
   },
   post: (url, data) => {
-    return request.post(url, data);
+    return axios.post(url, data);
   },
 };
 
