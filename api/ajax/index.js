@@ -1,26 +1,7 @@
 import axios from '@/plugins/axios';
 
-// handling request
-axios.interceptors.request.use(config => {
-  // TODO: Do something if need
-  return config;
-});
-
 // handling response
-axios.interceptors.response.use(
-  res => {
-    const data = res.data;
-    if (data.code === 0) {
-      return data.data;
-    } else {
-      return Promise.reject(data.code);
-    }
-  },
-  err => {
-    console.log(err);
-    return Promise.reject(404);
-  }
-);
+axios.interceptors.response.use(res => res.data);
 
 // Axios request encapsulation
 export default {

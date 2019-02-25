@@ -38,9 +38,9 @@ export const mutations = {
 
 // Actions
 export const actions = {
-  async getArticles({ commit }, data = {}) {
-    const articles = await getArticles(data);
-    commit('SET_ARTICLES', articles);
+  async getArticles({ commit }, params = {}) {
+    const { data } = await getArticles(params);
+    commit('SET_ARTICLES', data);
   },
   async setArticle({ commit }, article) {
     commit('SET_ARTICLE', article);

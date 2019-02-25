@@ -40,6 +40,8 @@
 </template>
 
 <script>
+import md5 from 'crypto-js/md5';
+
 export default {
   data() {
     return {
@@ -58,9 +60,14 @@ export default {
     };
   },
   methods: {
-    onSubmit() {
+    async onSubmit() {
       if (!this.valid) return;
-      console.log('asdasd');
+      await this.$auth.loginWith('local', {
+        data: {
+          email: this.email,
+          password: md5(this.password).toString(),
+        },
+      });
     },
   },
 };

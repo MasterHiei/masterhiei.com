@@ -41,8 +41,6 @@ module.exports = {
    */
   css: ['~assets/style/app'],
 
-  router: {},
-
   /*
    ** Plugins to load before mounting the App
    */
@@ -84,6 +82,32 @@ module.exports = {
       },
     ],
   ],
+
+  /*
+   ** Nuxt Auth modules
+   */
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: `${app.protocol}://${app.host}:${app.port}${
+              app.api_prefix
+            }/login`,
+            method: 'post',
+            propertyName: 'token',
+          },
+          logout: {
+            url: `${app.protocol}://${app.host}:${app.port}${
+              app.api_prefix
+            }/logout`,
+            method: 'post',
+          },
+          user: false,
+        },
+      },
+    },
+  },
 
   /*
    ** Build configuration

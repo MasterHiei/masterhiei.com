@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const consola = require('consola');
 const morgan = require('morgan');
+const bodyParser = require('body-parser');
 const env = require(`./env/${process.env.NODE_ENV}`);
 const api = require('./api/index');
 const { Nuxt, Builder } = require('nuxt');
@@ -13,6 +14,9 @@ app.use(
     skip: req => req.path.indexOf(env.app.api_prefix) < 0,
   })
 );
+
+// Give body-parser to express
+app.use(bodyParser.json());
 
 // Give Routing to express
 app.use(api);
