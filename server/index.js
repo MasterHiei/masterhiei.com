@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const consola = require('consola');
 const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const env = require(`./env/${process.env.NODE_ENV}`);
 const api = require('./api/index');
@@ -14,6 +15,9 @@ app.use(
     skip: req => req.path.indexOf(env.app.api_prefix) < 0,
   })
 );
+
+// Give cookie-parser to express
+app.use(cookieParser());
 
 // Give body-parser to express
 app.use(bodyParser.json());

@@ -7,6 +7,10 @@ const token = require('../../utils/token');
  */
 exports.login = (req, res) => {
   const { email, password } = req.body;
+  if (!email.length || !password.length) {
+    res.json({ code: 400, message: 'Invalid email or password.' });
+    return;
+  }
 
   co(function*() {
     const user = yield authenticate(email, password);
