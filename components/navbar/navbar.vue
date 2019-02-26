@@ -10,19 +10,12 @@
     </v-flex>
 
     <v-flex class="text-xs-center" justify-center wrap>
-      <v-btn
-        :to="localePath('index')"
-        class="subheading font-weight-bold"
-        round
-        flat
-        nuxt
-        exact
-      >
+      <v-btn :to="localePath('index')" class="subheading" round flat nuxt exact>
         {{ $t('links.index') }}
       </v-btn>
       <v-btn
         :to="localePath('articles')"
-        class="subheading font-weight-bold"
+        class="subheading"
         round
         flat
         nuxt
@@ -30,27 +23,18 @@
       >
         {{ $t('links.articles') }}
       </v-btn>
-      <v-btn
-        :to="localePath('about')"
-        class="subheading font-weight-bold"
-        round
-        flat
-        nuxt
-        exact
-      >
+      <v-btn :to="localePath('about')" class="subheading" round flat nuxt exact>
         {{ $t('links.about') }}
       </v-btn>
     </v-flex>
 
     <v-flex class="text-xs-center" wrap>
       <v-menu offset-y transition="slide-y-transition">
-        <v-btn slot="activator" flat>
+        <v-btn slot="activator" class="subheading" flat>
           <v-icon left>
             fas fa-globe
           </v-icon>
-          <span class="font-weight-bold subheading">
-            {{ $t('links.locale') }}
-          </span>
+          {{ $t('links.locale') }}
         </v-btn>
 
         <v-list>
@@ -61,17 +45,49 @@
             nuxt
             exact
           >
-            <v-list-tile-title
-              class="text-xs-center font-weight-bold subheading"
-            >
+            <v-list-tile-title class="text-xs-center subheading">
               {{ locale.name }}
             </v-list-tile-title>
           </v-list-tile>
         </v-list>
       </v-menu>
 
-      <v-btn icon href="https://github.com/MasterHiei">
-        <v-icon>fab fa-github</v-icon>
+      <v-btn
+        v-show="!loggedIn"
+        class="subheading"
+        active-class=""
+        :to="localePath('register')"
+        color="grey lighten-2"
+        round
+        nuxt
+        exact
+      >
+        {{ $t('register.message') }}
+      </v-btn>
+
+      <v-btn
+        v-show="!loggedIn"
+        class="subheading"
+        active-class=""
+        :to="localePath('login')"
+        color="grey lighten-2"
+        round
+        nuxt
+        exact
+      >
+        {{ $t('login.message') }}
+      </v-btn>
+
+      <v-btn
+        v-show="loggedIn"
+        class="subheading"
+        active-class=""
+        color="grey lighten-2"
+        round
+        depressed
+        @click="logout"
+      >
+        {{ $t('logout.message') }}
       </v-btn>
     </v-flex>
 
@@ -81,11 +97,21 @@
 
 <script>
 export default {
+  data() {
+    return {
+      loggedIn: this.$store.state.auth.loggedIn,
+    };
+  },
   computed: {
     locales() {
       return this.$i18n.locales.filter(
         locale => locale.code !== this.$i18n.locale
       );
+    },
+  },
+  methods: {
+    async logout() {
+      await this.$auth.logout();
     },
   },
 };

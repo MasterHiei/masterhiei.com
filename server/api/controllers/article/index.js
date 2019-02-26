@@ -26,9 +26,6 @@ exports.index = (_, res) => {
 
 /**
  * Get Article by id
- * @param {Request} req
- * @param {Response} res
- * @returns {Void}
  */
 exports.show = async (req, res) => {
   const id = req.params.id;

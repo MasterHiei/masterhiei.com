@@ -1,10 +1,9 @@
 const co = require('co');
 const User = require('../../models/user/user');
+const token = require('../../utils/token');
 
 /**
- * User Login
- * @param {Request} req
- * @param {Response} res
+ * User login
  */
 exports.login = (req, res) => {
   const { email, password } = req.body;
@@ -12,13 +11,22 @@ exports.login = (req, res) => {
   co(function*() {
     const user = yield authenticate(email, password);
     if (user) {
-      res.json({ code: 0, data: user });
+      const accessToken = token.sign(user);
+      res.json({ code: 0, token: accessToken });
     } else {
       res.json({ code: 400, message: 'Invalid email or password.' });
     }
   }).catch(() => {
     res.json({ code: 400, message: 'Invalid email or password.' });
   });
+};
+
+/**
+ * User logout
+ */
+exports.logout = (_, res) => {
+  res.clearCookie('auth._token.local');
+  res.json({ code: 0 });
 };
 
 /**

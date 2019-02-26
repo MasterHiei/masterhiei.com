@@ -12,6 +12,9 @@
     },
     "readMore": "続きを読む"
   },
+  "register": {
+    "message": "登録"
+  },
   "login": {
     "message": "ログイン",
     "email": "メールアドレス",
@@ -20,9 +23,9 @@
       "email": "メールアドレスが間違っています",
       "password": "パスワードが間違っています",
       "invalid": "メールアドレスかパスワードが間違っています"
-    },
-    "register": {
-      "message": "登録"
     }
+  },
+  "logout": {
+    "message": "ログアウト"
   }
 }

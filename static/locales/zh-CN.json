@@ -12,6 +12,9 @@
     },
     "readMore": "阅读全文"
   },
+  "register": {
+    "message": "注册"
+  },
   "login": {
     "message": "登录",
     "email": "邮箱",
@@ -20,9 +23,9 @@
       "email": "请输入正确的邮箱地址",
       "password": "请输入正确的密码",
       "invalid": "请输入正确的邮箱地址和密码"
-    },
-    "register": {
-      "message": "注册"
     }
+  },
+  "logout": {
+    "message": "退出"
   }
 }

@@ -13,4 +13,9 @@ const database = {
   },
 };
 
-module.exports = { app, database };
+const auth = {
+  secret: 'masterhiei',
+  expiresIn: '30d',
+};
+
+module.exports = { app, database, auth };
