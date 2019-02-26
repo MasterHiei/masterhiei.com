@@ -54,11 +54,13 @@
 
       <v-btn
         v-show="!loggedIn"
-        class="subheading"
+        class="subheading text"
         active-class=""
         :to="localePath('register')"
-        color="grey lighten-2"
+        color="green lighten-2"
         round
+        depressed
+        dark
         nuxt
         exact
       >
@@ -70,8 +72,9 @@
         class="subheading"
         active-class=""
         :to="localePath('login')"
-        color="grey lighten-2"
+        color="green lighten-2"
         round
+        outline
         nuxt
         exact
       >
@@ -82,9 +85,7 @@
         v-show="loggedIn"
         class="subheading"
         active-class=""
-        color="grey lighten-2"
-        round
-        depressed
+        outline
         @click="logout"
       >
         {{ $t('logout.message') }}
