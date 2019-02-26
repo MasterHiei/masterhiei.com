@@ -4,6 +4,8 @@ const token = require('../../utils/token');
 
 /**
  * User login
+ * @param {Request} req
+ * @param {Response} res
  */
 exports.login = (req, res) => {
   const { email, password } = req.body;

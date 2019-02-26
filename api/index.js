@@ -9,6 +9,11 @@ const getArticles = (data = {}) => {
   return ajax.get('/articles', data);
 };
 
+/**
+ * Get Article by ID
+ * @param {String} id Article ID
+ * @returns {Promise}
+ */
 const getArticle = id => {
   return ajax.get(`/articles/${id}`);
 };
