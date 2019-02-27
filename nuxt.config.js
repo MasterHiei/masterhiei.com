@@ -108,7 +108,13 @@ module.exports = {
             }/logout`,
             method: 'post',
           },
-          user: false,
+          user: {
+            url: `${app.protocol}://${app.host}:${app.port}${
+              app.api_prefix
+            }/user`,
+            method: 'get',
+            propertyName: 'user',
+          },
         },
       },
     },
