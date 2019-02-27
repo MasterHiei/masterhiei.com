@@ -57,14 +57,14 @@
         class="subheading text"
         active-class=""
         :to="localePath('register')"
-        color="green lighten-2"
+        color="#438945"
         round
         depressed
         dark
         nuxt
         exact
       >
-        {{ $t('register.message') }}
+        {{ $t('auth.register') }}
       </v-btn>
 
       <v-btn
@@ -72,13 +72,13 @@
         class="subheading"
         active-class=""
         :to="localePath('login')"
-        color="green lighten-2"
+        color="#438945"
         round
         outline
         nuxt
         exact
       >
-        {{ $t('login.message') }}
+        {{ $t('auth.login') }}
       </v-btn>
 
       <v-btn
@@ -88,7 +88,7 @@
         outline
         @click="logout"
       >
-        {{ $t('logout.message') }}
+        {{ $t('auth.logout') }}
       </v-btn>
     </v-flex>
 

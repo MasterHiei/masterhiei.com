@@ -1,9 +1,15 @@
 <template>
-  <div>
-    {{ $t('register.message') }}
-  </div>
+  <v-layout justify-center row wrap pt-5>
+    <register-form />
+  </v-layout>
 </template>
 
 <script>
-export default {};
+import registerForm from '@/components/registerForm/registerForm';
+
+export default {
+  components: {
+    registerForm,
+  },
+};
 </script>

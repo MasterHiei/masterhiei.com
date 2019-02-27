@@ -1,19 +1,17 @@
 <template>
   <v-flex xs8 sm3>
-    <v-flex class="text-xs-center title font-weight-bold" mb-3>
-      {{ $t('auth.login') }}
+    <v-flex class="title-lable text-xs-center title font-weight-bold" mb-3>
+      {{ $t('auth.register') }}
     </v-flex>
 
-    <v-form v-model="valid">
+    <v-form ref="form" v-model="valid">
       <v-text-field
         v-model="email"
         class="pb-3"
         color="#438945"
         :rules="emailRules"
         :label="this.$i18n.t('auth.email')"
-        clear-icon="fas fa-times"
-        clearable
-        autofocus
+        append-icon="fas fa-check"
       />
 
       <v-text-field
@@ -22,11 +20,7 @@
         color="#438945"
         :rules="passwordRules"
         :label="this.$i18n.t('auth.password')"
-        :type="isVisible ? 'text' : 'password'"
-        clear-icon="fas fa-times"
-        clearable
-        :append-icon="isVisible ? 'fas fa-eye-slash' : 'fas fa-eye'"
-        @click:append="isVisible = !isVisible"
+        type="password"
       />
 
       <v-btn
@@ -37,7 +31,7 @@
         dark
         @click="onSubmit"
       >
-        {{ $t('auth.login') }}
+        {{ $t('auth.register') }}
       </v-btn>
     </v-form>
   </v-flex>

@@ -12,20 +12,20 @@
     },
     "readMore": "阅读全文"
   },
-  "register": {
-    "message": "注册"
-  },
-  "login": {
-    "message": "登录",
+  "auth": {
+    "register": "注册",
+    "login": "登录",
+    "logout": "退出",
     "email": "邮箱",
-    "password": "密码",
-    "errors": {
+    "password": "密码"
+  },
+  "errors": {
+    "auth": {
       "email": "请输入正确的邮箱地址",
       "password": "请输入正确的密码",
-      "invalid": "请输入正确的邮箱地址和密码"
-    }
-  },
-  "logout": {
-    "message": "退出"
+      "invalid": "请输入正确的邮箱地址和密码",
+      "existed": "糟糕，该账号已经被注册了"
+    },
+    "failed": "糟糕，系统出现了一些问题，请稍后重试或联系管理员。"
   }
 }
