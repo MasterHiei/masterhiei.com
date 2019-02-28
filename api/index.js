@@ -18,4 +18,12 @@ const getArticle = id => {
   return ajax.get(`/articles/${id}`);
 };
 
-export { getArticles, getArticle };
+/**
+ * Check Email is valid or not
+ * @param {*} email
+ */
+const validateUser = email => {
+  return ajax.post('/user/validate', email);
+};
+
+export { getArticles, getArticle, validateUser };

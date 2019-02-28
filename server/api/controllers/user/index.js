@@ -53,6 +53,27 @@ exports.user = async (req, res) => {
 };
 
 /**
+ * Check Email is valid or not
+ * @param {Request} req
+ * @param {Response} res
+ */
+exports.validate = async (req, res) => {
+  const { email } = req.body;
+  const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  if (!email || !pattern.test(email)) {
+    res.json({ code: 400, message: 'Invalid email.' });
+  } else {
+    const user = await queryUserByEmail(email).catch(error => {
+      console.log(error);
+      res.json({ code: 500, message: 'Unexcepted Error.' });
+    });
+    if (user) {
+      res.json({ code: 0 });
+    }
+  }
+};
+
+/**
  * Authenticate User
  * @param {String} email
  * @param {String} password

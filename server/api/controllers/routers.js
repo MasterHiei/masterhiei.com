@@ -10,6 +10,7 @@ const prefix = app.api_prefix;
 router.post(`${prefix}/login`, userController.login);
 router.post(`${prefix}/logout`, userController.logout);
 router.get(`${prefix}/user`, userController.user);
+router.post(`${prefix}/user/validate`, userController.validate);
 
 // Article
 router.get(`${prefix}/articles`, articlesController.index);

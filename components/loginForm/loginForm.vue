@@ -8,7 +8,7 @@
       <v-text-field
         v-model="email"
         class="pb-3"
-        color="#438945"
+        color="success"
         :rules="emailRules"
         :label="this.$i18n.t('auth.email')"
         clear-icon="fas fa-times"
@@ -19,19 +19,19 @@
       <v-text-field
         v-model="password"
         class="pb-3"
-        color="#438945"
+        color="success"
         :rules="passwordRules"
         :label="this.$i18n.t('auth.password')"
-        :type="isVisible ? 'text' : 'password'"
+        :type="visiable ? 'text' : 'password'"
         clear-icon="fas fa-times"
         clearable
-        :append-icon="isVisible ? 'fas fa-eye-slash' : 'fas fa-eye'"
-        @click:append="isVisible = !isVisible"
+        :append-icon="visiable ? 'fas fa-eye-slash' : 'fas fa-eye'"
+        @click:append="visiable = !visiable"
       />
 
       <v-btn
         class="subheading mt-4"
-        color="#438945"
+        color="success"
         depressed
         block
         dark
@@ -60,7 +60,7 @@ export default {
       ],
       password: '',
       passwordRules: [v => !!v || this.$i18n.t('errors.auth.password')],
-      isVisible: false,
+      visiable: false,
     };
   },
   methods: {
@@ -80,5 +80,4 @@ export default {
 <style scoped lang="stylus" rel="stylesheet/stylus">
 >>>.v-input__icon .v-icon
   font-size 1.5rem
-  color #438945
 </style>

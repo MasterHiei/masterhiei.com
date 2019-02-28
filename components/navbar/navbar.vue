@@ -57,7 +57,7 @@
         class="subheading text"
         active-class=""
         :to="localePath('register')"
-        color="#438945"
+        color="success"
         round
         depressed
         dark
@@ -72,7 +72,7 @@
         class="subheading"
         active-class=""
         :to="localePath('login')"
-        color="#438945"
+        color="success"
         round
         outline
         nuxt

@@ -7,7 +7,7 @@
       <v-flex d-inline pl-0 wrap>
         <v-chip color="white" text-color="grey darken-1" small outline disabled>
           <v-avatar>
-            <v-icon color="#5A7670 ">
+            <v-icon color="success">
               fas fa-clock
             </v-icon>
           </v-avatar>
@@ -17,7 +17,7 @@
       <v-flex d-inline wrap>
         <v-chip color="white" text-color="grey darken-1" small outline disabled>
           <v-avatar>
-            <v-icon color="#5A7670 ">
+            <v-icon color="success ">
               fas fa-comments
             </v-icon>
           </v-avatar>
@@ -43,7 +43,7 @@
         class="read-more-btn subheading font-weight-bold ma-0"
         block
         depressed
-        color="#438945"
+        color="success"
         dark
         :to="localePath({ name: 'articles-id', params: { id: article.id } })"
         nuxt

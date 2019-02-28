@@ -4,13 +4,13 @@
       v-show="show"
       id="scroll-to-btn"
       v-scroll-to="{ el: 'body' }"
-      color="#B89F5D"
+      color="secondary"
       fab
       fixed
       right
       bottom
     >
-      <v-icon color="#F7F4E9">
+      <v-icon color="white">
         fas fa-angle-up
       </v-icon>
     </v-btn>
