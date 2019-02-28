@@ -101,7 +101,7 @@ export default {
       }
       delay(async () => {
         this.validating = true;
-        const { code } = await validateUser(this.email).catch(() => {});
+        const { code } = await validateUser(this.email).catch(() => false);
         this.validating = false;
         this.validEmail = code === 0;
       }, 500);
