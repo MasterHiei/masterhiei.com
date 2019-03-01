@@ -20,10 +20,7 @@
 
       <v-text-field
         v-model="password"
-        v-validate="{
-          required: true,
-          regex: /^(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}$/i,
-        }"
+        v-validate="'required|password'"
         data-vv-name="password"
         class="pb-3"
         color="success"
