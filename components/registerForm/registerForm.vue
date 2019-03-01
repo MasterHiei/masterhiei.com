@@ -4,26 +4,35 @@
       {{ $t('auth.register') }}
     </v-flex>
 
-    <v-form ref="form" v-model="valid">
+    <form>
       <v-text-field
         v-model="email"
+        v-validate="'required|email'"
+        data-vv-name="email"
         class="pb-3"
         color="success"
-        :rules="emailRules"
+        :error-messages="errors.first('email')"
         :label="this.$i18n.t('auth.email')"
         :loading="validating"
+        required
         @keyup="validateAfterDelay"
       />
 
       <v-text-field
         v-model="password"
+        v-validate="{
+          required: true,
+          regex: /^(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}$/i,
+        }"
+        data-vv-name="password"
         class="pb-3"
         color="success"
-        :rules="passwordRules"
+        :error-messages="errors.first('password')"
         :label="this.$i18n.t('auth.password')"
         :type="visiable ? 'text' : 'password'"
         :loading="password.length > 0"
         :append-icon="visiable ? 'fas fa-eye-slash' : 'fas fa-eye'"
+        required
         @click:append="visiable = !visiable"
       >
         <v-progress-linear
@@ -44,7 +53,7 @@
       >
         {{ $t('auth.register') }}
       </v-btn>
-    </v-form>
+    </form>
   </v-flex>
 </template>
 
@@ -54,49 +63,38 @@ import delay from '@/common/utils/delay.js';
 import { validateUser } from '@/api/index.js';
 
 export default {
+  $_veeValidate: {
+    validator: 'new',
+  },
+
   data() {
     return {
-      valid: false,
       email: '',
-      emailPattern: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-      emailRules: [
-        v => !!v || this.$i18n.t('errors.auth.email'),
-        v => this.emailPattern.test(v) || this.$i18n.t('errors.auth.email'),
-      ],
       validating: false,
       validEmail: false,
       password: '',
-      passwordPattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/,
-      passwordRules: [
-        v => !!v || this.$i18n.t('errors.auth.password'),
-        v =>
-          this.passwordPattern.test(v) || this.$i18n.t('errors.auth.password'),
-      ],
-      minLength: 6,
-      secureLength: 10,
       visiable: false,
     };
   },
+
   computed: {
     progress() {
-      return Math.min(100, (this.password.length / this.secureLength) * 100);
+      return Math.min(100, (this.password.length / 12) * 100);
     },
     progressColor() {
-      if (
-        this.progress < this.minLength * 10 ||
-        !this.passwordPattern.test(this.password)
-      ) {
+      if (this.progress < (8 / 12) * 100 || this.fields.password.invalid) {
         return 'error';
       }
-      if (this.progress < this.secureLength * 10) {
+      if (this.progress < 100) {
         return 'warning';
       }
       return 'success';
     },
   },
+
   methods: {
     validateAfterDelay() {
-      if (!this.emailPattern.test(this.email)) {
+      if (this.fields.email.invalid) {
         return;
       }
       delay(async () => {

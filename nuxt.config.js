@@ -49,7 +49,12 @@ module.exports = {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~plugins/vuetify', '~plugins/timeago', '~plugins/vueScrollTo'],
+  plugins: [
+    '~plugins/vuetify',
+    '~plugins/timeago',
+    '~plugins/vueScrollTo',
+    '~plugins/veeValidate',
+  ],
 
   generate: {
     routers: ['/about', '/ja/about'],
@@ -66,9 +71,9 @@ module.exports = {
       {
         locales: [
           {
-            code: 'zh-CN',
+            code: 'zh_CN',
             name: '简体中文',
-            iso: 'zh-CN',
+            iso: 'zh_CN',
           },
           {
             code: 'ja',
@@ -76,12 +81,12 @@ module.exports = {
             iso: 'ja-JP',
           },
         ],
-        defaultLocale: 'zh-CN',
+        defaultLocale: 'zh_CN',
         vueI18n: {
-          fallbackLocale: 'zh-CN',
+          fallbackLocale: 'zh_CN',
           messages: {
-            'zh-CN': require('./static/locales/zh-cn.json'),
-            ja: require('./static/locales/ja.json'),
+            zh_CN: require('./assets/locales/zh_CN.json'),
+            ja: require('./assets/locales/ja.json'),
           },
         },
       },

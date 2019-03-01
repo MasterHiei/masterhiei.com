@@ -28,6 +28,7 @@
     "morgan": "^1.9.1",
     "nuxt": "^2.4.5",
     "nuxt-i18n": "^5.8.4",
+    "vee-validate": "^2.1.7",
     "vue-scrollto": "^2.14.0",
     "vue-timeago": "^5.0.0",
     "vuetify": "^1.5.4",
