@@ -7,7 +7,7 @@ Vue.use(VeeValidate, { inject: false });
 
 // Using custom rules
 Validator.extend('password', {
-  validate: value => /^(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}$/i.test(value),
+  validate: value => /^(?=.*?[a-z])(?=.*?\d)[a-z\d_]{8,100}$/i.test(value),
 });
 
 // Costomize error messages
