@@ -9,11 +9,11 @@
         v-model="email"
         v-validate="'required|email'"
         data-vv-name="email"
-        class="pb-3"
-        color="success"
         :error-messages="errors.first('email')"
         :label="this.$i18n.t('auth.email')"
         :loading="validating"
+        class="pb-3"
+        color="success"
         required
         @keyup="validateAfterDelay"
       />
@@ -22,13 +22,13 @@
         v-model="password"
         v-validate="'required|password'"
         data-vv-name="password"
-        class="pb-3"
-        color="success"
         :error-messages="errors.first('password')"
         :label="this.$i18n.t('auth.password')"
         :type="visiable ? 'text' : 'password'"
         :loading="password.length > 0"
         :append-icon="visiable ? 'fas fa-eye-slash' : 'fas fa-eye'"
+        class="pb-3"
+        color="success"
         required
         @click:append="visiable = !visiable"
       >
@@ -102,7 +102,8 @@ export default {
       }, 500);
     },
     async onSubmit() {
-      if (!this.valid) return;
+      const valid = await this.$validator.validateAll();
+      if (!valid) return;
       await this.$auth.loginWith('local', {
         data: {
           email: this.email,

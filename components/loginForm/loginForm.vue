@@ -4,28 +4,30 @@
       {{ $t('auth.login') }}
     </v-flex>
 
-    <v-form v-model="valid">
+    <form>
       <v-text-field
         v-model="email"
+        v-validate="'required|email'"
+        data-vv-name="email"
+        :error-messages="errors.first('email')"
+        :label="this.$i18n.t('auth.email')"
         class="pb-3"
         color="success"
-        :rules="emailRules"
-        :label="this.$i18n.t('auth.email')"
-        clear-icon="fas fa-times"
-        clearable
         autofocus
+        required
       />
 
       <v-text-field
         v-model="password"
-        class="pb-3"
-        color="success"
-        :rules="passwordRules"
+        v-validate="'required'"
+        data-vv-name="password"
+        :error-messages="errors.first('password')"
         :label="this.$i18n.t('auth.password')"
         :type="visiable ? 'text' : 'password'"
-        clear-icon="fas fa-times"
-        clearable
         :append-icon="visiable ? 'fas fa-eye-slash' : 'fas fa-eye'"
+        class="pb-3"
+        color="success"
+        required
         @click:append="visiable = !visiable"
       />
 
@@ -39,7 +41,7 @@
       >
         {{ $t('auth.login') }}
       </v-btn>
-    </v-form>
+    </form>
   </v-flex>
 </template>
 
@@ -47,25 +49,22 @@
 import md5 from 'crypto-js/md5';
 
 export default {
+  $_veeValidate: {
+    validator: 'new',
+  },
+
   data() {
     return {
-      valid: false,
       email: '',
-      emailRules: [
-        v => !!v || this.$i18n.t('errors.auth.email'),
-        v => {
-          const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-          return pattern.test(v) || this.$i18n.t('errors.auth.email');
-        },
-      ],
       password: '',
-      passwordRules: [v => !!v || this.$i18n.t('errors.auth.password')],
       visiable: false,
     };
   },
+
   methods: {
     async onSubmit() {
-      if (!this.valid) return;
+      const valid = await this.$validator.validateAll();
+      if (!valid) return;
       await this.$auth.loginWith('local', {
         data: {
           email: this.email,
