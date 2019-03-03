@@ -9,7 +9,10 @@ export const state = () => ({
 // Getters
 export const getters = {
   count(state) {
-    return state.articles.length || 0;
+    if (state.articles) {
+      return state.articles.length;
+    }
+    return 0;
   },
   all(state) {
     return state.articles || [];

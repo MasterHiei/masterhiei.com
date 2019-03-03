@@ -37,7 +37,7 @@
         depressed
         block
         dark
-        @click="onSubmit"
+        @click="login"
       >
         {{ $t('auth.login') }}
       </v-btn>
@@ -62,7 +62,7 @@ export default {
   },
 
   methods: {
-    async onSubmit() {
+    async login() {
       const valid = await this.$validator.validateAll();
       if (!valid) return;
       await this.$auth.loginWith('local', {

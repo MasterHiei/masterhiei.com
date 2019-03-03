@@ -116,9 +116,9 @@ module.exports = {
           user: {
             url: `${app.protocol}://${app.host}:${app.port}${
               app.api_prefix
-            }/user`,
+            }/users`,
             method: 'get',
-            propertyName: 'user',
+            propertyName: 'users',
           },
         },
       },

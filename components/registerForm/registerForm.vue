@@ -46,7 +46,7 @@
         depressed
         block
         dark
-        @click="onSubmit"
+        @click="register"
       >
         {{ $t('auth.register') }}
       </v-btn>
@@ -57,7 +57,7 @@
 <script>
 import md5 from 'crypto-js/md5';
 import delay from '@/common/utils/delay.js';
-import { validateUser } from '@/api/index.js';
+import { validateUser, register } from '@/api/index.js';
 
 export default {
   $_veeValidate: {
@@ -101,14 +101,14 @@ export default {
         this.validEmail = code === 0;
       }, 500);
     },
-    async onSubmit() {
+
+    async register() {
       const valid = await this.$validator.validateAll();
-      if (!valid) return;
-      await this.$auth.loginWith('local', {
-        data: {
-          email: this.email,
-          password: md5(this.password).toString(),
-        },
+      if (!valid || !this.validEmail) return;
+      console.log('asdasds');
+      await register({
+        email: this.email,
+        password: md5(this.password).toString(),
       });
     },
   },

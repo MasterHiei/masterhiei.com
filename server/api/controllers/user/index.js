@@ -39,7 +39,7 @@ exports.logout = (_, res) => {
  * @param {Request} req
  * @param {Response} res
  */
-exports.user = async (req, res) => {
+exports.show = async (req, res) => {
   const email = req.email;
   if (!email) {
     res.json({ code: 400, message: 'Invalid email.' });
@@ -48,7 +48,31 @@ exports.user = async (req, res) => {
       console.log(error);
       res.json({ code: 500, message: 'Unexcepted Error.' });
     });
-    res.json({ code: 0, user: user });
+    res.json({ code: 0, users: user });
+  }
+};
+
+/**
+ * Create new user
+ * @param {Request} req
+ * @param {Response} res
+ */
+exports.create = async (req, res) => {
+  const { email, password } = req.body;
+  if (!email || !password) {
+    res.json({ code: 400, message: 'Invalid email or password.' });
+  } else {
+    User.create({
+      email: email,
+      password: password,
+    })
+      .then(() => {
+        res.json({ code: 0 });
+      })
+      .catch(error => {
+        console.log(error);
+        res.json({ code: 500, message: 'Unexcepted Error.' });
+      });
   }
 };
 
@@ -67,7 +91,7 @@ exports.validate = async (req, res) => {
       console.log(error);
       res.json({ code: 500, message: 'Unexcepted Error.' });
     });
-    if (user) {
+    if (!user) {
       res.json({ code: 0 });
     }
   }

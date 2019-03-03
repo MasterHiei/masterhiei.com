@@ -1,4 +1,7 @@
-import ajax from './ajax/index';
+import axios from '@/plugins/axios';
+
+// Response interceptor
+axios.interceptors.response.use(res => res.data);
 
 /**
  * Get All Articles
@@ -6,7 +9,7 @@ import ajax from './ajax/index';
  * @returns {Promise} Articles
  */
 const getArticles = (data = {}) => {
-  return ajax.get('/articles', data);
+  return axios.get('/articles', { params: data });
 };
 
 /**
@@ -15,15 +18,23 @@ const getArticles = (data = {}) => {
  * @returns {Promise}
  */
 const getArticle = id => {
-  return ajax.get(`/articles/${id}`);
+  return axios.get(`/articles/${id}`);
 };
 
 /**
  * Check Email is valid or not
- * @param {*} email
+ * @param {String} email
  */
 const validateUser = email => {
-  return ajax.post('/user/validate', email);
+  return axios.put('/users/validate', { email: email });
 };
 
-export { getArticles, getArticle, validateUser };
+/**
+ * Check Email is valid or not
+ * @param {Object} data
+ */
+const register = data => {
+  return axios.post('/users', data);
+};
+
+export { getArticles, getArticle, validateUser, register };
