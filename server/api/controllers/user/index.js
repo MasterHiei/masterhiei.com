@@ -14,7 +14,7 @@ exports.login = async (req, res) => {
   }
   try {
     const user = await queryUserByEmail(email);
-    const isMatched = user.validate(password);
+    const isMatched = user.compare(password);
     if (isMatched) {
       const accessToken = token.sign(user);
       res.json({ code: 0, token: accessToken });

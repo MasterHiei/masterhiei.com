@@ -41,11 +41,11 @@ userSchema.methods.hash = password => {
 };
 
 /**
- * Validate a password
+ * Compare a password
  * @param {String} password
  * @returns {Boolean} true: Matched, false: Mismatched
  */
-userSchema.methods.validate = function(password) {
+userSchema.methods.compare = function(password) {
   return bcrypt.compareSync(password, this.password);
 };
 
