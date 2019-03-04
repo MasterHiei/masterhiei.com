@@ -1,4 +1,3 @@
-const co = require('co');
 const User = require('../../models/user/user');
 const token = require('../../utils/token');
 
@@ -7,23 +6,25 @@ const token = require('../../utils/token');
  * @param {Request} req
  * @param {Response} res
  */
-exports.login = (req, res) => {
+exports.login = async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
     res.json({ code: 400, message: 'Invalid email or password.' });
     return;
   }
-  co(function*() {
-    const user = yield authenticate(email, password);
-    if (user) {
+  try {
+    const user = await queryUserByEmail(email);
+    const isMatched = user.validate(password);
+    if (isMatched) {
       const accessToken = token.sign(user);
       res.json({ code: 0, token: accessToken });
     } else {
       res.json({ code: 400, message: 'Invalid email or password.' });
     }
-  }).catch(() => {
-    res.json({ code: 400, message: 'Invalid email or password.' });
-  });
+  } catch (error) {
+    console.log(error);
+    res.json({ code: 500, message: 'Unexcepted Error.' });
+  }
 };
 
 /**
@@ -62,17 +63,15 @@ exports.create = async (req, res) => {
   if (!email || !password) {
     res.json({ code: 400, message: 'Invalid email or password.' });
   } else {
-    User.create({
-      email: email,
-      password: password,
-    })
-      .then(() => {
-        res.json({ code: 0 });
-      })
-      .catch(error => {
-        console.log(error);
+    const user = new User({ email: email });
+    user.password = user.hash(password);
+    user.save(error => {
+      if (error) {
         res.json({ code: 500, message: 'Unexcepted Error.' });
-      });
+      } else {
+        res.json({ code: 0 });
+      }
+    });
   }
 };
 
@@ -93,23 +92,10 @@ exports.validate = async (req, res) => {
     });
     if (!user) {
       res.json({ code: 0 });
+    } else {
+      res.json({ code: 409, message: 'Duplicate Email Address.' });
     }
   }
-};
-
-/**
- * Authenticate User
- * @param {String} email
- * @param {String} password
- * @returns {Promise<Any>} User
- */
-const authenticate = (email, password) => {
-  return User.findOne()
-    .where('email')
-    .in(email)
-    .where('password')
-    .in(password)
-    .exec();
 };
 
 /**

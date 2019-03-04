@@ -17,6 +17,7 @@
   "dependencies": {
     "@nuxtjs/auth": "^4.5.3",
     "@nuxtjs/axios": "^5.4.0",
+    "bcrypt": "^3.0.4",
     "body-parser": "^1.18.3",
     "co": "^4.6.0",
     "cookie-parser": "^1.4.4",

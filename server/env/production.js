@@ -18,4 +18,8 @@ const auth = {
   expiresIn: '30d',
 };
 
-module.exports = { app, database, auth };
+const crypto = {
+  saltRound: 12,
+};
+
+module.exports = { app, database, auth, crypto };
