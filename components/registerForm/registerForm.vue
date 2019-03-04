@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import md5 from 'crypto-js/md5';
+import SHA256 from 'crypto-js/sha256';
 import delay from '@/common/utils/delay.js';
 import { validateUser, register } from '@/api/index.js';
 
@@ -105,10 +105,9 @@ export default {
     async register() {
       const valid = await this.$validator.validateAll();
       if (!valid || !this.validEmail) return;
-      console.log('asdasds');
       await register({
         email: this.email,
-        password: md5(this.password).toString(),
+        password: SHA256(this.password).toString(),
       });
     },
   },

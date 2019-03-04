@@ -9,20 +9,20 @@ const api = require('./api/index');
 const { Nuxt, Builder } = require('nuxt');
 const app = express();
 
-// Give Morgan middleware to express
+// Morgan middleware
 app.use(
   morgan('dev', {
     skip: req => req.path.indexOf(env.app.api_prefix) < 0,
   })
 );
 
-// Give cookie-parser to express
+// cookie-parser middleware
 app.use(cookieParser());
 
-// Give body-parser to express
+// body-parser middleware
 app.use(bodyParser.json());
 
-// Give Routing to express
+// Routing middleware
 app.use(api);
 
 // Import and Set Nuxt.js options

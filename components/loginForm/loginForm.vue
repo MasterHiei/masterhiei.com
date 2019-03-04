@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import md5 from 'crypto-js/md5';
+import SHA256 from 'crypto-js/sha256';
 
 export default {
   $_veeValidate: {
@@ -68,7 +68,7 @@ export default {
       await this.$auth.loginWith('local', {
         data: {
           email: this.email,
-          password: md5(this.password).toString(),
+          password: SHA256(this.password).toString(),
         },
       });
     },
