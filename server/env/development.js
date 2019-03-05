@@ -14,7 +14,7 @@ const database = {
 };
 
 const auth = {
-  secret: 'masterhiei',
+  secret: 'masterhieiieihretsam',
   expiresIn: '30d',
 };
 

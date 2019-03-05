@@ -16,7 +16,7 @@ exports.login = async (req, res) => {
     const user = await queryUserByEmail(email);
     const isMatched = user.compare(password);
     if (isMatched) {
-      const accessToken = token.sign(user);
+      const accessToken = token.sign(user.toObject());
       res.json({ code: 0, token: accessToken });
     } else {
       res.json({ code: 400, message: 'Invalid email or password.' });
@@ -40,16 +40,12 @@ exports.logout = (_, res) => {
  * @param {Request} req
  * @param {Response} res
  */
-exports.show = async (req, res) => {
-  const email = req.email;
-  if (!email) {
-    res.json({ code: 400, message: 'Invalid email.' });
-  } else {
-    const user = await queryUserByEmail(email).catch(error => {
-      console.log(error);
-      res.json({ code: 500, message: 'Unexcepted Error.' });
-    });
-    res.json({ code: 0, users: user });
+exports.me = async (req, res) => {
+  const authorization = req.headers.authorization;
+  if (authorization && authorization.split(' ')[0] === 'Bearer') {
+    const accessToken = authorization.split(' ')[1];
+    const user = token.verify(accessToken);
+    res.json({ code: 0, user: user });
   }
 };
 
@@ -101,7 +97,7 @@ exports.validate = async (req, res) => {
 /**
  * Query user by Email
  * @param {String} email
- * @returns {Promise<Any>} User
+ * @returns {Promise<Object>} User
  */
 const queryUserByEmail = email => {
   return User.findOne()

@@ -3,20 +3,13 @@ const { auth } = require(`../../env/${process.env.NODE_ENV}`);
 
 /**
  * Sign a token with HMAC SHA256(default)
- * @param {JSON} user
+ * @param {Object} user
  * @returns {String} Token String
  */
 exports.sign = user => {
-  jwt.sign(
-    {
-      email: user.email,
-      username: user.username,
-    },
-    auth.secret,
-    {
-      expiresIn: auth.expiresIn,
-    }
-  );
+  return jwt.sign(user, auth.secret, {
+    expiresIn: auth.expiresIn,
+  });
 };
 
 /**

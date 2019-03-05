@@ -50,7 +50,7 @@ userSchema.methods.compare = function(password) {
 };
 
 // Transform the returned object
-userSchema.set('toJSON', {
+userSchema.set('toObject', {
   versionKey: false,
   transform(_, ret) {
     delete ret._id;
