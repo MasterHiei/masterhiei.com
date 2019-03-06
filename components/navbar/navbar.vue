@@ -53,7 +53,7 @@
       </v-menu>
 
       <v-btn
-        v-show="!loggedIn"
+        v-show="!this.$auth.loggedIn"
         class="subheading text"
         active-class=""
         :to="localePath('register')"
@@ -68,7 +68,7 @@
       </v-btn>
 
       <v-btn
-        v-show="!loggedIn"
+        v-show="!this.$auth.loggedIn"
         class="subheading"
         active-class=""
         :to="localePath('login')"
@@ -82,7 +82,7 @@
       </v-btn>
 
       <v-btn
-        v-show="loggedIn"
+        v-show="this.$auth.loggedIn"
         class="subheading"
         active-class=""
         outline
@@ -98,11 +98,6 @@
 
 <script>
 export default {
-  data() {
-    return {
-      loggedIn: this.$store.state.auth.loggedIn,
-    };
-  },
   computed: {
     locales() {
       return this.$i18n.locales.filter(

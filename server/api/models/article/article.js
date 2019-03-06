@@ -43,7 +43,7 @@ const articleSchema = new Schema(
 );
 
 // Transform the returned object
-articleSchema.set('toObject', {
+articleSchema.set('toJSON', {
   versionKey: false,
   transform(_, ret) {
     ret.id = ret._id;

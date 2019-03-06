@@ -25,7 +25,7 @@ const commentSchema = new Schema(
 );
 
 // Transform the returned object
-commentSchema.set('toObject', {
+commentSchema.set('toJSON', {
   versionKey: false,
   transform(_, ret) {
     ret.id = ret._id;
