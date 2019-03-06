@@ -91,6 +91,7 @@ export default {
 
   methods: {
     validateAfterDelay() {
+      // TODO: Add a button to send email validation code
       if (this.fields.email.invalid) {
         return;
       }
@@ -103,12 +104,32 @@ export default {
     },
 
     async register() {
+      // User registration
       const valid = await this.$validator.validateAll();
       if (!valid || !this.validEmail) return;
-      await register({
+      const { code } = await register({
         email: this.email,
         password: SHA256(this.password).toString(),
       });
+
+      // Success
+      if (code === 0) {
+        await this.$auth.loginWith('local', {
+          data: {
+            email: this.email,
+            password: SHA256(this.password).toString(),
+          },
+        });
+        return;
+      }
+
+      // Failed
+      if (code === 400) {
+        console.log('Invalid email or password');
+      } else {
+        // TODO: Error handling
+        console.log(code);
+      }
     },
   },
 };
