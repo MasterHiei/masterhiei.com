@@ -11,7 +11,7 @@
               fas fa-clock
             </v-icon>
           </v-avatar>
-          <timeago :datetime="article.created_at" :locale="$i18n.locale" />
+          {{ distanceToNow(article.created_at) }}
         </v-chip>
       </v-flex>
       <v-flex d-inline wrap>
@@ -56,6 +56,10 @@
 </template>
 
 <script>
+import { distanceInWordsToNow } from 'date-fns';
+import zh_CN from 'date-fns/locale/zh_cn/';
+import ja from 'date-fns/locale/ja';
+
 export default {
   props: {
     article: {
@@ -63,24 +67,40 @@ export default {
       required: true,
     },
   },
+
   data() {
     return {
       isShowCover: false,
       maxHeight: 480,
     };
   },
+
+  computed: {
+    locales() {
+      return { zh_CN: zh_CN, ja: ja };
+    },
+  },
+
   mounted() {
     const height = this.$refs.contentContainer.clientHeight;
     if (height > this.maxHeight) {
       this.isShowCover = true;
     }
   },
+
   methods: {
     numberOfComments() {
       let message = this.article.comments.length;
       message += ' ';
       message += this.$t('article.comments.unit');
       return message;
+    },
+
+    distanceToNow(date) {
+      return distanceInWordsToNow(date, {
+        addSuffix: true,
+        locale: this.locales[this.$i18n.locale],
+      });
     },
   },
 };
