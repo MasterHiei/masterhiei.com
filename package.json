@@ -33,8 +33,7 @@
     "vee-validate": "^2.1.7",
     "vue-scrollto": "^2.14.0",
     "vuetify": "^1.5.5",
-    "vuetify-loader": "^1.2.1",
-    "webpack-bundle-analyzer": "^3.1.0"
+    "vuetify-loader": "^1.2.1"
   },
   "devDependencies": {
     "acorn": "^6.1.1",
@@ -48,6 +47,7 @@
     "nodemon": "^1.18.10",
     "prettier": "^1.16.4",
     "stylus": "^0.54.5",
-    "stylus-loader": "^3.0.2"
+    "stylus-loader": "^3.0.2",
+    "webpack-bundle-analyzer": "^3.1.0"
   }
 }
