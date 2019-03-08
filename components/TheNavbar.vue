@@ -1,15 +1,20 @@
 <template>
-  <v-toolbar id="navbar" class="hidden-sm-and-down" height="80" app>
+  <v-toolbar
+    id="navbar"
+    class="hidden-sm-and-down text-xs-center"
+    height="80"
+    app
+  >
     <v-spacer />
 
-    <v-flex class="text-xs-center" wrap>
+    <v-flex wrap>
       <nuxt-link :to="localePath('index')" extra>
         <!-- prettier-ignore -->
         <img src="~static/logo.jpg" alt="logo">
       </nuxt-link>
     </v-flex>
 
-    <v-flex class="text-xs-center" justify-center wrap>
+    <v-flex justify-center wrap>
       <v-btn :to="localePath('index')" class="subheading" round flat nuxt exact>
         {{ $t('links.index') }}
       </v-btn>
@@ -28,7 +33,7 @@
       </v-btn>
     </v-flex>
 
-    <v-flex class="text-xs-center" wrap>
+    <v-flex wrap>
       <v-menu offset-y transition="slide-y-transition">
         <v-btn slot="activator" class="subheading" flat>
           <v-icon left>
@@ -54,7 +59,7 @@
 
       <v-btn
         v-show="!this.$auth.loggedIn"
-        class="subheading text"
+        class="subheading"
         active-class=""
         :to="localePath('register')"
         color="success"

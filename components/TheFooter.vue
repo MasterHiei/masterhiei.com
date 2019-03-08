@@ -1,18 +1,24 @@
 <template>
   <v-footer height="auto">
-    <v-card class="text-xs-center body-1 font-weight-light flex" flat tile>
+    <v-card class="text-xs-center body-1 font-weight-light flex">
       <v-divider />
 
       <v-card-text>
         <p class="mb-0">
-          Copyright&nbsp;&copy;&nbsp;2019&nbsp;
-          <a href="https://github.com/MasterHiei">Master&nbsp;Hiei</a>.
+          &copy;&nbsp;2019&nbsp;
+          <a href="https://github.com/MasterHiei">
+            <strong>Master&nbsp;Hiei</strong>
+          </a>
         </p>
         <p class="mb-0">
           Powered&nbsp;by
-          <a href="https://github.com/nuxt/nuxt.js">Nuxt.js</a>
+          <a href="https://github.com/nuxt/nuxt.js">
+            <Strong>Nuxt.js</Strong>
+          </a>
           and
-          <a href="https://github.com/expressjs/express">Express</a>.
+          <a href="https://github.com/expressjs/express">
+            <strong>Express</strong>
+          </a>
         </p>
       </v-card-text>
     </v-card>
