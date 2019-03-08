@@ -1,15 +1,15 @@
 <template>
   <v-layout justify-center row wrap pt-5>
-    <login-form />
+    <the-login-form />
   </v-layout>
 </template>
 
 <script>
-import loginForm from '@/components/loginForm/loginForm';
+import TheLoginForm from '@/components/TheLoginForm';
 
 export default {
   components: {
-    loginForm,
+    TheLoginForm,
   },
 };
 </script>

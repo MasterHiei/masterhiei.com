@@ -1,15 +1,15 @@
 <template>
   <v-layout justify-center row wrap pt-5>
-    <register-form />
+    <the-register-form />
   </v-layout>
 </template>
 
 <script>
-import registerForm from '@/components/registerForm/registerForm';
+import TheRegisterForm from '@/components/TheRegisterForm';
 
 export default {
   components: {
-    registerForm,
+    TheRegisterForm,
   },
 };
 </script>

@@ -13,11 +13,11 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import articleListItem from './articleListItem';
+import ArticleListItem from './ArticleListItem';
 
 export default {
   components: {
-    articleListItem,
+    ArticleListItem,
   },
   computed: {
     ...mapGetters({

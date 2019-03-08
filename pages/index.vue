@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import ArticleList from '~/components/articleList/articleList';
+import ArticleList from '~/components/ArticleList';
 
 export default {
   components: {
