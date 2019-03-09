@@ -17,6 +17,7 @@
     "login": "ログイン",
     "logout": "ログアウト",
     "email": "メールアドレス",
+    "username": "ユーザ名",
     "password": "パスワード"
   },
   "errors": {

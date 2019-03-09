@@ -19,6 +19,18 @@
       />
 
       <v-text-field
+        v-model="username"
+        v-validate="'required|alpha_dash|max:12'"
+        data-vv-name="username"
+        :error-messages="errors.first('username')"
+        :label="this.$i18n.t('auth.username')"
+        :loading="validating"
+        class="pb-3"
+        color="success"
+        required
+      />
+
+      <v-text-field
         v-model="password"
         v-validate="'required|password'"
         data-vv-name="password"
@@ -67,9 +79,10 @@ export default {
   data() {
     return {
       email: '',
+      username: '',
+      password: '',
       validating: false,
       validEmail: false,
-      password: '',
       visiable: false,
     };
   },
@@ -109,6 +122,7 @@ export default {
       if (!valid || !this.validEmail) return;
       const { code } = await register({
         email: this.email,
+        username: this.username,
         password: SHA256(this.password).toString(),
       });
 

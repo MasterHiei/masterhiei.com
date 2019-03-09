@@ -13,22 +13,36 @@ Validator.extend('password', {
 // Costomize error messages
 const messages = {
   zh_CN: {
+    attributes: {
+      username: '用户名',
+    },
     custom: {
       email: {
         required: () => '请输入有效的邮箱地址',
         email: () => '请输入有效的邮箱地址',
       },
+      username: {
+        required: () => '请输入有效的用户名',
+        alpha_dash: () => '用户名只能包含字母、数字、下划线或破折号',
+      },
       password: {
         required: () => '请输入有效的用户密码',
-        password: () => '请输入8位以上且含有字母，数字或下划线的用户密码',
+        password: () => '请输入8位以上且含有字母、数字或下划线的用户密码',
       },
     },
   },
   ja: {
+    attributes: {
+      username: 'ユーザ名',
+    },
     custom: {
       email: {
         required: () => 'メールアドレスを入力してください',
         email: () => 'メール アドレスは無効のようです',
+      },
+      username: {
+        required: () => 'ユーザ名を入力してください',
+        alpha_dash: () => '半角英数字、下線、ハイフンを入力してください',
       },
       password: {
         required: () => 'パスワードを入力してください',

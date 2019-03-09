@@ -55,11 +55,11 @@ exports.me = async (req, res) => {
  * @param {Response} res
  */
 exports.create = async (req, res) => {
-  const { email, password } = req.body;
-  if (!email || !password) {
-    res.json({ code: 400, message: 'Invalid email or password.' });
+  const { email, username, password } = req.body;
+  if (!email || !password || !username) {
+    res.json({ code: 400, message: 'Invalid register info.' });
   } else {
-    const user = new User({ email: email });
+    const user = new User({ email: email, username: username });
     user.password = user.hash(password);
     user.save(error => {
       if (error) {

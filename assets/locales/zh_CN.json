@@ -17,6 +17,7 @@
     "login": "登录",
     "logout": "退出",
     "email": "邮箱",
+    "username": "用户名",
     "password": "密码"
   },
   "errors": {
