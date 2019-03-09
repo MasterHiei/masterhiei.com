@@ -7,17 +7,17 @@
         <p class="mb-0">
           &copy;&nbsp;2019&nbsp;
           <a href="https://github.com/MasterHiei">
-            <strong>Master&nbsp;Hiei</strong>
+            Master&nbsp;Hiei
           </a>
         </p>
         <p class="mb-0">
           Powered&nbsp;by
           <a href="https://github.com/nuxt/nuxt.js">
-            <Strong>Nuxt.js</Strong>
+            Nuxt.js
           </a>
           and
           <a href="https://github.com/expressjs/express">
-            <strong>Express</strong>
+            Express
           </a>
         </p>
       </v-card-text>

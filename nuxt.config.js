@@ -86,6 +86,7 @@ module.exports = {
         },
       },
     ],
+    '@nuxtjs/markdownit',
   ],
 
   /*
@@ -118,6 +119,11 @@ module.exports = {
         },
       },
     },
+  },
+
+  markdownit: {
+    injected: true,
+    preset: 'default',
   },
 
   /*
