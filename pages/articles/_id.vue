@@ -1,5 +1,14 @@
 <template>
   <v-flex md8 offset-md2 xs10 offset-xs1>
+    <v-btn
+      color="success"
+      :to="localePath({ name: 'articles-edit-id', params: { id: article.id } })"
+      nuxt
+      exact
+    >
+      Edit
+    </v-btn>
+
     <the-markdown-view :content="article.content" />
   </v-flex>
 </template>

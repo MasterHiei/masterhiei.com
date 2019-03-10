@@ -8,14 +8,13 @@ export const state = () => ({
 
 // Getters
 export const getters = {
-  count(state) {
-    if (state.articles) {
-      return state.articles.length;
-    }
-    return 0;
-  },
   all(state) {
     return state.articles || [];
+  },
+
+  getArticleById: state => id => {
+    const articles = state.articles || [];
+    return articles.find(article => article.id === id) || {};
   },
 };
 

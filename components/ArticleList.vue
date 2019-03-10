@@ -19,6 +19,7 @@ export default {
   components: {
     ArticleListItem,
   },
+
   computed: {
     ...mapGetters({
       articles: 'article/all',
