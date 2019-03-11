@@ -7,6 +7,8 @@ import { mapGetters } from 'vuex';
 import TheEditor from '@/components/TheEditor';
 
 export default {
+  middleware: 'auth',
+
   components: {
     TheEditor,
   },

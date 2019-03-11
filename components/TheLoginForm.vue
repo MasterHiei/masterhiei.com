@@ -41,6 +41,17 @@
       >
         {{ $t('auth.login') }}
       </v-btn>
+
+      <v-btn
+        class="subheading mt-4"
+        color="success"
+        depressed
+        block
+        dark
+        @click="loginWith('github')"
+      >
+        Github
+      </v-btn>
     </form>
   </v-flex>
 </template>
@@ -71,6 +82,10 @@ export default {
           password: SHA256(this.password).toString(),
         },
       });
+    },
+
+    async loginWith(provider) {
+      await this.$auth.loginWith(provider);
     },
   },
 };

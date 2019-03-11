@@ -31,10 +31,8 @@ export default {};
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
 a
-  color #121212
+  color #00C853
   text-decoration none
-  &:hover
-    text-decoration underline
   &:active
-    color #121212
+    color #00C853
 </style>

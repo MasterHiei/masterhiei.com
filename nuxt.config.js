@@ -1,5 +1,5 @@
 const pkg = require('./package');
-const { app } = require(`./server/env/${process.env.NODE_ENV}`);
+const { app, github } = require(`./server/env/${process.env.NODE_ENV}`);
 
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');
 
@@ -117,6 +117,12 @@ module.exports = {
             propertyName: 'user',
           },
         },
+      },
+
+      github: {
+        client_id: github.client_id,
+        client_secret: github.client_secret,
+        scope: ['read:user'],
       },
     },
   },
