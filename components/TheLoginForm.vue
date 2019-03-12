@@ -43,14 +43,16 @@
       </v-btn>
 
       <v-btn
-        class="subheading mt-4"
-        color="success"
+        class="subheading text-none mt-4"
         depressed
         block
         dark
         @click="loginWith('github')"
       >
-        Github
+        <v-icon dark left>
+          fab fa-github
+        </v-icon>
+        {{ $t('auth.loginWithGithub') }}
       </v-btn>
     </form>
   </v-flex>
