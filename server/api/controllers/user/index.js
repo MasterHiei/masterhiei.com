@@ -48,8 +48,8 @@ exports.logout = (_, res) => {
 exports.me = async (req, res) => {
   const authorization = req.headers.authorization;
   if (authorization && authorization.split(' ')[0] === 'Bearer') {
-    const accessToken = authorization.split(' ')[1];
     try {
+      const accessToken = authorization.split(' ')[1];
       const user = token.verify(accessToken);
       res.json({ code: 0, user: user });
     } catch (_) {

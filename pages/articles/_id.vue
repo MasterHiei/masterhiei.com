@@ -1,6 +1,7 @@
 <template>
   <v-flex md8 offset-md2 xs10 offset-xs1>
     <v-btn
+      v-if="this.$auth.hasScope('admin')"
       color="success"
       :to="localePath({ name: 'articles-edit-id', params: { id: article.id } })"
       nuxt

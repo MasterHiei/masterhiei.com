@@ -5,6 +5,10 @@ const { crypto } = require(`../../../env/${process.env.NODE_ENV}`);
 
 const userSchema = new Schema(
   {
+    role: {
+      type: [String],
+      default: ['user'],
+    },
     email: {
       type: String,
       unique: true,
@@ -55,6 +59,8 @@ userSchema.set('toObject', {
   transform(_, ret) {
     delete ret._id;
     delete ret.password;
+    ret.scope = ret.role;
+    delete ret.role;
   },
 });
 
