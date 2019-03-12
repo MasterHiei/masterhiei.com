@@ -14,6 +14,11 @@ exports.login = async (req, res) => {
   }
   try {
     const user = await queryUserByEmail(email);
+    if (!user) {
+      res.json({ code: 400, message: 'Invalid email or password.' });
+      return;
+    }
+
     const isMatched = user.compare(password);
     if (isMatched) {
       const accessToken = token.sign(user.toObject());
@@ -44,8 +49,14 @@ exports.me = async (req, res) => {
   const authorization = req.headers.authorization;
   if (authorization && authorization.split(' ')[0] === 'Bearer') {
     const accessToken = authorization.split(' ')[1];
-    const user = token.verify(accessToken);
-    res.json({ code: 0, user: user });
+    try {
+      const user = token.verify(accessToken);
+      res.json({ code: 0, user: user });
+    } catch (_) {
+      res.json({ code: 400, message: 'Invalid user token.' });
+    }
+  } else {
+    res.json({ code: 400, message: 'Invalid user token.' });
   }
 };
 
