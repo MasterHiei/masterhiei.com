@@ -49,15 +49,10 @@ module.exports = {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [
-    '~plugins/vuetify',
-    '~plugins/vueScrollTo',
-    '~plugins/veeValidate',
-    '~plugins/dateFns',
-  ],
+  plugins: ['~plugins/vuetify', '~plugins/vueScrollTo', '~plugins/veeValidate'],
 
   generate: {
-    routers: ['/about', '/ja/about'],
+    routers: ['/about', '/ja-JP/about'],
   },
 
   /*
@@ -69,26 +64,27 @@ module.exports = {
     [
       'nuxt-i18n',
       {
+        vueI18n: {
+          dateTimeFormats: require('./assets/locales/dateTimeFormats'),
+          fallbackLocale: 'zh-CN',
+        },
         locales: [
           {
-            code: 'zh_CN',
+            code: 'zh-CN',
             name: '简体中文',
-            iso: 'zh_CN',
+            iso: 'zh-CN',
+            file: 'zh_CN.js',
           },
           {
-            code: 'ja',
+            code: 'ja-JP',
             name: '日本語',
             iso: 'ja-JP',
+            file: 'ja.js',
           },
         ],
-        defaultLocale: 'zh_CN',
-        vueI18n: {
-          fallbackLocale: 'zh_CN',
-          messages: {
-            zh_CN: require('./assets/locales/zh_CN.json'),
-            ja: require('./assets/locales/ja.json'),
-          },
-        },
+        defaultLocale: 'zh-CN',
+        lazy: true,
+        langDir: 'assets/locales/',
       },
     ],
     '@nuxtjs/markdownit',

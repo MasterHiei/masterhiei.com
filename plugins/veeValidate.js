@@ -51,12 +51,12 @@ const messages = {
     },
   },
 };
-Validator.localize('zh_CN', messages.zh_CN);
-Validator.localize('ja', messages.ja);
+Validator.localize('zh-CN', messages.zh_CN);
+Validator.localize('ja-JP', messages.ja);
 
 // Loading default languages for Vee
-Validator.localize('zh_CN', zh_CN);
-Validator.localize('ja', ja);
+Validator.localize('zh-CN', zh_CN);
+Validator.localize('ja-JP', ja);
 
 export default ({ app }) => {
   //Localizing the app when user refresh or access a localized link

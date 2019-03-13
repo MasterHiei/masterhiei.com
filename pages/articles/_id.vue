@@ -10,12 +10,12 @@
       Edit
     </v-btn>
 
-    <v-flex class="headline font-weight-bold" pt-4 pb-1 wrap>
+    <v-flex class="headline font-weight-bold" pt-4 wrap>
       {{ article.title }}
     </v-flex>
 
-    <v-flex py-2 wrap>
-      {{ article.created_at | dateFormat }}
+    <v-flex py-3 wrap>
+      {{ $t('article.createdDate', { date: dateFormate(article.created_at) }) }}
     </v-flex>
 
     <the-markdown-view :content="article.content" />
@@ -36,6 +36,12 @@ export default {
     const { data } = await getArticle(id);
     store.dispatch('article/setArticle', data);
     return { article: data };
+  },
+
+  methods: {
+    dateFormate(dateStr) {
+      return this.$d(new Date(dateStr), 'short', this.$i18n.locale);
+    },
   },
 };
 </script>

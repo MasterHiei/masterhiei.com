@@ -77,7 +77,7 @@ export default {
 
   computed: {
     locales() {
-      return { zh_CN: zh_CN, ja: ja };
+      return { 'zh-CN': zh_CN, 'ja-JP': ja };
     },
   },
 

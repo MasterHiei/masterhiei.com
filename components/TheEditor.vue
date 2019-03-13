@@ -5,7 +5,7 @@
       v-model="content"
       class="justify-center"
       :tab-size="Number(2)"
-      :language="language"
+      :language="this.$i18n.locale"
     />
   </no-ssr>
 </template>
@@ -24,12 +24,6 @@ export default {
     content: {
       type: String,
       default: '',
-    },
-  },
-
-  computed: {
-    language() {
-      return this.$i18n.locale === 'zh_CN' ? 'zh-CN' : 'en';
     },
   },
 };
