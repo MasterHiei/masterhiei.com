@@ -10,7 +10,7 @@
       right
       bottom
     >
-      <v-icon color="white">
+      <v-icon color="white" small>
         fas fa-angle-up
       </v-icon>
     </v-btn>

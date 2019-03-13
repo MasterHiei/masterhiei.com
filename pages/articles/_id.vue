@@ -10,6 +10,14 @@
       Edit
     </v-btn>
 
+    <v-flex class="headline font-weight-bold" pt-4 pb-1 wrap>
+      {{ article.title }}
+    </v-flex>
+
+    <v-flex py-2 wrap>
+      {{ article.created_at | dateFormat }}
+    </v-flex>
+
     <the-markdown-view :content="article.content" />
   </v-flex>
 </template>
