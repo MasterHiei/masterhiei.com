@@ -6,10 +6,7 @@ module.exports = {
     about: 'このサイトについて',
   },
   article: {
-    comments: {
-      message: 'コメント',
-      unit: '件',
-    },
+    comments: '{number}件',
     readMore: '続きを読む',
     createdDate: '{date}に作成',
     updatedDate: '{date}に更新',

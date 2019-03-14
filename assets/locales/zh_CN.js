@@ -6,10 +6,7 @@ module.exports = {
     about: '关于',
   },
   article: {
-    comments: {
-      message: '评论',
-      unit: '件',
-    },
+    comments: '{number}件',
     readMore: '阅读全文',
     createdDate: '发布于 {date}',
     updatedDate: '更新于 {date}',

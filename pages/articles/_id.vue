@@ -15,7 +15,11 @@
     </v-flex>
 
     <v-flex py-3 wrap>
-      {{ $t('article.createdDate', { date: dateFormate(article.created_at) }) }}
+      <span>
+        {{
+          $t('article.createdDate', { date: dateFormate(article.created_at) })
+        }}
+      </span>
     </v-flex>
 
     <the-markdown-view :content="article.content" />

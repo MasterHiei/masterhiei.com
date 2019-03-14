@@ -21,7 +21,7 @@
               fas fa-comments
             </v-icon>
           </v-avatar>
-          {{ numberOfComments() }}
+          {{ $t('article.comments', { number: article.comments.length }) }}
         </v-chip>
       </v-flex>
     </v-flex>
@@ -77,7 +77,7 @@ export default {
 
   computed: {
     locales() {
-      return { 'zh-CN': zh_CN, 'ja-JP': ja };
+      return { zh: zh_CN, ja: ja };
     },
   },
 
@@ -89,13 +89,6 @@ export default {
   },
 
   methods: {
-    numberOfComments() {
-      let message = this.article.comments.length;
-      message += ' ';
-      message += this.$t('article.comments.unit');
-      return message;
-    },
-
     distanceToNow(date) {
       return distanceInWordsToNow(date, {
         addSuffix: true,

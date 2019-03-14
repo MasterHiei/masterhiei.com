@@ -52,7 +52,7 @@ module.exports = {
   plugins: ['~plugins/vuetify', '~plugins/vueScrollTo', '~plugins/veeValidate'],
 
   generate: {
-    routers: ['/about', '/ja-JP/about'],
+    routers: ['/about', '/ja/about'],
   },
 
   /*
@@ -70,19 +70,19 @@ module.exports = {
         },
         locales: [
           {
-            code: 'zh-CN',
+            code: 'zh',
             name: '简体中文',
             iso: 'zh-CN',
             file: 'zh_CN.js',
           },
           {
-            code: 'ja-JP',
+            code: 'ja',
             name: '日本語',
             iso: 'ja-JP',
             file: 'ja.js',
           },
         ],
-        defaultLocale: 'zh-CN',
+        defaultLocale: 'zh',
         lazy: true,
         langDir: 'assets/locales/',
       },
