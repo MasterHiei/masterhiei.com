@@ -10,6 +10,7 @@ module.exports = {
     readMore: '続きを読む',
     createdDate: '{date}に作成',
     updatedDate: '{date}に更新',
+    views: '閲覧数 {number}',
   },
   auth: {
     register: '登録',

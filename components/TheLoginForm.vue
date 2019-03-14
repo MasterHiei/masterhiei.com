@@ -49,7 +49,7 @@
         dark
         @click="loginWith('github')"
       >
-        <v-icon dark left>
+        <v-icon class="mr-2" dark size="22" left>
           fab fa-github
         </v-icon>
         {{ $t('auth.loginWithGithub') }}
@@ -96,4 +96,5 @@ export default {
 <style scoped lang="stylus" rel="stylesheet/stylus">
 >>>.v-input__icon .v-icon
   font-size 1.4rem
+  margin-right 4px
 </style>

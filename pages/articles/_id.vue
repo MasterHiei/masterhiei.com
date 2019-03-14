@@ -15,17 +15,36 @@
     </v-flex>
 
     <v-flex class="grey--text" py-3 wrap>
-      <v-flex v-if="isEqualToDate" tag="span">
+      <v-flex v-if="isEqualToDate" tag="span" mr-3 wrap>
         {{
           $t('article.createdDate', { date: dateFormate(article.created_at) })
         }}
       </v-flex>
 
-      <v-flex v-else tag="span">
+      <v-flex v-else tag="span" mr-3 wrap>
         {{
           $t('article.updatedDate', { date: dateFormate(article.updated_at) })
         }}
       </v-flex>
+
+      <v-flex tag="span" mr-3 wrap>
+        {{ $t('article.views', { number: article.views }) }}
+      </v-flex>
+    </v-flex>
+
+    <v-flex pb-3 wrap>
+      <v-chip
+        v-for="(tag, index) in article.tags"
+        :key="index"
+        class="mr-3"
+        color="blue-grey lighten-4"
+        small
+      >
+        <v-icon class="mr-2" color="success" size="13" left>
+          fas fa-tag
+        </v-icon>
+        {{ tag }}
+      </v-chip>
     </v-flex>
 
     <the-markdown-view :content="article.content" />
@@ -65,3 +84,8 @@ export default {
   },
 };
 </script>
+
+<style scoped lang="stylus" rel="stylesheet/stylus">
+.v-chip__content .v-icon
+  margin-left -2px
+</style>

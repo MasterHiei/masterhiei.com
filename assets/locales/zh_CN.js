@@ -10,6 +10,7 @@ module.exports = {
     readMore: '阅读全文',
     createdDate: '发布于 {date}',
     updatedDate: '更新于 {date}',
+    views: '浏览{number}次',
   },
   auth: {
     register: '注册',
