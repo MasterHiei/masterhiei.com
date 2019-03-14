@@ -10,16 +10,22 @@
       Edit
     </v-btn>
 
-    <v-flex class="headline font-weight-bold" pt-4 wrap>
+    <v-flex class="headline font-weight-bold" tag="h1" pt-4 wrap>
       {{ article.title }}
     </v-flex>
 
-    <v-flex py-3 wrap>
-      <span>
+    <v-flex class="grey--text" py-3 wrap>
+      <v-flex v-if="isEqualToDate" tag="span">
         {{
           $t('article.createdDate', { date: dateFormate(article.created_at) })
         }}
-      </span>
+      </v-flex>
+
+      <v-flex v-else tag="span">
+        {{
+          $t('article.updatedDate', { date: dateFormate(article.updated_at) })
+        }}
+      </v-flex>
     </v-flex>
 
     <the-markdown-view :content="article.content" />
@@ -27,12 +33,22 @@
 </template>
 
 <script>
+import isEqual from 'date-fns/is_equal';
 import TheMarkdownView from '@/components/TheMarkdownView';
 import { getArticle } from '@/api/index.js';
 
 export default {
   components: {
     TheMarkdownView,
+  },
+
+  computed: {
+    isEqualToDate() {
+      if (!this.article.created_at || !this.article.updated_at) {
+        return true;
+      }
+      return isEqual(this.article.created_at, this.article.updated_at);
+    },
   },
 
   async asyncData({ store, params }) {
