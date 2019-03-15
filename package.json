@@ -32,7 +32,7 @@
     "morgan": "^1.9.1",
     "nuxt": "^2.4.5",
     "nuxt-i18n": "^5.8.5",
-    "vee-validate": "^2.1.7",
+    "vee-validate": "^2.2.0",
     "vue-scrollto": "^2.14.0",
     "vuetify": "^1.5.6",
     "vuetify-loader": "^1.2.1"
