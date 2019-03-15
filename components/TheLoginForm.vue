@@ -13,7 +13,6 @@
         :label="this.$i18n.t('auth.email')"
         class="pb-3"
         color="success"
-        autofocus
         required
       />
 
@@ -30,6 +29,16 @@
         required
         @click:append="visiable = !visiable"
       />
+
+      <i18n class="body-1 flex" path="auth.registerPromotion" tag="span">
+        <nuxt-link
+          class="green--text"
+          :to="localePath('register')"
+          place="link"
+        >
+          {{ $t('auth.registerLink') }}
+        </nuxt-link>
+      </i18n>
 
       <v-btn
         class="subheading mt-4"

@@ -14,7 +14,7 @@
       {{ article.title }}
     </v-flex>
 
-    <v-flex class="grey--text" py-3 wrap>
+    <v-flex class="grey--text" py-2 wrap>
       <v-flex v-if="isEqualToDate" tag="span" mr-3 wrap>
         {{
           $t('article.createdDate', { date: dateFormate(article.created_at) })
@@ -32,7 +32,7 @@
       </v-flex>
     </v-flex>
 
-    <v-flex pb-3 wrap>
+    <v-flex pb-2 wrap>
       <v-chip
         v-for="(tag, index) in article.tags"
         :key="index"

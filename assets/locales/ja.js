@@ -14,6 +14,8 @@ module.exports = {
   },
   auth: {
     register: '登録',
+    registerLink: 'こちら',
+    registerPromotion: 'アカウントの作成は{link}へ',
     login: 'ログイン',
     loginWithGithub: 'Githubアカウントでログイン',
     loginWithGoogle: 'Googleアカウントでログイン',

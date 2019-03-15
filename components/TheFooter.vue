@@ -33,6 +33,8 @@ export default {};
 a
   color #00C853
   text-decoration none
+  &:hover
+    text-decoration underline
   &:active
     color #00C853
 </style>

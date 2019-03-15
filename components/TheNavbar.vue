@@ -61,21 +61,6 @@
         v-show="!this.$auth.loggedIn"
         class="subheading"
         active-class=""
-        :to="localePath('register')"
-        color="success"
-        round
-        depressed
-        dark
-        nuxt
-        exact
-      >
-        {{ $t('auth.register') }}
-      </v-btn>
-
-      <v-btn
-        v-show="!this.$auth.loggedIn"
-        class="subheading"
-        active-class=""
         :to="localePath('login')"
         color="success"
         round

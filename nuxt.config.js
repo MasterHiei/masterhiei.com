@@ -68,6 +68,7 @@ module.exports = {
           dateTimeFormats: require('./assets/locales/dateTimeFormats'),
           fallbackLocale: 'zh-CN',
         },
+        vueI18nLoader: true,
         locales: [
           {
             code: 'zh-CN',

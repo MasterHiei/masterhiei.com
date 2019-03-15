@@ -14,6 +14,8 @@ module.exports = {
   },
   auth: {
     register: '注册',
+    registerLink: '这里',
+    registerPromotion: '还没有帐号？点击{link}注册吧！',
     login: '登录',
     loginWithGithub: '使用Github账号登录',
     loginWithGoogle: '使用Google账号登录',
