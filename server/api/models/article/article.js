@@ -33,7 +33,7 @@ const articleSchema = new Schema(
       type: Number,
       default: 0,
     },
-    updated_at: {
+    modified_at: {
       type: Date,
       default: Date.now,
     },
@@ -41,6 +41,7 @@ const articleSchema = new Schema(
   {
     timestamps: {
       createdAt: 'created_at',
+      updatedAt: 'updated_at',
     },
   }
 );

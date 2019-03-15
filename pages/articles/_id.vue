@@ -23,7 +23,7 @@
 
       <v-flex v-else tag="span" mr-3 wrap>
         {{
-          $t('article.updatedDate', { date: dateFormate(article.updated_at) })
+          $t('article.updatedDate', { date: dateFormate(article.modified_at) })
         }}
       </v-flex>
 
@@ -63,10 +63,10 @@ export default {
 
   computed: {
     isEqualToDate() {
-      if (!this.article.created_at || !this.article.updated_at) {
+      if (!this.article.created_at || !this.article.modified_at) {
         return true;
       }
-      return isEqual(this.article.created_at, this.article.updated_at);
+      return isEqual(this.article.created_at, this.article.modified_at);
     },
   },
 
