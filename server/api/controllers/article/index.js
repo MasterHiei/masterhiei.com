@@ -26,14 +26,25 @@ exports.index = (_, res) => {
 
 /**
  * Get Article by id
+ * @param {Request} req
+ * @param {Response} res
  */
 exports.show = async (req, res) => {
   const id = req.params.id;
-  const article = await findArticlesById(id);
+  if (!id) {
+    res.status(401).send({ message: 'Invalid article id.' });
+  }
+
+  const article = await Article.findByIdAndUpdate(id, { $inc: { views: 1 } })
+    .exec()
+    .catch(err => {
+      console.log(err);
+      res.status(500).send({ message: 'Unexcepted Error.' });
+    });
   if (article) {
     res.json({ code: 0, data: article });
   } else {
-    res.sendStatus(404);
+    res.status(404).send({ message: 'Article data does not exist.' });
   }
 };
 
@@ -45,15 +56,6 @@ const findArticles = () => {
   return Article.find()
     .sort('-created_by')
     .exec();
-};
-
-/**
- * Query article by id
- * @param {String} id MongoDB Document ID
- * @returns {Promise<Object>} Article
- */
-const findArticlesById = id => {
-  return Article.findById(id).exec();
 };
 
 /**

@@ -5,7 +5,7 @@ axios.interceptors.response.use(res => res.data);
 
 /**
  * Get All Articles
- * @param {Object} data queries object
+ * @param {Object} data
  * @returns {Promise} Articles
  */
 const getArticles = (data = {}) => {
@@ -13,8 +13,8 @@ const getArticles = (data = {}) => {
 };
 
 /**
- * Get Article by ID
- * @param {String} id Article ID
+ * Get Article by id
+ * @param {String} id Article id
  * @returns {Promise}
  */
 const getArticle = id => {
@@ -30,7 +30,7 @@ const validateUser = email => {
 };
 
 /**
- * Check Email is valid or not
+ * Register user account
  * @param {Object} data
  */
 const register = data => {
