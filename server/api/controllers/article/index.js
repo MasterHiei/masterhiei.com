@@ -35,7 +35,11 @@ exports.show = async (req, res) => {
     res.status(401).send({ message: 'Invalid article id.' });
   }
 
-  const article = await Article.findByIdAndUpdate(id, { $inc: { views: 1 } })
+  const article = await Article.findByIdAndUpdate(
+    id,
+    { $inc: { views: 1 } },
+    { new: true }
+  )
     .exec()
     .catch(err => {
       console.log(err);

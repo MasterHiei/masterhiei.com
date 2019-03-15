@@ -6,10 +6,12 @@ const app = {
 };
 
 const database = {
-  url: 'mongodb://127.0.0.1:27017/my_blog_api_development',
+  url: 'mongodb://127.0.0.1:27017',
   options: {
+    dbName: 'my_blog_api_development',
     useNewUrlParser: true,
     useCreateIndex: true,
+    useFindAndModify: false,
   },
 };
 

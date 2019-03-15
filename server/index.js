@@ -54,7 +54,7 @@ async function start() {
 
     // Connect mongodb
     mongoose.set('debug', true);
-    mongoose.connect(env.database.url, env.database.options).then(
+    mongoose.connect(env.database.uri, env.database.options).then(
       () =>
         consola.ready({
           message: `Mongoose connected to ${env.database.url}`,
