@@ -35,7 +35,7 @@ const articleSchema = new Schema(
     },
     modified_at: {
       type: Date,
-      default: Date.now,
+      default: undefined,
     },
   },
   {
