@@ -18,39 +18,55 @@
         @keyup="validateAfterDelay"
       />
 
-      <v-text-field
-        v-model="username"
-        v-validate="'required|alpha_dash|max:12'"
-        data-vv-name="username"
-        :error-messages="errors.first('username')"
-        :label="this.$i18n.t('auth.username')"
-        :loading="validating"
-        class="pb-3"
-        color="success"
-        required
-      />
+      <v-tooltip v-model="usernameTip" nudge-top="13" nudge-left="4" lazy left>
+        <template v-slot:activator="{ on }">
+          <v-text-field
+            v-model="username"
+            v-validate="'required|min:3|max:12|username'"
+            data-vv-name="username"
+            :error-messages="errors.first('username')"
+            :label="usernameLabel"
+            :loading="validating"
+            class="pb-3"
+            color="success"
+            required
+            @focus="usernameTip = true"
+            @blur="usernameTip = false"
+          />
+        </template>
 
-      <v-text-field
-        v-model="password"
-        v-validate="'required|password'"
-        data-vv-name="password"
-        :error-messages="errors.first('password')"
-        :label="this.$i18n.t('auth.password')"
-        :type="visiable ? 'text' : 'password'"
-        :loading="password.length > 0"
-        :append-icon="visiable ? 'fas fa-eye-slash' : 'fas fa-eye'"
-        class="pb-3"
-        color="success"
-        required
-        @click:append="visiable = !visiable"
-      >
-        <v-progress-linear
-          slot="progress"
-          :value="progress"
-          :color="progressColor"
-          height="2"
-        />
-      </v-text-field>
+        <span>{{ $t('auth.usernameTips') }}</span>
+      </v-tooltip>
+
+      <v-tooltip v-model="passwordTip" nudge-top="13" nudge-left="4" lazy left>
+        <template v-slot:activator="{ on }">
+          <v-text-field
+            v-model="password"
+            v-validate="'required|password'"
+            data-vv-name="password"
+            :error-messages="errors.first('password')"
+            :label="passwordLabel"
+            :type="visiable ? 'text' : 'password'"
+            :loading="password.length > 0"
+            :append-icon="visiable ? 'fas fa-eye-slash' : 'fas fa-eye'"
+            class="pb-3"
+            color="success"
+            required
+            @focus="passwordTip = true"
+            @blur="passwordTip = false"
+            @click:append="visiable = !visiable"
+          >
+            <v-progress-linear
+              slot="progress"
+              :value="progress"
+              :color="progressColor"
+              height="2"
+            />
+          </v-text-field>
+        </template>
+
+        <span>{{ $t('auth.passwordTips') }}</span>
+      </v-tooltip>
 
       <v-btn
         class="subheading mt-4"
@@ -80,7 +96,11 @@ export default {
     return {
       email: '',
       username: '',
+      usernameTip: false,
+      usernameLabel: this.$i18n.t('auth.username'),
       password: '',
+      passwordTip: false,
+      passwordLabel: this.$i18n.t('auth.password'),
       validating: false,
       validEmail: false,
       visiable: false,

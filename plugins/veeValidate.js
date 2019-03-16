@@ -6,6 +6,10 @@ import ja from 'vee-validate/dist/locale/ja';
 Vue.use(VeeValidate, { inject: false });
 
 // Using custom rules
+Validator.extend('username', {
+  validate: value => /^[a-zA-Z0-9_\-. ]{3,12}$/.test(value),
+});
+
 Validator.extend('password', {
   validate: value => /^(?=.*?[a-z])(?=.*?\d)[a-z\d_]{8,100}$/i.test(value),
 });
@@ -23,11 +27,11 @@ const messages = {
       },
       username: {
         required: () => '请输入有效的用户名',
-        alpha_dash: () => '用户名只能包含字母、数字、下划线或破折号',
+        username: () => '请输入有效的用户名',
       },
       password: {
         required: () => '请输入有效的用户密码',
-        password: () => '请输入8位以上且含有字母、数字或下划线的用户密码',
+        password: () => '请输入有效的用户密码',
       },
     },
   },
@@ -42,11 +46,11 @@ const messages = {
       },
       username: {
         required: () => 'ユーザ名を入力してください',
-        alpha_dash: () => '半角英数字、下線、ハイフンを入力してください',
+        username: () => '有効なユーザ名を入力してください',
       },
       password: {
         required: () => 'パスワードを入力してください',
-        password: () => '8文字以上の半角英数字（下線）を入力してください',
+        password: () => '有効なパスワードを入力してください',
       },
     },
   },

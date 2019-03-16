@@ -22,7 +22,9 @@ module.exports = {
     logout: '退出',
     email: '邮箱',
     username: '用户名',
+    usernameTips: '英文字母，数字，空格，符号（-._）',
     password: '密码',
+    passwordTips: '英文字母，数字，符号（-_）',
   },
   errors: {
     auth: {
