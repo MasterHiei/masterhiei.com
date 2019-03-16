@@ -18,7 +18,13 @@
         @keyup="validateAfterDelay"
       />
 
-      <v-tooltip v-model="usernameTip" nudge-top="13" nudge-left="4" lazy left>
+      <v-tooltip
+        v-model="isShowUsernameTips"
+        nudge-top="13"
+        nudge-left="4"
+        lazy
+        left
+      >
         <template v-slot:activator="{ on }">
           <v-text-field
             v-model="username"
@@ -30,15 +36,21 @@
             class="pb-3"
             color="success"
             required
-            @focus="usernameTip = true"
-            @blur="usernameTip = false"
+            @focus="isShowUsernameTips = true"
+            @blur="isShowUsernameTips = false"
           />
         </template>
 
         <span>{{ $t('auth.usernameTips') }}</span>
       </v-tooltip>
 
-      <v-tooltip v-model="passwordTip" nudge-top="13" nudge-left="4" lazy left>
+      <v-tooltip
+        v-model="isShowPasswordTips"
+        nudge-top="13"
+        nudge-left="4"
+        lazy
+        left
+      >
         <template v-slot:activator="{ on }">
           <v-text-field
             v-model="password"
@@ -52,8 +64,8 @@
             class="pb-3"
             color="success"
             required
-            @focus="passwordTip = true"
-            @blur="passwordTip = false"
+            @focus="isShowPasswordTips = true"
+            @blur="isShowPasswordTips = false"
             @click:append="isPasswordVisible = !isPasswordVisible"
           >
             <v-progress-linear
@@ -97,10 +109,10 @@ export default {
       email: '',
       isEmailValid: false,
       username: '',
-      usernameTip: false,
+      isShowUsernameTips: false,
       usernameLabel: this.$i18n.t('auth.username'),
       password: '',
-      passwordTip: false,
+      isShowPasswordTips: false,
       passwordLabel: this.$i18n.t('auth.password'),
       isPasswordVisible: false,
       validating: false,
