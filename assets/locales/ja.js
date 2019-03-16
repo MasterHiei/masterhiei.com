@@ -22,9 +22,9 @@ module.exports = {
     logout: 'ログアウト',
     email: 'メールアドレス',
     username: 'ユーザ名',
-    usernameTips: '半角英数字、スペース、記号（-._）',
+    usernameTips: '可：半角英数字、スペース、記号（-._）',
     password: 'パスワード',
-    passwordTips: '半角英数字、記号（-_）',
+    passwordTips: '必須：半角英数字、可：下線',
   },
   errors: {
     auth: {

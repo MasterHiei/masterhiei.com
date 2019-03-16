@@ -46,15 +46,15 @@
             data-vv-name="password"
             :error-messages="errors.first('password')"
             :label="passwordLabel"
-            :type="visiable ? 'text' : 'password'"
+            :type="isPasswordVisible ? 'text' : 'password'"
             :loading="password.length > 0"
-            :append-icon="visiable ? 'fas fa-eye-slash' : 'fas fa-eye'"
+            :append-icon="isPasswordVisible ? 'fas fa-eye-slash' : 'fas fa-eye'"
             class="pb-3"
             color="success"
             required
             @focus="passwordTip = true"
             @blur="passwordTip = false"
-            @click:append="visiable = !visiable"
+            @click:append="isPasswordVisible = !isPasswordVisible"
           >
             <v-progress-linear
               slot="progress"
@@ -95,15 +95,15 @@ export default {
   data() {
     return {
       email: '',
+      isEmailValid: false,
       username: '',
       usernameTip: false,
       usernameLabel: this.$i18n.t('auth.username'),
       password: '',
       passwordTip: false,
       passwordLabel: this.$i18n.t('auth.password'),
+      isPasswordVisible: false,
       validating: false,
-      validEmail: false,
-      visiable: false,
     };
   },
 
@@ -132,14 +132,14 @@ export default {
         this.validating = true;
         const { code } = await validateUser(this.email).catch(() => false);
         this.validating = false;
-        this.validEmail = code === 0;
+        this.isEmailValid = code === 0;
       }, 500);
     },
 
     async register() {
       // User registration
       const valid = await this.$validator.validateAll();
-      if (!valid || !this.validEmail) return;
+      if (!valid || !this.isEmailValid) return;
       const { code } = await register({
         email: this.email,
         username: this.username,
