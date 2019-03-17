@@ -9,6 +9,17 @@ const api = require('./api/index');
 const { Nuxt, Builder } = require('nuxt');
 const app = express();
 
+// Share Env to server side
+app.use((_, res, next) => {
+  res.locals.app = {
+    domain: env.app.domain,
+  };
+  next();
+});
+
+// Set public resources path
+app.use('/static', express.static(__dirname + '/public'));
+
 // Morgan middleware
 app.use(
   morgan('dev', {
@@ -46,9 +57,7 @@ async function start() {
   // Listen the server
   app.listen(env.app.port, env.app.host, () => {
     consola.ready({
-      message: `Server listening on ${env.app.protocol}://${env.app.host}:${
-        env.app.port
-      }`,
+      message: `Server listening on ${env.app.domain}`,
       badge: true,
     });
 

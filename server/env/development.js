@@ -1,4 +1,5 @@
 const app = {
+  domain: 'http://127.0.0.1:3001',
   protocol: 'http',
   host: '127.0.0.1',
   port: 3001,

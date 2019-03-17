@@ -51,6 +51,7 @@ exports.me = async (req, res) => {
     try {
       const accessToken = authorization.split(' ')[1];
       const user = token.verify(accessToken);
+      user.avatar = `${res.locals.app.domain}/static/avatar/${user.avatar}`;
       res.json({ code: 0, user: user });
     } catch (_) {
       res.json({ code: 400, message: 'Invalid user token.' });

@@ -1,4 +1,5 @@
 const app = {
+  domain: 'https://www.masterhiei.com',
   protocol: 'http',
   host: '127.0.0.1',
   port: 3001,
