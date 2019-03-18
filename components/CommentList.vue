@@ -1,6 +1,8 @@
 <template>
   <v-flex wrap>
-    <comment-list-item />
+    <v-flex v-for="(comment, index) in comments" :key="index" wrap>
+      <comment-list-item :comment="comment" />
+    </v-flex>
   </v-flex>
 </template>
 
@@ -10,6 +12,13 @@ import CommentListItem from './CommentListItem';
 export default {
   components: {
     CommentListItem,
+  },
+
+  props: {
+    comments: {
+      type: Array,
+      required: true,
+    },
   },
 };
 </script>

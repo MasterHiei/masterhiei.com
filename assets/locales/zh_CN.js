@@ -19,6 +19,7 @@ module.exports = {
     login: '登录',
     loginWithGithub: '使用Github账号登录',
     loginWithGoogle: '使用Google账号登录',
+    loginPromotion: '知道吗？登录之后就可以留言了哦~',
     logout: '退出',
     email: '邮箱',
     username: '用户名',

@@ -19,6 +19,7 @@ module.exports = {
     login: 'ログイン',
     loginWithGithub: 'Githubアカウントでログイン',
     loginWithGoogle: 'Googleアカウントでログイン',
+    loginPromotion: 'ねぇ、コメントを投稿してみませんか？',
     logout: 'ログアウト',
     email: 'メールアドレス',
     username: 'ユーザ名',

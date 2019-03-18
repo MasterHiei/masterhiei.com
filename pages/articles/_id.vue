@@ -57,15 +57,18 @@
 
         <the-markdown-view :content="article.content" />
 
-        <comment-list />
+        <comment-list :comments="article.comments" />
+
+        <comment-poster />
       </v-flex>
     </v-layout>
   </v-container>
 </template>
 
 <script>
-import CommentList from '@/components/CommentList';
 import TheMarkdownView from '@/components/TheMarkdownView';
+import CommentList from '@/components/CommentList';
+import CommentPoster from '@/components/CommentPoster';
 import isEqual from 'date-fns/is_equal';
 import { getArticle } from '@/api/index.js';
 
@@ -73,6 +76,7 @@ export default {
   components: {
     TheMarkdownView,
     CommentList,
+    CommentPoster,
   },
 
   computed: {

@@ -1,9 +1,18 @@
 <template>
   <v-flex wrap>
-    asdasd
+    <v-flex wrap>
+      {{ comment }}
+    </v-flex>
   </v-flex>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    comment: {
+      type: Object,
+      required: true,
+    },
+  },
+};
 </script>

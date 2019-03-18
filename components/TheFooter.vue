@@ -1,27 +1,32 @@
 <template>
-  <v-footer height="auto">
-    <v-card class="text-xs-center body-1 font-weight-light flex">
-      <v-divider />
-
-      <v-card-text>
-        <p class="mb-0">
-          &copy;&nbsp;2019&nbsp;
-          <a href="https://github.com/MasterHiei">
-            Master&nbsp;Hiei
-          </a>
-        </p>
-        <p class="mb-0">
-          Powered&nbsp;by
-          <a href="https://github.com/nuxt/nuxt.js">
-            Nuxt.js
-          </a>
-          and
-          <a href="https://github.com/expressjs/express">
-            Express
-          </a>
-        </p>
-      </v-card-text>
-    </v-card>
+  <v-footer height="auto" color="grey lighten-5">
+    <v-flex class="text-xs-center font-weight-light" xs12 wrap>
+      <v-flex tag="p" mt-3 mb-0>
+        &copy;&nbsp;2019&nbsp;
+        <a
+          class="green--text text--darken-2"
+          href="https://github.com/MasterHiei"
+        >
+          Master&nbsp;Hiei
+        </a>
+      </v-flex>
+      <v-flex tag="p" mt-0>
+        Powered&nbsp;by
+        <a
+          class="green--text text--darken-2"
+          href="https://github.com/nuxt/nuxt.js"
+        >
+          Nuxt.js
+        </a>
+        and
+        <a
+          class="green--text text--darken-2"
+          href="https://github.com/expressjs/express"
+        >
+          Express
+        </a>
+      </v-flex>
+    </v-flex>
   </v-footer>
 </template>
 
@@ -31,10 +36,7 @@ export default {};
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
 a
-  color #00C853
   text-decoration none
   &:hover
     text-decoration underline
-  &:active
-    color #00C853
 </style>
