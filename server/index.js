@@ -1,6 +1,5 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const consola = require('consola');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
@@ -8,6 +7,13 @@ const env = require(`./env/${process.env.NODE_ENV}`);
 const api = require('./api/index');
 const { Nuxt, Builder } = require('nuxt');
 const app = express();
+
+// Connect to mongodb
+mongoose.set('debug', true);
+mongoose.connect(env.database.uri, env.database.options);
+require('./api/models/user/user');
+require('./api/models/article/article');
+require('./api/models/comment/comment');
 
 // Share Env to server side
 app.use((_, res, next) => {
@@ -55,26 +61,6 @@ async function start() {
   app.use(nuxt.render);
 
   // Listen the server
-  app.listen(env.app.port, env.app.host, () => {
-    consola.ready({
-      message: `Server listening on ${env.app.domain}`,
-      badge: true,
-    });
-
-    // Connect mongodb
-    mongoose.set('debug', true);
-    mongoose.connect(env.database.uri, env.database.options).then(
-      () =>
-        consola.ready({
-          message: `Mongoose connected to ${env.database.url}`,
-          badge: true,
-        }),
-      error =>
-        consola.error({
-          message: `${error}`,
-          badge: true,
-        })
-    );
-  });
+  app.listen(env.app.port, env.app.host);
 }
 start();

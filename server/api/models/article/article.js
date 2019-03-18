@@ -55,4 +55,4 @@ articleSchema.set('toJSON', {
   },
 });
 
-module.exports = mongoose.model('article', articleSchema);
+module.exports = mongoose.model('Article', articleSchema);

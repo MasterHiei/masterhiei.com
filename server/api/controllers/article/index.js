@@ -40,6 +40,12 @@ exports.show = async (req, res) => {
     { $inc: { views: 1 } },
     { new: true }
   )
+    .populate({
+      path: 'comments',
+      populate: {
+        path: 'user',
+      },
+    })
     .exec()
     .catch(err => {
       console.log(err);
