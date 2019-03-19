@@ -6,6 +6,7 @@
         <a
           class="green--text text--darken-2"
           href="https://github.com/MasterHiei"
+          target="_blank"
         >
           Master&nbsp;Hiei
         </a>
@@ -15,6 +16,7 @@
         <a
           class="green--text text--darken-2"
           href="https://github.com/nuxt/nuxt.js"
+          target="_blank"
         >
           Nuxt.js
         </a>
@@ -22,6 +24,7 @@
         <a
           class="green--text text--darken-2"
           href="https://github.com/expressjs/express"
+          target="_blank"
         >
           Express
         </a>

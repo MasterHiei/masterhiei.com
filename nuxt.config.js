@@ -49,7 +49,12 @@ module.exports = {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~plugins/vuetify', '~plugins/vueScrollTo', '~plugins/veeValidate'],
+  plugins: [
+    '~plugins/vuetify',
+    '~plugins/vueScrollTo',
+    '~plugins/veeValidate',
+    { src: '~plugins/vueLazyLoad', ssr: false },
+  ],
 
   generate: {
     routers: ['/about', '/ja-JP/about'],

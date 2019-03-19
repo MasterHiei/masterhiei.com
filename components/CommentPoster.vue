@@ -1,10 +1,22 @@
 <template>
   <v-flex wrap>
-    <v-flex v-if="this.$auth.loggedIn" wrap>
-      Post a comment
-    </v-flex>
+    <v-layout v-if="this.$auth.loggedIn" row>
+      <v-flex mr-3 wrap>
+        <!-- eslint-disable-next-line vue/html-self-closing -->
+        <img
+          v-lazy="this.$auth.user.avatar"
+          :alt="this.$auth.user.username"
+          height="44"
+          width="44"
+        />
+      </v-flex>
 
-    <v-flex v-else class="grey lighten-3 text-xs-center" py-4 wrap>
+      <v-flex xs11 wrap>
+        asdasdasdsad
+      </v-flex>
+    </v-layout>
+
+    <v-flex v-else class="grey lighten-2 text-xs-center" py-4 wrap>
       <v-flex mb-2 wrap>
         <v-btn
           class="subheading font-weight-light"
@@ -19,7 +31,7 @@
         </v-btn>
       </v-flex>
 
-      <v-flex class="blue-grey--text" tag="span" wrap>
+      <v-flex class="grey--text text--darken-1" tag="span" wrap>
         {{ $t('auth.loginPromotion') }}
       </v-flex>
     </v-flex>

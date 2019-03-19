@@ -15,7 +15,7 @@ require('./api/models/user/user');
 require('./api/models/article/article');
 require('./api/models/comment/comment');
 
-// Share Env to server side
+// Share env variables to server side
 app.use((_, res, next) => {
   res.locals.app = {
     domain: env.app.domain,
