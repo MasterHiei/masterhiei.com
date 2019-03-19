@@ -1,11 +1,12 @@
 <template>
   <no-ssr>
     <mavon-editor
-      id="editor"
-      v-model="content"
+      id="mavon-editor"
       class="justify-center"
+      :value="defaultValue"
       :tab-size="Number(2)"
-      :language="this.$i18n.locale"
+      :language="language[this.$i18n.locale] || 'en'"
+      default-open="edit"
     />
   </no-ssr>
 </template>
@@ -21,17 +22,28 @@ export default {
   },
 
   props: {
-    content: {
+    defaultValue: {
       type: String,
       default: '',
     },
+  },
+
+  data() {
+    return {
+      content: '',
+
+      language: {
+        'zh-CN': 'zh-CN',
+        'ja-JP': 'ja',
+      },
+    };
   },
 };
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-#editor
+#mavon-editor
   height 100%
-  margin-top 2px
+  margin-top 1px
   z-index 100
 </style>

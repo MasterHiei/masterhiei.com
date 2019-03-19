@@ -1,5 +1,7 @@
 <template>
   <v-flex wrap>
+    <v-divider class="my-2" />
+
     <v-layout v-if="this.$auth.loggedIn" row>
       <v-flex mr-3 wrap>
         <!-- eslint-disable-next-line vue/html-self-closing -->
@@ -12,7 +14,7 @@
       </v-flex>
 
       <v-flex xs11 wrap>
-        asdasdasdsad
+        <the-editor />
       </v-flex>
     </v-layout>
 
@@ -39,5 +41,11 @@
 </template>
 
 <script>
-export default {};
+import TheEditor from '@/components/TheEditor';
+
+export default {
+  components: {
+    TheEditor,
+  },
+};
 </script>
