@@ -3,9 +3,10 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const { Nuxt, Builder } = require('nuxt');
+const config = require('../nuxt.config.js');
 const env = require(`./env/${process.env.NODE_ENV}`);
 const api = require('./api/index');
-const { Nuxt, Builder } = require('nuxt');
 const app = express();
 
 // Connect to mongodb
@@ -43,7 +44,6 @@ app.use(bodyParser.json());
 app.use(api);
 
 // Import and Set Nuxt.js options
-let config = require('../nuxt.config.js');
 config.dev = !(process.env.NODE_ENV === 'production');
 
 // Start Nuxt.js

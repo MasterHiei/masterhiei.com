@@ -1,5 +1,5 @@
-import { SET_ARTICLES, SET_ARTICLE } from './mutation-types';
 import { getArticles } from '../api/index';
+import { SET_ARTICLES, SET_ARTICLE } from './mutation-types';
 
 // States
 export const state = () => ({

@@ -2,6 +2,7 @@
   <no-ssr>
     <mavon-editor
       id="mavon-editor"
+      v-model="content"
       class="justify-center"
       :value="defaultValue"
       :tab-size="Number(2)"

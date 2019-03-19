@@ -1,7 +1,6 @@
+const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');
 const pkg = require('./package');
 const { app, github } = require(`./server/env/${process.env.NODE_ENV}`);
-
-const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');
 
 module.exports = {
   /*
