@@ -27,6 +27,9 @@ module.exports = {
     password: '密码',
     passwordTips: '必须：字母和数字，允许：下划线',
   },
+  comment: {
+    promotion: '{name}，欢迎留言评论～',
+  },
   errors: {
     auth: {
       invalid: '邮箱地址或者密码错误',

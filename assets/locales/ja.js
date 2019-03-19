@@ -27,6 +27,9 @@ module.exports = {
     password: 'パスワード',
     passwordTips: '必須：半角英数字、可：下線',
   },
+  comment: {
+    promotion: '{name}さん、コメントを書きましょう！',
+  },
   errors: {
     auth: {
       invalid: 'メールアドレスかパスワードが間違っています',

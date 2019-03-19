@@ -2,21 +2,33 @@
   <v-flex wrap>
     <v-divider class="my-2" />
 
-    <v-layout v-if="this.$auth.loggedIn" row>
-      <v-flex mr-3 wrap>
-        <!-- eslint-disable-next-line vue/html-self-closing -->
-        <img
-          v-lazy="this.$auth.user.avatar"
-          :alt="this.$auth.user.username"
-          height="44"
-          width="44"
-        />
+    <v-flex v-if="this.$auth.loggedIn" wrap>
+      <v-flex mb-2 wrap>
+        <v-layout row wrap>
+          <!-- eslint-disable-next-line vue/html-self-closing -->
+          <img
+            v-lazy="this.$auth.user.avatar"
+            :alt="this.$auth.user.username"
+            height="44"
+            width="44"
+          />
+
+          <v-flex
+            class="grey--text text--darken-1 font-weight-medium"
+            tag="span"
+            pa-0
+            ml-3
+            style="line-height: 44px;"
+          >
+            {{ $t('comment.promotion', { name: this.$auth.user.username }) }}
+          </v-flex>
+        </v-layout>
       </v-flex>
 
-      <v-flex xs11 wrap>
+      <v-flex wrap>
         <the-editor />
       </v-flex>
-    </v-layout>
+    </v-flex>
 
     <v-flex v-else class="grey lighten-2 text-xs-center" py-4 wrap>
       <v-flex mb-2 wrap>

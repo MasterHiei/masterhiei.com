@@ -27,6 +27,7 @@
         class="pb-3"
         color="success"
         required
+        @keyup.enter="login"
         @click:append="visiable = !visiable"
       />
 
