@@ -88,10 +88,8 @@ export default {
   },
 
   async asyncData({ $axios, store, params }) {
-    const id = params.id;
-    const { data } = await $axios.$get(`/articles/${id}`);
-    store.dispatch('article/setArticle', data);
-    return { article: data };
+    const article = await store.dispatch('article/getArticle', params.id);
+    return { article: article };
   },
 
   methods: {
