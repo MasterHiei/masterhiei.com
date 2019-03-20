@@ -70,7 +70,6 @@ import TheMarkdownView from '@/components/TheMarkdownView';
 import CommentList from '@/components/CommentList';
 import CommentPoster from '@/components/CommentPoster';
 import isEqual from 'date-fns/is_equal';
-import { getArticle } from '@/api/index.js';
 
 export default {
   components: {
@@ -88,9 +87,9 @@ export default {
     },
   },
 
-  async asyncData({ store, params }) {
+  async asyncData({ $axios, store, params }) {
     const id = params.id;
-    const { data } = await getArticle(id);
+    const { data } = await $axios.$get(`/articles/${id}`);
     store.dispatch('article/setArticle', data);
     return { article: data };
   },

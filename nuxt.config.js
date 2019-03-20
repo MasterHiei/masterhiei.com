@@ -1,6 +1,8 @@
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');
 const pkg = require('./package');
-const { app, github } = require(`./server/env/${process.env.NODE_ENV}`);
+
+// Apply enviroment variables
+require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` });
 
 module.exports = {
   /*
@@ -29,11 +31,6 @@ module.exports = {
       },
     ],
   },
-
-  /*
-   ** Enviroment variables
-   */
-  env: app,
 
   /*
    ** Customize the progress-bar color
@@ -65,6 +62,7 @@ module.exports = {
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/auth',
+    ['@nuxtjs/dotenv', { filename: `.env.${process.env.NODE_ENV}` }],
     [
       'nuxt-i18n',
       {
@@ -103,22 +101,16 @@ module.exports = {
       local: {
         endpoints: {
           login: {
-            url: `${app.protocol}://${app.host}:${app.port}${
-              app.api_prefix
-            }/login`,
+            url: `/login`,
             method: 'post',
             propertyName: 'token',
           },
           logout: {
-            url: `${app.protocol}://${app.host}:${app.port}${
-              app.api_prefix
-            }/logout`,
+            url: `/logout`,
             method: 'post',
           },
           user: {
-            url: `${app.protocol}://${app.host}:${app.port}${
-              app.api_prefix
-            }/users/me`,
+            url: `/users/me`,
             method: 'get',
             propertyName: 'user',
           },
@@ -126,8 +118,8 @@ module.exports = {
       },
 
       github: {
-        client_id: github.client_id,
-        client_secret: github.client_secret,
+        client_id: process.env.GITHUB_CLIENT_ID,
+        client_secret: process.env.GITHUB_CLIENT_SECRET,
         scope: ['read:user'],
       },
     },

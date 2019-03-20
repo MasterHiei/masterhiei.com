@@ -7,7 +7,7 @@
         <v-layout row wrap>
           <!-- eslint-disable-next-line vue/html-self-closing -->
           <img
-            v-lazy="this.$auth.user.avatar"
+            v-lazy="avatar"
             :alt="this.$auth.user.username"
             height="44"
             width="44"
@@ -58,6 +58,19 @@ import TheEditor from '@/components/TheEditor';
 export default {
   components: {
     TheEditor,
+  },
+
+  computed: {
+    avatar() {
+      switch (this.$auth.strategy) {
+        case 'github':
+          return this.$auth.user.avatar_url;
+        case 'google':
+          return this.$auth.user.photo.url;
+        default:
+          return this.$auth.user.avatar;
+      }
+    },
   },
 };
 </script>

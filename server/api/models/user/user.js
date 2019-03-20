@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const Schema = mongoose.Schema;
-const { crypto } = require(`../../../env/${process.env.NODE_ENV}`);
 
 const userSchema = new Schema(
   {
@@ -40,7 +39,7 @@ const userSchema = new Schema(
  * @returns {String} Encrypted password string
  */
 userSchema.methods.hash = password => {
-  const salt = bcrypt.genSaltSync(crypto.saltRound);
+  const salt = bcrypt.genSaltSync(process.env.BCRYPT_SALT_ROUND);
   return bcrypt.hashSync(password, salt);
 };
 

@@ -1,10 +1,9 @@
 const express = require('express');
-const { app } = require(`../../env/${process.env.NODE_ENV}`);
 const userController = require('./user/index');
 const articlesController = require('./article/index');
 const router = express.Router();
 
-const prefix = app.api_prefix;
+const prefix = process.env.API_PREFIX;
 
 // User
 router.post(`${prefix}/login`, userController.login);

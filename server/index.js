@@ -5,32 +5,29 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const { Nuxt, Builder } = require('nuxt');
 const config = require('../nuxt.config.js');
-const env = require(`./env/${process.env.NODE_ENV}`);
 const api = require('./api/index');
 const app = express();
+const isDebug = !(process.env.NODE_ENV === 'production');
 
 // Connect to mongodb
-mongoose.set('debug', true);
-mongoose.connect(env.database.uri, env.database.options);
+mongoose.set('debug', isDebug);
+mongoose.connect(process.env.DB_URI, {
+  dbName: process.env.DB_NAME,
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
+});
 require('./api/models/user/user');
 require('./api/models/article/article');
 require('./api/models/comment/comment');
 
-// Share env variables to server side
-app.use((_, res, next) => {
-  res.locals.app = {
-    domain: env.app.domain,
-  };
-  next();
-});
-
 // Set public resources path
-app.use('/static', express.static(__dirname + '/public'));
+app.use('/public', express.static(__dirname + '/public'));
 
 // Morgan middleware
 app.use(
   morgan('dev', {
-    skip: req => req.path.indexOf(env.app.api_prefix) < 0,
+    skip: req => req.path.indexOf(process.env.API_PREFIX) < 0,
   })
 );
 
@@ -44,7 +41,7 @@ app.use(bodyParser.json());
 app.use(api);
 
 // Import and Set Nuxt.js options
-config.dev = !(process.env.NODE_ENV === 'production');
+config.dev = isDebug;
 
 // Start Nuxt.js
 async function start() {
@@ -61,6 +58,6 @@ async function start() {
   app.use(nuxt.render);
 
   // Listen the server
-  app.listen(env.app.port, env.app.host);
+  app.listen(process.env.PORT, process.env.HOST);
 }
 start();

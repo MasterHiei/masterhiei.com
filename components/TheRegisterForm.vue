@@ -97,7 +97,6 @@
 <script>
 import SHA256 from 'crypto-js/sha256';
 import delay from '@/common/utils/delay.js';
-import { validateUser, register } from '@/api/index.js';
 
 export default {
   $_veeValidate: {
@@ -142,7 +141,9 @@ export default {
       }
       delay(async () => {
         this.validating = true;
-        const { code } = await validateUser(this.email).catch(() => false);
+        const { code } = await this.$axios
+          .$put('/users/validate', this.email)
+          .catch(() => false);
         this.validating = false;
         this.isEmailValid = code === 0;
       }, 500);
@@ -152,7 +153,7 @@ export default {
       // User registration
       const valid = await this.$validator.validateAll();
       if (!valid || !this.isEmailValid) return;
-      const { code } = await register({
+      const { code } = await this.$axios.$post('/users', {
         email: this.email,
         username: this.username,
         password: SHA256(this.password).toString(),

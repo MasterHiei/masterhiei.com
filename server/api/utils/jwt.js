@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const { auth } = require(`../../env/${process.env.NODE_ENV}`);
 
 /**
  * Sign a token with HMAC SHA256(default)
@@ -7,8 +6,8 @@ const { auth } = require(`../../env/${process.env.NODE_ENV}`);
  * @returns {String} Token String
  */
 exports.sign = user => {
-  return jwt.sign(user, auth.secret, {
-    expiresIn: auth.expiresIn,
+  return jwt.sign(user, process.env.TOKEN_SECRET, {
+    expiresIn: process.env.TOKEN_EXPIRES_IN,
   });
 };
 
@@ -17,4 +16,4 @@ exports.sign = user => {
  * @param {String} token
  * @returns Result of verify
  */
-exports.verify = token => jwt.verify(token, auth.secret);
+exports.verify = token => jwt.verify(token, process.env.TOKEN_SECRET);

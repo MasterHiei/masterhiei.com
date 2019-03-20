@@ -1,4 +1,3 @@
-import { getArticles } from '../api/index';
 import { SET_ARTICLES, SET_ARTICLE } from './mutation-types';
 
 // States
@@ -41,7 +40,7 @@ export const mutations = {
 // Actions
 export const actions = {
   async getArticles({ commit }, params = {}) {
-    const { data } = await getArticles(params);
+    const { data } = await this.$axios.$get('/articles', params);
     commit('SET_ARTICLES', data);
   },
   async setArticle({ commit }, article) {

@@ -1,5 +1,5 @@
 const User = require('../../models/user/user');
-const token = require('../../utils/token');
+const jwt = require('../../utils/jwt');
 
 /**
  * User login
@@ -21,7 +21,7 @@ exports.login = async (req, res) => {
 
     const isMatched = user.compare(password);
     if (isMatched) {
-      const accessToken = token.sign(user.toObject());
+      const accessToken = jwt.sign(user.toObject());
       res.json({ code: 0, token: accessToken });
     } else {
       res.json({ code: 400, message: 'Invalid email or password.' });
@@ -47,11 +47,11 @@ exports.logout = (_, res) => {
  */
 exports.me = async (req, res) => {
   const authorization = req.headers.authorization;
-  if (authorization && authorization.split(' ')[0] === 'Bearer') {
+  if (authorization && authorization.startsWith('Bearer')) {
     try {
-      const accessToken = authorization.split(' ')[1];
-      const user = token.verify(accessToken);
-      user.avatar = `${res.locals.app.domain}/static/avatar/${user.avatar}`;
+      const token = authorization.split(' ')[1];
+      const user = jwt.verify(token);
+      user.avatar = `${process.env.DOMAIN}/public/avatar/${user.avatar}`;
       res.json({ code: 0, user: user });
     } catch (_) {
       res.json({ code: 400, message: 'Invalid user token.' });

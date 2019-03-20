@@ -6,6 +6,7 @@
       class="justify-center"
       :value="defaultValue"
       :tab-size="Number(2)"
+      :autofocus="false"
       :language="language[this.$i18n.locale] || 'en'"
       default-open="edit"
     />

@@ -5,7 +5,6 @@ const Article = require('../../models/article/article');
 /**
  * Get All Articles with desc
  * @param {Response} res
- * @returns {Void}
  */
 exports.index = (_, res) => {
   co(function*() {
