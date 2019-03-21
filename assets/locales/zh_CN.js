@@ -30,6 +30,7 @@ module.exports = {
   comment: {
     promotion: '{name}，欢迎留言评论～',
   },
+  post: '发布',
   errors: {
     auth: {
       invalid: '邮箱地址或者密码错误',

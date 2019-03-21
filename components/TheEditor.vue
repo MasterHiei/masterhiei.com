@@ -1,16 +1,22 @@
 <template>
-  <no-ssr>
-    <mavon-editor
-      id="mavon-editor"
-      v-model="content"
-      class="justify-center"
-      :value="defaultValue"
-      :tab-size="Number(2)"
-      :autofocus="false"
-      :language="language[this.$i18n.locale] || 'en'"
-      default-open="edit"
-    />
-  </no-ssr>
+  <v-flex class="text-xs-right" wrap>
+    <no-ssr>
+      <mavon-editor
+        id="mavon-editor"
+        v-model="content"
+        class="justify-center"
+        :value="defaultValue"
+        :tab-size="Number(2)"
+        :autofocus="false"
+        :language="language[this.$i18n.locale] || 'en'"
+        default-open="edit"
+      />
+    </no-ssr>
+
+    <v-btn class="mx-0 my-2" color="success" @click="post">
+      {{ $t('post') }}
+    </v-btn>
+  </v-flex>
 </template>
 
 <script>
@@ -28,6 +34,11 @@ export default {
       type: String,
       default: '',
     },
+
+    callback: {
+      type: String,
+      required: true,
+    },
   },
 
   data() {
@@ -40,12 +51,18 @@ export default {
       },
     };
   },
+
+  methods: {
+    post() {
+      this.$emit(this.callback, this.content);
+    },
+  },
 };
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
 #mavon-editor
   height 100%
-  margin-top 1px
+  width 100%
   z-index 100
 </style>

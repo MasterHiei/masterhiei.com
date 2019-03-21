@@ -30,6 +30,7 @@ module.exports = {
   comment: {
     promotion: '{name}さん、コメントを書きましょう！',
   },
+  post: '投稿',
   errors: {
     auth: {
       invalid: 'メールアドレスかパスワードが間違っています',

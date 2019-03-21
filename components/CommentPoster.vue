@@ -26,7 +26,7 @@
       </v-flex>
 
       <v-flex wrap>
-        <the-editor />
+        <the-editor callback="post" @post="post" />
       </v-flex>
     </v-flex>
 
@@ -58,6 +58,12 @@ import TheEditor from '@/components/TheEditor';
 export default {
   components: {
     TheEditor,
+  },
+
+  methods: {
+    post(content) {
+      console.log(content);
+    },
   },
 };
 </script>
