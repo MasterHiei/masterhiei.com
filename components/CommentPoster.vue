@@ -61,8 +61,12 @@ export default {
   },
 
   methods: {
-    post(content) {
-      console.log(content);
+    async post(content) {
+      await this.$axios.$post('/comments', {
+        userId: this.$auth.user.id,
+        articleId: this.$route.params.id,
+        content: content,
+      });
     },
   },
 };

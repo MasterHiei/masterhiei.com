@@ -1,6 +1,7 @@
 const express = require('express');
 const userController = require('./user/index');
 const articlesController = require('./article/index');
+const commentController = require('./comment/index');
 const router = express.Router();
 
 const prefix = process.env.API_PREFIX;
@@ -15,5 +16,8 @@ router.post(`${prefix}/users`, userController.create);
 // Article
 router.get(`${prefix}/articles`, articlesController.index);
 router.get(`${prefix}/articles/:id`, articlesController.show);
+
+// Comment
+router.post(`${prefix}/comments`, commentController.create);
 
 module.exports = router;
