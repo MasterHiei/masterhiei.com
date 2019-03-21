@@ -44,7 +44,7 @@ export const actions = {
     commit('SET_ARTICLES', data);
   },
   async getArticle({ commit }, id) {
-    const { data } = await this.$axios.$get(`/articles/${id}`, { id: id });
+    const { data } = await this.$axios.$get(`/articles/${id}`);
     commit('SET_ARTICLE', data);
     return data;
   },
