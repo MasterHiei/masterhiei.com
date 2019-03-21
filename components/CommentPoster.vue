@@ -6,7 +6,12 @@
       <v-flex mb-2 wrap>
         <v-layout row wrap>
           <!-- eslint-disable-next-line vue/html-self-closing -->
-          <img v-lazy="avatar" :alt="username" height="44" width="44" />
+          <img
+            v-lazy="this.$auth.user.avatar"
+            :alt="this.$auth.user.username"
+            height="44"
+            width="44"
+          />
 
           <v-flex
             class="grey--text text--darken-1 font-weight-medium"
@@ -15,7 +20,7 @@
             ml-3
             style="line-height: 44px;"
           >
-            {{ $t('comment.promotion', { name: username }) }}
+            {{ $t('comment.promotion', { name: this.$auth.user.username }) }}
           </v-flex>
         </v-layout>
       </v-flex>
@@ -53,30 +58,6 @@ import TheEditor from '@/components/TheEditor';
 export default {
   components: {
     TheEditor,
-  },
-
-  computed: {
-    username() {
-      switch (this.$auth.strategy.name) {
-        case 'github':
-          return this.$auth.user.name || this.$auth.user.login;
-        case 'google':
-          return this.$auth.user.displayName;
-        default:
-          return this.$auth.user.username;
-      }
-    },
-
-    avatar() {
-      switch (this.$auth.strategy.name) {
-        case 'github':
-          return this.$auth.user.avatar_url;
-        case 'google':
-          return this.$auth.user.photo.url;
-        default:
-          return this.$auth.user.avatar;
-      }
-    },
   },
 };
 </script>

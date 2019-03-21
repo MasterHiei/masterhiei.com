@@ -97,6 +97,7 @@ module.exports = {
    ** Nuxt Auth modules
    */
   auth: {
+    plugins: ['~plugins/auth'],
     strategies: {
       local: {
         endpoints: {
