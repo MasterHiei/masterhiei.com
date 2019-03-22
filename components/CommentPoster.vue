@@ -1,28 +1,26 @@
 <template>
   <v-flex wrap>
-    <v-divider class="my-2" />
+    <v-divider class="my-1" />
 
     <v-flex v-if="this.$auth.loggedIn" wrap>
-      <v-flex mb-2 wrap>
-        <v-layout row wrap>
+      <v-flex mb-1 wrap>
+        <v-avatar size="44" tile>
           <!-- eslint-disable-next-line vue/html-self-closing -->
           <img
             v-lazy="this.$auth.user.avatar"
             :alt="this.$auth.user.username"
-            height="44"
-            width="44"
           />
+        </v-avatar>
 
-          <v-flex
-            class="grey--text text--darken-1 font-weight-medium"
-            tag="span"
-            pa-0
-            ml-3
-            style="line-height: 44px;"
-          >
-            {{ $t('comment.promotion', { name: this.$auth.user.username }) }}
-          </v-flex>
-        </v-layout>
+        <v-flex
+          class="grey--text text--darken-1 font-weight-medium"
+          tag="span"
+          pa-0
+          ml-3
+          style="line-height: 44px;"
+        >
+          {{ $t('comment.promotion', { name: this.$auth.user.username }) }}
+        </v-flex>
       </v-flex>
 
       <v-flex wrap>

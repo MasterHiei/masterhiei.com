@@ -1,6 +1,6 @@
 <template>
   <!-- eslint-disable-next-line vue/no-v-html -->
-  <v-flex wrap v-html="$md.render(content)" />
+  <v-flex class="padding-view" wrap v-html="$md.render(content)" />
 </template>
 
 <script>
@@ -13,3 +13,8 @@ export default {
   },
 };
 </script>
+
+<style scoped lang="stylus" rel="stylesheet/stylus">
+.padding-view
+  padding 8px 25px 15px 25px !important
+</style>

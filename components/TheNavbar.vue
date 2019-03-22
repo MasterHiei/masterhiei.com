@@ -9,8 +9,8 @@
 
     <v-flex wrap>
       <nuxt-link :to="localePath('index')" extra>
-        <!-- prettier-ignore -->
-        <img src="~static/logo.jpg" alt="logo">
+        <!-- eslint-disable-next-line vue/html-self-closing -->
+        <img src="~static/logo.jpg" alt="logo" />
       </nuxt-link>
     </v-flex>
 
