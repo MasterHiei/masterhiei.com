@@ -54,7 +54,6 @@ exports.me = async (req, res) => {
 
   try {
     const user = jwt.verify(token);
-    user.avatar = `${process.env.DOMAIN}/public/avatar/${user.avatar}`;
     res.json({ code: 0, user: user });
   } catch (_) {
     res.json({ code: 400, message: 'Invalid user token.' });

@@ -52,14 +52,26 @@ userSchema.methods.compare = function(password) {
   return bcrypt.compareSync(password, this.password);
 };
 
+// Transform the returned JSON
+userSchema.set('toJSON', {
+  versionKey: false,
+  transform(_, ret) {
+    ret.id = ret._id;
+    delete ret._id;
+    ret.avatar = `${process.env.DOMAIN}/public/avatar/${ret.avatar}`;
+  },
+});
+
 // Transform the returned object
 userSchema.set('toObject', {
   versionKey: false,
   transform(_, ret) {
+    ret.id = ret._id;
     delete ret._id;
     delete ret.password;
     ret.scope = ret.role;
     delete ret.role;
+    ret.avatar = `${process.env.DOMAIN}/public/avatar/${ret.avatar}`;
   },
 });
 

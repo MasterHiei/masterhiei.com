@@ -41,8 +41,10 @@ exports.show = async (req, res) => {
   )
     .populate({
       path: 'comments',
+      select: 'content',
       populate: {
         path: 'user',
+        select: 'username avatar',
       },
     })
     .exec()

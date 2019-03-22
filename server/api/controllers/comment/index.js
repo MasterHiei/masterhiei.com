@@ -12,6 +12,16 @@ exports.create = (req, res) => {
     return;
   }
 
-  const comment = new Comment({});
-  console.log(comment);
+  const comment = new Comment({
+    user: userId,
+    article: articleId,
+    content: content,
+  });
+  comment.save(err => {
+    if (err) {
+      res.json({ code: 500, message: 'Unexcepted Error.' });
+    } else {
+      res.json({ code: 0 });
+    }
+  });
 };
