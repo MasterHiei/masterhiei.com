@@ -21,8 +21,8 @@ exports.login = async (req, res) => {
 
     const isMatched = user.compare(password);
     if (isMatched) {
-      const accessToken = jwt.sign(user.toObject());
-      res.json({ code: 0, token: accessToken });
+      const token = jwt.sign(user.toObject());
+      res.json({ code: 0, token: token });
     } else {
       res.json({ code: 400, message: 'Invalid email or password.' });
     }
@@ -46,17 +46,17 @@ exports.logout = (_, res) => {
  * @param {Response} res
  */
 exports.me = async (req, res) => {
-  const authorization = req.headers.authorization;
-  if (authorization && authorization.startsWith('Bearer')) {
-    try {
-      const token = authorization.split(' ')[1];
-      const user = jwt.verify(token);
-      user.avatar = `${process.env.DOMAIN}/public/avatar/${user.avatar}`;
-      res.json({ code: 0, user: user });
-    } catch (_) {
-      res.json({ code: 400, message: 'Invalid user token.' });
-    }
-  } else {
+  const token = req.token;
+  if (!token) {
+    res.json({ code: 400, message: 'Invalid user token.' });
+    return;
+  }
+
+  try {
+    const user = jwt.verify(token);
+    user.avatar = `${process.env.DOMAIN}/public/avatar/${user.avatar}`;
+    res.json({ code: 0, user: user });
+  } catch (_) {
     res.json({ code: 400, message: 'Invalid user token.' });
   }
 };

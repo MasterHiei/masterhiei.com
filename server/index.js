@@ -9,6 +9,16 @@ const api = require('./api/index');
 const app = express();
 const isDebug = !(process.env.NODE_ENV === 'production');
 
+// Extra and set token to request
+app.use((req, _, next) => {
+  const authorization = req.headers.authorization;
+  if (authorization && authorization.split(' ').length === 2) {
+    const token = authorization.split(' ')[1];
+    req.token = token;
+  }
+  next();
+});
+
 // Connect to mongodb
 mongoose.set('debug', isDebug);
 mongoose.connect(process.env.DB_URI, {
