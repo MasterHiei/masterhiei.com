@@ -83,6 +83,37 @@ exports.create = async (req, res) => {
 };
 
 /**
+ * Fetch social user profile
+ * @param {Request} req
+ * @param {Response} res
+ */
+exports.fetchSocial = async (req, res) => {
+  const { type, socialId, username, avatar } = req.body;
+  if (!type || !socialId || !username || !avatar) {
+    res.status(400).send({ message: 'Invalid user data.' });
+    return;
+  }
+
+  const email = dummyEmail(socialId, type);
+  const user = await User.findOneAndUpdate(
+    { social_id: socialId },
+    {
+      email: email,
+      username: username,
+      social_id: socialId,
+      avatar: avatar,
+    },
+    { upsert: true }
+  )
+    .exec()
+    .catch(error => {
+      console.log(error);
+      res.status(500).send({ message: 'Unexcepted Error.' });
+    });
+  res.json({ code: 0, user: user });
+};
+
+/**
  * Check Email is valid or not
  * @param {Request} req
  * @param {Response} res
@@ -115,4 +146,13 @@ const queryUserByEmail = email => {
     .where('email')
     .in(email)
     .exec();
+};
+
+/**
+ * Generate a dummy email address
+ * @param {String} id User id
+ * @param {String} type Account type
+ */
+const dummyEmail = (id, type) => {
+  return `${id}_${new Date().getTime()}@.dummy.${type}.com`;
 };

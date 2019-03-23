@@ -98,6 +98,7 @@ module.exports = {
    */
   auth: {
     plugins: ['~plugins/auth'],
+    scopeKey: 'role',
     strategies: {
       local: {
         endpoints: {

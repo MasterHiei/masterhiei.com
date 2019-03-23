@@ -16,9 +16,9 @@ exports.index = (_, res) => {
     } else {
       res.json({ code: 0, data: articles });
     }
-  }).catch(err => {
+  }).catch(error => {
     // TODO: Error handler
-    console.error(err);
+    console.error(error);
     res.sendStatus(500);
   });
 };
@@ -48,8 +48,8 @@ exports.show = async (req, res) => {
       },
     })
     .exec()
-    .catch(err => {
-      console.log(err);
+    .catch(error => {
+      console.log(error);
       res.status(500).send({ message: 'Unexcepted Error.' });
     });
   if (article) {

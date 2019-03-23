@@ -22,7 +22,11 @@ const userSchema = new Schema(
     },
     avatar: {
       type: String,
-      default: 'avatar.png',
+      default: `${process.env.DOMAIN}/public/avatar/avatar.png`,
+    },
+    social_id: {
+      type: String,
+      default: '',
     },
   },
   {
@@ -58,7 +62,6 @@ userSchema.set('toJSON', {
   transform(_, ret) {
     ret.id = ret._id;
     delete ret._id;
-    ret.avatar = `${process.env.DOMAIN}/public/avatar/${ret.avatar}`;
   },
 });
 
@@ -69,9 +72,7 @@ userSchema.set('toObject', {
     ret.id = ret._id;
     delete ret._id;
     delete ret.password;
-    ret.scope = ret.role;
-    delete ret.role;
-    ret.avatar = `${process.env.DOMAIN}/public/avatar/${ret.avatar}`;
+    delete ret.social_id;
   },
 });
 

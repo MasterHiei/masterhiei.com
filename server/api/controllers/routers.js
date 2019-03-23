@@ -12,6 +12,7 @@ router.post(`${prefix}/logout`, userController.logout);
 router.get(`${prefix}/users/me`, userController.me);
 router.put(`${prefix}/users/validate`, userController.validate);
 router.post(`${prefix}/users`, userController.create);
+router.post(`${prefix}/users/social`, userController.fetchSocial);
 
 // Article
 router.get(`${prefix}/articles`, articlesController.index);

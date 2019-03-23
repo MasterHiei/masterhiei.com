@@ -1,17 +1,14 @@
-export default ({ app }) => {
-  if (!app.$auth.loggedIn || !app.$auth.user) return;
-
-  let user = app.$auth.user;
-  switch (app.$auth.strategy.name) {
-    case 'github':
-      user.avatar = user.avatar_url;
-      user.username = user.name || user.login;
-      break;
-    case 'google':
-      // TODO: Modify Google account info
-      break;
-    default:
-      return;
-  }
+export default async ({ app }) => {
+  // Save social user data to database
+  const socialUser = app.$auth.user;
+  const strategy = app.$auth.strategy.name;
+  if (strategy === 'local' || !socialUser || socialUser.isFetched) return;
+  const { user } = await app.$axios.$post('/users/social', {
+    type: strategy,
+    socialId: socialUser.id,
+    username: socialUser.name || socialUser.login,
+    avatar: socialUser.avatar_url,
+  });
+  user.isFetched = true;
   app.$auth.$storage.setState('user', user);
 };

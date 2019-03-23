@@ -1,27 +1,36 @@
 const Comment = require('../../models/comment/comment.js');
+const Article = require('../../models/article/article');
 
 /**
  * Create a new Comment
  * @param {Request} req
  * @param {Response} res
  */
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
   const { userId, articleId, content } = req.body;
   if (!userId || !articleId || !content) {
     res.status(401).send({ message: 'Invalid POST parameters.' });
     return;
   }
 
+  // Save comment and create data relationship
   const comment = new Comment({
     user: userId,
     article: articleId,
     content: content,
   });
-  comment.save(err => {
-    if (err) {
-      res.json({ code: 500, message: 'Unexcepted Error.' });
-    } else {
-      res.json({ code: 0 });
-    }
+  const newComment = await comment.save().catch(error => {
+    console.log(error);
+    res.status(500).send({ message: 'Unexcepted Error.' });
   });
+  await Article.findByIdAndUpdate(
+    articleId,
+    { $push: { comments: newComment._id } },
+    { new: true }
+  )
+    .exec()
+    .catch(error => {
+      console.log(error);
+      res.status(500).send({ message: 'Unexcepted Error.' });
+    });
 };
