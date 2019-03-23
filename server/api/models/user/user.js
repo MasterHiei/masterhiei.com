@@ -43,7 +43,7 @@ const userSchema = new Schema(
  * @returns {String} Encrypted password string
  */
 userSchema.methods.hash = password => {
-  const salt = bcrypt.genSaltSync(process.env.BCRYPT_SALT_ROUND);
+  const salt = bcrypt.genSaltSync(Number(process.env.BCRYPT_SALT_ROUND));
   return bcrypt.hashSync(password, salt);
 };
 

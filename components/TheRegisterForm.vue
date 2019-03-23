@@ -66,6 +66,7 @@
             required
             @focus="isShowPasswordTips = true"
             @blur="isShowPasswordTips = false"
+            @keyup.enter="register"
             @click:append="isPasswordVisible = !isPasswordVisible"
           >
             <v-progress-linear
@@ -142,7 +143,7 @@ export default {
       delay(async () => {
         this.validating = true;
         const { code } = await this.$axios
-          .$put('/users/validate', this.email)
+          .$put('/users/validate', { email: this.email })
           .catch(() => false);
         this.validating = false;
         this.isEmailValid = code === 0;
