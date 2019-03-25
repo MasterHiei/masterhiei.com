@@ -1,7 +1,7 @@
 <template>
   <v-container grid-list-xs>
     <v-layout justify-center row wrap>
-      <v-flex md7 xs11 wrap>
+      <v-flex md8 xs11 wrap>
         <v-btn
           v-if="this.$auth.hasScope('admin')"
           color="success"

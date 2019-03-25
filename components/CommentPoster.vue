@@ -1,9 +1,9 @@
 <template>
   <v-flex wrap>
-    <v-divider class="my-1" />
+    <v-divider class="mb-2" />
 
     <v-flex v-if="this.$auth.loggedIn" wrap>
-      <v-flex mb-1 wrap>
+      <v-flex mb-2 wrap>
         <v-avatar size="44" tile>
           <!-- eslint-disable-next-line vue/html-self-closing -->
           <img

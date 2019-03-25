@@ -13,7 +13,7 @@
       />
     </no-ssr>
 
-    <v-btn class="mx-0 my-2" color="success" @click="post">
+    <v-btn class="mx-0 mt-2" color="success" @click="post">
       {{ $t('post') }}
     </v-btn>
   </v-flex>

@@ -1,15 +1,25 @@
 <template>
   <v-flex wrap>
+    <v-divider class="mb-3" />
+
     <v-flex px-0 wrap>
-      <v-flex px-0 wrap>
-        <v-avatar size="44" tile>
-          <!-- eslint-disable-next-line vue/html-self-closing -->
-          <img v-lazy="comment.user.avatar" :alt="comment.user.username" />
-        </v-avatar>
+      <v-avatar size="44" tile>
+        <!-- eslint-disable-next-line vue/html-self-closing -->
+        <img v-lazy="comment.user.avatar" :alt="comment.user.username" />
+      </v-avatar>
+
+      <v-flex d-inline-block wrap>
+        <v-flex tag="span">
+          {{ comment.user.username }}
+        </v-flex>
+
+        <v-flex d-block tag="span">
+          {{ comment.created_at }}
+        </v-flex>
       </v-flex>
     </v-flex>
 
-    <v-flex class="shadow-around" my-1 wrap>
+    <v-flex my-1 wrap>
       <the-markdown-view :content="comment.content" />
     </v-flex>
   </v-flex>

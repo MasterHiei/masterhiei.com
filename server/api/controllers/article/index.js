@@ -41,7 +41,7 @@ exports.show = async (req, res) => {
   )
     .populate({
       path: 'comments',
-      select: 'content',
+      select: 'content created_at updated_at',
       populate: {
         path: 'user',
         select: 'username avatar',
