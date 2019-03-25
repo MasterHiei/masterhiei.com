@@ -129,7 +129,7 @@ module.exports = {
 
   markdownit: {
     injected: true,
-    preset: 'default',
+    breaks: true,
   },
 
   /*

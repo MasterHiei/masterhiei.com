@@ -23,14 +23,12 @@ exports.create = async (req, res) => {
     console.log(error);
     res.status(500).send({ message: 'Unexcepted Error.' });
   });
-  await Article.findByIdAndUpdate(
-    articleId,
-    { $push: { comments: newComment._id } },
-    { new: true }
-  )
+  await Article.where({ _id: articleId })
+    .update({ $push: { comments: newComment._id } })
     .exec()
     .catch(error => {
       console.log(error);
       res.status(500).send({ message: 'Unexcepted Error.' });
     });
+  res.json({ code: 0 });
 };

@@ -65,6 +65,7 @@ export default {
         articleId: this.$route.params.id,
         content: content,
       });
+      this.$router.go();
     },
   },
 };
