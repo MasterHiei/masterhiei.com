@@ -1,9 +1,7 @@
 <template>
   <v-flex wrap>
-    <v-divider class="mb-2" />
-
     <v-flex v-if="this.$auth.loggedIn" wrap>
-      <v-flex mb-2 wrap>
+      <v-flex my-2 wrap>
         <v-avatar size="44" tile>
           <!-- eslint-disable-next-line vue/html-self-closing -->
           <img
@@ -28,8 +26,8 @@
       </v-flex>
     </v-flex>
 
-    <v-flex v-else class="grey lighten-2 text-xs-center" py-4 wrap>
-      <v-flex mb-2 wrap>
+    <v-flex v-else class="grey lighten-2 text-xs-center" mt-3 py-4 wrap>
+      <v-flex wrap>
         <v-btn
           class="subheading font-weight-light"
           color="green darken-1"
@@ -43,7 +41,7 @@
         </v-btn>
       </v-flex>
 
-      <v-flex class="grey--text text--darken-1" tag="span" wrap>
+      <v-flex class="grey--text text--darken-1 my-2" d-block tag="span" wrap>
         {{ $t('auth.loginPromotion') }}
       </v-flex>
     </v-flex>

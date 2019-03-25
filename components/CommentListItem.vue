@@ -2,22 +2,24 @@
   <v-flex wrap>
     <v-divider class="mb-3" />
 
-    <v-flex px-0 wrap>
-      <v-avatar size="44" tile>
-        <!-- eslint-disable-next-line vue/html-self-closing -->
-        <img v-lazy="comment.user.avatar" :alt="comment.user.username" />
-      </v-avatar>
+    <v-container grid-list-xs pa-0>
+      <v-layout ma-0 row wrap>
+        <v-avatar size="44" tile>
+          <!-- eslint-disable-next-line vue/html-self-closing -->
+          <img v-lazy="comment.user.avatar" :alt="comment.user.username" />
+        </v-avatar>
 
-      <v-flex d-inline-block wrap>
-        <v-flex tag="span">
-          {{ comment.user.username }}
-        </v-flex>
+        <v-flex class="grey--text text--darken-1" d-inline-block ml-3 wrap>
+          <v-flex tag="span">
+            {{ comment.user.username }}
+          </v-flex>
 
-        <v-flex d-block tag="span">
-          {{ comment.created_at }}
+          <v-flex d-block tag="span">
+            {{ dateFormate(comment.created_at) }}
+          </v-flex>
         </v-flex>
-      </v-flex>
-    </v-flex>
+      </v-layout>
+    </v-container>
 
     <v-flex my-1 wrap>
       <the-markdown-view :content="comment.content" />
@@ -37,6 +39,12 @@ export default {
     comment: {
       type: Object,
       required: true,
+    },
+  },
+
+  methods: {
+    dateFormate(dateStr) {
+      return this.$d(new Date(dateStr), 'long', this.$i18n.locale);
     },
   },
 };
