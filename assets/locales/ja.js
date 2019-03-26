@@ -29,6 +29,7 @@ module.exports = {
   },
   comment: {
     promotion: '{name}さん、コメントを書きましょう！',
+    reply: '返信',
   },
   post: '投稿',
   errors: {

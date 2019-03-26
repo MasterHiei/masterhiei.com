@@ -29,6 +29,7 @@ module.exports = {
   },
   comment: {
     promotion: '{name}，欢迎留言评论～',
+    reply: '回复',
   },
   post: '发布',
   errors: {

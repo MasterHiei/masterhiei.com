@@ -1,30 +1,42 @@
 <template>
-  <v-flex wrap>
+  <v-container grid-list-xs pa-0>
     <v-divider class="mb-3" />
 
-    <v-container grid-list-xs pa-0>
-      <v-layout ma-0 row wrap>
-        <v-avatar size="44" tile>
-          <!-- eslint-disable-next-line vue/html-self-closing -->
-          <img v-lazy="comment.user.avatar" :alt="comment.user.username" />
-        </v-avatar>
+    <v-layout class="grey--text text--darken-1" ma-0 row wrap>
+      <v-avatar size="44" tile>
+        <!-- eslint-disable-next-line vue/html-self-closing -->
+        <img v-lazy="comment.user.avatar" :alt="comment.user.username" />
+      </v-avatar>
 
-        <v-flex class="grey--text text--darken-1" d-inline-block ml-3 wrap>
-          <v-flex tag="span">
-            {{ comment.user.username }}
-          </v-flex>
-
-          <v-flex d-block tag="span">
-            {{ dateFormate(comment.created_at) }}
-          </v-flex>
+      <v-flex d-inline-block ml-3 wrap>
+        <v-flex tag="span">
+          {{ comment.user.username }}
         </v-flex>
-      </v-layout>
-    </v-container>
+
+        <v-flex d-block tag="span">
+          {{ dateFormate(comment.created_at) }}
+        </v-flex>
+      </v-flex>
+
+      <v-flex class="text-xs-right" justify-end wrap>
+        <v-flex d-block tag="span" pr-1>
+          {{ commentNo }}
+        </v-flex>
+
+        <v-flex
+          class="reply-btn green--text text--darken-1"
+          tag="button"
+          @click="reply"
+        >
+          {{ $t('comment.reply') }}
+        </v-flex>
+      </v-flex>
+    </v-layout>
 
     <v-flex my-1 wrap>
       <the-markdown-view :content="comment.content" />
     </v-flex>
-  </v-flex>
+  </v-container>
 </template>
 
 <script>
@@ -36,9 +48,21 @@ export default {
   },
 
   props: {
+    index: {
+      type: Number,
+      required: true,
+    },
+
     comment: {
       type: Object,
       required: true,
+    },
+  },
+
+  computed: {
+    commentNo() {
+      const no = this.index + 1;
+      return `#${no}`;
     },
   },
 
@@ -46,11 +70,15 @@ export default {
     dateFormate(dateStr) {
       return this.$d(new Date(dateStr), 'long', this.$i18n.locale);
     },
+
+    reply() {
+      console.log(this.comment.id);
+    },
   },
 };
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-.shadow-around
-  box-shadow 0 0px 4px rgba(0, 0, 0, .156863), 0 0px 4px rgba(0, 0, 0, .227451)
+.reply-btn:focus
+  outline none
 </style>

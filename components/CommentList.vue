@@ -1,7 +1,7 @@
 <template>
   <v-flex wrap>
     <v-flex v-for="(comment, index) in comments" :key="index" wrap>
-      <comment-list-item :comment="comment" />
+      <comment-list-item :index="index" :comment="comment" />
     </v-flex>
   </v-flex>
 </template>
@@ -22,5 +22,3 @@ export default {
   },
 };
 </script>
-
-<style scoped lang="stylus" rel="stylesheet/stylus"></style>

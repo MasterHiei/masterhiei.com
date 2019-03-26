@@ -1,7 +1,9 @@
 <template>
   <v-flex wrap>
+    <v-divider class="my-2" />
+
     <v-flex v-if="this.$auth.loggedIn" wrap>
-      <v-flex my-2 wrap>
+      <v-flex mb-2 wrap>
         <v-avatar size="44" tile>
           <!-- eslint-disable-next-line vue/html-self-closing -->
           <img
@@ -11,7 +13,7 @@
         </v-avatar>
 
         <v-flex
-          class="grey--text text--darken-1 font-weight-medium"
+          class="grey--text text--darken-1"
           tag="span"
           pa-0
           ml-3
