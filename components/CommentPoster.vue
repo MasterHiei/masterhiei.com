@@ -1,25 +1,28 @@
 <template>
   <v-flex wrap>
     <v-flex v-if="this.$auth.loggedIn" wrap>
-      <v-flex mb-3 wrap>
-        <v-avatar size="44" tile>
-          <!-- eslint-disable-next-line vue/html-self-closing -->
-          <img
-            v-lazy="this.$auth.user.avatar"
-            :alt="this.$auth.user.username"
-          />
-        </v-avatar>
+      <v-container grid-list-xs px-1 py-0>
+        <v-layout ma-0 mb-3 row wrap>
+          <v-flex class="avatar-container" pa-0 wrap>
+            <v-avatar size="44" tile>
+              <!-- eslint-disable-next-line vue/html-self-closing -->
+              <img
+                v-lazy="this.$auth.user.avatar"
+                :alt="this.$auth.user.username"
+              />
+            </v-avatar>
+          </v-flex>
 
-        <v-flex
-          class="grey--text text--darken-1"
-          tag="span"
-          pa-0
-          ml-3
-          style="line-height: 44px;"
-        >
-          {{ $t('comment.promotion', { name: this.$auth.user.username }) }}
-        </v-flex>
-      </v-flex>
+          <v-flex
+            class="grey--text text--darken-1"
+            tag="span"
+            pa-0
+            style="line-height: 44px;"
+          >
+            {{ $t('comment.promotion', { name: this.$auth.user.username }) }}
+          </v-flex>
+        </v-layout>
+      </v-container>
 
       <v-flex wrap>
         <the-editor callback="post" @post="post" />
@@ -68,3 +71,9 @@ export default {
   },
 };
 </script>
+
+<style scoped lang="stylus" rel="stylesheet/stylus">
+.avatar-container
+  min-width 44px
+  max-width 64px
+</style>

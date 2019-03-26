@@ -15,6 +15,6 @@ export default {
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-code:before, code:after
+>>>code:before, >>>code:after
   content none
 </style>

@@ -1,17 +1,15 @@
 <template>
   <v-container grid-list-xs pa-0>
-    <v-divider class="mb-3" />
-
     <v-layout ma-0 row wrap>
-      <v-flex pa-0 sm1 xs2 wrap>
+      <v-flex class="avatar-container" pa-0 wrap>
         <v-avatar size="44" tile>
           <!-- eslint-disable-next-line vue/html-self-closing -->
           <img v-lazy="comment.user.avatar" :alt="comment.user.username" />
         </v-avatar>
       </v-flex>
 
-      <v-flex pa-0 sm11 xs10 wrap>
-        <v-layout ma-0 sm11 xs10 column wrap>
+      <v-flex pa-0 xs10 sm11 wrap>
+        <v-layout ma-0 column wrap>
           <v-layout class="grey--text text--darken-1" ma-0 row>
             <v-flex wrap>
               <v-flex tag="span">
@@ -23,18 +21,15 @@
               </v-flex>
             </v-flex>
 
-            <v-flex class="text-xs-right caption" justify-end wrap>
-              <v-flex tag="span" d-block py-0 style="padding-right: 1px;">
-                {{ commentNo }}
-              </v-flex>
-
+            <v-flex class="text-xs-right" justify-end wrap>
               <v-flex
-                class="reply-btn green--text text--darken-1"
-                tag="button"
-                pa-0
-                @click="reply"
+                class="teal--text"
+                tag="span"
+                d-block
+                py-0
+                style="padding-right: 1px; font-size: 13px;"
               >
-                {{ $t('comment.reply') }}
+                {{ commentNo }}
               </v-flex>
             </v-flex>
           </v-layout>
@@ -42,9 +37,22 @@
           <v-flex mt-2 mb-4 wrap>
             <the-markdown-view :content="comment.content" />
           </v-flex>
+
+          <v-flex wrap>
+            <v-flex
+              class="reply-btn green--text text--darken-2"
+              tag="button"
+              pa-0
+              @click="reply"
+            >
+              {{ $t('comment.reply') }}
+            </v-flex>
+          </v-flex>
         </v-layout>
       </v-flex>
     </v-layout>
+
+    <v-divider class="mt-2 mb-4" />
   </v-container>
 </template>
 
@@ -88,7 +96,13 @@ export default {
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-.reply-btn:focus
+.avatar-container
+  min-width 44px
+  max-width 64px
+
+.reply-btn
+  &:focus
     outline none
-    text-decoration underline
+  &:hover
+    color #2E7D32 !important
 </style>
