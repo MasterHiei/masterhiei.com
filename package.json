@@ -29,7 +29,7 @@
     "express": "^4.16.4",
     "jsonwebtoken": "^8.5.1",
     "mavon-editor": "^2.7.2",
-    "mongoose": "^5.4.19",
+    "mongoose": "^5.4.20",
     "morgan": "^1.9.1",
     "nuxt": "^2.5.1",
     "nuxt-i18n": "^5.8.5",
