@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   links: {
     locale: '简体中文',
     index: '首页',

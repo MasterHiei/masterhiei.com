@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   links: {
     locale: '日本語',
     index: 'ホーム',

@@ -90,7 +90,7 @@ module.exports = {
         ],
         defaultLocale: 'zh-CN',
         lazy: true,
-        langDir: 'assets/locales/',
+        langDir: 'assets/locales/lang/',
       },
     ],
     '@nuxtjs/markdownit',
