@@ -32,6 +32,8 @@ module.exports = {
     reply: '回复',
     edit: '编辑',
     remove: '删除',
+    update: '更新',
+    cancel: '取消',
   },
   post: '发布',
   errors: {

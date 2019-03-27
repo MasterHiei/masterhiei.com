@@ -45,7 +45,7 @@
 
                   <v-list>
                     <template v-if="isAuthor">
-                      <v-list-tile @click="edit">
+                      <v-list-tile @click="isEditor = true">
                         <v-list-tile-title class="body-1 teal--text lighten-1">
                           {{ $t('comment.edit') }}
                         </v-list-tile-title>
@@ -75,8 +75,25 @@
             </v-flex>
           </v-layout>
 
-          <v-flex mt-2 mb-2 wrap>
+          <v-flex v-if="!isEditor" mt-2 mb-2 wrap>
             <the-markdown-view :content="comment.content" />
+          </v-flex>
+
+          <v-flex v-else class="text-xs-right" mt-2 mb-2 wrap>
+            <v-textarea
+              solo
+              auto-grow
+              label="Editing..."
+              :value="comment.content"
+            />
+
+            <v-btn color="success" flat small @click="edit">
+              {{ $t('comment.update') }}
+            </v-btn>
+
+            <v-btn color="error" flat small @click="isEditor = false">
+              {{ $t('comment.cancel') }}
+            </v-btn>
           </v-flex>
         </v-layout>
       </v-flex>
@@ -109,6 +126,7 @@ export default {
   data() {
     return {
       isAuthor: this.$auth.user.id === this.comment.user.id,
+      isEditor: false,
     };
   },
 

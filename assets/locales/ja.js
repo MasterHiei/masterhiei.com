@@ -32,6 +32,8 @@ module.exports = {
     reply: '返信',
     edit: '編集',
     remove: '削除',
+    update: '更新',
+    cancel: 'キャンセル',
   },
   post: '投稿',
   errors: {
