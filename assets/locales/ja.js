@@ -30,6 +30,8 @@ module.exports = {
   comment: {
     promotion: '{name}さん、コメントを書きましょう！',
     reply: '返信',
+    edit: '編集',
+    delete: '削除',
   },
   post: '投稿',
   errors: {

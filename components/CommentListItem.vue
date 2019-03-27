@@ -22,37 +22,63 @@
             </v-flex>
 
             <v-flex class="text-xs-right" justify-end wrap>
-              <v-flex
-                class="teal--text"
-                tag="span"
-                d-block
-                py-0
-                style="padding-right: 1px; font-size: 13px;"
-              >
+              <v-flex class="teal--text" tag="span" d-block py-0 pr-2>
                 {{ commentNo }}
+              </v-flex>
+
+              <v-flex pa-0 wrap>
+                <v-menu slide-x-transiton>
+                  <template v-slot:activator="{ on }">
+                    <v-btn
+                      class="ma-0"
+                      color="grey lighten-1"
+                      flat
+                      small
+                      icon
+                      v-on="on"
+                    >
+                      <v-icon small>
+                        fas fa-ellipsis-h
+                      </v-icon>
+                    </v-btn>
+                  </template>
+
+                  <v-list>
+                    <v-list-tile v-if="!isAuthor" @click="reply">
+                      <v-list-tile-title
+                        class="body-1 green--text text--darken-1"
+                      >
+                        {{ $t('comment.reply') }}
+                      </v-list-tile-title>
+                    </v-list-tile>
+
+                    <v-list-tile v-else @click="edit">
+                      <v-list-tile-title class="body-1 indigo--text darken-1">
+                        {{ $t('comment.edit') }}
+                      </v-list-tile-title>
+                    </v-list-tile>
+
+                    <v-list-tile v-if="isAuthor" @click="remove">
+                      <v-list-tile-title
+                        class="body-1 deep-orange--text accent-4"
+                      >
+                        {{ $t('comment.delete') }}
+                      </v-list-tile-title>
+                    </v-list-tile>
+                  </v-list>
+                </v-menu>
               </v-flex>
             </v-flex>
           </v-layout>
 
-          <v-flex mt-2 mb-4 wrap>
+          <v-flex mt-2 mb-2 wrap>
             <the-markdown-view :content="comment.content" />
-          </v-flex>
-
-          <v-flex wrap>
-            <v-flex
-              class="reply-btn green--text text--darken-2"
-              tag="button"
-              pa-0
-              @click="reply"
-            >
-              {{ $t('comment.reply') }}
-            </v-flex>
           </v-flex>
         </v-layout>
       </v-flex>
     </v-layout>
 
-    <v-divider class="mt-2 mb-4" />
+    <v-divider class="mt-3 mb-4" />
   </v-container>
 </template>
 
@@ -76,6 +102,12 @@ export default {
     },
   },
 
+  data() {
+    return {
+      isAuthor: this.$auth.user.id === this.comment.user.id,
+    };
+  },
+
   computed: {
     commentNo() {
       const no = this.index + 1;
@@ -91,6 +123,14 @@ export default {
     reply() {
       console.log(this.comment.id);
     },
+
+    edit() {
+      console.log(this.comment.id);
+    },
+
+    remove() {
+      console.log(this.comment.id);
+    },
   },
 };
 </script>
@@ -99,10 +139,4 @@ export default {
 .avatar-container
   min-width 44px
   max-width 64px
-
-.reply-btn
-  &:focus
-    outline none
-  &:hover
-    color #2E7D32 !important
 </style>
