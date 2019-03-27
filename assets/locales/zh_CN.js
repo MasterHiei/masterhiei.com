@@ -31,7 +31,7 @@ module.exports = {
     promotion: '{name}，欢迎留言评论～',
     reply: '回复',
     edit: '编辑',
-    delete: '删除',
+    remove: '删除',
   },
   post: '发布',
   errors: {

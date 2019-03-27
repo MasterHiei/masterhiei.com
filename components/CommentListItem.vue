@@ -22,7 +22,7 @@
             </v-flex>
 
             <v-flex class="text-xs-right" justify-end wrap>
-              <v-flex class="teal--text" tag="span" d-block py-0 pr-2>
+              <v-flex tag="span" d-block py-0 pr-2 style="font-size: 13px;">
                 {{ commentNo }}
               </v-flex>
 
@@ -44,27 +44,31 @@
                   </template>
 
                   <v-list>
-                    <v-list-tile v-if="!isAuthor" @click="reply">
-                      <v-list-tile-title
-                        class="body-1 green--text text--darken-1"
-                      >
-                        {{ $t('comment.reply') }}
-                      </v-list-tile-title>
-                    </v-list-tile>
+                    <template v-if="isAuthor">
+                      <v-list-tile @click="edit">
+                        <v-list-tile-title class="body-1 teal--text lighten-1">
+                          {{ $t('comment.edit') }}
+                        </v-list-tile-title>
+                      </v-list-tile>
 
-                    <v-list-tile v-else @click="edit">
-                      <v-list-tile-title class="body-1 indigo--text darken-1">
-                        {{ $t('comment.edit') }}
-                      </v-list-tile-title>
-                    </v-list-tile>
+                      <v-list-tile @click="remove">
+                        <v-list-tile-title
+                          class="body-1 deep-orange--text accent-4"
+                        >
+                          {{ $t('comment.remove') }}
+                        </v-list-tile-title>
+                      </v-list-tile>
+                    </template>
 
-                    <v-list-tile v-if="isAuthor" @click="remove">
-                      <v-list-tile-title
-                        class="body-1 deep-orange--text accent-4"
-                      >
-                        {{ $t('comment.delete') }}
-                      </v-list-tile-title>
-                    </v-list-tile>
+                    <template v-else>
+                      <v-list-tile @click="reply">
+                        <v-list-tile-title
+                          class="body-1 green--text text--darken-1"
+                        >
+                          {{ $t('comment.reply') }}
+                        </v-list-tile-title>
+                      </v-list-tile>
+                    </template>
                   </v-list>
                 </v-menu>
               </v-flex>
