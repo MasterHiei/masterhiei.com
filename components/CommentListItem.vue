@@ -45,8 +45,10 @@
 
                   <v-list>
                     <template v-if="isAuthor">
-                      <v-list-tile @click="isEditor = true">
-                        <v-list-tile-title class="body-1 teal--text lighten-1">
+                      <v-list-tile @click="isEdit = true">
+                        <v-list-tile-title
+                          class="body-1 green--text text--darken-1"
+                        >
                           {{ $t('comment.edit') }}
                         </v-list-tile-title>
                       </v-list-tile>
@@ -75,23 +77,23 @@
             </v-flex>
           </v-layout>
 
-          <v-flex v-if="!isEditor" mt-2 mb-2 wrap>
+          <v-flex v-if="!isEdit" mt-2 mb-2 wrap>
             <the-markdown-view :content="comment.content" />
           </v-flex>
 
           <v-flex v-else class="text-xs-right" mt-2 mb-2 wrap>
             <v-textarea
+              v-model="editedContent"
               solo
               auto-grow
               label="Editing..."
-              :value="comment.content"
             />
 
             <v-btn color="success" flat small @click="edit">
               {{ $t('comment.update') }}
             </v-btn>
 
-            <v-btn color="error" flat small @click="isEditor = false">
+            <v-btn color="error" flat small @click="isEdit = false">
               {{ $t('comment.cancel') }}
             </v-btn>
           </v-flex>
@@ -126,7 +128,8 @@ export default {
   data() {
     return {
       isAuthor: this.$auth.user.id === this.comment.user.id,
-      isEditor: false,
+      isEdit: false,
+      editedContent: this.comment.content,
     };
   },
 
@@ -146,12 +149,21 @@ export default {
       console.log(this.comment.id);
     },
 
-    edit() {
-      console.log(this.comment.id);
+    async edit() {
+      await this.$axios.$patch(
+        `/articles/${this.$route.params.id}/comments/${this.comment.id}`,
+        {
+          content: this.editedContent,
+        }
+      );
+      this.$router.go();
     },
 
-    remove() {
-      console.log(this.comment.id);
+    async remove() {
+      await this.$axios.$delete(
+        `/articles/${this.$route.params.id}/comments/${this.comment.id}`
+      );
+      this.$router.go();
     },
   },
 };

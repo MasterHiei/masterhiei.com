@@ -61,9 +61,8 @@ export default {
 
   methods: {
     async post(content) {
-      await this.$axios.$post('/comments', {
+      await this.$axios.$post(`/articles/${this.$route.params.id}/comments`, {
         userId: this.$auth.user.id,
-        articleId: this.$route.params.id,
         content: content,
       });
       this.$router.go();

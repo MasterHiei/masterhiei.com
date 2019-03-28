@@ -19,6 +19,14 @@ router.get(`${prefix}/articles`, articlesController.index);
 router.get(`${prefix}/articles/:id`, articlesController.show);
 
 // Comment
-router.post(`${prefix}/comments`, commentController.create);
+router.post(`${prefix}/articles/:articleId/comments`, commentController.create);
+router.patch(
+  `${prefix}/articles/:articleId/comments/:commentId`,
+  commentController.update
+);
+router.delete(
+  `${prefix}/articles/:articleId/comments/:commentId`,
+  commentController.delete
+);
 
 module.exports = router;
