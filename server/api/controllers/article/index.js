@@ -42,6 +42,9 @@ exports.show = async (req, res) => {
     .populate({
       path: 'comments',
       select: 'content created_at updated_at',
+      options: {
+        sort: 'created_at',
+      },
       populate: {
         path: 'user',
         select: 'username avatar',
@@ -65,7 +68,7 @@ exports.show = async (req, res) => {
  */
 const findArticles = () => {
   return Article.find()
-    .sort('-created_by')
+    .sort('-created_at')
     .exec();
 };
 
