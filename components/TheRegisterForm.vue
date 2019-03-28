@@ -19,7 +19,7 @@
       />
 
       <v-tooltip
-        v-model="isShowUsernameTips"
+        v-model="showUsernameTips"
         nudge-top="13"
         nudge-left="4"
         lazy
@@ -36,8 +36,8 @@
             class="pb-3"
             color="success"
             required
-            @focus="isShowUsernameTips = true"
-            @blur="isShowUsernameTips = false"
+            @focus="showUsernameTips = true"
+            @blur="showUsernameTips = false"
           />
         </template>
 
@@ -45,7 +45,7 @@
       </v-tooltip>
 
       <v-tooltip
-        v-model="isShowPasswordTips"
+        v-model="showPasswordTips"
         nudge-top="13"
         nudge-left="4"
         lazy
@@ -58,16 +58,16 @@
             data-vv-name="password"
             :error-messages="errors.first('password')"
             :label="passwordLabel"
-            :type="isPasswordVisible ? 'text' : 'password'"
+            :type="passwordVisible ? 'text' : 'password'"
             :loading="password.length > 0"
-            :append-icon="isPasswordVisible ? 'fas fa-eye-slash' : 'fas fa-eye'"
+            :append-icon="passwordVisible ? 'fas fa-eye-slash' : 'fas fa-eye'"
             class="pb-3"
             color="success"
             required
-            @focus="isShowPasswordTips = true"
-            @blur="isShowPasswordTips = false"
+            @focus="showPasswordTips = true"
+            @blur="showPasswordTips = false"
             @keyup.enter="register"
-            @click:append="isPasswordVisible = !isPasswordVisible"
+            @click:append="passwordVisible = !passwordVisible"
           >
             <v-progress-linear
               slot="progress"
@@ -107,14 +107,14 @@ export default {
   data() {
     return {
       email: '',
-      isEmailValid: false,
+      validEmail: false,
       username: '',
-      isShowUsernameTips: false,
+      showUsernameTips: false,
       usernameLabel: this.$i18n.t('auth.username'),
       password: '',
-      isShowPasswordTips: false,
+      showPasswordTips: false,
       passwordLabel: this.$i18n.t('auth.password'),
-      isPasswordVisible: false,
+      passwordVisible: false,
       validating: false,
     };
   },
@@ -146,14 +146,14 @@ export default {
           .$put('/users/validate', { email: this.email })
           .catch(() => false);
         this.validating = false;
-        this.isEmailValid = code === 0;
+        this.validEmail = code === 0;
       }, 500);
     },
 
     async register() {
       // User registration
       const valid = await this.$validator.validateAll();
-      if (!valid || !this.isEmailValid) return;
+      if (!valid || !this.validEmail) return;
       const { code } = await this.$axios.$post('/users', {
         email: this.email,
         username: this.username,
