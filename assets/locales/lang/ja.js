@@ -41,8 +41,9 @@ export default {
   },
   post: '投稿',
   dialog: {
-    agree: '確認',
-    cancel: 'キャンセル',
+    title: '確認',
+    agree: 'はい',
+    cancel: 'いええ',
   },
   errors: {
     auth: {

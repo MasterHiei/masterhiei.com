@@ -36,7 +36,7 @@
     "vee-validate": "^2.2.0",
     "vue-lazyload": "^1.2.6",
     "vue-scrollto": "^2.15.0",
-    "vuetify": "^1.5.7",
+    "vuetify": "^1.5.8",
     "vuetify-loader": "^1.2.1"
   },
   "devDependencies": {

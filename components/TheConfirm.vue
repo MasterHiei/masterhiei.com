@@ -1,8 +1,13 @@
 <template>
   <v-dialog v-model="dialog" max-width="420px" lazy>
     <v-card>
-      <v-card-title class="subheading font-weight-bold">
-        {{ title }}
+      <v-card-title>
+        <v-icon color="warning" large left>
+          fas fa-exclamation-circle
+        </v-icon>
+        <v-flex class="subheading font-weight-bold" tag="span">
+          {{ title }}
+        </v-flex>
       </v-card-title>
 
       <v-card-text class="pt-0">
@@ -29,7 +34,7 @@ export default {
   data() {
     return {
       dialog: false,
-      title: '',
+      title: this.$i18n.t('dialog.title'),
       message: '',
       resolve: null,
     };
@@ -37,7 +42,9 @@ export default {
 
   methods: {
     show(title, message) {
-      this.title = title;
+      if (title) {
+        this.title = title;
+      }
       this.message = message;
       this.dialog = true;
       return new Promise((resolve, reject) => {

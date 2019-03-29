@@ -41,7 +41,8 @@ export default {
   },
   post: '发布',
   dialog: {
-    agree: '确认',
+    title: '确认',
+    agree: '确定',
     cancel: '取消',
   },
   errors: {
