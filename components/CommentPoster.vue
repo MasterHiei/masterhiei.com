@@ -2,7 +2,7 @@
   <v-flex wrap>
     <v-flex v-if="this.$auth.loggedIn" wrap>
       <v-container grid-list-xs px-1 py-0>
-        <v-layout ma-0 mb-3 row wrap>
+        <v-layout ma-0 mb-3 align-center row wrap>
           <v-flex class="avatar-container" pa-0 wrap>
             <v-avatar size="44" tile>
               <!-- eslint-disable-next-line vue/html-self-closing -->
@@ -13,12 +13,7 @@
             </v-avatar>
           </v-flex>
 
-          <v-flex
-            class="grey--text text--darken-1"
-            tag="span"
-            pa-0
-            style="line-height: 44px;"
-          >
+          <v-flex class="grey--text text--darken-1" tag="span" xs10 md11 pa-0>
             {{ $t('comment.promotion', { name: this.$auth.user.username }) }}
           </v-flex>
         </v-layout>
