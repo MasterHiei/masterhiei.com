@@ -25,7 +25,11 @@
       </v-container>
 
       <v-flex wrap>
-        <the-editor callback="post" @post="post" />
+        <the-editor
+          :placeholder="$t('comment.placeholder')"
+          callback="post"
+          @post="post"
+        />
       </v-flex>
     </v-flex>
 

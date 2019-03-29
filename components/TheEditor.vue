@@ -5,7 +5,7 @@
         id="mavon-editor"
         v-model="content"
         class="justify-center"
-        :value="defaultValue"
+        :placeholder="placeholder"
         :tab-size="Number(2)"
         :autofocus="false"
         :language="language[this.$i18n.locale] || 'en'"
@@ -30,7 +30,7 @@ export default {
   },
 
   props: {
-    defaultValue: {
+    placeholder: {
       type: String,
       default: '',
     },

@@ -84,16 +84,17 @@
           <v-flex v-else class="text-xs-right" mt-2 mb-2 wrap>
             <v-textarea
               v-model="editedContent"
+              class="body-2"
               solo
               auto-grow
-              label="Editing..."
+              :label="$t('comment.placeholder')"
             />
 
             <v-btn color="success" flat small @click="edit">
               {{ $t('comment.update') }}
             </v-btn>
 
-            <v-btn color="error" flat small @click="isEdit = false">
+            <v-btn color="error" flat small @click="revokeEdit">
               {{ $t('comment.cancel') }}
             </v-btn>
           </v-flex>
@@ -102,14 +103,17 @@
     </v-layout>
 
     <v-divider class="mt-3 mb-4" />
+
+    <the-confirm ref="confirm" />
   </v-container>
 </template>
 
 <script>
+import TheConfirm from './TheConfirm';
 import TheMarkdownView from './TheMarkdownView';
-
 export default {
   components: {
+    TheConfirm,
     TheMarkdownView,
   },
 
@@ -149,21 +153,48 @@ export default {
       console.log(this.comment.id);
     },
 
-    async edit() {
-      await this.$axios.$patch(
-        `/articles/${this.$route.params.id}/comments/${this.comment.id}`,
-        {
-          content: this.editedContent,
-        }
-      );
-      this.$router.go();
+    edit() {
+      this.$refs.confirm
+        .show('', this.$i18n.t('comment.confirmEdit'))
+        .then(async confirm => {
+          if (!confirm) {
+            return;
+          }
+
+          await this.$axios.$patch(
+            `/articles/${this.$route.params.id}/comments/${this.comment.id}`,
+            {
+              content: this.editedContent,
+            }
+          );
+          this.$router.go();
+        });
     },
 
-    async remove() {
-      await this.$axios.$delete(
-        `/articles/${this.$route.params.id}/comments/${this.comment.id}`
-      );
-      this.$router.go();
+    revokeEdit() {
+      this.$refs.confirm
+        .show('', this.$i18n.t('comment.revokeEdit'))
+        .then(confirm => {
+          if (!confirm) {
+            return;
+          }
+          this.isEdit = false;
+        });
+    },
+
+    remove() {
+      this.$refs.confirm
+        .show('', this.$i18n.t('comment.confirmRemove'))
+        .then(async confirm => {
+          if (!confirm) {
+            return;
+          }
+
+          await this.$axios.$delete(
+            `/articles/${this.$route.params.id}/comments/${this.comment.id}`
+          );
+          this.$router.go();
+        });
     },
   },
 };
