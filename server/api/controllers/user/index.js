@@ -54,13 +54,7 @@ exports.me = async (req, res) => {
 
   try {
     const user = jwt.verify(token);
-    if (user) {
-      res.json({ code: 0, user: user });
-    } else {
-      res.status(401).send({
-        message: 'The authentication token is invalid or has expired.',
-      });
-    }
+    res.json({ code: 0, user: user });
   } catch (error) {
     console.log(error);
     res.status(401).send({
