@@ -48,15 +48,24 @@ exports.logout = (_, res) => {
 exports.me = async (req, res) => {
   const token = req.token;
   if (!token) {
-    res.json({ code: 400, message: 'Invalid user token.' });
+    res.status(401).send({ message: 'Missing authentication  token.' });
     return;
   }
 
   try {
     const user = jwt.verify(token);
-    res.json({ code: 0, user: user });
-  } catch (_) {
-    res.json({ code: 400, message: 'Invalid user token.' });
+    if (user) {
+      res.json({ code: 0, user: user });
+    } else {
+      res.status(401).send({
+        message: 'The authentication token is invalid or has expired.',
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(401).send({
+      message: 'The authentication token is invalid or has expired.',
+    });
   }
 };
 

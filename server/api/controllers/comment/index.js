@@ -11,7 +11,7 @@ exports.create = async (req, res) => {
   const articleId = req.params.articleId;
   const { userId, content } = req.body;
   if (!userId || !articleId || !content) {
-    res.status(401).send({ message: 'Invalid POST parameters.' });
+    res.status(400).send({ message: 'Invalid POST parameters.' });
     return;
   }
 
@@ -44,7 +44,7 @@ exports.update = async (req, res) => {
   const commentId = req.params.commentId;
   const { content } = req.body;
   if (!commentId || !content) {
-    res.status(401).send({ message: 'Invalid POST parameters.' });
+    res.status(400).send({ message: 'Invalid POST parameters.' });
     return;
   }
 
@@ -66,7 +66,7 @@ exports.update = async (req, res) => {
 exports.delete = async (req, res) => {
   const commentId = req.params.commentId;
   if (!commentId) {
-    res.status(401).send({ message: 'Invalid comment id.' });
+    res.status(400).send({ message: 'Invalid comment id.' });
     return;
   }
 

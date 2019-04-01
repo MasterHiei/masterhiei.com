@@ -17,11 +17,11 @@
       <v-card-actions>
         <v-spacer />
 
-        <v-btn color="success" small flat @click="agree">
+        <v-btn color="success" small outline @click="agree">
           {{ $t('dialog.agree') }}
         </v-btn>
 
-        <v-btn color="error" small flat @click="cancel">
+        <v-btn color="error" small outline @click="cancel">
           {{ $t('dialog.cancel') }}
         </v-btn>
       </v-card-actions>

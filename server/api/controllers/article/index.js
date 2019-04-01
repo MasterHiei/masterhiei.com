@@ -31,7 +31,7 @@ exports.index = (_, res) => {
 exports.show = async (req, res) => {
   const id = req.params.id;
   if (!id) {
-    res.status(401).send({ message: 'Invalid article id.' });
+    res.status(400).send({ message: 'Invalid article id.' });
   }
 
   const article = await Article.findByIdAndUpdate(
