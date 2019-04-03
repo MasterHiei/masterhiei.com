@@ -87,7 +87,7 @@ export default {
     },
   },
 
-  async asyncData({ $axios, store, params }) {
+  async asyncData({ store, params }) {
     const article = await store.dispatch('article/getArticle', params.id);
     return { article: article };
   },

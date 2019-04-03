@@ -1,10 +1,11 @@
+const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const { Nuxt, Builder } = require('nuxt');
-const config = require('../nuxt.config.js');
+const config = require('../nuxt.config.ts');
 const api = require('./api/index');
 const app = express();
 const isDebug = !(process.env.NODE_ENV === 'production');
@@ -32,7 +33,7 @@ require('./api/models/article/article');
 require('./api/models/comment/comment');
 
 // Set public resources path
-app.use('/public', express.static(__dirname + '/public'));
+app.use('/public', express.static(path.join(__dirname, '/public')));
 
 // Morgan middleware
 app.use(
@@ -57,6 +58,7 @@ config.dev = isDebug;
 async function start() {
   // Init Nuxt.js
   const nuxt = new Nuxt(config);
+  await nuxt.ready();
 
   // Build only in dev mode
   if (config.dev) {

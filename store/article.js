@@ -24,7 +24,7 @@ export const mutations = {
   },
   [SET_ARTICLE](state, article) {
     let isExist = false;
-    let articles = state.articles;
+    const articles = state.articles;
     for (let i = 0; i < articles.length; i++) {
       if (articles[i].id === article.id) {
         articles[i] = article;

@@ -156,6 +156,7 @@ export default {
     edit() {
       this.$refs.confirm
         .show('', this.$i18n.t('comment.confirmEdit'))
+        .catch(() => {})
         .then(async confirm => {
           if (!confirm) {
             return;
@@ -174,10 +175,12 @@ export default {
     revokeEdit() {
       this.$refs.confirm
         .show('', this.$i18n.t('comment.revokeEdit'))
+        .catch(() => {})
         .then(confirm => {
           if (!confirm) {
             return;
           }
+
           this.isEdit = false;
         });
     },
@@ -185,6 +188,7 @@ export default {
     remove() {
       this.$refs.confirm
         .show('', this.$i18n.t('comment.confirmRemove'))
+        .catch(() => {})
         .then(async confirm => {
           if (!confirm) {
             return;

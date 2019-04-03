@@ -56,7 +56,7 @@ module.exports = {
   ],
 
   generate: {
-    routers: ['/about', '/ja-JP/about'],
+    routes: ['/about', '/ja-JP/about'],
   },
 
   /*
@@ -130,6 +130,9 @@ module.exports = {
     },
   },
 
+  /*
+   ** markdownit configuration
+   */
   markdownit: {
     injected: true,
     breaks: true,
@@ -146,22 +149,29 @@ module.exports = {
         import: ['~assets/style/variables'],
       },
     },
+
+    typescript: {
+      typeCheck: false,
+    },
+
+    analyze: {
+      analyzerMode: 'server',
+    },
+
     /*
      ** You can extend webpack config here
      */
+    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
     extend(config, ctx) {
       // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {
         config.module.rules.push({
           enforce: 'pre',
-          test: /\.(js|vue)$/,
+          test: /\.(ts|js|vue)$/,
           loader: 'eslint-loader',
           exclude: /(node_modules)/,
         });
       }
-    },
-    analyze: {
-      analyzerMode: 'server',
     },
   },
 };

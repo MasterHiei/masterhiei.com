@@ -4,22 +4,25 @@ module.exports = {
     browser: true,
     node: true,
   },
+  parser:  'vue-eslint-parser',
   parserOptions: {
-    parser: 'babel-eslint',
+    parser: '@typescript-eslint/parser',
     sourceType: 'module',
+    warnOnUnsupportedTypeScriptVersion: false,
   },
   extends: [
     '@nuxtjs',
-    'eslint:recommended',
-    'plugin:vue/recommended',
+    'plugin:nuxt/recommended',
     'plugin:prettier/recommended',
-  ],
-  // required to lint *.vue files
-  plugins: [
-    'vue',
     'prettier',
+    'prettier/vue',
+    'plugin:@typescript-eslint/recommended',
+    'prettier/@typescript-eslint',
   ],
-  // add your custom rules here
+  plugins: [
+    '@typescript-eslint',
+    'prettier'
+  ],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
@@ -35,5 +38,7 @@ module.exports = {
         jsxBracketSameLine: true
       },
     ],
+    '@typescript-eslint/camelcase': 'off',
+    '@typescript-eslint/no-var-requires': 'off',
   },
 };

@@ -37,6 +37,7 @@ export default {
       title: this.$i18n.t('dialog.title'),
       message: '',
       resolve: null,
+      reject: null,
     };
   },
 
@@ -49,6 +50,7 @@ export default {
       this.dialog = true;
       return new Promise((resolve, reject) => {
         this.resolve = resolve;
+        this.reject = reject;
       });
     },
 
@@ -64,7 +66,7 @@ export default {
       if (!this.resolve) {
         return;
       }
-      this.resolve(false);
+      this.reject(false);
       this.dialog = false;
     },
   },
