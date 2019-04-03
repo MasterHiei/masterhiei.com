@@ -11,14 +11,16 @@ const app = express();
 const isDebug = !(process.env.NODE_ENV === 'production');
 
 // Extra and set token to request
-app.use((req, _, next) => {
-  const authorization = req.headers.authorization;
-  if (authorization && authorization.split(' ').length === 2) {
-    const token = authorization.split(' ')[1];
-    req.token = token;
+app.use(
+  (req, _, next): void => {
+    const authorization = req.headers.authorization;
+    if (authorization && authorization.split(' ').length === 2) {
+      const token = authorization.split(' ')[1];
+      req.token = token;
+    }
+    next();
   }
-  next();
-});
+);
 
 // Connect to mongodb
 mongoose.set('debug', isDebug);
@@ -38,7 +40,7 @@ app.use('/public', express.static(path.join(__dirname, '/public')));
 // Morgan middleware
 app.use(
   morgan('dev', {
-    skip: req => req.path.indexOf(process.env.API_PREFIX) < 0,
+    skip: (req): boolean => req.path.indexOf(process.env.API_PREFIX) < 0,
   })
 );
 
@@ -55,7 +57,7 @@ app.use(api);
 config.dev = isDebug;
 
 // Start Nuxt.js
-async function start() {
+async function start(): Promise<void> {
   // Init Nuxt.js
   const nuxt = new Nuxt(config);
   await nuxt.ready();
