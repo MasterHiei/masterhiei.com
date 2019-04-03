@@ -1,12 +1,12 @@
-const path = require('path');
-const express = require('express');
-const mongoose = require('mongoose');
-const morgan = require('morgan');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
-const { Nuxt, Builder } = require('nuxt');
-const config = require('../nuxt.config.ts');
-const api = require('./api/index');
+import path from 'path';
+import express from 'express';
+import mongoose from 'mongoose';
+import morgan from 'morgan';
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
+import { Nuxt, Builder } from 'nuxt';
+import config from '../nuxt.config';
+import api from './api/index';
 const app = express();
 const isDebug = !(process.env.NODE_ENV === 'production');
 
@@ -16,7 +16,8 @@ app.use(
     const authorization = req.headers.authorization;
     if (authorization && authorization.split(' ').length === 2) {
       const token = authorization.split(' ')[1];
-      req.token = token;
+      // eslint-disable-next-line dot-notation
+      req['token'] = token;
     }
     next();
   }
@@ -72,6 +73,6 @@ async function start(): Promise<void> {
   app.use(nuxt.render);
 
   // Listen the server
-  app.listen(process.env.PORT, process.env.HOST);
+  app.listen(process.env.PORT);
 }
 start();

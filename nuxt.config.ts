@@ -1,10 +1,11 @@
-const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');
-const pkg = require('./package');
+import NuxtConfiguration from '@nuxt/config';
+import VuetifyLoaderPlugin from 'vuetify-loader/lib/plugin';
+import pkg from './package.json';
 
 // Apply enviroment variables
 require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` });
 
-module.exports = {
+const config: NuxtConfiguration = {
   /*
    ** Headers of the page
    */
@@ -65,7 +66,6 @@ module.exports = {
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/auth',
-    ['@nuxtjs/dotenv', { filename: `.env.${process.env.NODE_ENV}` }],
     [
       'nuxt-i18n',
       {
@@ -150,10 +150,6 @@ module.exports = {
       },
     },
 
-    typescript: {
-      typeCheck: false,
-    },
-
     analyze: {
       analyzerMode: 'server',
     },
@@ -161,10 +157,9 @@ module.exports = {
     /*
      ** You can extend webpack config here
      */
-    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-    extend(config, ctx) {
+    extend(config, { isDev, isClient }): void {
       // Run ESLint on save
-      if (ctx.isDev && ctx.isClient) {
+      if (config.module && isDev && isClient) {
         config.module.rules.push({
           enforce: 'pre',
           test: /\.(ts|js|vue)$/,
@@ -175,3 +170,5 @@ module.exports = {
     },
   },
 };
+
+export default config;

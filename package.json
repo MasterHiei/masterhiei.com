@@ -8,8 +8,8 @@
     "dev": "cross-env NODE_ENV=development nodemon server/index.ts --watch server",
     "build": "nuxt build",
     "analyze": "nuxt build --a",
-    "start": "cross-env NODE_ENV=production node server/index.ts",
-    "generate": "nuxt generate",
+    "start": "cross-env NODE_ENV=production nuxt start",
+    "generate": "cross-env NODE_ENV=production nuxt generate",
     "lint": "eslint --ext .ts,.js,.vue --ignore-path .gitignore .",
     "lintfix": "eslint --fix --ext .ts,.js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint"
@@ -17,7 +17,6 @@
   "dependencies": {
     "@nuxtjs/auth": "^4.5.3",
     "@nuxtjs/axios": "^5.4.1",
-    "@nuxtjs/dotenv": "^1.3.0",
     "@nuxtjs/markdownit": "^1.2.3",
     "@types/node": "^11.13.0",
     "bcrypt": "^3.0.5",
@@ -27,6 +26,7 @@
     "cross-env": "^5.2.0",
     "crypto-js": "^3.1.9-1",
     "date-fns": "^1.30.1",
+    "dotenv": "^7.0.0",
     "express": "^4.16.4",
     "jsonwebtoken": "^8.5.1",
     "mavon-editor": "^2.7.3",
