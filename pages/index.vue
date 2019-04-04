@@ -5,26 +5,28 @@
         left-side-area
       </v-flex>
 
-      <v-flex lg7 xs10>
+      <v-flex md7 xs10>
         <article-list />
       </v-flex>
 
-      <v-flex class="hidden-md-and-down text-xs-center" xs1>
+      <v-flex class="hidden-sm-and-down text-xs-center" xs1>
         right-side-area
       </v-flex>
     </v-layout>
   </v-container>
 </template>
 
-<script>
-import ArticleList from '~/components/ArticleList';
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
 
-export default {
+@Component({
   components: {
-    ArticleList,
+    ArticleList: () => import('~/components/ArticleList.vue'),
   },
+
   async fetch({ store }) {
     await store.dispatch('article/getArticles');
   },
-};
+})
+export default class IndexPage extends Vue {}
 </script>

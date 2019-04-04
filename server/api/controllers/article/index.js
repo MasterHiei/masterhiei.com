@@ -3,6 +3,37 @@ const co = require('co');
 const Article = require('../../models/article/article');
 
 /**
+ * Find articles from DB
+ * @returns {Promise<Array>} Articles
+ */
+const findArticles = () => {
+  return Article.find()
+    .sort('-created_at')
+    .exec();
+};
+
+/**
+ * Generate dummy data of Article
+ * @param {Number} times Number of data
+ * @returns {Promise<Array>} Result of generation
+ */
+const generateArticles = (times = 12) => {
+  const dummies = [];
+
+  // generate dummy data N times
+  for (let i = 0; i < times; i++) {
+    const dummy = {
+      title: faker.name.title(),
+      content: faker.lorem.sentence(10).repeat(100),
+      category: faker.name.jobType(),
+      tags: faker.lorem.words(),
+    };
+    dummies.push(dummy);
+  }
+  return Article.insertMany(dummies);
+};
+
+/**
  * Get All Articles with desc
  * @param {Response} res
  */
@@ -60,35 +91,4 @@ exports.show = async (req, res) => {
   } else {
     res.status(404).send({ message: 'Article data does not exist.' });
   }
-};
-
-/**
- * Find articles from DB
- * @returns {Promise<Array>} Articles
- */
-const findArticles = () => {
-  return Article.find()
-    .sort('-created_at')
-    .exec();
-};
-
-/**
- * Generate dummy data of Article
- * @param {Number} times Number of data
- * @returns {Promise<Array>} Result of generation
- */
-const generateArticles = (times = 12) => {
-  let dummies = [];
-
-  // generate dummy data N times
-  for (let i = 0; i < times; i++) {
-    const dummy = {
-      title: faker.name.title(),
-      content: faker.lorem.sentence(10).repeat(100),
-      category: faker.name.jobType(),
-      tags: faker.lorem.words(),
-    };
-    dummies.push(dummy);
-  }
-  return Article.insertMany(dummies);
 };

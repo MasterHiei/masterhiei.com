@@ -2,6 +2,27 @@ const User = require('../../models/user/user');
 const jwt = require('../../utils/jwt');
 
 /**
+ * Query user by Email
+ * @param {String} email
+ * @returns {Promise<Object>} User
+ */
+const queryUserByEmail = email => {
+  return User.findOne()
+    .where('email')
+    .in(email)
+    .exec();
+};
+
+/**
+ * Generate a dummy email address
+ * @param {String} id User id
+ * @param {String} type Account type
+ */
+const dummyEmail = (id, type) => {
+  return `${id}_${new Date().getTime()}@.dummy.${type}.com`;
+};
+
+/**
  * User login
  * @param {Request} req
  * @param {Response} res
@@ -45,7 +66,7 @@ exports.logout = (_, res) => {
  * @param {Request} req
  * @param {Response} res
  */
-exports.me = async (req, res) => {
+exports.me = (req, res) => {
   const token = req.token;
   if (!token) {
     res.status(401).send({ message: 'Missing authentication  token.' });
@@ -68,7 +89,7 @@ exports.me = async (req, res) => {
  * @param {Request} req
  * @param {Response} res
  */
-exports.create = async (req, res) => {
+exports.create = (req, res) => {
   const { email, username, password } = req.body;
   if (!email || !password || !username) {
     res.json({ code: 400, message: 'Invalid register info.' });
@@ -137,25 +158,4 @@ exports.validate = async (req, res) => {
       res.json({ code: 409, message: 'Duplicate Email Address.' });
     }
   }
-};
-
-/**
- * Query user by Email
- * @param {String} email
- * @returns {Promise<Object>} User
- */
-const queryUserByEmail = email => {
-  return User.findOne()
-    .where('email')
-    .in(email)
-    .exec();
-};
-
-/**
- * Generate a dummy email address
- * @param {String} id User id
- * @param {String} type Account type
- */
-const dummyEmail = (id, type) => {
-  return `${id}_${new Date().getTime()}@.dummy.${type}.com`;
 };

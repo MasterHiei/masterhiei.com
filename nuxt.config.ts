@@ -1,10 +1,11 @@
-const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');
-const pkg = require('./package');
+import NuxtConfiguration from '@nuxt/config';
+import VuetifyLoaderPlugin from 'vuetify-loader/lib/plugin';
+import pkg from './package.json';
 
 // Apply enviroment variables
 require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` });
 
-module.exports = {
+const config: NuxtConfiguration = {
   /*
    ** Headers of the page
    */
@@ -56,7 +57,7 @@ module.exports = {
   ],
 
   generate: {
-    routers: ['/about', '/ja-JP/about'],
+    routes: ['/about', '/ja-JP/about'],
   },
 
   /*
@@ -91,6 +92,7 @@ module.exports = {
         defaultLocale: 'zh-CN',
         lazy: true,
         langDir: 'assets/locales/lang/',
+        parsePages: false,
       },
     ],
     '@nuxtjs/markdownit',
@@ -130,6 +132,9 @@ module.exports = {
     },
   },
 
+  /*
+   ** markdownit configuration
+   */
   markdownit: {
     injected: true,
     breaks: true,
@@ -146,22 +151,26 @@ module.exports = {
         import: ['~assets/style/variables'],
       },
     },
+
+    analyze: {
+      analyzerMode: 'server',
+    },
+
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {
+    extend(config, { isDev, isClient }): void {
       // Run ESLint on save
-      if (ctx.isDev && ctx.isClient) {
+      if (config.module && isDev && isClient) {
         config.module.rules.push({
           enforce: 'pre',
-          test: /\.(js|vue)$/,
+          test: /\.(ts|js|vue)$/,
           loader: 'eslint-loader',
           exclude: /(node_modules)/,
         });
       }
     },
-    analyze: {
-      analyzerMode: 'server',
-    },
   },
 };
+
+export default config;
