@@ -5,11 +5,11 @@
         left-side-area
       </v-flex>
 
-      <v-flex lg7 xs10>
+      <v-flex md7 xs10>
         <article-list />
       </v-flex>
 
-      <v-flex class="hidden-md-and-down text-xs-center" xs1>
+      <v-flex class="hidden-sm-and-down text-xs-center" xs1>
         right-side-area
       </v-flex>
     </v-layout>
