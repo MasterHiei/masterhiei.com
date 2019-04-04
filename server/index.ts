@@ -36,7 +36,7 @@ require('./api/models/article/article');
 require('./api/models/comment/comment');
 
 // Set public resources path
-app.use('/public', express.static(path.join(__dirname, '/public')));
+app.use('/public', express.static(path.join(__dirname, 'public')));
 
 // Morgan middleware
 app.use(

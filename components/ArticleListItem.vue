@@ -29,13 +29,13 @@
       <v-flex
         ref="contentContainer"
         class="subheading font-weight-regular overflow-y-hidden"
-        :class="{ 'content-hidden': isShowCover }"
+        :class="{ 'content-hidden': showCover }"
         px-0
         warp
       >
         {{ article.content }}
 
-        <div v-show="isShowCover" class="cover-view" />
+        <div v-show="showCover" class="cover-view" />
       </v-flex>
     </v-flex>
     <v-flex wrap>
@@ -55,48 +55,48 @@
   </v-flex>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue, Prop } from 'vue-property-decorator';
 import { distanceInWordsToNow } from 'date-fns';
-import zh_CN from 'date-fns/locale/zh_cn/';
-import ja from 'date-fns/locale/ja';
 
-export default {
-  props: {
-    article: {
-      type: Object,
-      required: true,
-    },
-  },
+@Component
+export default class ArticleListItem extends Vue {
+  // Data
+  showCover = false;
 
-  data() {
+  // Props
+  @Prop({ type: Object, required: true })
+  readonly article!: Record<string, string>;
+
+  // Computed
+  get locales() {
     return {
-      isShowCover: false,
-      maxHeight: 480,
+      'zh-CN': import('date-fns/locale/zh_cn'),
+      'ja-JP': import('date-fns/locale/ja'),
     };
-  },
+  }
 
-  computed: {
-    locales() {
-      return { 'zh-CN': zh_CN, 'ja-JP': ja };
-    },
-  },
-
+  // Hooks
   mounted() {
-    const height = this.$refs.contentContainer.clientHeight;
-    if (height > this.maxHeight) {
-      this.isShowCover = true;
+    // Create a cover if element height exceeds limit
+    const element = this.$refs.contentContainer;
+    if (!(element instanceof Element)) {
+      return;
     }
-  },
+    const height = element.clientHeight;
+    if (height > 480) {
+      this.showCover = true;
+    }
+  }
 
-  methods: {
-    distanceToNow(date) {
-      return distanceInWordsToNow(date, {
-        addSuffix: true,
-        locale: this.locales[this.$i18n.locale],
-      });
-    },
-  },
-};
+  // Methods
+  distanceToNow(date) {
+    return distanceInWordsToNow(date, {
+      addSuffix: true,
+      locale: this.locales[this.$i18n.locale],
+    });
+  }
+}
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">

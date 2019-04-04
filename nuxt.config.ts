@@ -66,6 +66,7 @@ const config: NuxtConfiguration = {
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/auth',
+    ['@nuxtjs/dotenv', { filename: `.env.${process.env.NODE_ENV}` }],
     [
       'nuxt-i18n',
       {
@@ -91,6 +92,7 @@ const config: NuxtConfiguration = {
         defaultLocale: 'zh-CN',
         lazy: true,
         langDir: 'assets/locales/lang/',
+        parsePages: false,
       },
     ],
     '@nuxtjs/markdownit',

@@ -11,21 +11,18 @@
   </v-layout>
 </template>
 
-<script>
-import { mapGetters } from 'vuex';
-import ArticleListItem from './ArticleListItem';
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+import { Getter } from 'vuex-class';
 
-export default {
+@Component({
   components: {
-    ArticleListItem,
+    ArticleListItem: () => import('./ArticleListItem.vue'),
   },
-
-  computed: {
-    ...mapGetters({
-      articles: 'article/all',
-    }),
-  },
-};
+})
+export default class ArticleList extends Vue {
+  @Getter('article/all') articles;
+}
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">

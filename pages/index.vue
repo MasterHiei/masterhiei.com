@@ -16,15 +16,17 @@
   </v-container>
 </template>
 
-<script>
-import ArticleList from '~/components/ArticleList';
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
 
-export default {
+@Component({
   components: {
-    ArticleList,
+    ArticleList: () => import('~/components/ArticleList.vue'),
   },
+
   async fetch({ store }) {
     await store.dispatch('article/getArticles');
   },
-};
+})
+export default class IndexPage extends Vue {}
 </script>
