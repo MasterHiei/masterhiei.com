@@ -78,7 +78,7 @@ export default class ArticleListItem extends Vue {
 
   // Hooks
   mounted() {
-    // Create a cover if element height exceeds limit
+    // Show cover if element height exceeds limit
     const element = this.$refs.contentContainer;
     if (!(element instanceof Element)) {
       return;

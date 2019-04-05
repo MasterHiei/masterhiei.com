@@ -8,7 +8,7 @@
         :placeholder="placeholder"
         :tab-size="Number(2)"
         :autofocus="false"
-        :language="language[this.$i18n.locale] || 'en'"
+        :language="languages[this.$i18n.locale] || 'en'"
         default-open="edit"
       />
     </no-ssr>
@@ -19,45 +19,34 @@
   </v-flex>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue, Prop } from 'vue-property-decorator';
 import { mavonEditor } from 'mavon-editor';
 import 'mavon-editor/dist/css/index.css';
 mavonEditor.getMarkdownIt();
 
-export default {
+@Component({
   components: {
     mavonEditor,
   },
+})
+export default class TheEditor extends Vue {
+  // Data
+  content = '';
+  languages = {
+    'zh-CN': 'zh-CN',
+    'ja-JP': 'ja',
+  };
 
-  props: {
-    placeholder: {
-      type: String,
-      default: '',
-    },
+  // Props
+  @Prop({ type: String, default: '' }) readonly placeholder!: string;
+  @Prop({ type: String, required: true }) readonly callback!: string;
 
-    callback: {
-      type: String,
-      required: true,
-    },
-  },
-
-  data() {
-    return {
-      content: '',
-
-      language: {
-        'zh-CN': 'zh-CN',
-        'ja-JP': 'ja',
-      },
-    };
-  },
-
-  methods: {
-    post() {
-      this.$emit(this.callback, this.content);
-    },
-  },
-};
+  // Methods
+  post() {
+    this.$emit(this.callback, this.content);
+  }
+}
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
