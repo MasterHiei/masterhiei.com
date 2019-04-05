@@ -13,7 +13,10 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { Getter } from 'vuex-class';
+import { namespace } from 'vuex-class';
+import * as article from '@/store/article';
+
+const Article = namespace(article.name);
 
 @Component({
   components: {
@@ -21,7 +24,7 @@ import { Getter } from 'vuex-class';
   },
 })
 export default class ArticleList extends Vue {
-  @Getter('article/all') articles;
+  @Article.State articles;
 }
 </script>
 

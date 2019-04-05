@@ -1,8 +1,8 @@
 import Vue from 'vue';
+import VueI18n, { IVueI18n } from 'vue-i18n';
 
 declare module 'vue/types/vue' {
-  // Declare augmentation for Vue
   interface Vue {
-    $i18n: Record<string, string>;
+    readonly $i18n: VueI18n & IVueI18n;
   }
 }

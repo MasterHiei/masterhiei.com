@@ -25,7 +25,7 @@ import { Component, Vue } from 'vue-property-decorator';
   },
 
   async fetch({ store }) {
-    await store.dispatch('article/getArticles');
+    await store.dispatch('article/query');
   },
 })
 export default class IndexPage extends Vue {}
