@@ -88,7 +88,7 @@ export default {
   },
 
   async asyncData({ store, params }) {
-    const article = await store.dispatch('article/queryById', params.id);
+    const article = await store.dispatch('article/findOneById', params.id);
     return { article: article };
   },
 

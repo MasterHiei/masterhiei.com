@@ -48,17 +48,17 @@ export const getters: GetterTree<State, RootState> = {
 
 // Actions
 export interface Actions<S, R> extends ActionTree<S, R> {
-  query(context: ActionContext<S, R>): void;
-  queryById(context: ActionContext<S, R>, id: string): void;
+  find(context: ActionContext<S, R>): void;
+  findOneById(context: ActionContext<S, R>, id: string): void;
 }
 
 export const actions: Actions<State, RootState> = {
-  async query({ commit }): Promise<void> {
+  async find({ commit }): Promise<void> {
     const { data } = await this.$axios['$get']('/articles');
     commit(types.SET, data);
   },
 
-  async queryById({ commit }, id): Promise<void> {
+  async findOneById({ commit }, id): Promise<void> {
     const { data } = await this.$axios['$get'](`/articles/${id}`);
     commit(types.SET_ONE_BY_ID, data);
   },
