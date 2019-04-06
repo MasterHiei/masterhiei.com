@@ -60,7 +60,7 @@ import { Component, Vue } from 'vue-property-decorator';
 })
 export default class CommentPoster extends Vue {
   // Methods
-  async post(content) {
+  async post(content: string): Promise<void> {
     await this.$axios.$post(`/articles/${this.$route.params.id}/comments`, {
       userId: this.$auth.user.id,
       content: content,

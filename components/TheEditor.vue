@@ -43,7 +43,7 @@ export default class TheEditor extends Vue {
   @Prop({ type: String, required: true }) readonly callback!: string;
 
   // Methods
-  post() {
+  post(): void {
     this.$emit(this.callback, this.content);
   }
 }

@@ -100,8 +100,8 @@ export default class ArticlePage extends Vue {
   }
 
   // Methods
-  dateFormate(dateStr) {
-    return this.$d(new Date(dateStr), 'short', this.$i18n.locale);
+  dateFormate(date: string): string {
+    return this.$d(new Date(date), 'short', this.$i18n.locale);
   }
 }
 </script>
