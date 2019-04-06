@@ -65,39 +65,45 @@
   </v-container>
 </template>
 
-<script>
-import TheMarkdownView from '@/components/TheMarkdownView';
-import CommentList from '@/components/CommentList';
-import CommentPoster from '@/components/CommentPoster';
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+import { namespace } from 'vuex-class';
+import * as article from '@/store/article';
 import isEqual from 'date-fns/is_equal';
 
-export default {
+const Article = namespace(article.name);
+
+@Component({
   components: {
-    TheMarkdownView,
-    CommentList,
-    CommentPoster,
+    TheMarkdownView: () => import('@/components/TheMarkdownView.vue'),
+    CommentList: () => import('@/components/CommentList.vue'),
+    CommentPoster: () => import('@/components/CommentPoster.vue'),
   },
 
-  computed: {
-    isEqualToDate() {
-      if (!this.article.created_at || !this.article.modified_at) {
-        return true;
-      }
-      return isEqual(this.article.created_at, this.article.modified_at);
-    },
+  async fetch({ store, params }) {
+    await store.dispatch('article/findOneById', params.id);
   },
+})
+export default class ArticlePage extends Vue {
+  // Computed
+  @Article.Getter findOneById;
 
-  async asyncData({ store, params }) {
-    const article = await store.dispatch('article/getArticle', params.id);
-    return { article: article };
-  },
+  get article() {
+    return this.findOneById(this.$route.params.id);
+  }
 
-  methods: {
-    dateFormate(dateStr) {
-      return this.$d(new Date(dateStr), 'short', this.$i18n.locale);
-    },
-  },
-};
+  get isEqualToDate() {
+    if (!this.article.created_at || !this.article.modified_at) {
+      return true;
+    }
+    return isEqual(this.article.created_at, this.article.modified_at);
+  }
+
+  // Methods
+  dateFormate(date: string): string {
+    return this.$d(new Date(date), 'short', this.$i18n.locale);
+  }
+}
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">

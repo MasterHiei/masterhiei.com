@@ -48,7 +48,7 @@ userSchema.methods.hash = password => {
 };
 
 /**
- * Compare a password
+ * Compare passwords
  * @param {String} password
  * @returns {Boolean} true: Matched, false: Mismatched
  */

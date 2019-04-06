@@ -14,23 +14,22 @@
   </v-flex>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator';
+
 import { mavonEditor } from 'mavon-editor';
 import 'mavon-editor/dist/css/index.css';
 mavonEditor.getMarkdownIt();
 
-export default {
+@Component({
   components: {
     mavonEditor,
   },
-
-  props: {
-    content: {
-      type: String,
-      required: true,
-    },
-  },
-};
+})
+export default class TheMarkdownView extends Vue {
+  // Props
+  @Prop({ type: String, required: true }) readonly content!: string;
+}
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">

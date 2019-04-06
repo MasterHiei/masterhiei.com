@@ -58,27 +58,29 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { distanceInWordsToNow } from 'date-fns';
+import zh_cn from 'date-fns/locale/zh_cn';
+import ja from 'date-fns/locale/ja';
 
 @Component
 export default class ArticleListItem extends Vue {
-  // Data
-  showCover = false;
-
   // Props
   @Prop({ type: Object, required: true })
   readonly article!: Record<string, string>;
 
+  // Data
+  showCover = false;
+
   // Computed
   get locales() {
     return {
-      'zh-CN': import('date-fns/locale/zh_cn'),
-      'ja-JP': import('date-fns/locale/ja'),
+      'zh-CN': zh_cn,
+      'ja-JP': ja,
     };
   }
 
   // Hooks
   mounted() {
-    // Create a cover if element height exceeds limit
+    // Show cover if element height exceeds limit
     const element = this.$refs.contentContainer;
     if (!(element instanceof Element)) {
       return;
@@ -90,7 +92,7 @@ export default class ArticleListItem extends Vue {
   }
 
   // Methods
-  distanceToNow(date) {
+  distanceToNow(date: string): string {
     return distanceInWordsToNow(date, {
       addSuffix: true,
       locale: this.locales[this.$i18n.locale],

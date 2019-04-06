@@ -2,26 +2,27 @@
   <the-editor :content="content" />
 </template>
 
-<script>
-import { mapGetters } from 'vuex';
-import TheEditor from '@/components/TheEditor';
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+import { namespace } from 'vuex-class';
+import * as article from '@/store/article';
 
-export default {
-  middleware: 'auth',
+const Article = namespace(article.name);
 
+@Component({
   components: {
-    TheEditor,
+    TheEditor: () => import('@/components/TheEditor.vue'),
   },
 
-  computed: {
-    ...mapGetters({
-      getArticleById: 'article/getArticleById',
-    }),
+  middleware: 'auth',
+})
+export default class ArticleEditPage extends Vue {
+  // Computed
+  @Article.Getter findOneById;
 
-    content() {
-      const article = this.getArticleById(this.$route.params.id);
-      return article.content;
-    },
-  },
-};
+  get content() {
+    const article = this.findOneById({ value: this.$route.params.id });
+    return article.content;
+  }
+}
 </script>

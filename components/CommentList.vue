@@ -8,19 +8,17 @@
   </v-flex>
 </template>
 
-<script>
-import CommentListItem from './CommentListItem';
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Comment } from '@/models/index';
 
-export default {
+@Component({
   components: {
-    CommentListItem,
+    CommentListItem: () => import('./CommentListItem.vue'),
   },
-
-  props: {
-    comments: {
-      type: Array,
-      required: true,
-    },
-  },
-};
+})
+export default class CommentList extends Vue {
+  // Props
+  @Prop({ type: Array, required: true }) readonly comments!: Comment[];
+}
 </script>

@@ -50,24 +50,24 @@
   </v-flex>
 </template>
 
-<script>
-import TheEditor from '@/components/TheEditor';
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
 
-export default {
+@Component({
   components: {
-    TheEditor,
+    TheEditor: () => import('@/components/TheEditor.vue'),
   },
-
-  methods: {
-    async post(content) {
-      await this.$axios.$post(`/articles/${this.$route.params.id}/comments`, {
-        userId: this.$auth.user.id,
-        content: content,
-      });
-      this.$router.go();
-    },
-  },
-};
+})
+export default class CommentPoster extends Vue {
+  // Methods
+  async post(content: string): Promise<void> {
+    await this.$axios.$post(`/articles/${this.$route.params.id}/comments`, {
+      userId: this.$auth.user.id,
+      content: content,
+    });
+    this.$router.go(0);
+  }
+}
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">

@@ -17,7 +17,7 @@
               </v-flex>
 
               <v-flex class="caption" tag="span" d-block>
-                {{ dateFormate(comment.created_at) }}
+                {{ formatDate(comment.created_at) }}
               </v-flex>
             </v-flex>
 
@@ -83,7 +83,7 @@
 
           <v-flex v-else class="text-xs-right" mt-2 mb-2 wrap>
             <v-textarea
-              v-model="editedContent"
+              v-model="modifiedContent"
               class="body-2"
               solo
               auto-grow
@@ -108,100 +108,92 @@
   </v-container>
 </template>
 
-<script>
-import TheConfirm from './TheConfirm';
-import TheMarkdownView from './TheMarkdownView';
-export default {
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Comment } from '@/models/index';
+import { TheConfirmInstance } from '@/types/index';
+
+@Component({
   components: {
-    TheConfirm,
-    TheMarkdownView,
+    TheConfirm: () => import('./TheConfirm.vue'),
+    TheMarkdownView: () => import('./TheMarkdownView.vue'),
   },
+})
+export default class ComemntListItem extends Vue {
+  // Props
+  @Prop({ type: Number, required: true }) readonly index!: number;
+  @Prop({ type: Object, required: true })
+  readonly comment!: Comment;
 
-  props: {
-    index: {
-      type: Number,
-      required: true,
-    },
+  // Data
+  isAuthor = this.$auth.user.id === this.comment.user.id;
+  isEdit = false;
+  modifiedContent = this.comment.content;
 
-    comment: {
-      type: Object,
-      required: true,
-    },
-  },
+  // Coumputed
+  get commentNo(): string {
+    return `#${this.index + 1}`;
+  }
 
-  data() {
-    return {
-      isAuthor: this.$auth.user.id === this.comment.user.id,
-      isEdit: false,
-      editedContent: this.comment.content,
-    };
-  },
+  get confirm(): TheConfirmInstance {
+    return this.$refs.confirm as TheConfirmInstance;
+  }
 
-  computed: {
-    commentNo() {
-      const no = this.index + 1;
-      return `#${no}`;
-    },
-  },
+  // Methods
+  formatDate(date: string): string {
+    return this.$d(new Date(date), 'long', this.$i18n.locale);
+  }
 
-  methods: {
-    dateFormate(dateStr) {
-      return this.$d(new Date(dateStr), 'long', this.$i18n.locale);
-    },
+  reply(): void {
+    // TODO: reply a comment
+    console.log(this.comment.id);
+  }
 
-    reply() {
-      console.log(this.comment.id);
-    },
-
-    edit() {
-      this.$refs.confirm
-        .show('', this.$i18n.t('comment.confirmEdit'))
-        .catch(() => {})
-        .then(async confirm => {
-          if (!confirm) {
-            return;
+  edit(): void {
+    this.confirm
+      .show(this.$i18n.t('comment.confirmEdit'))
+      .then(async confirm => {
+        if (!confirm) {
+          return;
+        }
+        await this.$axios.$patch(
+          `/articles/${this.$route.params.id}/comments/${this.comment.id}`,
+          {
+            content: this.modifiedContent,
           }
+        );
+        this.$router.go(0);
+      })
+      .catch(() => {});
+  }
 
-          await this.$axios.$patch(
-            `/articles/${this.$route.params.id}/comments/${this.comment.id}`,
-            {
-              content: this.editedContent,
-            }
-          );
-          this.$router.go();
-        });
-    },
+  revokeEdit(): void {
+    this.confirm
+      .show(this.$i18n.t('comment.revokeEdit'))
+      .then(confirm => {
+        if (!confirm) {
+          return;
+        }
+        this.isEdit = false;
+      })
+      .catch(() => {});
+  }
 
-    revokeEdit() {
-      this.$refs.confirm
-        .show('', this.$i18n.t('comment.revokeEdit'))
-        .catch(() => {})
-        .then(confirm => {
-          if (!confirm) {
-            return;
-          }
-
-          this.isEdit = false;
-        });
-    },
-
-    remove() {
-      this.$refs.confirm
-        .show('', this.$i18n.t('comment.confirmRemove'))
-        .catch(() => {})
-        .then(async confirm => {
-          if (!confirm) {
-            return;
-          }
-
-          await this.$axios.$delete(
-            `/articles/${this.$route.params.id}/comments/${this.comment.id}`
-          );
-          this.$router.go();
-        });
-    },
-  },
-};
+  remove(): void {
+    this.confirm
+      .show(this.$i18n.t('comment.confirmRemove'))
+      .then(async confirm => {
+        if (!confirm) {
+          return;
+        }
+        await this.$axios.$delete(
+          `/articles/${this.$route.params.id}/comments/${this.comment.id}`
+        );
+        this.$router.go(0);
+      })
+      .catch(() => {});
+  }
+}
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
