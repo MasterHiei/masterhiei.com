@@ -132,7 +132,7 @@ export default class ComemntListItem extends Vue {
 
   // Coumputed
   get commentNo(): string {
-    return `${this.index + 1}`;
+    return `#${this.index + 1}`;
   }
 
   get confirm(): TheConfirmInstance {

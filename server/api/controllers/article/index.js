@@ -8,6 +8,17 @@ const Article = require('../../models/article/article');
  */
 const findArticles = () => {
   return Article.find()
+    .populate({
+      path: 'comments',
+      select: 'content created_at updated_at',
+      options: {
+        sort: 'created_at',
+      },
+      populate: {
+        path: 'user',
+        select: 'username avatar',
+      },
+    })
     .sort('-created_at')
     .exec();
 };

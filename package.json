@@ -5,7 +5,7 @@
   "author": "MasterHiei",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon",
+    "dev": "nodemon",
     "build": "nuxt build",
     "analyze": "nuxt build --a",
     "start": "cross-env NODE_ENV=production nuxt start",
