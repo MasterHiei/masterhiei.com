@@ -29,46 +29,48 @@
   </v-dialog>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      dialog: false,
-      title: this.$i18n.t('dialog.title'),
-      message: '',
-      resolve: null,
-      reject: null,
-    };
-  },
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
 
-  methods: {
-    show(title, message) {
-      if (title) {
-        this.title = title;
-      }
-      this.message = message;
-      this.dialog = true;
-      return new Promise((resolve, reject) => {
-        this.resolve = resolve;
-        this.reject = reject;
-      });
-    },
+@Component
+export default class TheConfirm extends Vue {
+  // Data
+  dialog = false;
+  title = '';
+  message = '';
+  resolve?: (value: boolean) => void;
+  reject?: (reason?) => void;
 
-    agree() {
-      if (!this.resolve) {
-        return;
-      }
-      this.resolve(true);
-      this.dialog = false;
-    },
+  // Computed
+  get defaultTitle(): string {
+    return this.$i18n.t('dialog.title') as string;
+  }
 
-    cancel() {
-      if (!this.resolve) {
-        return;
-      }
-      this.reject(false);
-      this.dialog = false;
-    },
-  },
-};
+  // Methods
+  show(message: string, title = this.defaultTitle): Promise<boolean> {
+    this.title = title;
+    this.message = message;
+    this.dialog = true;
+    return new Promise((resolve, reject) => {
+      this.resolve = resolve;
+      this.reject = reject;
+    });
+  }
+
+  agree(): void {
+    if (!this.resolve) {
+      return;
+    }
+    this.resolve(true);
+    this.dialog = false;
+  }
+
+  cancel(): void {
+    if (!this.reject) {
+      return;
+    }
+    this.reject(false);
+    this.dialog = false;
+  }
+}
 </script>

@@ -1,4 +1,5 @@
 import { ActionTree, MutationTree, GetterTree, ActionContext } from 'vuex';
+import { Article } from '@/models/index';
 
 // Namespace
 export const name = 'article';
@@ -10,25 +11,12 @@ export const types = {
   SET_ONE_BY_ID: 'SET_ONE_BY_ID',
 };
 
-// Definition
-export interface Article {
-  id: string;
-  category: string;
-  tags: string[];
-  title: string;
-  content: string;
-  views: number;
-  stars: number;
-  created_at: string;
-  updated_at: string;
-  modified_at: string;
-}
-
-export interface RootState {
+// Interface
+interface RootState {
   rootState: State;
 }
 
-export interface State {
+interface State {
   articles: Article[];
 }
 
@@ -47,7 +35,7 @@ export const getters: GetterTree<State, RootState> = {
 };
 
 // Actions
-export interface Actions<S, R> extends ActionTree<S, R> {
+interface Actions<S, R> extends ActionTree<S, R> {
   find(context: ActionContext<S, R>): void;
   findOneById(context: ActionContext<S, R>, id: string): void;
 }

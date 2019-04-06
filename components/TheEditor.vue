@@ -31,16 +31,16 @@ mavonEditor.getMarkdownIt();
   },
 })
 export default class TheEditor extends Vue {
+  // Props
+  @Prop({ type: String, default: '' }) readonly placeholder!: string;
+  @Prop({ type: String, required: true }) readonly callback!: string;
+
   // Data
   content = '';
   languages = {
     'zh-CN': 'zh-CN',
     'ja-JP': 'ja',
   };
-
-  // Props
-  @Prop({ type: String, default: '' }) readonly placeholder!: string;
-  @Prop({ type: String, required: true }) readonly callback!: string;
 
   // Methods
   post(): void {

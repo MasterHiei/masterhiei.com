@@ -63,12 +63,12 @@ import ja from 'date-fns/locale/ja';
 
 @Component
 export default class ArticleListItem extends Vue {
-  // Data
-  showCover = false;
-
   // Props
   @Prop({ type: Object, required: true })
   readonly article!: Record<string, string>;
+
+  // Data
+  showCover = false;
 
   // Computed
   get locales() {
