@@ -25,9 +25,9 @@ const config: NuxtConfiguration = {
       },
       {
         rel: 'stylesheet',
-        href: 'https://use.fontawesome.com/releases/v5.7.2/css/all.css',
+        href: 'https://use.fontawesome.com/releases/v5.8.1/css/all.css',
         integers:
-          'sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr',
+          'sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf',
         crossOrigin: 'anonymous',
       },
     ],
@@ -160,7 +160,11 @@ const config: NuxtConfiguration = {
      ** You can extend webpack config here
      */
     extend(config, { isDev, isClient }): void {
-      // Run ESLint on save
+      // Resolve file extensions
+      if (config.resolve && config.resolve.extensions) {
+        config.resolve.extensions.push('.ts');
+      }
+      // Run ESLint on runtime
       if (config.module && isDev && isClient) {
         config.module.rules.push({
           enforce: 'pre',
