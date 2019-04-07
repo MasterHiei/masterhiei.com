@@ -160,7 +160,11 @@ const config: NuxtConfiguration = {
      ** You can extend webpack config here
      */
     extend(config, { isDev, isClient }): void {
-      // Run ESLint on save
+      // Resolve file extensions
+      if (config.resolve && config.resolve.extensions) {
+        config.resolve.extensions.push('.ts');
+      }
+      // Run ESLint on runtime
       if (config.module && isDev && isClient) {
         config.module.rules.push({
           enforce: 'pre',

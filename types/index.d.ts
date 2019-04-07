@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueI18n, { IVueI18n } from 'vue-i18n';
 import { NuxtAxiosInstance } from '@nuxtjs/axios';
-import { Auth } from '@/models/index';
+import { Auth } from './auth';
 
 interface TheConfirmInstance extends Vue {
   show: (
