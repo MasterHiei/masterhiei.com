@@ -1,5 +1,6 @@
 import { Context } from '@nuxt/vue-app';
 import { GithubUser } from '~/models';
+
 export default async ({ app }: Context): Promise<void> => {
   // Save social user data to database
   const githubUser = app.$auth.user as (GithubUser | null);
