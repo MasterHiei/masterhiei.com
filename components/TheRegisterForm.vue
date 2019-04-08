@@ -95,92 +95,91 @@
   </v-flex>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
 import SHA256 from 'crypto-js/sha256';
 import delay from '@/common/utils/delay.js';
 
-export default {
+@Component({
   $_veeValidate: {
     validator: 'new',
   },
+})
+export default class TheLoginForm extends Vue {
+  // Data
+  email = '';
+  validEmail = false;
+  username = '';
+  showUsernameTips = false;
+  password = '';
+  showPasswordTips = false;
+  passwordVisible = false;
+  validating = false;
 
-  data() {
-    return {
-      email: '',
-      validEmail: false,
-      username: '',
-      showUsernameTips: false,
-      usernameLabel: this.$i18n.t('auth.username'),
-      password: '',
-      showPasswordTips: false,
-      passwordLabel: this.$i18n.t('auth.password'),
-      passwordVisible: false,
-      validating: false,
-    };
-  },
+  // Computed
+  get usernameLabel(): string {
+    return this.$i18n.t('auth.username') as string;
+  }
 
-  computed: {
-    progress() {
-      return Math.min(100, (this.password.length / 12) * 100);
-    },
-    progressColor() {
-      if (this.progress < (8 / 12) * 100 || this.fields.password.invalid) {
-        return 'error';
-      }
-      if (this.progress < 100) {
-        return 'warning';
-      }
-      return 'success';
-    },
-  },
+  get passwordLabel(): string {
+    return this.$i18n.t('auth.password') as string;
+  }
 
-  methods: {
-    validateAfterDelay() {
-      // TODO: Add a button to send email validation code
-      if (this.fields.email.invalid) {
-        return;
-      }
-      delay(async () => {
-        this.validating = true;
-        const { code } = await this.$axios
-          .$put('/users/validate', { email: this.email })
-          .catch(() => false);
-        this.validating = false;
-        this.validEmail = code === 0;
-      }, 500);
-    },
+  get progress(): number {
+    return Math.min(100, (this.password.length / 12) * 100);
+  }
 
-    async register() {
-      // User registration
-      const valid = await this.$validator.validateAll();
-      if (!valid || !this.validEmail) return;
-      const { code } = await this.$axios.$post('/users', {
+  get progressColor(): string {
+    if (this.progress < (8 / 12) * 100 || this.fields.password.invalid) {
+      return 'error';
+    }
+    if (this.progress < 100) {
+      return 'warning';
+    }
+    return 'success';
+  }
+
+  // Methods
+  validateAfterDelay(): void {
+    // TODO: Add a button to send email validation code
+    if (this.fields.email.invalid) {
+      return;
+    }
+    delay(async () => {
+      this.validating = true;
+      const { code } = await this.$axios
+        .$put('/users/validate', { email: this.email })
+        .catch(() => false);
+      this.validating = false;
+      this.validEmail = code === 0;
+    }, 500);
+  }
+
+  async register() {
+    // User registration
+    const valid = await this.$validator.validateAll();
+    if (!valid || !this.validEmail) return;
+
+    this.$axios
+      .$post('/users', {
         email: this.email,
         username: this.username,
         password: SHA256(this.password).toString(),
-      });
-
-      // Success
-      if (code === 0) {
+      })
+      .then(async ({ code }) => {
+        if (code !== 0) return;
         await this.$auth.loginWith('local', {
           data: {
             email: this.email,
             password: SHA256(this.password).toString(),
           },
         });
-        return;
-      }
-
-      // Failed
-      if (code === 400) {
-        console.log('Invalid email or password');
-      } else {
-        // TODO: Error handling
-        console.log(code);
-      }
-    },
-  },
-};
+      })
+      .catch(error => {
+        console.log(`${error}: Invalid email or password`);
+      });
+  }
+}
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
