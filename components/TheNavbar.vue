@@ -86,21 +86,25 @@
   </v-toolbar>
 </template>
 
-<script>
-export default {
-  computed: {
-    locales() {
-      return this.$i18n.locales.filter(
-        locale => locale.code !== this.$i18n.locale
-      );
-    },
-  },
-  methods: {
-    async logout() {
-      await this.$auth.logout();
-    },
-  },
-};
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+import { NuxtVueI18n } from 'nuxt-i18n/types/vue';
+
+@Component
+export default class TheNavbar extends Vue {
+  // Computed
+  get locales() {
+    return this.$i18n.locales.filter(locale => {
+      const localeObject = locale as NuxtVueI18n.Options.LocaleObject;
+      return localeObject.code !== this.$i18n.locale;
+    });
+  }
+
+  // Methods
+  async logout() {
+    await this.$auth.logout();
+  }
+}
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">

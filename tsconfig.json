@@ -27,7 +27,10 @@
     },
     "types": [
       "@types/node",
-      "@nuxt/vue-app"
+      "@types/express",
+      "@nuxt/vue-app",
+      "nuxt-i18n",
+      "@nuxtjs/axios"
     ]
   }
 }
