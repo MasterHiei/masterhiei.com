@@ -4,12 +4,13 @@
   </v-layout>
 </template>
 
-<script>
-import TheRegisterForm from '@/components/TheRegisterForm';
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
 
-export default {
+@Component({
   components: {
-    TheRegisterForm,
+    TheRegisterForm: () => import('@/components/TheRegisterForm.vue'),
   },
-};
+})
+export default class RegisterPage extends Vue {}
 </script>

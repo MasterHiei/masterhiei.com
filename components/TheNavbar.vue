@@ -44,8 +44,8 @@
 
         <v-list>
           <v-list-tile
-            v-for="locale in locales"
-            :key="locale.code"
+            v-for="(locale, index) in locales"
+            :key="index"
             :to="switchLocalePath(locale.code)"
             nuxt
             exact
@@ -93,7 +93,7 @@ import { NuxtVueI18n } from 'nuxt-i18n/types/vue';
 @Component
 export default class TheNavbar extends Vue {
   // Computed
-  get locales() {
+  get locales(): (string | NuxtVueI18n.Options.LocaleObject)[] {
     return this.$i18n.locales.filter(locale => {
       const localeObject = locale as NuxtVueI18n.Options.LocaleObject;
       return localeObject.code !== this.$i18n.locale;
@@ -101,7 +101,7 @@ export default class TheNavbar extends Vue {
   }
 
   // Methods
-  async logout() {
+  async logout(): Promise<void> {
     await this.$auth.logout();
   }
 }
