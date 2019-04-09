@@ -68,39 +68,37 @@
   </v-flex>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
 import SHA256 from 'crypto-js/sha256';
 
-export default {
+@Component({
   $_veeValidate: {
     validator: 'new',
   },
+})
+export default class TheLoginForm extends Vue {
+  // Data
+  email = '';
+  password = '';
+  visiable = false;
 
-  data() {
-    return {
-      email: '',
-      password: '',
-      visiable: false,
-    };
-  },
+  // Methods
+  async login(): Promise<void> {
+    const valid = await this.$validator.validateAll();
+    if (!valid) return;
+    await this.$auth.loginWith('local', {
+      data: {
+        email: this.email,
+        password: SHA256(this.password).toString(),
+      },
+    });
+  }
 
-  methods: {
-    async login() {
-      const valid = await this.$validator.validateAll();
-      if (!valid) return;
-      await this.$auth.loginWith('local', {
-        data: {
-          email: this.email,
-          password: SHA256(this.password).toString(),
-        },
-      });
-    },
-
-    async loginWith(provider) {
-      await this.$auth.loginWith(provider);
-    },
-  },
-};
+  async loginWith(provider: string): Promise<void> {
+    await this.$auth.loginWith(provider);
+  }
+}
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">

@@ -9,9 +9,9 @@ export interface Auth {
   ctx: Context;
   $storage: Storage;
   strategy: Record<string, string>;
-  user: LocalUser | GithubUser;
+  user?: LocalUser | GithubUser;
   loggedIn: boolean;
-  loginWith(strategyName: string, ...args: string[]): Promise<never>;
+  loginWith(strategyName: string, ...args: object[]): Promise<never>;
   logout(): Promise<never>;
   fetchUser(): Promise<never>;
   fetchUserOnce(): Promise<never>;

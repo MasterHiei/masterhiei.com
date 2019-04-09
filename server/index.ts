@@ -1,4 +1,5 @@
 import path from 'path';
+import consola from 'consola';
 import express from 'express';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
@@ -24,8 +25,10 @@ app.use(
 );
 
 // Connect to mongodb
+const uri = process.env.DB_URI;
+if (uri == null) throw new Error('DB_URI is null or undefined.');
 mongoose.set('debug', isDebug);
-mongoose.connect(process.env.DB_URI, {
+mongoose.connect(uri, {
   dbName: process.env.DB_NAME,
   useNewUrlParser: true,
   useCreateIndex: true,
@@ -73,6 +76,17 @@ async function start(): Promise<void> {
   app.use(nuxt.render);
 
   // Listen the server
-  app.listen(process.env.PORT);
+  const port = Number(process.env.PORT);
+  const hostname = process.env.HOST || '127.0.0.1';
+  app.listen(
+    port,
+    hostname,
+    (): void => {
+      consola.ready({
+        message: `Server is listening on http://${hostname}:${port}`,
+        badge: true,
+      });
+    }
+  );
 }
 start();

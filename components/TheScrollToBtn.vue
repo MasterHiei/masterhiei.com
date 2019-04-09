@@ -17,15 +17,14 @@
   </v-fab-transition>
 </template>
 
-<script>
-export default {
-  props: {
-    show: {
-      type: Boolean,
-      required: true,
-    },
-  },
-};
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator';
+
+@Component
+export default class TheScrollToBtn extends Vue {
+  // Props
+  @Prop({ type: Boolean, required: true }) readonly show!: boolean;
+}
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">

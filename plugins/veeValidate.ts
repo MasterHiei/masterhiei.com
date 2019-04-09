@@ -2,14 +2,13 @@ import Vue from 'vue';
 import VeeValidate, { Validator } from 'vee-validate';
 import zh_CN from 'vee-validate/dist/locale/zh_CN';
 import ja from 'vee-validate/dist/locale/ja';
-import { Context } from '@nuxt/vue-app';
 
 Vue.use(VeeValidate, { inject: false });
 
 // Using custom rules
 Validator.extend('username', {
   validate: (value: string): boolean =>
-    /^[a-zA-Z0-9_\-. \u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\uff66-\uff9f]{3,12}$/.test(
+    /^[a-zA-Z0-9０-９_\-. \u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\uff66-\uff9f]{3,12}$/.test(
       value
     ),
 });
@@ -67,7 +66,7 @@ Validator.localize('ja-JP', messages.ja);
 Validator.localize('zh-CN', zh_CN);
 Validator.localize('ja-JP', ja);
 
-export default ({ app }: Context): void => {
+export default ({ app }): void => {
   // Localizing the app when user refresh or access a localized link
   Validator.localize(app.i18n.locale);
 

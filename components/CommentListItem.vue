@@ -126,11 +126,16 @@ export default class ComemntListItem extends Vue {
   readonly comment!: Comment;
 
   // Data
-  isAuthor = this.$auth.user.id === this.comment.user.id;
   isEdit = false;
   modifiedContent = this.comment.content;
 
   // Coumputed
+  get isAuthor(): boolean {
+    const user = this.$auth.user;
+    if (user == null) return false;
+    return user.id === this.comment.user.id;
+  }
+
   get commentNo(): string {
     return `#${this.index + 1}`;
   }

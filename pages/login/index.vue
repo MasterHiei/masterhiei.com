@@ -4,12 +4,13 @@
   </v-layout>
 </template>
 
-<script>
-import TheLoginForm from '@/components/TheLoginForm';
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
 
-export default {
+@Component({
   components: {
-    TheLoginForm,
+    TheLoginForm: () => import('@/components/TheLoginForm.vue'),
   },
-};
+})
+export default class LoginPage extends Vue {}
 </script>

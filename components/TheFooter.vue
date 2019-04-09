@@ -33,8 +33,11 @@
   </v-footer>
 </template>
 
-<script>
-export default {};
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+
+@Component
+export default class TheFooter extends Vue {}
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">

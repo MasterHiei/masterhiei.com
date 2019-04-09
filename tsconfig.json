@@ -26,8 +26,16 @@
       ]
     },
     "types": [
+      "@types/bcrypt",
+      "@types/body-parser",
+      "@types/express",
+      "@types/express-serve-static-core",
+      "@types/jsonwebtoken",
+      "@types/mongoose",
       "@types/node",
-      "@nuxt/vue-app"
+      "@nuxt/vue-app",
+      "@nuxtjs/axios",
+      "nuxt-i18n"
     ]
   }
 }
