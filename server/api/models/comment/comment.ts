@@ -1,5 +1,13 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+import mongoose, { Schema, Document } from 'mongoose';
+
+export interface Comment extends Document {
+  _id: Schema.Types.ObjectId;
+  user: Schema.Types.ObjectId;
+  article: Schema.Types.ObjectId;
+  content: string;
+  created_at: Date;
+  updated_at: Date;
+}
 
 const commentSchema = new Schema(
   {
@@ -24,13 +32,13 @@ const commentSchema = new Schema(
   }
 );
 
-// Transform the returned object
+// Transform document to JSON
 commentSchema.set('toJSON', {
   versionKey: false,
-  transform(_, ret) {
+  transform(_, ret): void {
     ret.id = ret._id;
     delete ret._id;
   },
 });
 
-module.exports = mongoose.model('Comment', commentSchema);
+export default mongoose.model<Comment>('Comment', commentSchema);

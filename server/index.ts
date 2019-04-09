@@ -25,8 +25,10 @@ app.use(
 );
 
 // Connect to mongodb
+const uri = process.env.DB_URI;
+if (uri == null) throw new Error('DB_URI is null or undefined.');
 mongoose.set('debug', isDebug);
-mongoose.connect(process.env.DB_URI, {
+mongoose.connect(uri, {
   dbName: process.env.DB_NAME,
   useNewUrlParser: true,
   useCreateIndex: true,

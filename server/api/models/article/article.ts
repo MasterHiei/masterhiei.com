@@ -1,5 +1,18 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+import mongoose, { Schema, Document } from 'mongoose';
+
+export interface Article extends Document {
+  _id: Schema.Types.ObjectId;
+  title: string;
+  content: string;
+  category: string;
+  tags: string[];
+  stars: number;
+  comments: Schema.Types.ObjectId[];
+  views: number;
+  modified_at: Date;
+  created_at: Date;
+  updated_at: Date;
+}
 
 const articleSchema = new Schema(
   {
@@ -46,13 +59,13 @@ const articleSchema = new Schema(
   }
 );
 
-// Transform the returned object
+// Transform document to JSON
 articleSchema.set('toJSON', {
   versionKey: false,
-  transform(_, ret) {
+  transform(_, ret): void {
     ret.id = ret._id;
     delete ret._id;
   },
 });
 
-module.exports = mongoose.model('Article', articleSchema);
+export default mongoose.model<Article>('Article', articleSchema);
