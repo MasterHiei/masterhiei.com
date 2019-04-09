@@ -1,13 +1,30 @@
+import { Router, Request, Response } from 'express';
+import { Controller } from '..';
 import UserModel, { User } from '../../models/user/user';
-import JSONWebToken from '../../utils/jwt';
+import JSONWebToken from '../../../utils/jwt';
 
-class UserController {
+class UserController implements Controller {
+  public router = Router();
+
+  public constructor() {
+    this.initialRoutes();
+  }
+
+  public initialRoutes = (): void => {
+    this.router.post('/login', this.login);
+    this.router.post('/logout', this.logout);
+    this.router.get('/users/me', this.me);
+    this.router.put('/users/validate', this.validate);
+    this.router.post('/users', this.create);
+    this.router.post('/users/social', this.fetchSocial);
+  };
+
   /**
    * UserModel login
    * @param {Request} req
    * @param {Response} res
    */
-  public login = async (req, res): Promise<void> => {
+  public login = async (req: Request, res: Response): Promise<void> => {
     const { email, password } = req.body;
     if (!email || !password) {
       res.json({ code: 400, message: 'Invalid email or password.' });
@@ -38,7 +55,7 @@ class UserController {
    * UserModel logout
    * @param {Response} res
    */
-  public logout = (_, res): void => {
+  public logout = (_: Request, res: Response): void => {
     res.json({ code: 0 });
   };
 
@@ -47,8 +64,8 @@ class UserController {
    * @param {Request} req
    * @param {Response} res
    */
-  public me = (req, res): void => {
-    const token = req.token;
+  public me = (req: Request, res: Response): void => {
+    const token = req['token'];
     if (!token) {
       res.status(401).send({ message: 'Missing authentication  token.' });
       return;
@@ -71,7 +88,7 @@ class UserController {
    * @param {Request} req
    * @param {Response} res
    */
-  public create = (req, res): void => {
+  public create = (req: Request, res: Response): void => {
     const { email, username, password } = req.body;
     if (!email || !password || !username) {
       res.json({ code: 400, message: 'Invalid register info.' });
@@ -95,7 +112,7 @@ class UserController {
    * @param {Request} req
    * @param {Response} res
    */
-  public fetchSocial = async (req, res): Promise<void> => {
+  public fetchSocial = async (req: Request, res: Response): Promise<void> => {
     const { type, socialId, username, avatar } = req.body;
     if (!type || !socialId || !username || !avatar) {
       res.status(400).send({ message: 'Invalid user data.' });
@@ -128,7 +145,7 @@ class UserController {
    * @param {Request} req
    * @param {Response} res
    */
-  public validate = async (req, res): Promise<void> => {
+  public validate = async (req: Request, res: Response): Promise<void> => {
     const { email } = req.body;
     const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!email || !pattern.test(email)) {
@@ -166,7 +183,7 @@ class UserController {
    * @param {String} type Account type
    */
   private dummyEmail = (id: string, type: string): string => {
-    return `${id}_${new Date().getTime()}@.dummy.${type}.com`;
+    return `dummy.${id}${new Date().getTime()}@${type}.com`;
   };
 }
 

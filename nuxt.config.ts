@@ -2,9 +2,6 @@ import NuxtConfiguration from '@nuxt/config';
 import VuetifyLoaderPlugin from 'vuetify-loader/lib/plugin';
 import pkg from './package.json';
 
-// Apply enviroment variables
-require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` });
-
 const config: NuxtConfiguration = {
   /*
    ** Headers of the page
@@ -66,7 +63,7 @@ const config: NuxtConfiguration = {
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/auth',
-    ['@nuxtjs/dotenv', { filename: `.env.${process.env.NODE_ENV}` }],
+    '@nuxtjs/dotenv',
     [
       'nuxt-i18n',
       {

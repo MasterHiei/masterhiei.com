@@ -1,14 +1,28 @@
+import { Router, Request, Response } from 'express';
+import { Controller } from '..';
 import CommentModel from '../../models/comment/comment';
 import ArticleModel from '../../models/article/article';
 
-class CommentController {
+class CommentController implements Controller {
+  public router = Router();
+
+  public constructor() {
+    this.initialRoutes();
+  }
+
+  public initialRoutes = (): void => {
+    this.router.post('/articles/:articleId/comments', this.create);
+    this.router.patch('/articles/:articleId/comments/:commentId', this.update);
+    this.router.delete('/articles/:articleId/comments/:commentId', this.delete);
+  };
+
   // TODO: Add permission check
   /**
    * Create a new Comment
    * @param {Request} req
    * @param {Response} res
    */
-  public create = async (req, res): Promise<void> => {
+  public create = async (req: Request, res: Response): Promise<void> => {
     const articleId = req.params.articleId;
     const { userId, content } = req.body;
     if (!userId || !articleId || !content) {

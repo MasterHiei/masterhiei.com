@@ -1,12 +1,26 @@
+import { Router, Request, Response } from 'express';
+import { Controller } from '..';
 import faker from 'faker';
 import ArticleModel, { Article } from '../../models/article/article';
 
-class ArticleController {
+class ArticleController implements Controller {
+  public router = Router();
+
+  public constructor() {
+    this.initialRoutes();
+  }
+
+  public initialRoutes = (): void => {
+    this.router.get('/articles', this.index);
+    this.router.get('/articles/:id', this.show);
+  };
+
   /**
    * Get All Articles with desc
+   * @param {Request} _
    * @param {Response} res
    */
-  public index = async (_, res): Promise<void> => {
+  public index = async (_: Request, res: Response): Promise<void> => {
     try {
       const articles = await this.findArticles();
       if (articles.length < 1) {
