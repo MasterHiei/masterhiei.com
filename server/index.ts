@@ -10,5 +10,4 @@ const controllers: Controller[] = [
   new CommentController(),
 ];
 const app = new App(controllers);
-
 app.start();

@@ -4,9 +4,10 @@ import UserModel, { User } from '../../models/user/user';
 import JSONWebToken from '../../../utils/jwt';
 
 class UserController implements Controller {
-  public router = Router();
+  public router: Router;
 
   public constructor() {
+    this.router = Router();
     this.initialRoutes();
   }
 
@@ -20,7 +21,7 @@ class UserController implements Controller {
   };
 
   /**
-   * UserModel login
+   * User login
    * @param {Request} req
    * @param {Response} res
    */
@@ -52,7 +53,7 @@ class UserController implements Controller {
   };
 
   /**
-   * UserModel logout
+   * User logout
    * @param {Response} res
    */
   public logout = (_: Request, res: Response): void => {
@@ -60,7 +61,7 @@ class UserController implements Controller {
   };
 
   /**
-   * Query user
+   * Obtain user from jwt
    * @param {Request} req
    * @param {Response} res
    */
@@ -84,7 +85,7 @@ class UserController implements Controller {
   };
 
   /**
-   * Create new user
+   * Create a new user
    * @param {Request} req
    * @param {Response} res
    */

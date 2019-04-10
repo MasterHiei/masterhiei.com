@@ -4,9 +4,10 @@ import CommentModel from '../../models/comment/comment';
 import ArticleModel from '../../models/article/article';
 
 class CommentController implements Controller {
-  public router = Router();
+  public router: Router;
 
   public constructor() {
+    this.router = Router();
     this.initialRoutes();
   }
 

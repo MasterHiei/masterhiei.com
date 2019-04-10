@@ -4,9 +4,10 @@ import faker from 'faker';
 import ArticleModel, { Article } from '../../models/article/article';
 
 class ArticleController implements Controller {
-  public router = Router();
+  public router: Router;
 
   public constructor() {
+    this.router = Router();
     this.initialRoutes();
   }
 

@@ -3,6 +3,7 @@ import express, { Application } from 'express';
 import consola from 'consola';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
 import { Nuxt, Builder } from 'nuxt';
 import config from '../nuxt.config';
 import envalid, { Env } from './utils/envalid';
@@ -45,6 +46,7 @@ class App {
   private initializeMiddleware(): void {
     this.app.use('/public', express.static(path.join(__dirname, 'public')));
     this.app.use(bodyParser.json());
+    this.app.use(cookieParser);
     this.app.use(token);
     this.app.use(morgan);
   }
@@ -76,20 +78,21 @@ class App {
    * Start with Nuxt.js
    */
   public async start(): Promise<void> {
-    // Init Nuxt.js
+    // Instantiate Nuxt.js with the configuration
+    config.dev = this.env.isDev;
     const nuxt = new Nuxt(config);
     await nuxt.ready();
 
-    // Build only in dev mode
-    config.dev = this.env.isDev;
+    // Render every route with Nuxt.js
+    this.app.use(nuxt.render);
+
+    // Build only in dev mode with hot-reloading
     if (config.dev) {
       const builder = new Builder(nuxt);
       await builder.build();
     }
 
-    // Give nuxt middleware to express
-    this.app.use(nuxt.render);
-
+    // Listen the server
     this.listen();
   }
 }
