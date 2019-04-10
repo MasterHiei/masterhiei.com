@@ -66,7 +66,7 @@ class CommentController implements Controller {
    * @param {Request} req
    * @param {Response} res
    */
-  public update = async (req, res): Promise<void> => {
+  public update = async (req: Request, res: Response): Promise<void> => {
     const commentId = req.params.commentId;
     const { content } = req.body;
     if (!commentId || !content) {
@@ -93,7 +93,7 @@ class CommentController implements Controller {
    * @param {Request} req
    * @param {Response} res
    */
-  public delete = async (req, res): Promise<void> => {
+  public delete = async (req: Request, res: Response): Promise<void> => {
     const commentId = req.params.commentId;
     if (!commentId) {
       res.status(400).send({ message: 'Invalid comment id.' });

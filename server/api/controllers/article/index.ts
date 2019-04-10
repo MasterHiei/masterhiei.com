@@ -43,7 +43,7 @@ class ArticleController implements Controller {
    * @param {Request} req
    * @param {Response} res
    */
-  public show = async (req, res): Promise<void> => {
+  public show = async (req: Request, res: Response): Promise<void> => {
     const id = req.params.id;
     if (!id) {
       res.status(400).send({ message: 'Invalid article id.' });
@@ -105,7 +105,7 @@ class ArticleController implements Controller {
    * @param {Number} times Number of data
    * @returns {Promise<Array>} Result of generation
    */
-  private generateArticles = (times = 12): Promise<Article[]> => {
+  private generateArticles = (times: number = 12): Promise<Article[]> => {
     const dummies: object[] = [];
 
     // generate dummy data N times
