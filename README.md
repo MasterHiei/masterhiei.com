@@ -1,4 +1,4 @@
-# my-blog-nuxt
+# masterhieie.com
 
 > My impeccable Nuxt.js project
 
@@ -8,7 +8,7 @@
 # install dependencies
 $ yarn install
 
-# serve with hot reload at 127.0.0.1:3001
+# serve with hot reload at http://localhost:3000(default)
 $ yarn dev
 
 # build for production and launch server
