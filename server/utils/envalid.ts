@@ -27,4 +27,4 @@ const validateEnv = (): Readonly<Env> =>
     BCRYPT_SALT_ROUND: str(),
   });
 
-export default validateEnv;
+export default validateEnv();

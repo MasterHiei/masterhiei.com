@@ -2,10 +2,10 @@ import consola from 'consola';
 import { Nuxt, Builder } from 'nuxt';
 import config from '../nuxt.config';
 import app from './app';
-import envalid from './utils/envalid';
+import env from './utils/envalid';
 
-// Load environment variables from .env file
-const { isDev, HOST, PORT } = envalid();
+// Obtain environment variables
+const { isDev, HOST, PORT } = env;
 
 // Start server with Nuxt.js
 const start = async (): Promise<void> => {
@@ -27,12 +27,11 @@ const start = async (): Promise<void> => {
   app.listen(
     PORT,
     HOST,
-    (): void => {
+    (): void =>
       consola.ready({
         message: `Server is listening on http://${HOST}:${PORT}`,
         badge: true,
-      });
-    }
+      })
   );
 };
 start();

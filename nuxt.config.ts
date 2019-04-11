@@ -1,9 +1,10 @@
 import NuxtConfiguration from '@nuxt/config';
 import VuetifyLoaderPlugin from 'vuetify-loader/lib/plugin';
 import pkg from './package.json';
-import envalid from './server/utils/envalid';
+import env from './server/utils/envalid';
 
-const env = envalid();
+// Load environment variables from .env file
+require('dotenv').config();
 
 const config: NuxtConfiguration = {
   /*
