@@ -1,7 +1,7 @@
-import { Router, Request, Response } from 'express';
-import { Controller } from '..';
 import faker from 'faker';
-import ArticleModel, { Article } from '../../models/article/article';
+import { Router, Request, Response } from 'express';
+import ArticleModel, { Article } from '../models/article';
+import { Controller } from './interface';
 
 class ArticleController implements Controller {
   public router: Router;

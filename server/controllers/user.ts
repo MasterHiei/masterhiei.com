@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express';
-import { Controller } from '..';
-import UserModel, { User } from '../../models/user/user';
-import JSONWebToken from '../../../utils/jwt';
+import UserModel, { User } from '../models/user';
+import JSONWebToken from '../utils/jwt';
+import { Controller } from './interface';
 
 class UserController implements Controller {
   public router: Router;

@@ -9,7 +9,7 @@ import config from '../nuxt.config';
 import envalid, { Env } from './utils/envalid';
 import token from './utils/token';
 import morgan from './utils/morgan';
-import { Controller } from './api/controllers';
+import { Controller } from './controllers/interface';
 
 class App {
   public app: Application;
@@ -38,9 +38,9 @@ class App {
       useCreateIndex: true,
       useFindAndModify: false,
     });
-    require('./api/models/user/user');
-    require('./api/models/article/article');
-    require('./api/models/comment/comment');
+    require('./models/user');
+    require('./models/article');
+    require('./models/comment');
   }
 
   private initializeMiddleware(): void {

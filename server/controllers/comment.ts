@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express';
-import { Controller } from '..';
-import CommentModel from '../../models/comment/comment';
-import ArticleModel from '../../models/article/article';
+import CommentModel from '../models/comment';
+import ArticleModel from '../models/article';
+import { Controller } from './interface';
 
 class CommentController implements Controller {
   public router: Router;
