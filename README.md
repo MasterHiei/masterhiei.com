@@ -1,6 +1,6 @@
-# masterhieie.com
+# masterhiei.com
 
-> My impeccable Nuxt.js project
+> :beginner:Still developing. :zap:Powered by Nuxt.js, Express and TypeScript.
 
 ## Build Setup
 
