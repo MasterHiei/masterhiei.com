@@ -1,9 +1,10 @@
 import NuxtConfiguration from '@nuxt/config';
 import VuetifyLoaderPlugin from 'vuetify-loader/lib/plugin';
 import pkg from './package.json';
+import env from './server/utils/envalid';
 
-// Apply enviroment variables
-require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` });
+// Load environment variables from .env file
+require('dotenv').config();
 
 const config: NuxtConfiguration = {
   /*
@@ -66,7 +67,7 @@ const config: NuxtConfiguration = {
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/auth',
-    ['@nuxtjs/dotenv', { filename: `.env.${process.env.NODE_ENV}` }],
+    '@nuxtjs/dotenv',
     [
       'nuxt-i18n',
       {
@@ -125,8 +126,8 @@ const config: NuxtConfiguration = {
       },
 
       github: {
-        client_id: process.env.GITHUB_CLIENT_ID,
-        client_secret: process.env.GITHUB_CLIENT_SECRET,
+        client_id: env.GITHUB_CLIENT_ID,
+        client_secret: env.GITHUB_CLIENT_SECRET,
         scope: ['read:user'],
       },
     },
