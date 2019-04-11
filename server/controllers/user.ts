@@ -8,10 +8,10 @@ class UserController implements Controller {
 
   public constructor() {
     this.router = Router();
-    this.initialRoutes();
+    this.initializeRoutes();
   }
 
-  public initialRoutes = (): void => {
+  public initializeRoutes = (): void => {
     this.router.post('/login', this.login);
     this.router.post('/logout', this.logout);
     this.router.get('/users/me', this.me);
@@ -188,4 +188,4 @@ class UserController implements Controller {
   };
 }
 
-export default UserController;
+export default new UserController();

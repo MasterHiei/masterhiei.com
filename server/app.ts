@@ -1,100 +1,57 @@
 import path from 'path';
-import express, { Application } from 'express';
-import consola from 'consola';
+import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
-import cookieParser from 'cookie-parser';
-import { Nuxt, Builder } from 'nuxt';
-import config from '../nuxt.config';
-import envalid, { Env } from './utils/envalid';
+// import cookieParser from 'cookie-parser';
+import envalid from './utils/envalid';
 import token from './utils/token';
 import morgan from './utils/morgan';
-import { Controller } from './controllers/interface';
 
-class App {
-  public app: Application;
+// Controllers (route handlers)
+import userController from './controllers/user';
+import articleController from './controllers/article';
+import commentController from './controllers/comment';
 
-  private env: Env;
-  private port: number;
-  private hostname: string;
+// Load ronment variables from .file
+const { isDebug, DB_URI, DB_NAME, API_PREFIX } = envalid();
 
-  public constructor(controllers: Controller[]) {
-    this.app = express();
-    this.env = envalid();
-    this.port = this.env.PORT;
-    this.hostname = this.env.HOST;
+// Create Express server
+const app = express();
 
-    this.connectToDatabase();
-    this.initializeMiddleware();
-    this.initializeControllers(controllers);
-  }
-
-  private connectToDatabase(): void {
-    const { isDebug, DB_URI, DB_NAME } = this.env;
-    mongoose.set('debug', isDebug);
-    mongoose.connect(DB_URI, {
-      dbName: DB_NAME,
-      useNewUrlParser: true,
-      useCreateIndex: true,
-      useFindAndModify: false,
-    });
-    require('./models/user');
-    require('./models/article');
-    require('./models/comment');
-  }
-
-  private initializeMiddleware(): void {
-    this.app.use('/public', express.static(path.join(__dirname, 'public')));
-    this.app.use(bodyParser.json());
-    this.app.use(cookieParser);
-    this.app.use(token);
-    this.app.use(morgan);
-  }
-
-  private initializeControllers(controllers: Controller[]): void {
-    controllers.forEach(
-      (controller): void => {
-        this.app.use(this.env.API_PREFIX, controller.router);
-      }
-    );
-  }
-
-  private listen(): void {
-    this.app.listen(
-      this.port,
-      this.hostname,
-      (): void => {
-        consola.ready({
-          message: `Server is listening on http://${this.hostname}:${
-            this.port
-          }`,
-          badge: true,
-        });
-      }
-    );
-  }
-
-  /**
-   * Start with Nuxt.js
-   */
-  public async start(): Promise<void> {
-    // Instantiate Nuxt.js with the configuration
-    config.dev = this.env.isDev;
-    const nuxt = new Nuxt(config);
-    await nuxt.ready();
-
-    // Render every route with Nuxt.js
-    this.app.use(nuxt.render);
-
-    // Build only in dev mode with hot-reloading
-    if (config.dev) {
-      const builder = new Builder(nuxt);
-      await builder.build();
-    }
-
-    // Listen the server
-    this.listen();
-  }
+// Connect to MongoDB
+if (isDebug) {
+  mongoose.set('debug', isDebug);
 }
+mongoose
+  .connect(DB_URI, {
+    dbName: DB_NAME,
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+  })
+  .then(
+    (): void => {
+      require('./models/user');
+      require('./models/article');
+      require('./models/comment');
+    }
+  )
+  .catch(
+    (error: Error): void => {
+      console.log(`MongoDB connection error: ${error}`);
+    }
+  );
 
-export default App;
+// Express configuration
+app.use('/public', express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json());
+// app.use(cookieParser);
+app.use(token);
+app.use(morgan);
+
+// Primary app routes
+app.use(API_PREFIX, userController.router);
+app.use(API_PREFIX, articleController.router);
+app.use(API_PREFIX, commentController.router);
+
+export default app;

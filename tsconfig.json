@@ -9,7 +9,6 @@
       "dom"
     ],
     "esModuleInterop": true,
-    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowJs": true,
     "sourceMap": true,

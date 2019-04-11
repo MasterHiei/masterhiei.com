@@ -8,10 +8,10 @@ class CommentController implements Controller {
 
   public constructor() {
     this.router = Router();
-    this.initialRoutes();
+    this.initializeRoutes();
   }
 
-  public initialRoutes = (): void => {
+  public initializeRoutes = (): void => {
     this.router.post('/articles/:articleId/comments', this.create);
     this.router.patch('/articles/:articleId/comments/:commentId', this.update);
     this.router.delete('/articles/:articleId/comments/:commentId', this.delete);
@@ -112,4 +112,4 @@ class CommentController implements Controller {
   };
 }
 
-export default CommentController;
+export default new CommentController();

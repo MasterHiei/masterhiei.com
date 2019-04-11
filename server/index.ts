@@ -1,13 +1,38 @@
-import App from './app';
-import { Controller } from './controllers/interface';
-import UserController from './controllers/user';
-import ArticleController from './controllers/article';
-import CommentController from './controllers/comment';
+import consola from 'consola';
+import { Nuxt, Builder } from 'nuxt';
+import config from '../nuxt.config';
+import app from './app';
+import envalid from './utils/envalid';
 
-const controllers: Controller[] = [
-  new UserController(),
-  new ArticleController(),
-  new CommentController(),
-];
-const app = new App(controllers);
-app.start();
+// Load environment variables from .env file
+const { isDev, HOST, PORT } = envalid();
+
+// Start server with Nuxt.js
+const start = async (): Promise<void> => {
+  // Instantiate Nuxt.js with the configuration
+  config.dev = isDev;
+  const nuxt = new Nuxt(config);
+  await nuxt.ready();
+
+  // Render every route with Nuxt.js
+  app.use(nuxt.render);
+
+  // Build only in dev mode with hot-reloading
+  if (config.dev) {
+    const builder = new Builder(nuxt);
+    await builder.build();
+  }
+
+  // Listen the server
+  app.listen(
+    PORT,
+    HOST,
+    (): void => {
+      consola.ready({
+        message: `Server is listening on http://${HOST}:${PORT}`,
+        badge: true,
+      });
+    }
+  );
+};
+start();

@@ -1,6 +1,9 @@
 import NuxtConfiguration from '@nuxt/config';
 import VuetifyLoaderPlugin from 'vuetify-loader/lib/plugin';
 import pkg from './package.json';
+import envalid from './server/utils/envalid';
+
+const env = envalid();
 
 const config: NuxtConfiguration = {
   /*
@@ -122,8 +125,8 @@ const config: NuxtConfiguration = {
       },
 
       github: {
-        client_id: process.env.GITHUB_CLIENT_ID,
-        client_secret: process.env.GITHUB_CLIENT_SECRET,
+        client_id: env.GITHUB_CLIENT_ID,
+        client_secret: env.GITHUB_CLIENT_SECRET,
         scope: ['read:user'],
       },
     },

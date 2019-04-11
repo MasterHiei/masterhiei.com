@@ -8,10 +8,10 @@ class ArticleController implements Controller {
 
   public constructor() {
     this.router = Router();
-    this.initialRoutes();
+    this.initializeRoutes();
   }
 
-  public initialRoutes = (): void => {
+  public initializeRoutes = (): void => {
     this.router.get('/articles', this.index);
     this.router.get('/articles/:id', this.show);
   };
@@ -122,4 +122,4 @@ class ArticleController implements Controller {
   };
 }
 
-export default ArticleController;
+export default new ArticleController();
