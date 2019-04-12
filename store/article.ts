@@ -36,17 +36,17 @@ export const getters: GetterTree<State, RootState> = {
 
 // Actions
 interface Actions<S, R> extends ActionTree<S, R> {
-  find(context: ActionContext<S, R>): void;
-  findOneById(context: ActionContext<S, R>, id: string): void;
+  fetchAll(context: ActionContext<S, R>): void;
+  fetchOneById(context: ActionContext<S, R>, id: string): void;
 }
 
 export const actions: Actions<State, RootState> = {
-  async find({ commit }): Promise<void> {
+  async fetchAll({ commit }): Promise<void> {
     const { data } = await this.$axios['$get']('/articles');
     commit(types.SET, data);
   },
 
-  async findOneById({ commit }, id): Promise<void> {
+  async fetchOneById({ commit }, id): Promise<void> {
     const { data } = await this.$axios['$get'](`/articles/${id}`);
     commit(types.SET_ONE_BY_ID, data);
   },
@@ -58,16 +58,13 @@ export const mutations: MutationTree<State> = {
   },
 
   [types.SET_ONE_BY_ID](state, article: Article): void {
-    let isExist = false;
     const articles = state.articles;
-    for (let i = 0; i < articles.length; i++) {
-      if (articles[i].id === article.id) {
-        articles[i] = article;
-        isExist = true;
-      }
-    }
-    if (!isExist) {
+    const index = articles.findIndex((item): boolean => item.id === article.id);
+    if (index < 0) {
       articles.push(article);
+    } else {
+      articles[index] = article;
     }
+    state.articles = articles;
   },
 };

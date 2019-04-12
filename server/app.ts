@@ -1,9 +1,9 @@
 import path from 'path';
+import consola from 'consola';
 import express from 'express';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
-// import cookieParser from 'cookie-parser';
 import env from './utils/envalid';
 import token from './utils/token';
 import routes from './routes';
@@ -30,18 +30,24 @@ mongoose
       require('./models/user');
       require('./models/article');
       require('./models/comment');
+      consola.ready({
+        message: 'Connected to MongoDB',
+        badge: true,
+      });
     }
   )
   .catch(
     (error: Error): void => {
-      console.log(`MongoDB connection error: ${error}`);
+      consola.error({
+        message: `MongoDB connection error: ${error}`,
+        badge: true,
+      });
     }
   );
 
 // Express configuration
 app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
-// app.use(cookieParser);
 app.use(token);
 app.use(
   morgan('dev', {
