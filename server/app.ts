@@ -9,14 +9,14 @@ import token from './utils/token';
 import routes from './routes';
 
 // Obtain environment variables
-const { isDebug, DB_URI, DB_NAME, API_PREFIX } = env;
+const { isDev, DB_URI, DB_NAME, API_PREFIX } = env;
 
 // Create Express server
 const app = express();
 
 // Connect to MongoDB
-if (isDebug) {
-  mongoose.set('debug', isDebug);
+if (isDev) {
+  mongoose.set('debug', isDev);
 }
 mongoose
   .connect(DB_URI, {

@@ -29,9 +29,7 @@ export const state = (): State => ({
 export const getters: GetterTree<State, RootState> = {
   findOneById: (state): ((id: string) => Article | undefined) => (
     id: string
-  ): Article | undefined => {
-    return state.articles.find((article): boolean => article.id === id);
-  },
+  ): Article | undefined => state.articles.find((article): boolean => article.id === id),
 };
 
 // Actions
