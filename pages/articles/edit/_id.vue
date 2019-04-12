@@ -21,7 +21,7 @@ export default class ArticleEditPage extends Vue {
   @Article.Getter findOneById;
 
   get content() {
-    const article = this.findOneById({ value: this.$route.params.id });
+    const article = this.findOneById(this.$route.params.id);
     return article.content;
   }
 }

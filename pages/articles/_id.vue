@@ -81,7 +81,7 @@ const Article = namespace(article.name);
   },
 
   async fetch({ store, params }) {
-    await store.dispatch('article/findOneById', params.id);
+    await store.dispatch('article/fetchOneById', params.id);
   },
 })
 export default class ArticlePage extends Vue {
