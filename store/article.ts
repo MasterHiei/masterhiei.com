@@ -1,5 +1,6 @@
 import { ActionTree, MutationTree, GetterTree, ActionContext } from 'vuex';
 import { Article } from '@/models/index';
+import { NuxtAxiosInstance } from '@nuxtjs/axios';
 
 // Namespace
 export const name = 'article';
@@ -29,9 +30,8 @@ export const state = (): State => ({
 export const getters: GetterTree<State, RootState> = {
   findOneById: (state): ((id: string) => Article | undefined) => (
     id: string
-  ): Article | undefined => {
-    return state.articles.find((article): boolean => article.id === id);
-  },
+  ): Article | undefined =>
+    state.articles.find((article): boolean => article.id === id),
 };
 
 // Actions
@@ -42,12 +42,14 @@ interface Actions<S, R> extends ActionTree<S, R> {
 
 export const actions: Actions<State, RootState> = {
   async fetchAll({ commit }): Promise<void> {
-    const { data } = await this.$axios['$get']('/articles');
+    const $axios = this.$axios as NuxtAxiosInstance;
+    const { data } = await $axios.$get('/articles');
     commit(types.SET, data);
   },
 
   async fetchOneById({ commit }, id): Promise<void> {
-    const { data } = await this.$axios['$get'](`/articles/${id}`);
+    const $axios = this.$axios as NuxtAxiosInstance;
+    const { data } = await $axios.$get(`/articles/${id}`);
     commit(types.SET_ONE_BY_ID, data);
   },
 };
