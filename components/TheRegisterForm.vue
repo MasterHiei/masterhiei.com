@@ -98,7 +98,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import SHA256 from 'crypto-js/sha256';
-import delay from '@/common/utils/delay.js';
+import delay from '@/common/utils/delay';
 
 @Component({
   $_veeValidate: {

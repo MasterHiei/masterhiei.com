@@ -51,7 +51,7 @@ app.use(bodyParser.json());
 app.use(token);
 app.use(
   morgan('dev', {
-    skip: (req): boolean => req.path.indexOf(env.API_PREFIX) < 0,
+    skip: (req): boolean => req.baseUrl !== env.API_PREFIX,
   })
 );
 
