@@ -2,6 +2,7 @@ import NuxtConfiguration from '@nuxt/config';
 import VuetifyLoaderPlugin from 'vuetify-loader/lib/plugin';
 import pkg from './package.json';
 import env from './server/utils/envalid';
+import dateTimeFormats from './assets/locales/dateTimeFormats';
 
 // Load environment variables from .env file
 require('dotenv').config();
@@ -72,7 +73,7 @@ const config: NuxtConfiguration = {
       'nuxt-i18n',
       {
         vueI18n: {
-          dateTimeFormats: require('./assets/locales/dateTimeFormats'),
+          dateTimeFormats: dateTimeFormats,
           fallbackLocale: 'zh-CN',
         },
         vueI18nLoader: true,
@@ -81,13 +82,13 @@ const config: NuxtConfiguration = {
             code: 'zh-CN',
             name: '简体中文',
             iso: 'zh-CN',
-            file: 'zh_CN.js',
+            file: 'zh_CN.ts',
           },
           {
             code: 'ja-JP',
             name: '日本語',
             iso: 'ja-JP',
-            file: 'ja.js',
+            file: 'ja.ts',
           },
         ],
         defaultLocale: 'zh-CN',
