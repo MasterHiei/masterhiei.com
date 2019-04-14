@@ -1,0 +1,44 @@
+root: true
+
+env:
+  browser: true
+  node: true
+
+parser: vue-eslint-parser
+
+parserOptions:
+  parser: '@typescript-eslint/parser'
+  sourceType: module
+
+extends:
+    - '@nuxtjs'
+    - plugin:nuxt/recommended
+    - plugin:prettier/recommended
+    - prettier
+    - prettier/vue
+    - 'plugin:@typescript-eslint/recommended'
+    - 'prettier/@typescript-eslint'
+
+plugins:
+  - '@typescript-eslint'
+  - prettier
+
+rules:
+  no-console: off
+  no-debugger: off
+  semi:
+    - error
+    - always
+  vue/max-attributes-per-line: off
+  comma-dangle:
+    - error
+    - always-multiline
+  prettier/prettier:
+    - error
+    -
+      singleQuote: true
+      trailingComma: es5
+      semi: true
+      jsxBracketSameLine: true
+  '@typescript-eslint/camelcase': off
+  '@typescript-eslint/no-var-requires': off
