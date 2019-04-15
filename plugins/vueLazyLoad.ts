@@ -1,8 +1,11 @@
 import Vue from 'vue';
 import VueLazyLoad from 'vue-lazyload';
+import env from '@/server/utils/envalid';
+
+const { DOMAIN } = env;
 
 Vue.use(VueLazyLoad, {
   attempt: 1,
-  error: `${process.env.DOMAIN}/public/avatar/avatar.png`,
-  loading: `${process.env.DOMAIN}/public/loading.svg`,
+  error: `${DOMAIN}/public/avatar/avatar.png`,
+  loading: `${DOMAIN}/public/loading.svg`,
 });
