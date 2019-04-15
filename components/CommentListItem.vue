@@ -111,7 +111,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { Comment } from '@/models/index';
-import { TheConfirmInstance } from '@/types/index';
+import { ConfirmInstance } from '@/types/index';
 
 @Component({
   components: {
@@ -140,8 +140,8 @@ export default class ComemntListItem extends Vue {
     return `#${this.index + 1}`;
   }
 
-  get confirm(): TheConfirmInstance {
-    return this.$refs.confirm as TheConfirmInstance;
+  get confirm(): ConfirmInstance {
+    return this.$refs.confirm as ConfirmInstance;
   }
 
   // Methods
@@ -158,9 +158,7 @@ export default class ComemntListItem extends Vue {
     this.confirm
       .show(this.$i18n.t('comment.confirmEdit'))
       .then(async confirm => {
-        if (!confirm) {
-          return;
-        }
+        if (!confirm) return;
         await this.$axios.$patch(
           `/articles/${this.$route.params.id}/comments/${this.comment.id}`,
           {
@@ -176,9 +174,7 @@ export default class ComemntListItem extends Vue {
     this.confirm
       .show(this.$i18n.t('comment.revokeEdit'))
       .then(confirm => {
-        if (!confirm) {
-          return;
-        }
+        if (!confirm) return;
         this.isEdit = false;
       })
       .catch(() => {});
@@ -188,9 +184,7 @@ export default class ComemntListItem extends Vue {
     this.confirm
       .show(this.$i18n.t('comment.confirmRemove'))
       .then(async confirm => {
-        if (!confirm) {
-          return;
-        }
+        if (!confirm) return;
         await this.$axios.$delete(
           `/articles/${this.$route.params.id}/comments/${this.comment.id}`
         );

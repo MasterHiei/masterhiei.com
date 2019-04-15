@@ -52,6 +52,8 @@
         {{ $t('auth.login') }}
       </v-btn>
 
+      <v-divider class="mt-4" />
+
       <v-btn
         class="subheading text-none mt-4"
         depressed
