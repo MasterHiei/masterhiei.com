@@ -1,5 +1,6 @@
 import mongoose, { Schema, Document } from 'mongoose';
 import bcrypt from 'bcrypt';
+import env from '../utils/envalid';
 
 export interface User extends Document {
   _id: Schema.Types.ObjectId;
@@ -36,7 +37,7 @@ const userSchema = new Schema(
     },
     avatar: {
       type: String,
-      default: `${process.env.DOMAIN}/public/avatar/avatar.png`,
+      default: `${env.DOMAIN}/public/avatar/avatar.png`,
     },
     social_id: {
       type: String,
@@ -57,7 +58,7 @@ const userSchema = new Schema(
  * @returns {String} Encrypted password string
  */
 userSchema.methods.hash = (password: string): string => {
-  const salt = bcrypt.genSaltSync(Number(process.env.BCRYPT_SALT_ROUND));
+  const salt = bcrypt.genSaltSync(env.BCRYPT_SALT_ROUND);
   return bcrypt.hashSync(password, salt);
 };
 
