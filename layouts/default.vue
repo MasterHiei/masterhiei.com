@@ -12,36 +12,36 @@
   </v-app>
 </template>
 
-<script>
-import TheNavbar from '@/components/TheNavbar';
-import TheFooter from '@/components/TheFooter';
-import TheScrollToBtn from '@/components/TheScrollToBtn';
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
 
-export default {
+@Component({
   components: {
-    TheNavbar,
-    TheFooter,
-    TheScrollToBtn,
+    TheNavbar: () => import('@/components/TheNavbar.vue'),
+    TheFooter: () => import('@/components/TheFooter.vue'),
+    TheScrollToBtn: () => import('@/components/TheScrollToBtn.vue'),
   },
-  data() {
-    return {
-      pageDidScroll: false,
-    };
-  },
+})
+export default class DefaultLayout extends Vue {
+  // Data
+  pageDidScroll = false;
+
+  // Hooks
   mounted() {
     window.addEventListener('scroll', this.scrollListener);
-  },
+  }
+
   destroyed() {
     window.removeEventListener('scroll', this.scrollListener);
-  },
-  methods: {
-    scrollListener() {
-      const scrollOffset =
-        window.pageYOffset ||
-        document.documentElement.scrollTop ||
-        document.body.scrollTop;
-      this.pageDidScroll = scrollOffset > 80;
-    },
-  },
-};
+  }
+
+  // Methods
+  scrollListener() {
+    const scrollOffset =
+      window.pageYOffset ||
+      document.documentElement.scrollTop ||
+      document.body.scrollTop;
+    this.pageDidScroll = scrollOffset > 80;
+  }
+}
 </script>
