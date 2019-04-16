@@ -1,42 +1,34 @@
 <template>
-  <v-toolbar
-    id="navbar"
-    class="hidden-sm-and-down text-xs-center"
-    height="80"
-    app
-  >
-    <v-spacer />
-
-    <v-flex wrap>
+  <v-toolbar id="navbar" class="hidden-sm-and-down text-xs-center" app>
+    <v-toolbar-title>
       <nuxt-link :to="localePath('index')" extra>
         <!-- eslint-disable-next-line vue/html-self-closing -->
         <img src="~static/logo.png" alt="logo" />
       </nuxt-link>
-    </v-flex>
+    </v-toolbar-title>
 
-    <v-flex justify-center wrap>
-      <v-btn :to="localePath('index')" class="subheading" round flat nuxt exact>
+    <v-spacer />
+
+    <v-toolbar-items>
+      <v-btn :to="localePath('index')" flat nuxt exact>
         {{ $t('links.index') }}
       </v-btn>
-      <v-btn
-        :to="localePath('articles')"
-        class="subheading"
-        round
-        flat
-        nuxt
-        exact
-      >
+
+      <v-btn :to="localePath('articles')" flat nuxt exact>
         {{ $t('links.articles') }}
       </v-btn>
-      <v-btn :to="localePath('about')" class="subheading" round flat nuxt exact>
+
+      <v-btn :to="localePath('about')" flat nuxt exact>
         {{ $t('links.about') }}
       </v-btn>
-    </v-flex>
+    </v-toolbar-items>
 
-    <v-flex wrap>
+    <v-spacer />
+
+    <v-toolbar-items>
       <v-menu offset-y transition="slide-y-transition">
-        <v-btn slot="activator" class="subheading" flat>
-          <v-icon left>
+        <v-btn slot="activator" flat>
+          <v-icon dark small left>
             fas fa-globe
           </v-icon>
           {{ $t('links.locale') }}
@@ -50,39 +42,28 @@
             nuxt
             exact
           >
-            <v-list-tile-title class="text-xs-center subheading">
-              {{ locale.name }}
+            <v-list-tile-title class="text-xs-center body-2">
+              <span>{{ locale.name }}</span>
             </v-list-tile-title>
           </v-list-tile>
         </v-list>
       </v-menu>
 
+      <v-btn v-if="this.$auth.loggedIn" active-class="" flat @click="logout">
+        {{ $t('auth.logout') }}
+      </v-btn>
+
       <v-btn
-        v-show="!this.$auth.loggedIn"
-        class="subheading"
+        v-else
         active-class=""
         :to="localePath('login')"
         color="success"
-        round
-        outline
         nuxt
         exact
       >
         {{ $t('auth.login') }}
       </v-btn>
-
-      <v-btn
-        v-show="this.$auth.loggedIn"
-        class="subheading"
-        active-class=""
-        outline
-        @click="logout"
-      >
-        {{ $t('auth.logout') }}
-      </v-btn>
-    </v-flex>
-
-    <v-spacer />
+    </v-toolbar-items>
   </v-toolbar>
 </template>
 
