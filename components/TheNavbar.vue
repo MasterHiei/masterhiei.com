@@ -1,4 +1,5 @@
 <template>
+  <!-- Title -->
   <v-toolbar id="navbar" class="hidden-sm-and-down text-xs-center" app>
     <v-toolbar-title>
       <nuxt-link :to="localePath('index')" extra>
@@ -9,6 +10,7 @@
 
     <v-spacer />
 
+    <!-- Page transitions -->
     <v-toolbar-items>
       <v-btn :to="localePath('index')" flat nuxt exact>
         {{ $t('links.index') }}
@@ -25,6 +27,7 @@
 
     <v-spacer />
 
+    <!-- Tools menu -->
     <v-toolbar-items>
       <v-menu offset-y transition="slide-y-transition">
         <v-btn slot="activator" flat>
@@ -53,14 +56,7 @@
         {{ $t('auth.logout') }}
       </v-btn>
 
-      <v-btn
-        v-else
-        active-class=""
-        :to="localePath('login')"
-        color="success"
-        nuxt
-        exact
-      >
+      <v-btn v-else active-class="" :to="localePath('login')" nuxt exact flat>
         {{ $t('auth.login') }}
       </v-btn>
     </v-toolbar-items>
