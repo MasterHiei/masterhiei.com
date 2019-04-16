@@ -10,7 +10,7 @@
     <v-flex wrap>
       <nuxt-link :to="localePath('index')" extra>
         <!-- eslint-disable-next-line vue/html-self-closing -->
-        <img src="~static/logo.jpg" alt="logo" />
+        <img src="~static/logo.png" alt="logo" />
       </nuxt-link>
     </v-flex>
 
