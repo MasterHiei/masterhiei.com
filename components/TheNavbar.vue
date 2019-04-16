@@ -1,6 +1,8 @@
 <template>
   <!-- Title -->
   <v-toolbar id="navbar" class="hidden-sm-and-down text-xs-center" app>
+    <v-spacer />
+
     <v-toolbar-title>
       <nuxt-link :to="localePath('index')" extra>
         <!-- eslint-disable-next-line vue/html-self-closing -->
@@ -12,26 +14,51 @@
 
     <!-- Page transitions -->
     <v-toolbar-items>
-      <v-btn :to="localePath('index')" flat nuxt exact>
+      <v-btn
+        class="grey--text text--darken-2"
+        active-class=""
+        :to="localePath('index')"
+        flat
+        nuxt
+        exact
+      >
+        <v-icon class="mr-1" color="grey darken-2" small>
+          fas fa-home
+        </v-icon>
         {{ $t('links.index') }}
       </v-btn>
 
-      <v-btn :to="localePath('articles')" flat nuxt exact>
-        {{ $t('links.articles') }}
+      <v-btn
+        class="grey--text text--darken-2"
+        active-class=""
+        :to="localePath('archives')"
+        flat
+        nuxt
+        exact
+      >
+        <v-icon class="mr-1" color="grey darken-2" small>
+          fas fa-archive
+        </v-icon>
+        {{ $t('links.archives') }}
       </v-btn>
 
-      <v-btn :to="localePath('about')" flat nuxt exact>
+      <v-btn
+        class="grey--text text--darken-2"
+        active-class=""
+        :to="localePath('about')"
+        flat
+        nuxt
+        exact
+      >
+        <v-icon class="mr-1" color="grey darken-2" small>
+          fas fa-portrait
+        </v-icon>
         {{ $t('links.about') }}
       </v-btn>
-    </v-toolbar-items>
 
-    <v-spacer />
-
-    <!-- Tools menu -->
-    <v-toolbar-items>
       <v-menu offset-y transition="slide-y-transition">
-        <v-btn slot="activator" flat>
-          <v-icon dark small left>
+        <v-btn slot="activator" class="grey--text text--darken-2" flat>
+          <v-icon class="mr-1" color="grey darken-2" small>
             fas fa-globe
           </v-icon>
           {{ $t('links.locale') }}
@@ -45,21 +72,15 @@
             nuxt
             exact
           >
-            <v-list-tile-title class="text-xs-center body-2">
+            <v-list-tile-title class="text-xs-center grey--text text--darken-2">
               <span>{{ locale.name }}</span>
             </v-list-tile-title>
           </v-list-tile>
         </v-list>
       </v-menu>
-
-      <v-btn v-if="this.$auth.loggedIn" active-class="" flat @click="logout">
-        {{ $t('auth.logout') }}
-      </v-btn>
-
-      <v-btn v-else active-class="" :to="localePath('login')" nuxt exact flat>
-        {{ $t('auth.login') }}
-      </v-btn>
     </v-toolbar-items>
+
+    <v-spacer />
   </v-toolbar>
 </template>
 
@@ -76,15 +97,12 @@ export default class TheNavbar extends Vue {
       return localeObject.code !== this.$i18n.locale;
     });
   }
-
-  // Methods
-  async logout(): Promise<void> {
-    await this.$auth.logout();
-  }
 }
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
 #navbar
   z-index 1000
+*
+  font-size 15px
 </style>
