@@ -2,7 +2,7 @@
   <v-app>
     <the-header />
 
-    <v-content>
+    <v-content style="background-color: #E0E0E0;">
       <nuxt />
     </v-content>
 

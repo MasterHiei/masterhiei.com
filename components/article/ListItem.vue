@@ -1,57 +1,75 @@
 <template>
-  <v-flex pa-0 wrap>
-    <v-flex class="article-title font-weight-bold" px-0 wrap>
-      {{ article.title }}
-    </v-flex>
-    <v-flex wrap>
-      <v-flex d-inline pl-0 wrap>
-        <v-chip color="white" text-color="grey darken-1" small outline disabled>
-          <v-avatar>
-            <v-icon color="success">
-              fas fa-clock
-            </v-icon>
-          </v-avatar>
-          {{ distanceToNow(article.created_at) }}
-        </v-chip>
-      </v-flex>
-      <v-flex d-inline wrap>
-        <v-chip color="white" text-color="grey darken-1" small outline disabled>
-          <v-avatar>
-            <v-icon color="success ">
-              fas fa-comments
-            </v-icon>
-          </v-avatar>
-          {{ $t('article.comments', { number: article.comments.length }) }}
-        </v-chip>
-      </v-flex>
-    </v-flex>
-    <v-flex pa-0>
-      <v-flex
-        ref="contentContainer"
-        class="subheading font-weight-regular overflow-y-hidden"
-        :class="{ 'content-hidden': showCover }"
-        px-0
-        warp
-      >
-        {{ article.content }}
-
-        <div v-show="showCover" class="cover-view" />
-      </v-flex>
-    </v-flex>
-    <v-flex wrap>
-      <v-btn
-        class="read-more-btn subheading font-weight-bold ma-0"
-        block
-        depressed
-        color="success"
-        dark
+  <v-flex xs12>
+    <v-hover>
+      <v-card
+        slot-scope="{ hover }"
+        class="text-xs-center"
+        hover
+        height="300"
         :to="localePath({ name: 'articles-id', params: { id: article.id } })"
         nuxt
         extra
       >
-        {{ $t('article.readMore') }}
-      </v-btn>
-    </v-flex>
+        <!-- Title -->
+        <v-card-title class="pb-0" primary-title>
+          <v-flex tag="h2" pa-0 wrap>
+            {{ article.title }}
+          </v-flex>
+        </v-card-title>
+
+        <!-- Icons -->
+        <v-card-actions>
+          <v-flex class="caption grey--text text--darken-2" pa-0 wrap>
+            <v-flex tag="span" mr-2>
+              <v-icon class="mr-1" small>
+                far fa-calendar-alt
+              </v-icon>
+              {{ distanceToNow }}
+            </v-flex>
+
+            <v-flex tag="span" mr-2>
+              <v-icon class="mr-1" small>
+                far fa-comment-dots
+              </v-icon>
+              {{ $t('article.comments', { number: article.comments.length }) }}
+            </v-flex>
+
+            <v-flex tag="span" mr-2>
+              <v-icon class="mr-1" small>
+                far fa-eye
+              </v-icon>
+              {{ $t('article.views', { number: article.views }) }}
+            </v-flex>
+          </v-flex>
+        </v-card-actions>
+
+        <v-divider class="mx-5 my-2" />
+
+        <!-- Content -->
+        <v-card-text class="pt-3">
+          <v-flex tag="span">
+            {{ summary }}
+          </v-flex>
+        </v-card-text>
+
+        <!-- Read more button -->
+        <v-scroll-x-transition>
+          <v-btn
+            v-show="hover"
+            class="body-1 font-weight-light mt-4"
+            color="purple lighten-1"
+            round
+            depressed
+            dark
+          >
+            <v-icon class="mr-1" size="15">
+              fas fa-eye
+            </v-icon>
+            {{ $t('article.readMore') }}
+          </v-btn>
+        </v-scroll-x-transition>
+      </v-card>
+    </v-hover>
   </v-flex>
 </template>
 
@@ -67,9 +85,6 @@ export default class ListItem extends Vue {
   @Prop({ type: Object, required: true })
   readonly article!: Record<string, string>;
 
-  // Data
-  showCover = false;
-
   // Computed
   get locales() {
     return {
@@ -78,45 +93,17 @@ export default class ListItem extends Vue {
     };
   }
 
-  // Hooks
-  mounted() {
-    // Show cover if element height exceeds limit
-    const element = this.$refs.contentContainer;
-    if (!(element instanceof Element)) return;
-    const height = element.clientHeight;
-    if (height > 480) {
-      this.showCover = true;
-    }
-  }
-
-  // Methods
-  distanceToNow(date: string): string {
-    return distanceInWordsToNow(date, {
+  get distanceToNow(): string {
+    return distanceInWordsToNow(this.article.created_at, {
       addSuffix: true,
       locale: this.locales[this.$i18n.locale],
     });
   }
+
+  get summary(): string {
+    const content = this.article.content;
+    if (content.length <= 120) return content;
+    return `${this.article.content.slice(0, 120)}...`;
+  }
 }
 </script>
-
-<style scoped lang="stylus" rel="stylesheet/stylus">
-.article-title
-  font-size 2.5rem
-.content-hidden
-  position relative
-  max-height 480px
-  z-index 99
-.cover-view
-  height 100%
-  width 100%
-  position absolute
-  top 0
-  left 0
-  z-index 100
-  background -webkit-linear-gradient(rgba(255, 255, 255, 0), rgba(250, 250, 250, 0.97))
-  background -moz-linear-gradient(rgba(255, 255, 255, 0), rgba(250, 250, 250, 0.97))
-  background -o-linear-gradient(rgba(255, 255, 255, 0), rgba(250, 250, 250, 0.97))
-  background linear-gradient(rgba(255, 255, 255, 0), rgba(250, 250, 250, 0.97))
-.read-more-btn
-  letter-spacing 1px
-</style>
