@@ -19,7 +19,7 @@
 
         <!-- Icons -->
         <v-card-actions>
-          <v-flex class="caption grey--text text--darken-2" pa-0 wrap>
+          <v-flex class="caption grey--text text--darken-2" pa-0 mt-1 wrap>
             <v-flex tag="span" mr-2>
               <v-icon class="mr-1" small>
                 far fa-calendar-alt
@@ -63,7 +63,7 @@
             dark
           >
             <v-icon class="mr-1" size="15">
-              fas fa-eye
+              fas fa-book-reader
             </v-icon>
             {{ $t('article.readMore') }}
           </v-btn>

@@ -8,7 +8,7 @@
 
     <the-footer />
 
-    <the-scroll-to-btn :show="pageDidScroll" />
+    <the-scroll-to-btn :show="didScroll" />
   </v-app>
 </template>
 
@@ -24,7 +24,7 @@ import { Component, Vue } from 'vue-property-decorator';
 })
 export default class DefaultLayout extends Vue {
   // Data
-  pageDidScroll = false;
+  didScroll = false;
 
   // Hooks
   mounted() {
@@ -41,7 +41,7 @@ export default class DefaultLayout extends Vue {
       window.pageYOffset ||
       document.documentElement.scrollTop ||
       document.body.scrollTop;
-    this.pageDidScroll = scrollOffset > 80;
+    this.didScroll = scrollOffset > 80;
   }
 }
 </script>

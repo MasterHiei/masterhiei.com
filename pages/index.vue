@@ -3,21 +3,21 @@
     <v-layout justify-center row pt-3 wrap>
       <v-spacer />
 
-      <!-- Left mene -->
+      <!-- Left menu -->
       <v-flex class="hidden-sm-and-down text-xs-center" md2>
         left-side-area
       </v-flex>
 
       <v-spacer />
 
-      <!-- Main content -->
+      <!-- Main contents -->
       <v-flex md6 xs12>
         <article-list />
       </v-flex>
 
       <v-spacer />
 
-      <!-- Right mene -->
+      <!-- Right menu -->
       <v-flex class="hidden-sm-and-down text-xs-center" md2>
         right-side-area
       </v-flex>
