@@ -105,7 +105,7 @@ import delay from '@/common/utils/delay';
     validator: 'new',
   },
 })
-export default class TheLoginForm extends Vue {
+export default class VRegisterForm extends Vue {
   // Data
   email = '';
   validEmail = false;
@@ -183,7 +183,7 @@ export default class TheLoginForm extends Vue {
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
->>>.v-input__icon .v-icon
+>>>.v-input__icon--append .v-icon
   font-size 1.4rem
   margin-right 4px
 </style>

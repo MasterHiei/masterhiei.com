@@ -1,5 +1,5 @@
 <template>
-  <the-editor :content="content" />
+  <markdown-editor :content="content" />
 </template>
 
 <script lang="ts">
@@ -11,7 +11,7 @@ const Article = namespace(article.name);
 
 @Component({
   components: {
-    TheEditor: () => import('@/components/TheEditor.vue'),
+    MarkdownEditor: () => import('@/components/markdown/Editor.vue'),
   },
 
   middleware: 'auth',

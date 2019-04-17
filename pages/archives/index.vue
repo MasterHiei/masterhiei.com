@@ -1,6 +1,6 @@
 <template>
   <div>
-    articles
+    archives
   </div>
 </template>
 
@@ -8,5 +8,5 @@
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component
-export default class ArticlesPage extends Vue {}
+export default class ArchivesPage extends Vue {}
 </script>

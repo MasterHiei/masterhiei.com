@@ -1,6 +1,6 @@
 <template>
   <v-layout justify-center row wrap pt-5>
-    <the-register-form />
+    <v-register-form />
   </v-layout>
 </template>
 
@@ -9,7 +9,7 @@ import { Component, Vue } from 'vue-property-decorator';
 
 @Component({
   components: {
-    TheRegisterForm: () => import('@/components/TheRegisterForm.vue'),
+    VRegisterForm: () => import('@/components/ui/VRegisterForm.vue'),
   },
 })
 export default class RegisterPage extends Vue {}

@@ -2,12 +2,12 @@ export default {
   links: {
     locale: '简体中文',
     index: '首页',
-    articles: '文章',
+    archives: '归档',
     about: '关于',
   },
   article: {
     comments: '{number}件',
-    readMore: '阅读全文',
+    readMore: '阅读更多',
     createdDate: '发布于 {date}',
     updatedDate: '更新于 {date}',
     views: '浏览{number}次',

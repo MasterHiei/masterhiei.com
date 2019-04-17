@@ -4,9 +4,9 @@
       v-for="(article, index) in articles"
       :id="article.id"
       :key="index"
-      class="article-item-container"
+      wrap
     >
-      <article-list-item :article="article" />
+      <article-list-item class="mb-4" :article="article" />
     </v-flex>
   </v-layout>
 </template>
@@ -20,15 +20,10 @@ const Article = namespace(article.name);
 
 @Component({
   components: {
-    ArticleListItem: () => import('./ArticleListItem.vue'),
+    ArticleListItem: () => import('./ListItem.vue'),
   },
 })
-export default class ArticleList extends Vue {
+export default class List extends Vue {
   @Article.State articles;
 }
 </script>
-
-<style scoped lang="stylus" rel="stylesheet/stylus">
-.article-item-container
-  border-bottom thin solid lightgray
-</style>

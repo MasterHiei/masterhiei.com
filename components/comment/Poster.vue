@@ -20,7 +20,7 @@
       </v-container>
 
       <v-flex wrap>
-        <the-editor
+        <markdown-editor
           :placeholder="$t('comment.placeholder')"
           callback="post"
           @post="post"
@@ -55,10 +55,10 @@ import { Component, Vue } from 'vue-property-decorator';
 
 @Component({
   components: {
-    TheEditor: () => import('@/components/TheEditor.vue'),
+    MarkdownEditor: () => import('@/components/markdown/Editor.vue'),
   },
 })
-export default class CommentPoster extends Vue {
+export default class Poster extends Vue {
   // Methods
   async post(content: string): Promise<void> {
     if (this.$auth.user == null) return;

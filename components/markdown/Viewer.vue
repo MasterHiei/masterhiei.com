@@ -26,7 +26,7 @@ mavonEditor.getMarkdownIt();
     mavonEditor,
   },
 })
-export default class TheMarkdownView extends Vue {
+export default class Viewer extends Vue {
   // Props
   @Prop({ type: String, required: true }) readonly content!: string;
 }

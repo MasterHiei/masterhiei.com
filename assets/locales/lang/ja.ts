@@ -2,8 +2,8 @@ export default {
   links: {
     locale: '日本語',
     index: 'ホーム',
-    articles: '記事',
-    about: 'このサイトについて',
+    archives: 'アーカイブ',
+    about: 'サイト関連',
   },
   article: {
     comments: '{number}件',
