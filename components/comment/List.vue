@@ -14,10 +14,10 @@ import { Comment } from '@/models/index';
 
 @Component({
   components: {
-    CommentListItem: () => import('./CommentListItem.vue'),
+    CommentListItem: () => import('./ListItem.vue'),
   },
 })
-export default class CommentList extends Vue {
+export default class List extends Vue {
   // Props
   @Prop({ type: Array, required: true }) readonly comments!: Comment[];
 }

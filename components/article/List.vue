@@ -20,10 +20,10 @@ const Article = namespace(article.name);
 
 @Component({
   components: {
-    ArticleListItem: () => import('./ArticleListItem.vue'),
+    ArticleListItem: () => import('./listItem.vue'),
   },
 })
-export default class ArticleList extends Vue {
+export default class List extends Vue {
   @Article.State articles;
 }
 </script>

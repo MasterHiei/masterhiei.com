@@ -33,7 +33,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component
-export default class TheConfirm extends Vue {
+export default class VConfirm extends Vue {
   // Data
   dialog = false;
   title = '';

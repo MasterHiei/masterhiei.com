@@ -1,6 +1,6 @@
 <template>
   <!-- Title -->
-  <v-toolbar id="navbar" class="hidden-sm-and-down text-xs-center" app>
+  <v-toolbar id="header" class="hidden-sm-and-down text-xs-center" app>
     <v-spacer />
 
     <v-toolbar-title>
@@ -89,7 +89,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import { NuxtVueI18n } from 'nuxt-i18n/types/vue';
 
 @Component
-export default class TheNavbar extends Vue {
+export default class TheHeader extends Vue {
   // Computed
   get locales(): (string | NuxtVueI18n.Options.LocaleObject)[] {
     return this.$i18n.locales.filter(locale => {
@@ -101,7 +101,7 @@ export default class TheNavbar extends Vue {
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-#navbar
+#header
   z-index 1000
 *
   font-size 15px

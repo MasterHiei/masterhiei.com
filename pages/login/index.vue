@@ -1,6 +1,6 @@
 <template>
   <v-layout justify-center row wrap pt-5>
-    <the-login-form />
+    <v-login-form />
   </v-layout>
 </template>
 
@@ -9,7 +9,7 @@ import { Component, Vue } from 'vue-property-decorator';
 
 @Component({
   components: {
-    TheLoginForm: () => import('@/components/TheLoginForm.vue'),
+    VLoginForm: () => import('@/components/ui/VLoginForm.vue'),
   },
 })
 export default class LoginPage extends Vue {}

@@ -105,7 +105,7 @@ import delay from '@/common/utils/delay';
     validator: 'new',
   },
 })
-export default class TheLoginForm extends Vue {
+export default class VRegisterForm extends Vue {
   // Data
   email = '';
   validEmail = false;

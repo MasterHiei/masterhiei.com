@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <the-navbar />
+    <the-header />
 
     <v-content>
       <nuxt />
@@ -17,9 +17,9 @@ import { Component, Vue } from 'vue-property-decorator';
 
 @Component({
   components: {
-    TheNavbar: () => import('@/components/TheNavbar.vue'),
-    TheFooter: () => import('@/components/TheFooter.vue'),
-    TheScrollToBtn: () => import('@/components/TheScrollToBtn.vue'),
+    TheHeader: () => import('@/components/layout/TheHeader.vue'),
+    TheFooter: () => import('@/components/layout/TheFooter.vue'),
+    TheScrollToBtn: () => import('@/components/ui/TheScrollToBtn.vue'),
   },
 })
 export default class DefaultLayout extends Vue {

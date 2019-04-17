@@ -21,7 +21,7 @@ import { Component, Vue } from 'vue-property-decorator';
 
 @Component({
   components: {
-    ArticleList: () => import('~/components/ArticleList.vue'),
+    ArticleList: () => import('~/components/article/List.vue'),
   },
 
   async fetch({ store }) {

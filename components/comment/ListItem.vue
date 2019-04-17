@@ -78,7 +78,7 @@
           </v-layout>
 
           <v-flex v-if="!isEdit" mt-2 mb-2 wrap>
-            <the-markdown-view :content="comment.content" />
+            <markdown-viewer :content="comment.content" />
           </v-flex>
 
           <v-flex v-else class="text-xs-right" mt-2 mb-2 wrap>
@@ -104,7 +104,7 @@
 
     <v-divider class="mt-3 mb-4" />
 
-    <the-confirm ref="confirm" />
+    <v-confirm ref="confirm" />
   </v-container>
 </template>
 
@@ -115,11 +115,11 @@ import { ConfirmInstance } from '@/types/index';
 
 @Component({
   components: {
-    TheConfirm: () => import('./TheConfirm.vue'),
-    TheMarkdownView: () => import('./TheMarkdownView.vue'),
+    VConfirm: () => import('../ui/VConfirm.vue'),
+    MarkdownViewer: () => import('../markdown/Viewer.vue'),
   },
 })
-export default class ComemntListItem extends Vue {
+export default class ListItem extends Vue {
   // Props
   @Prop({ type: Number, required: true }) readonly index!: number;
   @Prop({ type: Object, required: true })

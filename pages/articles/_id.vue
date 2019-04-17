@@ -55,7 +55,7 @@
           </v-chip>
         </v-flex>
 
-        <the-markdown-view :content="article.content" />
+        <viewer :content="article.content" />
 
         <comment-list :comments="article.comments" />
 
@@ -75,9 +75,9 @@ const Article = namespace(article.name);
 
 @Component({
   components: {
-    TheMarkdownView: () => import('@/components/TheMarkdownView.vue'),
-    CommentList: () => import('@/components/CommentList.vue'),
-    CommentPoster: () => import('@/components/CommentPoster.vue'),
+    Viewer: () => import('@/components/markdown/Viewer.vue'),
+    CommentList: () => import('@/components/comment/List.vue'),
+    CommentPoster: () => import('@/components/comment/Poster.vue'),
   },
 
   async fetch({ store, params }) {

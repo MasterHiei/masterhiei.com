@@ -79,7 +79,7 @@ import SHA256 from 'crypto-js/sha256';
     validator: 'new',
   },
 })
-export default class TheLoginForm extends Vue {
+export default class VLoginForm extends Vue {
   // Data
   email = '';
   password = '';

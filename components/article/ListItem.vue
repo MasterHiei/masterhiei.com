@@ -62,7 +62,7 @@ import zh_cn from 'date-fns/locale/zh_cn';
 import ja from 'date-fns/locale/ja';
 
 @Component
-export default class ArticleListItem extends Vue {
+export default class ListItem extends Vue {
   // Props
   @Prop({ type: Object, required: true })
   readonly article!: Record<string, string>;
