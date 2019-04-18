@@ -1,76 +1,61 @@
-<template>
-  <v-flex xs12>
-    <v-hover>
-      <v-card
+<template lang="pug">
+  v-flex(xs12)
+    v-hover
+      v-card(
         slot-scope="{ hover }"
-        class="text-xs-center"
         hover
         height="300"
         :to="localePath({ name: 'articles-id', params: { id: article.id } })"
         nuxt
         extra
-      >
-        <!-- Title -->
-        <v-card-title class="pb-0" primary-title>
-          <v-flex tag="h2" pa-0 wrap>
-            {{ article.title }}
-          </v-flex>
-        </v-card-title>
+      )
+        // Title
+        v-card-title(class="pb-0" primary-title)
+          v-flex(
+            tag="h1"
+            class="headline font-weight-bold grey--text text--darken-3"
+          )
+            | {{ article.title }}
 
-        <!-- Icons -->
-        <v-card-actions>
-          <v-flex class="caption grey--text text--darken-2" pa-0 wrap>
-            <v-flex tag="span" mr-2>
-              <v-icon class="mr-1" small>
-                far fa-calendar-alt
-              </v-icon>
-              {{ distanceToNow }}
-            </v-flex>
+        // Icons
+        v-card-actions
+          v-flex(class="caption grey--text text--darken-2" wrap)
+            v-flex(tag="span" mr-2)
+              v-icon(class="mr-1" small)
+                | far fa-calendar-alt
+              | {{ distanceToNow }}
 
-            <v-flex tag="span" mr-2>
-              <v-icon class="mr-1" small>
-                far fa-comment-dots
-              </v-icon>
-              {{ $t('article.comments', { number: article.comments.length }) }}
-            </v-flex>
+            v-flex(tag="span" mr-2)
+              v-icon(class="mr-1" small)
+                | far fa-comment-dots
+              | {{ $t('article.comments', { number: article.comments.length }) }}
 
-            <v-flex tag="span" mr-2>
-              <v-icon class="mr-1" small>
-                far fa-eye
-              </v-icon>
-              {{ $t('article.views', { number: article.views }) }}
-            </v-flex>
-          </v-flex>
-        </v-card-actions>
+            v-flex(tag="span" mr-2)
+              v-icon(class="mr-1" small)
+                | far fa-eye
+              | {{ $t('article.views', { number: article.views }) }}
 
-        <v-divider class="mx-5 my-2" />
+        v-divider(class="mx-5 mt-1")
 
-        <!-- Content -->
-        <v-card-text class="pt-3">
-          <v-flex tag="span">
-            {{ summary }}
-          </v-flex>
-        </v-card-text>
+        // Contents
+        v-card-text(class="pt-3")
+          v-flex(tag="span") {{ summary }}
 
-        <!-- Read more button -->
-        <v-scroll-x-transition>
-          <v-btn
+        // Read more button
+        v-scroll-x-transition
+          v-btn(
             v-show="hover"
-            class="body-1 font-weight-light mt-4"
+            class="body-1 font-weight-light"
             color="purple lighten-1"
             round
             depressed
             dark
-          >
-            <v-icon class="mr-1" size="15">
-              fas fa-eye
-            </v-icon>
-            {{ $t('article.readMore') }}
-          </v-btn>
-        </v-scroll-x-transition>
-      </v-card>
-    </v-hover>
-  </v-flex>
+            absolute
+            style="right: 6%; bottom: 6%;"
+          )
+            v-icon(class="mr-1" size="15")
+              | fas fa-book-reader
+            | {{ $t('article.readMore') }}
 </template>
 
 <script lang="ts">

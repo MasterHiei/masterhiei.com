@@ -6,6 +6,7 @@ export default {
     about: '关于',
   },
   article: {
+    list: '最新文章',
     comments: '{number}件',
     readMore: '阅读更多',
     createdDate: '发布于 {date}',

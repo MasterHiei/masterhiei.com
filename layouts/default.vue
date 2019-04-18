@@ -1,15 +1,13 @@
-<template>
-  <v-app>
-    <the-header />
+<template lang="pug">
+  v-app
+    the-header(ref="header")
 
-    <v-content style="background-color: #E0E0E0;">
-      <nuxt />
-    </v-content>
+    v-content(style="background-color: #E0E0E0;")
+      nuxt
 
-    <the-footer />
+    the-footer
 
-    <the-scroll-to-btn :show="pageDidScroll" />
-  </v-app>
+    the-scroll-to-btn(:show="didScroll")
 </template>
 
 <script lang="ts">
@@ -24,7 +22,7 @@ import { Component, Vue } from 'vue-property-decorator';
 })
 export default class DefaultLayout extends Vue {
   // Data
-  pageDidScroll = false;
+  didScroll = false;
 
   // Hooks
   mounted() {
@@ -35,13 +33,19 @@ export default class DefaultLayout extends Vue {
     window.removeEventListener('scroll', this.scrollListener);
   }
 
+  // Computed
+  get headerHeight(): number {
+    const header = this.$refs.header as Vue;
+    return header.$el.clientHeight;
+  }
+
   // Methods
   scrollListener() {
     const scrollOffset =
       window.pageYOffset ||
       document.documentElement.scrollTop ||
       document.body.scrollTop;
-    this.pageDidScroll = scrollOffset > 80;
+    this.didScroll = scrollOffset > this.headerHeight;
   }
 }
 </script>

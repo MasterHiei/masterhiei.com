@@ -6,6 +6,7 @@ export default {
     about: 'サイト関連',
   },
   article: {
+    list: '記事一覧',
     comments: '{number}件',
     readMore: '続きを読む',
     createdDate: '{date}に作成',
