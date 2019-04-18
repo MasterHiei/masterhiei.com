@@ -1,14 +1,12 @@
-<template>
-  <v-layout column wrap>
-    <v-flex
+<template lang="pug">
+  v-layout(column wrap)
+    v-flex(
       v-for="(article, index) in articles"
       :id="article.id"
       :key="index"
       wrap
-    >
-      <article-list-item class="mb-4" :article="article" />
-    </v-flex>
-  </v-layout>
+    )
+      article-list-item(class="mb-3" :article="article")
 </template>
 
 <script lang="ts">
