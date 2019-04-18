@@ -8,8 +8,7 @@
       // MasterHiei
       v-flex(tag="p" mt-3 mb-0)
         | &copy;&nbsp;2019&nbsp;
-        v-flex(
-          tag="a"
+        a(
           class="green--text text--darken-2"
           href="https://github.com/MasterHiei"
           target="_blank"
@@ -19,16 +18,15 @@
       // Powered by
       v-flex(tag="p" mt-0)
         | Powered&nbsp;by
-        v-flex(
-          tag="a"
+        a(
           class="green--text text--darken-2"
           href="https://github.com/nuxt/nuxt.js"
           target="_blank"
         )
           | &nbsp;Nuxt.js
         | &nbsp;and
-        v-flex(
-          tag="a"
+
+        a(
           class="green--text text--darken-2"
           href="https://github.com/expressjs/express"
           target="_blank"

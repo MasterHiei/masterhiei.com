@@ -1,30 +1,25 @@
-<template>
-  <v-container fluid grid-list-sm>
-    <v-layout justify-center row pt-3 wrap>
-      <v-spacer />
+<template lang="pug">
+  v-container(fluid grid-list-sm)
+    v-layout(justify-center pt-3 row wrap)
+      v-spacer
 
-      <!-- Left menu -->
-      <v-flex class="hidden-sm-and-down text-xs-center" md2>
-        left-side-area
-      </v-flex>
+      // Left menu
+      v-flex(class="hidden-sm-and-down text-xs-center" md2)
+        | left-side-area
 
-      <v-spacer />
+      v-spacer
 
-      <!-- Main contents -->
-      <v-flex md6 xs12>
-        <article-list />
-      </v-flex>
+      // Main contents
+      v-flex(md6 xs12)
+        article-list
 
-      <v-spacer />
+      v-spacer
 
-      <!-- Right menu -->
-      <v-flex class="hidden-sm-and-down text-xs-center" md2>
-        right-side-area
-      </v-flex>
+      // Right menu
+      v-flex(class="hidden-sm-and-down text-xs-center" md2)
+        | right-side-area
 
-      <v-spacer />
-    </v-layout>
-  </v-container>
+      v-spacer
 </template>
 
 <script lang="ts">

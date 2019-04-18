@@ -1,15 +1,13 @@
-<template>
-  <v-app>
-    <the-header />
+<template lang="pug">
+  v-app
+    the-header
 
-    <v-content style="background-color: #E0E0E0;">
-      <nuxt />
-    </v-content>
+    v-content(style="background-color: #E0E0E0;")
+      nuxt
 
-    <the-footer />
+    the-footer
 
-    <the-scroll-to-btn :show="didScroll" />
-  </v-app>
+    the-scroll-to-btn(:show="didScroll")
 </template>
 
 <script lang="ts">
