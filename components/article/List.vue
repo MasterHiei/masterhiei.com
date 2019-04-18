@@ -1,12 +1,21 @@
 <template lang="pug">
-  v-layout(column wrap)
+  v-container(pa-0 text-xs-center grid-list-xs)
     v-flex(
-      v-for="(article, index) in articles"
-      :id="article.id"
-      :key="index"
-      wrap
+      tag="h1"
+      class="headline font-weight-bold grey--text text--darken-2"
+      mb-3
     )
-      article-list-item(class="mb-3" :article="article")
+      | {{ $t('article.list') }}
+
+    v-layout(row wrap)
+      v-flex(
+        v-for="(article, index) in articles"
+        :id="article.id"
+        :key="index"
+        md6
+        wrap
+      )
+        article-list-item(class="mb-3" :article="article")
 </template>
 
 <script lang="ts">

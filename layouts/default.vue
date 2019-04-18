@@ -1,6 +1,6 @@
 <template lang="pug">
   v-app
-    the-header
+    the-header(ref="header")
 
     v-content(style="background-color: #E0E0E0;")
       nuxt
@@ -33,13 +33,19 @@ export default class DefaultLayout extends Vue {
     window.removeEventListener('scroll', this.scrollListener);
   }
 
+  // Computed
+  get headerHeight(): number {
+    const header = this.$refs.header as Vue;
+    return header.$el.clientHeight;
+  }
+
   // Methods
   scrollListener() {
     const scrollOffset =
       window.pageYOffset ||
       document.documentElement.scrollTop ||
       document.body.scrollTop;
-    this.didScroll = scrollOffset > 80;
+    this.didScroll = scrollOffset > this.headerHeight;
   }
 }
 </script>

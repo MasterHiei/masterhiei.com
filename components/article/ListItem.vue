@@ -3,7 +3,6 @@
     v-hover
       v-card(
         slot-scope="{ hover }"
-        class="text-xs-center"
         hover
         height="300"
         :to="localePath({ name: 'articles-id', params: { id: article.id } })"
@@ -12,17 +11,15 @@
       )
         // Title
         v-card-title(class="pb-0" primary-title)
-          v-flex(tag="h2" pa-0 wrap)
+          v-flex(
+            tag="h1"
+            class="headline font-weight-bold grey--text text--darken-3"
+          )
             | {{ article.title }}
 
         // Icons
         v-card-actions
-          v-flex(
-            class="caption grey--text text--darken-2"
-            pa-0
-            mt-1
-            wrap
-          )
+          v-flex(class="caption grey--text text--darken-2" wrap)
             v-flex(tag="span" mr-2)
               v-icon(class="mr-1" small)
                 | far fa-calendar-alt
@@ -38,7 +35,7 @@
                 | far fa-eye
               | {{ $t('article.views', { number: article.views }) }}
 
-        v-divider(class="mx-5 my-2")
+        v-divider(class="mx-5 mt-1")
 
         // Contents
         v-card-text(class="pt-3")
@@ -48,11 +45,12 @@
         v-scroll-x-transition
           v-btn(
             v-show="hover"
-            class="body-1 font-weight-light mt-4"
+            class="body-1 font-weight-light"
             color="purple lighten-1"
             round
             depressed
             dark
+            style="position: absolute; bottom: 6%; left: 34%;"
           )
             v-icon(class="mr-1" size="15")
               | fas fa-book-reader
