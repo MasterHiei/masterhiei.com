@@ -50,7 +50,8 @@
             round
             depressed
             dark
-            style="position: absolute; bottom: 6%; left: 34%;"
+            absolute
+            style="right: 6%; bottom: 6%;"
           )
             v-icon(class="mr-1" size="15")
               | fas fa-book-reader
