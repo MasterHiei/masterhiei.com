@@ -5,13 +5,9 @@ import colors from 'vuetify/es5/util/colors';
 
 // Theme
 const theme: Partial<VuetifyTheme> = {
-  primary: colors.grey.base,
-  secondary: colors.grey.darken1,
-  accent: colors.pink.lighten2,
-  error: colors.red.base,
-  info: colors.blue.lighten1,
-  success: colors.green.base,
-  warning: colors.deepOrange.lighten1,
+  primary: colors.grey.darken1,
+  secondary: colors.grey.lighten1,
+  accent: colors.deepOrange.darken1,
 };
 
 // Options

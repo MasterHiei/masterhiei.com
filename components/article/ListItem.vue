@@ -19,7 +19,7 @@
 
         // Icons
         v-card-actions
-          v-flex(class="caption secondary-text" wrap)
+          v-flex(class="caption primary-text" wrap)
             v-flex(tag="span" mr-2)
               v-icon(class="mr-1 mb-1" small)
                 | far fa-calendar-alt
@@ -38,7 +38,7 @@
         v-divider(class="mx-5 mt-1")
 
         // Contents
-        v-card-text(class="pt-3")
+        v-card-text(class="pt-3 primary-text")
           v-flex(tag="span") {{ summary }}
 
         // Read more button
@@ -46,7 +46,7 @@
           v-btn(
             v-show="hover"
             class="body-1 font-weight-light"
-            color="purple lighten-1"
+            color="accent"
             round
             depressed
             dark

@@ -10,11 +10,11 @@
       // Main contents
       v-flex(mt-3 md8 xs12)
         // Title
-        v-flex(class="text-xs-center secondary-text" wrap)
-          v-flex(tag="h1" class="display-3")
+        v-flex(class="text-xs-center" wrap)
+          v-flex(tag="h1" class="primary-text display-2")
             | Master Hiei
 
-          v-flex(tag="h2" class="subheading")
+          v-flex(tag="h2" class="body-2 secondary-text")
             | 万物有因必有果，洗洗皆可吃
 
         v-divider(class="my-4")

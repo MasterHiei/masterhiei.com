@@ -49,3 +49,8 @@ export default class DefaultLayout extends Vue {
   }
 }
 </script>
+
+<style scoped lang="stylus" rel="stylesheet/stylus">
+.v-content
+  background-color var(--v-secondary-lighten1)
+</style>
