@@ -22,11 +22,36 @@
         article-list
 
       // Right menu
-      v-flex(class="hidden-sm-and-down text-xs-center" mt-5 md1)
-        // Search
-        v-btn(icon @click="show = true")
-          v-icon(color="success" small)
-            | fas fa-search
+      v-flex(class="hidden-sm-and-down" mt-5 md1)
+        v-navigation-drawer(
+          id="right-navi"
+          class="text-xs-center"
+          stateless
+          hide-overlay
+          width="60"
+          height="auto"
+          fixed
+          right
+          value="true"
+        )
+          // Search
+          v-btn(icon @click="")
+            v-icon(color="accent")
+              | fas fa-search
+
+          // Github
+          v-btn(
+            icon
+            href="https://github.com/MasterHiei/masterhiei.com"
+            target="_blank"
+          )
+            v-icon(color="accent")
+              | fab fa-github
+
+          // Feedback
+          v-btn(icon @click="")
+            v-icon(color="accent")
+              | fas fa-question
 
       v-spacer
 </template>
@@ -45,3 +70,12 @@ import { Component, Vue } from 'vue-property-decorator';
 })
 export default class IndexPage extends Vue {}
 </script>
+
+<style scoped lang="stylus" rel="stylesheet/stylus">
+#right-navi
+  background-color var(--v-secondary-lighten1)
+  top 32%
+  right 8%
+  &>>>.v-navigation-drawer__border
+    display none !important
+</style>
