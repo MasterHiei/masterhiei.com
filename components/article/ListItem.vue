@@ -13,25 +13,25 @@
         v-card-title(class="pb-0" primary-title)
           v-flex(
             tag="h1"
-            class="headline font-weight-bold grey--text text--darken-3"
+            class="headline font-weight-bold primary-text"
           )
             | {{ article.title }}
 
         // Icons
         v-card-actions
-          v-flex(class="caption grey--text text--darken-2" wrap)
+          v-flex(class="caption secondary-text" wrap)
             v-flex(tag="span" mr-2)
-              v-icon(class="mr-1" small)
+              v-icon(class="mr-1 mb-1" small)
                 | far fa-calendar-alt
               | {{ distanceToNow }}
 
             v-flex(tag="span" mr-2)
-              v-icon(class="mr-1" small)
+              v-icon(class="mr-1 mb-1" small)
                 | far fa-comment-dots
               | {{ $t('article.comments', { number: article.comments.length }) }}
 
             v-flex(tag="span" mr-2)
-              v-icon(class="mr-1" small)
+              v-icon(class="mr-1 mb-1" small)
                 | far fa-eye
               | {{ $t('article.views', { number: article.views }) }}
 
@@ -92,3 +92,8 @@ export default class ListItem extends Vue {
   }
 }
 </script>
+
+<style scoped lang="stylus" rel="stylesheet/stylus">
+.v-card
+  border-radius 1rem
+</style>

@@ -13,47 +13,47 @@
     v-toolbar-items
       // Index
       v-btn(
-        class="grey--text text--darken-2"
+        class="secondary-text"
         active-class=""
         :to="localePath('index')"
         flat
         nuxt
         exact
       )
-        v-icon(class="mr-1" color="grey darken-2" small)
+        v-icon(class="mr-1" color="secondary" small)
           | fas fa-home
         | {{ $t('links.index') }}
 
       // Archives
       v-btn(
-        class="grey--text text--darken-2"
+        class="secondary-text"
         active-class=""
         :to="localePath('archives')"
         flat
         nuxt
         exact
       )
-        v-icon(class="mr-1" color="grey darken-2" small)
+        v-icon(class="mr-1" color="secondary" small)
           | fas fa-archive
         | {{ $t('links.archives') }}
 
       // About
       v-btn(
-        class="grey--text text--darken-2"
+        class="secondary-text"
         active-class=""
         :to="localePath('about')"
         flat
         nuxt
         exact
       )
-        v-icon(class="mr-1" color="grey darken-2" small)
+        v-icon(class="mr-1" color="secondary" small)
           | fas fa-portrait
         | {{ $t('links.about') }}
 
       // Locales
       v-menu(offset-y transition="slide-y-transition")
-        v-btn(slot="activator" class="grey--text text--darken-2" flat)
-          v-icon(class="mr-1" color="grey darken-2" small)
+        v-btn(class="secondary-text" slot="activator" flat)
+          v-icon(class="mr-1" color="secondary" small)
             | fas fa-globe
           | {{ $t('links.locale') }}
 
@@ -65,7 +65,7 @@
             nuxt
             exact
           )
-            v-list-tile-title(class="text-xs-center grey--text text--darken-2")
+            v-list-tile-title(class="text-xs-center")
               span(class="font-weight-medium")
                 | {{ locale.name }}
 

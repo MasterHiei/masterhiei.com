@@ -2,7 +2,7 @@
   v-app
     the-header(ref="header")
 
-    v-content(style="background-color: #E0E0E0;")
+    v-content
       nuxt
 
     the-footer
