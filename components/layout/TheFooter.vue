@@ -44,10 +44,10 @@ export default class TheFooter extends Vue {}
   background-color var(--v-secondary-lighten1)
 
 a
-  color var(--v-success-base)
+  color var(--v-accent-base)
   text-decoration none
   &:hover
     text-decoration underline
   &:visited
-    color var(--v-success-base)
+    color var(--v-accent-base)
 </style>

@@ -39,7 +39,8 @@
 
         // Contents
         v-card-text(class="pt-3 primary-text")
-          v-flex(tag="span") {{ summary }}
+          v-flex(tag="span")
+            | {{ summary }}
 
         // Read more button
         v-scroll-x-transition

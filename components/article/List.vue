@@ -36,9 +36,3 @@ export default class List extends Vue {
   @Article.State articles;
 }
 </script>
-
-<style scoped lang="stylus" rel="stylesheet/stylus">
-.v-card
-  border-radius 1rem
-  background-color var(--v-primary-lighten2)
-</style>

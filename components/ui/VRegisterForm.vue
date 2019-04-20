@@ -25,7 +25,7 @@
         lazy
         left
       >
-        <template v-slot:activator="{ on }">
+        <template #activator="{ on }">
           <v-text-field
             v-model="username"
             v-validate="'required|min:3|max:12|username'"
@@ -51,7 +51,7 @@
         lazy
         left
       >
-        <template v-slot:activator="{ on }">
+        <template #activator="{ on }">
           <v-text-field
             v-model="password"
             v-validate="'required|password'"
