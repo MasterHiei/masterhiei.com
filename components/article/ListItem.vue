@@ -13,40 +13,41 @@
         v-card-title(class="pb-0" primary-title)
           v-flex(
             tag="h1"
-            class="headline font-weight-bold grey--text text--darken-3"
+            class="headline font-weight-bold primary-text"
           )
             | {{ article.title }}
 
         // Icons
         v-card-actions
-          v-flex(class="caption grey--text text--darken-2" wrap)
+          v-flex(class="caption primary-text" wrap)
             v-flex(tag="span" mr-2)
-              v-icon(class="mr-1" small)
+              v-icon(class="mr-1 mb-1" small)
                 | far fa-calendar-alt
               | {{ distanceToNow }}
 
             v-flex(tag="span" mr-2)
-              v-icon(class="mr-1" small)
+              v-icon(class="mr-1 mb-1" small)
                 | far fa-comment-dots
               | {{ $t('article.comments', { number: article.comments.length }) }}
 
             v-flex(tag="span" mr-2)
-              v-icon(class="mr-1" small)
+              v-icon(class="mr-1 mb-1" small)
                 | far fa-eye
               | {{ $t('article.views', { number: article.views }) }}
 
         v-divider(class="mx-5 mt-1")
 
         // Contents
-        v-card-text(class="pt-3")
-          v-flex(tag="span") {{ summary }}
+        v-card-text(class="pt-3 primary-text")
+          v-flex(tag="span")
+            | {{ summary }}
 
         // Read more button
         v-scroll-x-transition
           v-btn(
             v-show="hover"
             class="body-1 font-weight-light"
-            color="purple lighten-1"
+            color="accent"
             round
             depressed
             dark
@@ -92,3 +93,8 @@ export default class ListItem extends Vue {
   }
 }
 </script>
+
+<style scoped lang="stylus" rel="stylesheet/stylus">
+.v-card
+  border-radius 1rem
+</style>

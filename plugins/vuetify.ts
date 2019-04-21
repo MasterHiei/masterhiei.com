@@ -1,16 +1,33 @@
 import Vue from 'vue';
-import Vuetify from 'vuetify';
+import LRU from 'lru-cache';
+import Vuetify, { VuetifyOptions, VuetifyTheme } from 'vuetify';
 import colors from 'vuetify/es5/util/colors';
 
-Vue.use(Vuetify, {
-  theme: {
-    primary: '#121212',
-    accent: colors.grey.darken3,
-    secondary: colors.amber.darken3,
-    info: colors.teal.lighten1,
-    warning: colors.amber.base,
-    error: colors.deepOrange.accent4,
-    success: colors.green.darken1,
+// Theme
+const theme: Partial<VuetifyTheme> = {
+  primary: colors.grey.darken1,
+  secondary: colors.grey.lighten1,
+  accent: colors.deepOrange.lighten1,
+};
+
+// Options
+const options: VuetifyOptions = {
+  minifyTheme: (css): string => {
+    return process.env.NODE_ENV === 'production'
+      ? css.replace(/[\s|\r\n|\r|\n]/g, '')
+      : css;
   },
+  themeCache: new LRU({
+    max: 10,
+    maxAge: 1000 * 60 * 60,
+  }),
+  customProperties: true,
+  cspNonce: 'nonce-Q1veajC7P6p',
+};
+
+// Use Vuetify
+Vue.use(Vuetify, {
   iconfont: 'fa',
+  theme: theme,
+  options: options,
 });

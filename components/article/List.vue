@@ -2,9 +2,11 @@
   v-container(pa-0 text-xs-center grid-list-xs)
     v-flex(
       tag="h1"
-      class="headline font-weight-bold grey--text text--darken-2"
+      class="headline font-weight-bold primary-text"
       mb-3
     )
+      v-icon(class="mr-2 mb-1" color="primary" size="24")
+        | fas fa-book
       | {{ $t('article.list') }}
 
     v-layout(row wrap)
@@ -15,7 +17,7 @@
         md6
         wrap
       )
-        article-list-item(class="mb-3" :article="article")
+        article-list-item(class="mb-2" :article="article")
 </template>
 
 <script lang="ts">

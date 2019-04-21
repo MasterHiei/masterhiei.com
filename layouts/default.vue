@@ -2,7 +2,7 @@
   v-app
     the-header(ref="header")
 
-    v-content(style="background-color: #E0E0E0;")
+    v-content
       nuxt
 
     the-footer
@@ -49,3 +49,8 @@ export default class DefaultLayout extends Vue {
   }
 }
 </script>
+
+<style scoped lang="stylus" rel="stylesheet/stylus">
+.v-content
+  background-color var(--v-secondary-lighten1)
+</style>

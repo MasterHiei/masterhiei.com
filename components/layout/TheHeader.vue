@@ -1,5 +1,8 @@
 <template lang="pug">
-  v-toolbar(class="hidden-sm-and-down text-xs-center" app)
+  v-toolbar(
+    class="hidden-sm-and-down text-xs-center"
+    app
+  )
     v-spacer
 
     // Title
@@ -13,49 +16,49 @@
     v-toolbar-items
       // Index
       v-btn(
-        class="grey--text text--darken-2"
+        class="primary-text"
         active-class=""
         :to="localePath('index')"
         flat
         nuxt
         exact
       )
-        v-icon(class="mr-1" color="grey darken-2" small)
+        v-icon(class="mr-1" small)
           | fas fa-home
-        | {{ $t('links.index') }}
+        | {{ $t('link.index') }}
 
       // Archives
       v-btn(
-        class="grey--text text--darken-2"
+        class="primary-text"
         active-class=""
         :to="localePath('archives')"
         flat
         nuxt
         exact
       )
-        v-icon(class="mr-1" color="grey darken-2" small)
+        v-icon(class="mr-1" small)
           | fas fa-archive
-        | {{ $t('links.archives') }}
+        | {{ $t('link.archives') }}
 
       // About
       v-btn(
-        class="grey--text text--darken-2"
+        class="primary-text"
         active-class=""
         :to="localePath('about')"
         flat
         nuxt
         exact
       )
-        v-icon(class="mr-1" color="grey darken-2" small)
+        v-icon(class="mr-1" small)
           | fas fa-portrait
-        | {{ $t('links.about') }}
+        | {{ $t('link.about') }}
 
       // Locales
       v-menu(offset-y transition="slide-y-transition")
-        v-btn(slot="activator" class="grey--text text--darken-2" flat)
-          v-icon(class="mr-1" color="grey darken-2" small)
+        v-btn(class="primary-text" slot="activator" flat)
+          v-icon(class="mr-1" small)
             | fas fa-globe
-          | {{ $t('links.locale') }}
+          | {{ $t('link.locale') }}
 
         v-list
           v-list-tile(
@@ -65,8 +68,8 @@
             nuxt
             exact
           )
-            v-list-tile-title(class="text-xs-center grey--text text--darken-2")
-              span(class="font-weight-medium")
+            v-list-tile-title(class="text-xs-center")
+              v-flex(tag="span" class="primary-text body-2")
                 | {{ locale.name }}
 
     v-spacer
@@ -87,8 +90,3 @@ export default class TheHeader extends Vue {
   }
 }
 </script>
-
-<style scoped lang="stylus" rel="stylesheet/stylus">
-*
-  font-size 15px
-</style>

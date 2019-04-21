@@ -28,7 +28,7 @@
 
               <v-flex pa-0 wrap>
                 <v-menu slide-x-transiton>
-                  <template v-slot:activator="{ on }">
+                  <template #activator="{ on }">
                     <v-btn
                       class="ma-0"
                       color="grey lighten-1"

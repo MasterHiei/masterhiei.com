@@ -3,7 +3,7 @@
     v-btn(
       v-show="show"
       v-scroll-to="{ el: 'body' }"
-      color="secondary"
+      color="info"
       fab
       fixed
       right

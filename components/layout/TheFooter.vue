@@ -1,7 +1,7 @@
 <template lang="pug">
-  v-footer(height="auto" color="grey lighten-5")
+  v-footer(height="auto")
     v-flex(
-      class="text-xs-center font-weight-light"
+      class="text-xs-center caption font-weight-light primary-text"
       xs12
       wrap
     )
@@ -9,7 +9,6 @@
       v-flex(tag="p" mt-3 mb-0)
         | &copy;&nbsp;2019&nbsp;
         a(
-          class="green--text text--darken-2"
           href="https://github.com/MasterHiei"
           target="_blank"
         )
@@ -19,7 +18,6 @@
       v-flex(tag="p" mt-0)
         | Powered&nbsp;by
         a(
-          class="green--text text--darken-2"
           href="https://github.com/nuxt/nuxt.js"
           target="_blank"
         )
@@ -27,7 +25,6 @@
         | &nbsp;and
 
         a(
-          class="green--text text--darken-2"
           href="https://github.com/expressjs/express"
           target="_blank"
         )
@@ -43,8 +40,14 @@ export default class TheFooter extends Vue {}
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
+.v-footer
+  background-color var(--v-secondary-lighten1)
+
 a
+  color var(--v-accent-base)
   text-decoration none
   &:hover
     text-decoration underline
+  &:visited
+    color var(--v-accent-base)
 </style>

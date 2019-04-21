@@ -1,9 +1,14 @@
 export default {
-  links: {
+  link: {
     locale: '日本語',
     index: 'ホーム',
     archives: 'アーカイブ',
     about: 'サイト関連',
+  },
+  tooltip: {
+    search: '記事を検索',
+    github: 'ソースコード',
+    feedback: 'バグレポート',
   },
   article: {
     list: '記事一覧',
