@@ -25,7 +25,7 @@
       )
         v-icon(class="mr-1" small)
           | fas fa-home
-        | {{ $t('links.index') }}
+        | {{ $t('link.index') }}
 
       // Archives
       v-btn(
@@ -38,7 +38,7 @@
       )
         v-icon(class="mr-1" small)
           | fas fa-archive
-        | {{ $t('links.archives') }}
+        | {{ $t('link.archives') }}
 
       // About
       v-btn(
@@ -51,14 +51,14 @@
       )
         v-icon(class="mr-1" small)
           | fas fa-portrait
-        | {{ $t('links.about') }}
+        | {{ $t('link.about') }}
 
       // Locales
       v-menu(offset-y transition="slide-y-transition")
         v-btn(class="primary-text" slot="activator" flat)
           v-icon(class="mr-1" small)
             | fas fa-globe
-          | {{ $t('links.locale') }}
+          | {{ $t('link.locale') }}
 
         v-list
           v-list-tile(

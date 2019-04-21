@@ -24,23 +24,33 @@
         flat
       )
         // Search
-        v-btn(icon @click="")
-          v-icon(color="accent")
-            | fas fa-search
+        v-tooltip(left)
+          template(#activator="{ on }")
+            v-btn(icon v-on="on" @click="")
+              v-icon(color="accent")
+                | fas fa-search
+          span {{ $t('tooltip.search') }}
 
         // Github
-        v-btn(
-          icon
-          href="https://github.com/MasterHiei/masterhiei.com"
-          target="_blank"
-        )
-          v-icon(color="accent")
-            | fab fa-github
+        v-tooltip(left)
+          template(#activator="{ on }")
+            v-btn(
+              icon
+              href="https://github.com/MasterHiei/masterhiei.com"
+              target="_blank"
+              v-on="on"
+            )
+              v-icon(color="accent")
+                | fab fa-github
+          span {{ $t('tooltip.github') }}
 
         // Feedback
-        v-btn(icon @click="")
-          v-icon(color="accent")
-            | fas fa-bug
+        v-tooltip(left)
+          template(#activator="{ on }")
+            v-btn(icon v-on="on" @click="")
+              v-icon(color="accent")
+                | fas fa-bug
+          span {{ $t('tooltip.feedback') }}
 </template>
 
 <script lang="ts">

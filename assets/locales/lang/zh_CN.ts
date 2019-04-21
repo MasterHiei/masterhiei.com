@@ -1,9 +1,14 @@
 export default {
-  links: {
+  link: {
     locale: '简体中文',
     index: '首页',
     archives: '归档',
     about: '关于',
+  },
+  tooltip: {
+    search: '搜索文章',
+    github: '查看源码',
+    feedback: '提交Bug',
   },
   article: {
     list: '最新文章',
