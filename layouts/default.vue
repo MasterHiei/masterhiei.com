@@ -26,11 +26,11 @@ export default class DefaultLayout extends Vue {
 
   // Hooks
   mounted() {
-    window.addEventListener('scroll', this.scrollListener);
+    window.addEventListener('scroll', this.viewDidScroll);
   }
 
   destroyed() {
-    window.removeEventListener('scroll', this.scrollListener);
+    window.removeEventListener('scroll', this.viewDidScroll);
   }
 
   // Computed
@@ -40,7 +40,7 @@ export default class DefaultLayout extends Vue {
   }
 
   // Methods
-  scrollListener() {
+  viewDidScroll() {
     const scrollOffset =
       window.pageYOffset ||
       document.documentElement.scrollTop ||

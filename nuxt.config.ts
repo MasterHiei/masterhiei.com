@@ -52,6 +52,7 @@ const config: NuxtConfiguration = {
    ** Plugins to load before mounting the App
    */
   plugins: [
+    { src: '~plugins/aos', ssr: false },
     '~plugins/vuetify',
     '~plugins/vueScrollTo',
     '~plugins/veeValidate',
