@@ -33,7 +33,7 @@
     "morgan": "^1.9.1",
     "nuxt": "^2.6.2",
     "nuxt-i18n": "^5.8.5",
-    "vee-validate": "^2.2.3",
+    "vee-validate": "^2.2.4",
     "vue-lazyload": "^1.2.6",
     "vue-property-decorator": "^8.1.0",
     "vue-scrollto": "^2.15.0",
