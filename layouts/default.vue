@@ -7,6 +7,15 @@
 
     the-footer
 
+    v-progress-linear(
+      v-model="scrollPercent"
+      class="ma-0"
+      height="4"
+      color="success"
+      background-color="transparent"
+      style="position: fixed; bottom: 0;"
+    )
+
     the-scroll-to-btn(:show="didScroll")
 </template>
 
@@ -23,6 +32,7 @@ import { Component, Vue } from 'vue-property-decorator';
 export default class DefaultLayout extends Vue {
   // Data
   didScroll = false;
+  scrollPercent = 0;
 
   // Hooks
   mounted() {
@@ -36,6 +46,7 @@ export default class DefaultLayout extends Vue {
   // Computed
   get headerHeight(): number {
     const header = this.$refs.header as Vue;
+    if (header == null) return 0;
     return header.$el.clientHeight;
   }
 
@@ -45,7 +56,14 @@ export default class DefaultLayout extends Vue {
       window.pageYOffset ||
       document.documentElement.scrollTop ||
       document.body.scrollTop;
+    // Control ScrollToBtn
     this.didScroll = scrollOffset > this.headerHeight;
+
+    // Calculate scroll percentage
+    const docHeight = document.documentElement.scrollHeight;
+    const winHeight =
+      window.innerHeight || document.documentElement.clientHeight;
+    this.scrollPercent = (scrollOffset / (docHeight - winHeight)) * 100;
   }
 }
 </script>
