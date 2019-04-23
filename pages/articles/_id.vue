@@ -1,68 +1,53 @@
-<template>
-  <v-container grid-list-xs>
-    <v-layout justify-center row wrap>
-      <v-flex md8 xs11 wrap>
-        <v-btn
+<template lang="pug">
+  v-container(grid-list-xs)
+    v-layout(row justify-center wrap)
+      v-flex(md8 xs12 wrap)
+        // TODO: Edit Button
+        v-btn(
           v-if="this.$auth.hasScope('admin')"
           color="success"
-          :to="
-            localePath({ name: 'articles-edit-id', params: { id: article.id } })
-          "
+          :to="localePath({ name: 'articles-edit-id', params: { id: article.id } })"
           nuxt
-          exact
-        >
-          Edit
-        </v-btn>
+          extra
+        )
+          | Edit
 
-        <v-flex class="headline font-weight-bold" tag="h1" pt-4 wrap>
-          {{ article.title }}
-        </v-flex>
+        // Title
+        v-flex(tag="h1" class="primary-text" pt-4)
+          | {{ article.title }}
 
-        <v-flex class="grey--text" py-2 wrap>
-          <v-flex v-if="isEqualToDate" tag="span" mr-3 wrap>
-            {{
-              $t('article.createdDate', {
-                date: dateFormate(article.created_at),
-              })
-            }}
-          </v-flex>
+        // Detail
+        v-flex(v-if="isNew" tag="span" mr-3)
+          | {{ $t('article.createdDate', { date: dateFormate(article.created_at) }) }}
 
-          <v-flex v-else tag="span" mr-3 wrap>
-            {{
-              $t('article.updatedDate', {
-                date: dateFormate(article.modified_at),
-              })
-            }}
-          </v-flex>
+        v-tooltip(v-else top lazy)
+          template(#activator="{ on }")
+            v-flex(tag="span" mr-3 v-on="on")
+              | {{ $t('article.updatedDate', { date: dateFormate(article.modified_at) }) }}
+          span {{ $t('article.createdDate', { date: dateFormate(article.created_at) }) }}
 
-          <v-flex tag="span" mr-3 wrap>
-            {{ $t('article.views', { number: article.views }) }}
-          </v-flex>
-        </v-flex>
+        v-flex(tag="span" mr-3)
+          | {{ $t('article.views', { number: article.views }) }}
 
-        <v-flex pb-2 wrap>
-          <v-chip
+        v-flex(pb-2 wrap)
+          v-chip(
             v-for="(tag, index) in article.tags"
             :key="index"
             class="mr-3"
-            color="blue-grey lighten-4"
+            color="secondary"
             small
-          >
-            <v-icon class="mr-2" color="success" size="13" left>
-              fas fa-tag
-            </v-icon>
-            {{ tag }}
-          </v-chip>
-        </v-flex>
+          )
+            | {{ tag }}
 
-        <viewer :content="article.content" />
+        // Contents
+        template(lang="md")
+          | {{ article.content }}
 
-        <comment-list :comments="article.comments" />
+        // Comments
+        comment-list(:comments="article.comments")
 
-        <comment-poster />
-      </v-flex>
-    </v-layout>
-  </v-container>
+        // Poster
+        comment-poster
 </template>
 
 <script lang="ts">
@@ -92,7 +77,7 @@ export default class ArticlePage extends Vue {
     return this.findOneById(this.$route.params.id);
   }
 
-  get isEqualToDate() {
+  get isNew() {
     if (!this.article.created_at || !this.article.modified_at) {
       return true;
     }

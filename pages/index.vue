@@ -24,7 +24,7 @@
         flat
       )
         // Search
-        v-tooltip(left)
+        v-tooltip(left lazy)
           template(#activator="{ on }")
             v-btn(icon v-on="on" @click="")
               v-icon(color="accent")
@@ -32,7 +32,7 @@
           span {{ $t('tooltip.search') }}
 
         // Github
-        v-tooltip(left)
+        v-tooltip(left lazy)
           template(#activator="{ on }")
             v-btn(
               icon
@@ -45,7 +45,7 @@
           span {{ $t('tooltip.github') }}
 
         // Feedback
-        v-tooltip(left)
+        v-tooltip(left lazy)
           template(#activator="{ on }")
             v-btn(icon v-on="on" @click="")
               v-icon(color="accent")
