@@ -33,6 +33,7 @@ rules:
   comma-dangle:
     - error
     - always-multiline
+  new-cap: off
   prettier/prettier:
     - error
     -

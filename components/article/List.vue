@@ -14,6 +14,7 @@
         v-for="(article, index) in articles"
         :id="article.id"
         :key="index"
+        data-aos="zoom-in"
         md6
         wrap
       )
