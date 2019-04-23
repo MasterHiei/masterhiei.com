@@ -20,7 +20,13 @@
         v-flex(v-if="isNew" tag="span" mr-3)
           | {{ $t('article.createdDate', { date: dateFormate(article.created_at) }) }}
 
-        v-tooltip(v-else top lazy)
+        v-tooltip(
+          v-else
+          top
+          color="secondary lighten-3"
+          content-class="primary--text"
+          lazy
+        )
           template(#activator="{ on }")
             v-flex(tag="span" mr-3 v-on="on")
               | {{ $t('article.updatedDate', { date: dateFormate(article.modified_at) }) }}

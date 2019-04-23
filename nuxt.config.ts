@@ -140,6 +140,7 @@ const config: NuxtConfiguration = {
    */
   markdownit: {
     breaks: true,
+    typographer: true,
   },
 
   /*

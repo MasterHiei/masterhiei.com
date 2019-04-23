@@ -20,10 +20,12 @@
 
       <v-tooltip
         v-model="showUsernameTips"
+        left
         nudge-top="13"
         nudge-left="4"
+        color="secondary lighten-3"
+        content-class="primary--text"
         lazy
-        left
       >
         <template #activator="{ on }">
           <v-text-field

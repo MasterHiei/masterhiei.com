@@ -1,111 +1,75 @@
-<template>
-  <v-container grid-list-xs pa-0>
-    <v-layout ma-0 row wrap>
-      <v-flex class="avatar-container" pa-0 wrap>
-        <v-avatar size="44" tile>
-          <!-- eslint-disable-next-line vue/html-self-closing -->
-          <img v-lazy="comment.user.avatar" :alt="comment.user.username" />
-        </v-avatar>
-      </v-flex>
+<template lang="pug">
+  v-container(grid-list-xs pa-1)
+    v-layout(row wrap style="height: 44px;")
+      // Avatar
+      v-flex(class="avatar-container" pa-0 wrap)
+        v-avatar(size="44" tile)
+          img(v-lazy="comment.user.avatar" :alt="comment.user.username")
 
-      <v-flex pa-0 xs10 sm11 wrap>
-        <v-layout ma-0 column wrap>
-          <v-layout class="grey--text text--darken-1" ma-0 row>
-            <v-flex wrap>
-              <v-flex tag="span">
-                {{ comment.user.username }}
-              </v-flex>
+      // User info
+      v-layout(xs11 sm11 column ma-0 wrap)
+        v-layout(class="primary-text" row ma-0 wrap style="height: 44px;")
+          v-flex(class="caption" pa-0 wrap)
+            v-flex(tag="span")
+              | {{ comment.user.username }}
+            v-flex(tag="span" d-block)
+              | {{ formatDate(comment.created_at) }}
 
-              <v-flex class="caption" tag="span" d-block>
-                {{ formatDate(comment.created_at) }}
-              </v-flex>
-            </v-flex>
+          v-flex(class="text-xs-right" wrap)
+            v-flex(tag="span" d-block py-0 pr-2 style="font-size: 13px;")
+              | {{ commentNo }}
 
-            <v-flex class="text-xs-right" justify-end wrap>
-              <v-flex tag="span" d-block py-0 pr-2 style="font-size: 13px;">
-                {{ commentNo }}
-              </v-flex>
+            v-flex(wrap)
+              v-menu(slide-x-transiton)
+                template(#activator="{ on }")
+                  v-btn(
+                    class="ma-0"
+                    color="secondary"
+                    flat
+                    small
+                    icon
+                    v-on="on"
+                  )
+                    v-icon(small)
+                      | fas fa-ellipsis-h
 
-              <v-flex pa-0 wrap>
-                <v-menu slide-x-transiton>
-                  <template #activator="{ on }">
-                    <v-btn
-                      class="ma-0"
-                      color="grey lighten-1"
-                      flat
-                      small
-                      icon
-                      v-on="on"
-                    >
-                      <v-icon small>
-                        fas fa-ellipsis-h
-                      </v-icon>
-                    </v-btn>
-                  </template>
+                v-list
+                  template(v-if="isAuthor")
+                    v-list-tile(@click="isEdit = true")
+                      v-list-tile-title(class="body-1 info-text")
+                        | {{ $t('comment.edit') }}
 
-                  <v-list>
-                    <template v-if="isAuthor">
-                      <v-list-tile @click="isEdit = true">
-                        <v-list-tile-title
-                          class="body-1 green--text text--darken-1"
-                        >
-                          {{ $t('comment.edit') }}
-                        </v-list-tile-title>
-                      </v-list-tile>
+                    v-list-tile(@click="remove")
+                      v-list-tile-title(class="body-1 error-text")
+                        | {{ $t('comment.remove') }}
 
-                      <v-list-tile @click="remove">
-                        <v-list-tile-title
-                          class="body-1 deep-orange--text accent-4"
-                        >
-                          {{ $t('comment.remove') }}
-                        </v-list-tile-title>
-                      </v-list-tile>
-                    </template>
+                  template(v-else)
+                    v-list-tile(@click="reply")
+                        v-list-tile(class="body-1 success-text")
+                          | {{ $t('comment.reply') }}
 
-                    <template v-else>
-                      <v-list-tile @click="reply">
-                        <v-list-tile-title
-                          class="body-1 green--text text--darken-1"
-                        >
-                          {{ $t('comment.reply') }}
-                        </v-list-tile-title>
-                      </v-list-tile>
-                    </template>
-                  </v-list>
-                </v-menu>
-              </v-flex>
-            </v-flex>
-          </v-layout>
+    v-flex(v-if="!isEdit" py-2 wrap)
+      template(lang="md")
+        | {{ comment.content }}
 
-          <v-flex v-if="!isEdit" mt-2 mb-2 wrap>
-            <markdown-viewer :content="comment.content" />
-          </v-flex>
+    v-flex(v-else class="text-xs-right" mt-2 mb-2 wrap)
+        v-textarea(
+          v-model="modifiedContent"
+          class="body-2"
+          solo
+          auto-grow
+          :label="$t('comment.placeholder')"
+        )
 
-          <v-flex v-else class="text-xs-right" mt-2 mb-2 wrap>
-            <v-textarea
-              v-model="modifiedContent"
-              class="body-2"
-              solo
-              auto-grow
-              :label="$t('comment.placeholder')"
-            />
+        v-btn(color="success" flat small @click="edit")
+          | {{ $t('comment.update') }}
 
-            <v-btn color="success" flat small @click="edit">
-              {{ $t('comment.update') }}
-            </v-btn>
+        v-btn(color="error" flat small @click="revokeEdit")
+          | {{ $t('comment.cancel') }}
 
-            <v-btn color="error" flat small @click="revokeEdit">
-              {{ $t('comment.cancel') }}
-            </v-btn>
-          </v-flex>
-        </v-layout>
-      </v-flex>
-    </v-layout>
+    v-divider(class="mt-3 mb-4")
 
-    <v-divider class="mt-3 mb-4" />
-
-    <v-confirm ref="confirm" />
-  </v-container>
+    v-confirm(ref="confirm")
 </template>
 
 <script lang="ts">
@@ -199,4 +163,5 @@ export default class ListItem extends Vue {
 .avatar-container
   min-width 44px
   max-width 64px
+  max-height 44px
 </style>
