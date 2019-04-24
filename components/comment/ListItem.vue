@@ -48,9 +48,7 @@
                         v-list-tile(class="body-1 success-text")
                           | {{ $t('comment.reply') }}
 
-    v-flex(v-if="!isEdit" py-2 wrap)
-      template(lang="md")
-        | {{ comment.content }}
+    v-flex(v-if="!isEdit" v-html="sanitizedContent" py-2 wrap)
 
     v-flex(v-else class="text-xs-right" mt-2 mb-2 wrap)
         v-textarea(
@@ -74,6 +72,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import sanitizer from '@/common/utils/sanitizer';
 import { Comment } from '@/models/index';
 import { ConfirmInstance } from '@/types/index';
 
@@ -106,6 +105,11 @@ export default class ListItem extends Vue {
 
   get confirm(): ConfirmInstance {
     return this.$refs.confirm as ConfirmInstance;
+  }
+
+  get sanitizedContent(): string {
+    const md = this.$md.render(this.comment.content);
+    return sanitizer(md);
   }
 
   // Methods

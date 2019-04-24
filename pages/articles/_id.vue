@@ -46,8 +46,7 @@
             | {{ tag }}
 
         // Contents
-        template(lang="md")
-          | {{ article.content }}
+        v-flex(v-html="sanitizedContent" wrap)
 
         // Comments
         comment-list(:comments="article.comments")
@@ -59,8 +58,10 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { namespace } from 'vuex-class';
-import * as article from '@/store/article';
 import isEqual from 'date-fns/is_equal';
+import sanitizer from '@/common/utils/sanitizer';
+import * as article from '@/store/article';
+import { Article as ArticleModel } from '@/models';
 
 const Article = namespace(article.name);
 
@@ -79,15 +80,20 @@ export default class ArticlePage extends Vue {
   // Computed
   @Article.Getter findOneById;
 
-  get article() {
+  get article(): ArticleModel {
     return this.findOneById(this.$route.params.id);
   }
 
-  get isNew() {
+  get isNew(): boolean {
     if (!this.article.created_at || !this.article.modified_at) {
       return true;
     }
     return isEqual(this.article.created_at, this.article.modified_at);
+  }
+
+  get sanitizedContent(): string {
+    const md = this.$md.render(this.article.content);
+    return sanitizer(md);
   }
 
   // Methods
