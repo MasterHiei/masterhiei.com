@@ -38,7 +38,7 @@
     "vue-lazyload": "^1.2.6",
     "vue-property-decorator": "^8.1.0",
     "vue-scrollto": "^2.15.0",
-    "vuetify": "^1.5.12",
+    "vuetify": "^1.5.13",
     "vuetify-loader": "^1.2.2",
     "vuex-class": "^0.3.2"
   },
@@ -74,7 +74,7 @@
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
     "ts-node": "^8.1.0",
-    "typescript": "^3.4.4",
+    "typescript": "^3.4.5",
     "vue": "^2.6.10",
     "vue-class-component": "^7.0.2",
     "vue-template-compiler": "^2.6.10",
