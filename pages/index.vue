@@ -24,7 +24,12 @@
         flat
       )
         // Search
-        v-tooltip(left lazy)
+        v-tooltip(
+          left
+          color="secondary lighten-3"
+          content-class="primary--text"
+          lazy
+        )
           template(#activator="{ on }")
             v-btn(icon v-on="on" @click="")
               v-icon(color="accent")
@@ -32,7 +37,12 @@
           span {{ $t('tooltip.search') }}
 
         // Github
-        v-tooltip(left lazy)
+        v-tooltip(
+          left
+          color="secondary lighten-3"
+          content-class="primary--text"
+          lazy
+        )
           template(#activator="{ on }")
             v-btn(
               icon
@@ -45,7 +55,12 @@
           span {{ $t('tooltip.github') }}
 
         // Feedback
-        v-tooltip(left lazy)
+        v-tooltip(
+          left
+          color="secondary lighten-3"
+          content-class="primary--text"
+          lazy
+        )
           template(#activator="{ on }")
             v-btn(icon v-on="on" @click="")
               v-icon(color="accent")

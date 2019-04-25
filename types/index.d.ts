@@ -9,9 +9,14 @@ export interface ConfirmInstance extends Vue {
   ) => Promise<boolean>;
 }
 
+interface MarkdownIt {
+  render(md: string): string;
+}
+
 declare module 'vue/types/vue' {
   interface Vue {
     readonly $auth: Auth;
+    readonly $md: MarkdownIt;
   }
 }
 
