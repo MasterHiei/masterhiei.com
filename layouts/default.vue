@@ -1,8 +1,11 @@
 <template lang="pug">
-  v-app
-    the-header(ref="header")
+  v-app(v-scroll="viewDidScroll")
+    the-header(
+      ref="header"
+      :didScroll="didScroll"
+    )
 
-    v-content
+    v-content(id="main")
       nuxt
 
     the-footer
@@ -11,12 +14,12 @@
       v-model="scrollPercent"
       class="ma-0"
       height="4"
-      color="success"
+      color="accent lighten-1"
       background-color="transparent"
-      style="position: fixed; bottom: 0;"
+      style="position: fixed; top: 64px;"
     )
 
-    the-scroll-to-btn(:show="didScroll")
+    the-scroll-to-btn(:show="showScrollToBtn")
 </template>
 
 <script lang="ts">
@@ -32,18 +35,14 @@ import { Component, Vue } from 'vue-property-decorator';
 export default class DefaultLayout extends Vue {
   // Data
   didScroll = false;
+  showScrollToBtn = false;
   scrollPercent = 0;
 
-  // Hooks
-  mounted() {
-    window.addEventListener('scroll', this.viewDidScroll);
-  }
-
-  destroyed() {
-    window.removeEventListener('scroll', this.viewDidScroll);
-  }
-
   // Computed
+
+  /**
+   * Header height
+   */
   get headerHeight(): number {
     const header = this.$refs.header as Vue;
     if (header == null) return 0;
@@ -56,8 +55,12 @@ export default class DefaultLayout extends Vue {
       window.pageYOffset ||
       document.documentElement.scrollTop ||
       document.body.scrollTop;
+
+    // Page did scroll
+    this.didScroll = scrollOffset > 0;
+
     // Control ScrollToBtn
-    this.didScroll = scrollOffset > this.headerHeight;
+    this.showScrollToBtn = scrollOffset >= this.headerHeight;
 
     // Calculate scroll percentage
     const docHeight = document.documentElement.scrollHeight;
@@ -69,6 +72,6 @@ export default class DefaultLayout extends Vue {
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-.v-content
-  background-color var(--v-secondary-lighten2)
+#main
+  background-color var(--v-secondary-base)
 </style>

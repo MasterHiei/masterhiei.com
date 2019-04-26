@@ -1,13 +1,12 @@
 import Vue from 'vue';
 import LRU from 'lru-cache';
 import Vuetify, { VuetifyOptions, VuetifyTheme } from 'vuetify';
-import colors from 'vuetify/es5/util/colors';
 
 // Theme
 const theme: Partial<VuetifyTheme> = {
-  primary: colors.grey.darken3,
-  secondary: colors.grey.base,
-  accent: colors.deepOrange.lighten1,
+  primary: '#3D4451',
+  secondary: '#D7D7D7',
+  accent: '#E8676B',
 };
 
 // Options

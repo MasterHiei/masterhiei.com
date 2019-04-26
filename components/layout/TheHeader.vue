@@ -1,5 +1,7 @@
 <template lang="pug">
   v-toolbar(
+    id="nav"
+    :class="didScroll ? 'nav-sticky' : 'nav-transparent'"
     class="hidden-sm-and-down text-xs-center"
     app
   )
@@ -76,12 +78,25 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue } from 'vue-property-decorator';
 import { NuxtVueI18n } from 'nuxt-i18n/types/vue';
 
 @Component
 export default class TheHeader extends Vue {
+  // Props
+  @Prop({ type: Boolean, required: true }) readonly didScroll!: boolean;
+
   // Computed
+  /**
+   * Background color
+   */
+  get color(): string {
+    return this.didScroll ? 'white' : 'transparent';
+  }
+
+  /**
+   * Global locale
+   */
   get locales(): (string | NuxtVueI18n.Options.LocaleObject)[] {
     return this.$i18n.locales.filter(locale => {
       const localeObject = locale as NuxtVueI18n.Options.LocaleObject;
@@ -90,3 +105,14 @@ export default class TheHeader extends Vue {
   }
 }
 </script>
+
+<style scoped lang="stylus" rel="stylesheet/stylus">
+#nav
+  transition background-color 0.5s
+
+.nav-transparent
+  background-color transparent
+
+.nav-sticky
+  background-color white
+</style>
