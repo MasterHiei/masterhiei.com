@@ -2,9 +2,8 @@
   <v-flex class="text-xs-right" wrap>
     <no-ssr>
       <mavon-editor
-        id="mavon-editor"
         v-model="content"
-        class="justify-center"
+        class="mavon-editor justify-center"
         :placeholder="placeholder"
         :tab-size="Number(2)"
         :autofocus="false"
@@ -50,8 +49,8 @@ export default class Editor extends Vue {
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-#mavon-editor
+.mavon-editor
   height 100%
   width 100%
-  z-index 100
+  z-index 0
 </style>

@@ -67,7 +67,6 @@ const Article = namespace(article.name);
 
 @Component({
   components: {
-    Viewer: () => import('@/components/markdown/Viewer.vue'),
     CommentList: () => import('@/components/comment/List.vue'),
     CommentPoster: () => import('@/components/comment/Poster.vue'),
   },
