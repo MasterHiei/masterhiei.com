@@ -115,7 +115,10 @@ export default class TheHeader extends Vue {
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
 #nav
-  transition all 0.5s
+  transition-property background-color padding
+  transition-duration 0.3s
+  transition-timing-function ease-out
+  transition-delay 0.1s
 
 .nav-transparent
   padding 15px 0
