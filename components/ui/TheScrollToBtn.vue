@@ -4,7 +4,7 @@
       v-show="show"
       v-scroll-to="{ el: 'body' }"
       id="btn-scroll-to"
-      color="accent darken-1"
+      color="accent"
       fab
       small
       fixed

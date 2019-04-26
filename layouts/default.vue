@@ -5,18 +5,18 @@
       :didScroll="didScroll"
     )
 
-    v-content(id="main")
+    v-content
       nuxt
 
     the-footer
 
     v-progress-linear(
       v-model="scrollPercent"
+      id="progress-scroll"
       class="ma-0"
       height="4"
-      color="accent lighten-1"
+      color="accent"
       background-color="transparent"
-      style="position: fixed; top: 64px;"
     )
 
     the-scroll-to-btn(:show="showScrollToBtn")
@@ -72,6 +72,7 @@ export default class DefaultLayout extends Vue {
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-#main
-  background-color var(--v-secondary-base)
+#progress-scroll
+  position fixed
+  bottom 0
 </style>
