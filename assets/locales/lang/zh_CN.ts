@@ -5,6 +5,11 @@ export default {
     archives: '归档',
     about: '关于',
   },
+  profile: {
+    name: 'L.',
+    position: 'iOS & （伪）全栈程序员',
+    skill: '技术栈',
+  },
   tooltip: {
     search: '搜索文章',
     github: '查看源码',

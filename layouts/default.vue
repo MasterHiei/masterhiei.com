@@ -1,18 +1,17 @@
 <template lang="pug">
   v-app(v-scroll="viewDidScroll")
-    the-header(
-      ref="header"
-      :didScroll="didScroll"
-    )
+    the-header(ref="header" :didScroll="didScroll")
 
     v-content
-      nuxt
+      v-layout(justify-center wrap)
+        v-flex(id="content" xs11 md8 wrap)
+          nuxt
 
     the-footer
 
     v-progress-linear(
       v-model="scrollPercent"
-      id="progress-scroll"
+      id="progress-page-scroll"
       class="ma-0"
       height="4"
       color="accent"
@@ -72,7 +71,10 @@ export default class DefaultLayout extends Vue {
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-#progress-scroll
+#content
+  max-width 1280px
+
+#progress-page-scroll
   position fixed
   bottom 0
 </style>

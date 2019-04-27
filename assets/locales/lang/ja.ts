@@ -5,6 +5,11 @@ export default {
     archives: 'アーカイブ',
     about: 'サイト関連',
   },
+  profile: {
+    name: 'S.Ryu',
+    position: 'iOS & フルスタック（仮）エンジニア',
+    skill: '技術スタック',
+  },
   tooltip: {
     search: '記事を検索',
     github: 'ソースコード',
