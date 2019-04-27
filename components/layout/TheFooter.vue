@@ -41,7 +41,7 @@ export default class TheFooter extends Vue {}
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
 .v-footer
-  background-color var(--v-secondary-lighten1)
+  background-color var(--v-secondary-base)
 
 a
   color var(--v-accent-base)

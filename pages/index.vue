@@ -1,6 +1,5 @@
 <template lang="pug">
-  v-container(fluid grid-list-sm)
-    v-layout(justify-center row wrap)
+    v-layout(justify-center wrap)
       // Main contents
       v-flex(mt-3 md7 xs12)
         // Title

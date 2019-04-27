@@ -54,6 +54,7 @@ export const actions: Actions<State, RootState> = {
   },
 };
 
+// Mutations
 export const mutations: MutationTree<State> = {
   [types.SET](state, articles: Article[]): void {
     state.articles = articles;

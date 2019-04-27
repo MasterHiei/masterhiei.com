@@ -79,7 +79,6 @@ import { ConfirmInstance } from '@/types/index';
 @Component({
   components: {
     VConfirm: () => import('../ui/VConfirm.vue'),
-    MarkdownViewer: () => import('../markdown/Viewer.vue'),
   },
 })
 export default class ListItem extends Vue {
