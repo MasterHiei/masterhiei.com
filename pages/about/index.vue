@@ -2,79 +2,88 @@
   v-container(pa-0)
     v-layout(justify-center wrap)
         // My card
-        v-flex(tag="section" wrap)
-          v-card
+        v-flex(md8 xs11 wrap)
+          v-card(class="pb-5")
             // My Avatar
-            v-card-title(class="text-xs-center pa-0")
-              v-flex(wrap)
-                img(
-                  id="my-avatar"
-                  src="https://avatars1.githubusercontent.com/u/20240686?v=4"
-                )
+            v-flex(class="text-xs-center" pb-4 wrap)
+              img(
+                id="my-avatar"
+                src="https://avatars1.githubusercontent.com/u/20240686?v=4"
+              )
 
             // My Info
-            v-card-text
-              v-layout(class="text-xs-center" justify-center wrap)
-                v-flex(md10 xs11 wrap)
-                  // Profile
-                  v-flex(tag="section")
-                    v-flex(class="title font-weight-bold" wrap)
-                      | {{ $t('profile.name') }}
-                    v-flex(class="subheading" my-2 wrap)
-                      | {{ $t('profile.position') }}
+            v-layout(class="text-xs-center" justify-center wrap)
+              v-flex(md10 xs11 wrap)
+                // Profile
+                v-flex(tag="section")
+                  v-flex(class="title font-weight-bold" wrap)
+                    | {{ $t('profile.name') }}
 
-                  // TODO: Need mobile version
-                  // Experiences
-                  v-flex(tag="section" my-5)
-                    v-flex(tag="span" class="headline font-weight-bold d-block" mb-4)
-                      v-icon(class="mb-1" left)
-                        | fas fa-briefcase
-                      | {{ $t('profile.experience') }}
-                    v-timeline
-                      v-timeline-item(
-                        v-for="(experience, index) in experiences"
-                        :key="index"
+                  v-flex(class="subheading" mt-2 wrap)
+                    | {{ $t('profile.position') }}
+
+                // TODO: Need mobile version
+                // Experiences
+                v-flex(tag="section" class="section-padding")
+                  // Title
+                  v-flex(tag="span" class="headline font-weight-bold d-block" mb-4)
+                    v-icon(class="mb-1" left)
+                      | fas fa-briefcase
+                    | {{ $t('profile.experience') }}
+
+                  // Contents
+                  v-timeline
+                    v-timeline-item(
+                      v-for="(experience, index) in experiences"
+                      :key="index"
+                      color="accent"
+                      small
+                    )
+                      v-card(class="experience-card" tile :data-aos="experience.aos")
+                        v-card-title
+                          v-flex(tag="span" class="body-2 accent-text")
+                            | {{ experience.date }}
+
+                        v-card-text(class="py-0")
+                          v-flex(tag="span" class="title d-block")
+                            v-icon(class="mr-2 mb-2" color="primary lighten-1")
+                              | {{ experience.icon }}
+                            | {{ experience.title }}
+
+                          v-flex(tag="span" class="caption secondary-text d-block")
+                            | {{ experience.position }}
+
+                        v-card-text(class="text-xs-left px-4")
+                          p
+                            | {{ experience.desc }}
+
+                // Skills
+                v-flex(tag="section" class="section-padding" data-aos="zoom-in")
+                  // Title
+                  v-flex(tag="span" class="headline font-weight-bold d-block" mb-2)
+                    v-icon(class="mb-1" left)
+                      | fas fa-wrench
+                    | {{ $t('profile.skill') }}
+
+                  // Contents
+                  v-layout(wrap)
+                    v-flex(
+                      v-for="(skill, index) in skills"
+                      :key="index"
+                      xs12
+                      md6
+                      my-2
+                      px-2
+                    wrap
+                    )
+                      span {{ skill.name }}
+
+                      v-progress-linear(
+                        :value="skill.percentage"
+                        class="my-1"
+                        height="4"
                         color="accent"
-                        small
                       )
-                        v-card(class="experience-card" tile :data-aos="experience.aos")
-                          v-card-title
-                            v-flex(tag="span" class="body-2 accent-text")
-                              | {{ experience.date }}
-                          v-card-text(class="py-0")
-                            v-flex(tag="span" class="title d-block")
-                              v-icon(class="mr-2 mb-2" color="primary lighten-1")
-                                | {{ experience.icon }}
-                              | {{ experience.title }}
-                            v-flex(tag="span" class="caption secondary-text d-block")
-                              | {{ experience.position }}
-                          v-card-text(class="text-xs-left px-4")
-                            p
-                              | {{ experience.desc }}
-
-                  // Skills
-                  v-flex(tag="section" my-5 data-aos="zoom-in")
-                    v-flex(tag="span" class="headline font-weight-bold d-block" mb-4)
-                      v-icon(class="mb-1" left)
-                        | fas fa-wrench
-                      | {{ $t('profile.skill') }}
-                    v-layout(wrap)
-                      v-flex(
-                        v-for="(skill, index) in skills"
-                        :key="index"
-                        xs12
-                        md6
-                        my-2
-                        px-2
-                      wrap
-                      )
-                        span {{ skill.name }}
-                        v-progress-linear(
-                          :value="skill.percentage"
-                          class="my-1"
-                          height="4"
-                          color="accent"
-                        )
 </template>
 
 <script lang="ts">
@@ -109,7 +118,7 @@ export default class AboutPage extends Vue {
       title: 'Java',
       position: 'Developer',
       desc:
-        'The beginning of my career. Built or enhanced enterprise management system with Java. Technology consists of HTML &amp; CSS, jQuery, Spring Framework, Apache Struts, and RDBMS like PostgreSQL, Oracle Database.',
+        'The beginning of my career. Built or enhanced enterprise management system with Java. Technology consists of HTML & CSS, jQuery, Spring Framework, Apache Struts, and RDBMS like PostgreSQL, Oracle Database.',
     },
   ];
 }
@@ -121,6 +130,9 @@ export default class AboutPage extends Vue {
   margin-top -75px
   width 150px
   height 150px
+
+.section-padding
+  padding-top 60px
 
 .experience-card
   border-top 4px solid var(--v-accent-base)

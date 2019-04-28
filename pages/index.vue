@@ -1,4 +1,13 @@
 <template lang="pug">
+  v-container(pa-0)
+    v-layout(justify-center wrap)
+      v-flex(md8 xs11 wrap)
+        // Calendar
+        v-layout(justify-center wrap)
+          v-flex(md6 xs12 wrap)
+            v-card
+              | test
+
     //- v-layout(justify-center wrap)
     //-   // Main contents
     //-   v-flex(mt-3 md7 xs12)

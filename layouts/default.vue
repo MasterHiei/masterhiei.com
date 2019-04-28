@@ -3,9 +3,7 @@
     the-header(ref="header" :didScroll="didScroll")
 
     v-content
-      v-layout(justify-center wrap)
-        v-flex(id="content" xs11 md8 wrap)
-          nuxt
+      nuxt
 
     the-footer
 
@@ -71,9 +69,6 @@ export default class DefaultLayout extends Vue {
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-#content
-  max-width 1280px
-
 #progress-page-scroll
   position fixed
   bottom 0
