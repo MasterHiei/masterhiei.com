@@ -8,6 +8,7 @@ export default {
   profile: {
     name: 'S.Ryu',
     position: 'iOS & フルスタック（仮）エンジニア',
+    experience: '経歴',
     skill: '技術スタック',
   },
   tooltip: {

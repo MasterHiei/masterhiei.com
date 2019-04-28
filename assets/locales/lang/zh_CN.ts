@@ -8,6 +8,7 @@ export default {
   profile: {
     name: 'L.',
     position: 'iOS & （伪）全栈程序员',
+    experience: '经历',
     skill: '技术栈',
   },
   tooltip: {

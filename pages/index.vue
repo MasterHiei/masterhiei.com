@@ -1,54 +1,4 @@
 <template lang="pug">
-  v-container(pa-0)
-    v-layout(justify-center wrap)
-        // My card
-        v-flex(tag="section" wrap)
-          v-card(width="100%")
-            // Avatar
-            v-card-title(class="text-xs-center pa-0")
-              v-flex(wrap)
-                img(
-                  id="my-avatar"
-                  src="https://avatars1.githubusercontent.com/u/20240686?v=4"
-                )
-
-            // Info
-            v-card-text
-              v-flex(class="text-xs-center primary-text")
-                // Profile
-                v-flex(tag="section" wrap)
-                  v-flex(class="title font-weight-bold" wrap)
-                    | {{ $t('profile.name') }}
-                  v-flex(class="subheading" my-2 wrap)
-                    | {{ $t('profile.position') }}
-
-                // Skills
-                v-flex(tag="section" my-5 data-aos="zoom-in")
-                  v-flex(tag="span" class="headline font-weight-bold d-block" mb-4)
-                    v-icon(left) fas fa-wrench
-                    | {{ $t('profile.skill') }}
-                  v-layout(justify-center wrap)
-                    v-flex(md8 xs11)
-                      v-card(color="secondary")
-                        v-card-text
-                          v-layout(class="text-xs-left" wrap)
-                            v-flex(
-                              v-for="(skill, index) in skills"
-                              :key="index"
-                              xs12
-                              md6
-                              my-2
-                              px-2
-                             wrap
-                            )
-                              span {{ skill.name }}
-                              v-progress-linear(
-                                :value="skill.percentage"
-                                class="my-1"
-                                height="4"
-                                color="accent"
-                              )
-
     //- v-layout(justify-center wrap)
     //-   // Main contents
     //-   v-flex(mt-3 md7 xs12)
@@ -129,17 +79,7 @@ import { Component, Vue } from 'vue-property-decorator';
     await store.dispatch('article/fetchAll');
   },
 })
-export default class IndexPage extends Vue {
-  // Data
-  skills = [
-    { name: 'Swift', percentage: '75' },
-    { name: 'Java', percentage: '65' },
-    { name: 'JavaScript', percentage: '65' },
-    { name: 'HTML & CSS', percentage: '59' },
-    { name: 'SQL', percentage: '61' },
-    { name: 'Coding Style', percentage: '80' },
-  ];
-}
+export default class IndexPage extends Vue {}
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
@@ -151,10 +91,4 @@ export default class IndexPage extends Vue {
   transition opacity 0.75s
   &:hover
     opacity 1
-
-#my-avatar
-  border-radius 50%
-  margin-top -75px
-  width 150px
-  height 150px
 </style>
