@@ -5,6 +5,12 @@ export default {
     archives: '归档',
     about: '关于',
   },
+  season: {
+    spring: '春',
+    summer: '夏',
+    autumn: '秋',
+    winter: '冬',
+  },
   profile: {
     name: 'L.',
     position: 'iOS & （伪）全栈程序员',

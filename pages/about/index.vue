@@ -91,36 +91,46 @@ import { Component, Vue } from 'vue-property-decorator';
 
 @Component
 export default class AboutPage extends Vue {
-  // Data
-  skills = [
-    { name: 'Swift', percentage: '72' },
-    { name: 'Java', percentage: '60' },
-    { name: 'JavaScript', percentage: '65' },
-    { name: 'HTML & CSS', percentage: '59' },
-    { name: 'SQL', percentage: '61' },
-    { name: 'Coding Style', percentage: '80' },
-  ];
+  // Computed
+  /**
+   * My skills
+   */
+  get skills() {
+    return [
+      { name: 'Swift', percentage: '72' },
+      { name: 'Java', percentage: '60' },
+      { name: 'JavaScript', percentage: '65' },
+      { name: 'HTML & CSS', percentage: '59' },
+      { name: 'SQL', percentage: '61' },
+      { name: 'Coding Style', percentage: '80' },
+    ];
+  }
 
-  experiences = [
-    {
-      aos: 'fade-right',
-      date: '2018 - 2019',
-      icon: 'fab fa-apple',
-      title: 'iOS',
-      position: 'Developer',
-      desc:
-        'Had the opportunity to develop iOS Apps with Swift, and built something like Membership App and Bank Account Opening App. Technology consists of RxSwift, Realm Database, Jenkins, fastlane.',
-    },
-    {
-      aos: 'fade-left',
-      date: '2017 - 2018',
-      icon: 'fab fa-java',
-      title: 'Java',
-      position: 'Developer',
-      desc:
-        'The beginning of my career. Built or enhanced enterprise management system with Java. Technology consists of HTML & CSS, jQuery, Spring Framework, Apache Struts, and RDBMS like PostgreSQL, Oracle Database.',
-    },
-  ];
+  /**
+   * My experiences
+   */
+  get experiences() {
+    return [
+      {
+        aos: 'fade-right',
+        date: '2018 - 2019',
+        icon: 'fab fa-apple',
+        title: 'iOS',
+        position: 'Developer',
+        desc:
+          'Had the opportunity to develop iOS Apps with Swift, and built something like Membership App and Bank Account Opening App. Technology consists of RxSwift, Realm Database, Jenkins, fastlane.',
+      },
+      {
+        aos: 'fade-left',
+        date: '2017 - 2018',
+        icon: 'fab fa-java',
+        title: 'Java',
+        position: 'Developer',
+        desc:
+          'The beginning of my career. Built or enhanced enterprise management system with Java. Technology consists of HTML & CSS, jQuery, Spring Framework, Apache Struts, and RDBMS like PostgreSQL, Oracle Database.',
+      },
+    ];
+  }
 }
 </script>
 

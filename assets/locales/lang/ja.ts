@@ -5,6 +5,12 @@ export default {
     archives: 'アーカイブ',
     about: 'サイト関連',
   },
+  season: {
+    spring: '春',
+    summer: '夏',
+    autumn: '秋',
+    winter: '冬',
+  },
   profile: {
     name: 'S.Ryu',
     position: 'iOS & フルスタック（仮）エンジニア',
