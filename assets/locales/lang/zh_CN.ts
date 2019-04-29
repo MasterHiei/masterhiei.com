@@ -23,6 +23,7 @@ export default {
     feedback: '提交Bug',
   },
   article: {
+    recommend: '推荐文章',
     list: '最新文章',
     comments: '{number}件',
     readMore: '阅读更多',

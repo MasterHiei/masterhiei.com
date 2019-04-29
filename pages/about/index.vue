@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-container(pa-0)
+  v-container(pt-5 mt-5)
     v-layout(justify-center wrap)
         // My card
         v-flex(md8 xs11 wrap)

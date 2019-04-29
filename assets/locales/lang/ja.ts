@@ -23,7 +23,8 @@ export default {
     feedback: 'バグレポート',
   },
   article: {
-    list: '記事一覧',
+    recommend: 'おすすめ記事',
+    list: '新着記事',
     comments: '{number}件',
     readMore: '続きを読む',
     createdDate: '{date}に作成',

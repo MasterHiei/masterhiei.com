@@ -63,7 +63,7 @@
     v-flex(id="header-background" :style="bgStyle")
       v-flex(id="my-brand" class="text-xs-center secondary-text" wrap)
         v-flex(tag="h1" class="display-2")
-          | Master Hiei
+          | Mr_Hiei
         v-flex(tag="h2" class="subheading" mt-4)
           | 万物有因必有果，洗洗皆可吃
 </template>
@@ -131,7 +131,7 @@ export default class TheHeader extends Vue {
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
 #header
-  margin-bottom 200px
+  margin-bottom 120px
 
 #header-content
   height 60px

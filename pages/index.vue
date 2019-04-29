@@ -1,53 +1,95 @@
 <template lang="pug">
-  v-flex(wrap)
+  v-flex(pa-2 wrap)
     // Today
-    v-layout(justify-center wrap data-aos="fade-up")
-      v-flex(md4 xs11 wrap)
-        v-card(id="today-card" class="pa-3" flat)
-          // Season
+    v-flex(
+      class="content-item"
+      md4
+      xs11
+      data-aos="fade-up"
+      wrap
+    )
+      v-card(id="today-card" class="pa-3" flat)
+        // Season
+        v-flex(
+          class="text-xs-center secondary-text middle-line"
+          py-3
+          wrap
+        )
+          span(class="display-2")
+            | {{ season.locale }}
+
+          span(class="mx-2")
+            | &middot;
+
+          span(class="title")
+            |{{ season.word }}
+
+        // Date
+        v-layout(wrap)
           v-flex(
-            class="text-xs-center secondary-text middle-line"
-            py-3
+            tag="span"
+            class="display-4 font-weight-medium accent-text text-xs-right"
+            mr-3
+          )
+            | {{ dayOfMonth }}
+
+          v-layout(
+            class="secondary-text justify-center ml-3"
+            column
             wrap
           )
-            span(class="display-2")
-              | {{ season.locale }}
+            span(class="display-1 d-block")
+              | {{ $d(now, 'weekday', this.$i18n.locale) }}
 
-            span(class="mx-2")
-              | &middot;
+            div(class="my-1")
 
             span(class="title")
-              |{{ season.word }}
+              | {{ $d(now, 'date', this.$i18n.locale) }}
 
-          // Date
-          v-layout(wrap)
-            v-flex(
-              tag="span"
-              class="display-4 font-weight-medium accent-text text-xs-right"
-              mr-3
-            )
-              | {{ dayOfMonth }}
+        // Poem
+        v-flex(
+          class="text-xs-center subheading secondary-text font-italic"
+          py-3
+          wrap
+        )
+          | {{ season.poem }}
 
-            v-layout(
-              class="secondary-text justify-center ml-3"
-              column
-              wrap
-            )
-              span(class="display-1 d-block")
-                | {{ $d(now, 'weekday', this.$i18n.locale) }}
+    // Recommend
+    v-flex(
+      class="content-item"
+      md6
+      xs11
+      pt-5
+      wrap
+    )
+      // Title
+      v-card
+        v-card-title(class="text-xs-center")
+          v-flex(tag="span" class="headline font-weight-bold")
+            v-icon(class="mb-1" left) far fa-thumbs-up
+            | {{ $t('article.recommend') }}
 
-              div(class="my-1")
+        v-layout(px-3 wrap)
+          v-flex(md6 xs12 pa-2 wrap)
+            v-card(flat) asdasd
 
-              span(class="title")
-                | {{ $d(now, 'date', this.$i18n.locale) }}
+          v-flex(md6 xs12 pa-2 wrap)
+            v-card(flat) asdasd
 
-          // Poem
-          v-flex(
-            class="text-xs-center subheading secondary-text font-italic"
-            py-3
-            wrap
-          )
-            | {{ season.poem }}
+    // New
+    v-flex(
+      class="content-item"
+      md6
+      xs11
+      pt-5
+      wrap
+    )
+      // Title
+      v-card
+        v-card-title(class="text-xs-center")
+          v-flex(tag="span" class="headline font-weight-bold")
+            v-icon(class="mb-1" left) fas fa-feather-alt
+            | {{ $t('article.list') }}
 
     //- v-layout(justify-center wrap)
     //-   // Main contents
@@ -189,6 +231,9 @@ export default class IndexPage extends Vue {
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
+.content-item
+  margin 24px auto
+
 #today-card
   background-color rgba(255, 255, 255, 0.3)
 
