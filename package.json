@@ -29,7 +29,7 @@
     "express": "^4.16.4",
     "jsonwebtoken": "^8.5.1",
     "lru-cache": "^5.1.1",
-    "mavon-editor": "^2.7.3",
+    "mavon-editor": "^2.7.4",
     "mongoose": "^5.5.4",
     "morgan": "^1.9.1",
     "nuxt": "^2.6.3",
@@ -39,7 +39,7 @@
     "vue-lazyload": "^1.2.6",
     "vue-property-decorator": "^8.1.0",
     "vue-scrollto": "^2.15.0",
-    "vuetify": "^1.5.13",
+    "vuetify": "^1.5.14",
     "vuetify-loader": "^1.2.2",
     "vuex-class": "^0.3.2"
   },
