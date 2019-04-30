@@ -1,13 +1,19 @@
 <template lang="pug">
-v-card(class="py-3")
+v-card(class="py-2 px-4" flat)
   // Title
   v-card-title(class="text-xs-center")
-    v-flex(tag="span" class="headline font-weight-bold")
-      v-icon(class="mb-1" left) fas fa-feather-alt
+    v-flex(tag="span" class="section-title font-weight-bold")
+      v-icon(
+        class="mb-1"
+        color="primary"
+        size="30"
+        left
+      )
+        | fas fa-feather-alt
       | {{ $t('article.list') }}
 
   // Items
-  v-layout(px-3 wrap)
+  v-layout(wrap)
     v-flex(
       v-for="(article, index) in articles"
       :key="index"
@@ -35,3 +41,8 @@ export default class List extends Vue {
   @Article.State articles;
 }
 </script>
+
+<style scoped lang="stylus" rel="stylesheet/stylus">
+.section-title
+  font-size 30px
+</style>
