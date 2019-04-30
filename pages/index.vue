@@ -54,7 +54,7 @@
         )
           | {{ season.poem }}
 
-    // Recommend
+    // Articles
     v-flex(
       class="content-item"
       md6
@@ -62,34 +62,7 @@
       pt-5
       wrap
     )
-      // Title
-      v-card
-        v-card-title(class="text-xs-center")
-          v-flex(tag="span" class="headline font-weight-bold")
-            v-icon(class="mb-1" left) far fa-thumbs-up
-            | {{ $t('article.recommend') }}
-
-        v-layout(px-3 wrap)
-          v-flex(md6 xs12 pa-2 wrap)
-            v-card(flat) asdasd
-
-          v-flex(md6 xs12 pa-2 wrap)
-            v-card(flat) asdasd
-
-    // New
-    v-flex(
-      class="content-item"
-      md6
-      xs11
-      pt-5
-      wrap
-    )
-      // Title
-      v-card
-        v-card-title(class="text-xs-center")
-          v-flex(tag="span" class="headline font-weight-bold")
-            v-icon(class="mb-1" left) fas fa-feather-alt
-            | {{ $t('article.list') }}
+      article-list
 
     //- v-layout(justify-center wrap)
     //-   // Main contents

@@ -1,62 +1,13 @@
 <template lang="pug">
-  v-flex(xs12)
-    v-hover
-      v-card(
+  v-hover
+    v-card(
         slot-scope="{ hover }"
-        hover
-        height="300"
-        :to="localePath({ name: 'articles-id', params: { id: article.id } })"
-        nuxt
-        extra
+        :class="`elevation-${hover ? 8 : 2}`"
+        to="#"
       )
-        // Title
-        v-card-title(class="pb-0" primary-title)
-          v-flex(
-            tag="h1"
-            class="headline font-weight-bold primary-text"
-          )
-            | {{ article.title }}
+        v-img(:src="article.image")
 
-        // Icons
-        v-card-actions
-          v-flex(class="caption primary-text" wrap)
-            v-flex(tag="span" mr-2)
-              v-icon(class="mr-1 mb-1" small)
-                | far fa-calendar-alt
-              | {{ distanceToNow }}
-
-            v-flex(tag="span" mr-2)
-              v-icon(class="mr-1 mb-1" small)
-                | far fa-comment-dots
-              | {{ $t('article.comments', { number: article.comments.length }) }}
-
-            v-flex(tag="span" mr-2)
-              v-icon(class="mr-1 mb-1" small)
-                | far fa-eye
-              | {{ $t('article.views', { number: article.views }) }}
-
-        v-divider(class="mx-5 mt-1")
-
-        // Contents
-        v-card-text(class="pt-3 primary-text")
-          v-flex(tag="span")
-            | {{ summary }}
-
-        // Read more button
-        v-scroll-x-transition
-          v-btn(
-            v-show="hover"
-            class="body-1 font-weight-light"
-            color="accent"
-            round
-            depressed
-            dark
-            absolute
-            style="right: 6%; bottom: 6%;"
-          )
-            v-icon(class="mr-1" size="15")
-              | fas fa-book-reader
-            | {{ $t('article.readMore') }}
+        post-date-time(:datetime="article.created_at")
 </template>
 
 <script lang="ts">
@@ -65,13 +16,21 @@ import { distanceInWordsToNow } from 'date-fns';
 import zh_cn from 'date-fns/locale/zh_cn';
 import ja from 'date-fns/locale/ja';
 
-@Component
+@Component({
+  components: {
+    PostDateTime: () => import('./Datetime.vue'),
+  },
+})
 export default class ListItem extends Vue {
   // Props
   @Prop({ type: Object, required: true })
   readonly article!: Record<string, string>;
 
   // Computed
+  get loadingImage(): string {
+    return `${process.env.DOMAIN}/public/loading/spin.svg`;
+  }
+
   get locales() {
     return {
       'zh-CN': zh_cn,
@@ -95,6 +54,14 @@ export default class ListItem extends Vue {
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-.v-card
-  border-radius 1rem
+.post-datetime
+  position absolute
+  top 20px
+  right 20px
+  &>span
+    display block
+  &>.day
+    margin-bottom 1px
+  &>.month
+    font-size 13px
 </style>

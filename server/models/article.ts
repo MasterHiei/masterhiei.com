@@ -1,4 +1,5 @@
 import mongoose, { Schema, Document } from 'mongoose';
+import env from '../utils/envalid';
 
 export interface Article extends Document {
   _id: Schema.Types.ObjectId;
@@ -24,6 +25,10 @@ const articleSchema = new Schema(
       type: String,
       required: true,
     },
+    image: {
+      type: String,
+      default: `${env.DOMAIN}/public/sites/default/cover-2.jpg`,
+    },
     category: {
       type: String,
       default: '',
@@ -36,16 +41,16 @@ const articleSchema = new Schema(
       type: Number,
       default: 0,
     },
+    views: {
+      type: Number,
+      default: 0,
+    },
     comments: [
       {
         type: Schema.Types.ObjectId,
         ref: 'Comment',
       },
     ],
-    views: {
-      type: Number,
-      default: 0,
-    },
     modified_at: {
       type: Date,
       default: undefined,

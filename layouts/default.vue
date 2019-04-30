@@ -63,7 +63,9 @@ export default class DefaultLayout extends Vue {
     const docHeight = document.documentElement.scrollHeight;
     const winHeight =
       window.innerHeight || document.documentElement.clientHeight;
-    this.scrollPercent = (scrollOffset / (docHeight - winHeight)) * 100;
+    this.scrollPercent = Math.floor(
+      (scrollOffset / (docHeight - winHeight)) * 100
+    );
   }
 }
 </script>
