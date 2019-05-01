@@ -1,100 +1,149 @@
 <template lang="pug">
-  v-flex(xs12)
-    v-hover
-      v-card(
+  v-hover
+    v-card(
         slot-scope="{ hover }"
-        hover
-        height="300"
-        :to="localePath({ name: 'articles-id', params: { id: article.id } })"
-        nuxt
-        extra
+        class="text-xs-center"
+        :class="`elevation-${hover ? 8 : 2}`"
       )
-        // Title
-        v-card-title(class="pb-0" primary-title)
+        // Image
+        v-card-title(
+          class="post-image pa-0"
+          :class="{ 'img-scale': hover }"
+        )
+          img(:src="article.image" :alt="article.title")
+
+        // Detail
+        v-card-text(class="post-detail")
+          // Datetime
+          post-date-time(:datetime="article.created_at")
+
+          // Tags
+          v-flex(class="post-tags" wrap)
+            a(
+              v-for="(tag, index) in article.tags"
+              :key="index"
+              href="#"
+            )
+              | \#{{ tag }}
+
+          // Title
           v-flex(
-            tag="h1"
-            class="headline font-weight-bold primary-text"
+            class="post-title title font-weight-bold"
+            wrap
           )
-            | {{ article.title }}
+            nuxt-link(
+              :to="localePath({ name: 'articles-id', params: { id: article.id } })"
+            )
+              | {{ article.title }}
 
-        // Icons
-        v-card-actions
-          v-flex(class="caption primary-text" wrap)
-            v-flex(tag="span" mr-2)
-              v-icon(class="mr-1 mb-1" small)
-                | far fa-calendar-alt
-              | {{ distanceToNow }}
-
-            v-flex(tag="span" mr-2)
-              v-icon(class="mr-1 mb-1" small)
-                | far fa-comment-dots
-              | {{ $t('article.comments', { number: article.comments.length }) }}
-
-            v-flex(tag="span" mr-2)
-              v-icon(class="mr-1 mb-1" small)
+          // Info
+          v-flex(
+            class="post-info"
+          )
+            // Views
+            span
+              v-icon(small)
                 | far fa-eye
               | {{ $t('article.views', { number: article.views }) }}
 
-        v-divider(class="mx-5 mt-1")
+            // Comments
+            a(href="#")
+              v-icon(small)
+                | far fa-comments
+              | {{ commtns }}
 
-        // Contents
-        v-card-text(class="pt-3 primary-text")
-          v-flex(tag="span")
-            | {{ summary }}
-
-        // Read more button
-        v-scroll-x-transition
-          v-btn(
-            v-show="hover"
-            class="body-1 font-weight-light"
-            color="accent"
-            round
-            depressed
-            dark
-            absolute
-            style="right: 6%; bottom: 6%;"
-          )
-            v-icon(class="mr-1" size="15")
-              | fas fa-book-reader
-            | {{ $t('article.readMore') }}
+            // Stars
+            span
+              v-icon(small)
+                | far fa-heart
+              | {{ $t('article.stars', { number: article.stars }) }}
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import { distanceInWordsToNow } from 'date-fns';
-import zh_cn from 'date-fns/locale/zh_cn';
-import ja from 'date-fns/locale/ja';
 
-@Component
+@Component({
+  components: {
+    PostDateTime: () => import('./Datetime.vue'),
+  },
+})
 export default class ListItem extends Vue {
   // Props
   @Prop({ type: Object, required: true })
   readonly article!: Record<string, string>;
 
   // Computed
-  get locales() {
-    return {
-      'zh-CN': zh_cn,
-      'ja-JP': ja,
-    };
-  }
-
-  get distanceToNow(): string {
-    return distanceInWordsToNow(this.article.created_at, {
-      addSuffix: true,
-      locale: this.locales[this.$i18n.locale],
-    });
-  }
-
-  get summary(): string {
-    const content = this.article.content;
-    if (content.length <= 120) return content;
-    return `${this.article.content.slice(0, 120)}...`;
+  /**
+   * Number of comments with localized
+   */
+  get commtns(): string {
+    const comments = this.article.comments;
+    let count = 0;
+    if (comments != null) {
+      count = comments.length;
+    }
+    return this.$i18n.t('article.comments', { number: count }).toString();
   }
 }
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-.v-card
-  border-radius 1rem
+a
+  text-decoration none
+  &:hover
+    text-decoration underline
+
+.post-image
+  overflow hidden
+  &>img
+    height auto
+    width 100%
+    opacity 0.8
+    transition opacity 1s, transform 1s
+
+.img-scale
+  &>img
+    opacity 1
+    transform scale(1.1)
+
+.post-detail
+  padding 25px 25px 35px 25px
+
+.post-datetime
+  position absolute
+  top 20px
+  right 20px
+  &>span
+    display block
+  &>.day
+    margin-bottom 1px
+  &>.month
+    font-size 13px
+
+.post-tags
+  font-size 11px
+  margin-bottom 26px
+  &>a
+    margin-right 4px
+    color var(--v-secondary-darken2)
+
+.post-title
+  margin-bottom 25px
+  &>a
+    transition color 0.15s linear 0s
+  &>a:hover
+    color var(--v-accent-base)
+    text-decoration none
+
+.post-info
+  font-size 13px
+  &>span, &>a
+    color var(--v-secondary-darken2)
+    margin-right 20px
+  &>*:last-child
+    margin-right 0
+  &>>>.v-icon
+    display inline-block
+    margin 0 6px 3px 0
+    color var(--v-secondary-darken2)
 </style>

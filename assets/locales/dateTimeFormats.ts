@@ -1,4 +1,7 @@
 export default {
+  'en-US': {
+    month: { month: 'short' },
+  },
   'zh-CN': {
     short: {
       year: 'numeric',
@@ -13,6 +16,8 @@ export default {
       minute: 'numeric',
       hour12: true,
     },
+    weekday: { weekday: 'long' },
+    date: { month: 'short', year: 'numeric' },
   },
 
   'ja-JP': {
@@ -29,5 +34,7 @@ export default {
       minute: 'numeric',
       hour12: true,
     },
+    weekday: { weekday: 'long' },
+    date: { month: 'short', year: 'numeric' },
   },
 };

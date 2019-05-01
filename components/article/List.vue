@@ -1,24 +1,28 @@
 <template lang="pug">
-  v-container(pa-0 text-xs-center grid-list-xs)
-    v-flex(
-      tag="h1"
-      class="headline font-weight-bold primary-text"
-      mb-3
-    )
-      v-icon(class="mr-2 mb-1" color="primary" size="24")
-        | fas fa-book
+v-card(class="py-2 px-4" flat)
+  // Title
+  v-card-title(class="text-xs-center")
+    v-flex(tag="span" class="section-title font-weight-bold")
+      v-icon(
+        class="mb-1"
+        color="primary"
+        size="30"
+        left
+      )
+        | fas fa-feather-alt
       | {{ $t('article.list') }}
 
-    v-layout(row wrap)
-      v-flex(
-        v-for="(article, index) in articles"
-        :id="article.id"
-        :key="index"
-        data-aos="zoom-in"
-        md6
-        wrap
-      )
-        article-list-item(class="mb-2" :article="article")
+  // Items
+  v-layout(wrap)
+    v-flex(
+      v-for="(article, index) in articles"
+      :key="index"
+      md6
+      xs12
+      pa-3
+      wrap
+    )
+      article-list-item(:article="article")
 </template>
 
 <script lang="ts">
@@ -37,3 +41,8 @@ export default class List extends Vue {
   @Article.State articles;
 }
 </script>
+
+<style scoped lang="stylus" rel="stylesheet/stylus">
+.section-title
+  font-size 30px
+</style>

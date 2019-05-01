@@ -1,9 +1,6 @@
 <template lang="pug">
   v-app(v-scroll="viewDidScroll")
-    the-header(
-      ref="header"
-      :didScroll="didScroll"
-    )
+    the-header(ref="header" :didScroll="didScroll")
 
     v-content
       nuxt
@@ -12,7 +9,7 @@
 
     v-progress-linear(
       v-model="scrollPercent"
-      id="progress-scroll"
+      id="progress-page-scroll"
       class="ma-0"
       height="4"
       color="accent"
@@ -66,13 +63,15 @@ export default class DefaultLayout extends Vue {
     const docHeight = document.documentElement.scrollHeight;
     const winHeight =
       window.innerHeight || document.documentElement.clientHeight;
-    this.scrollPercent = (scrollOffset / (docHeight - winHeight)) * 100;
+    this.scrollPercent = Math.floor(
+      (scrollOffset / (docHeight - winHeight)) * 100
+    );
   }
 }
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-#progress-scroll
+#progress-page-scroll
   position fixed
   bottom 0
 </style>
