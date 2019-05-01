@@ -133,6 +133,7 @@ a
     transition color 0.15s linear 0s
   &>a:hover
     color var(--v-accent-base)
+    text-decoration none
 
 .post-info
   font-size 13px
