@@ -25,11 +25,12 @@ export default {
   article: {
     recommend: 'おすすめ記事',
     list: '新着記事',
-    comments: '{number}件',
+    views: '閲覧 {number}',
+    comments: 'コメント {number}',
+    stars: 'いいね {number}',
     readMore: '続きを読む',
     createdDate: '{date}に作成',
     updatedDate: '{date}に更新',
-    views: '閲覧数 {number}',
   },
   auth: {
     register: '登録',

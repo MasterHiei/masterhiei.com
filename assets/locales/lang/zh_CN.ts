@@ -25,11 +25,12 @@ export default {
   article: {
     recommend: '推荐文章',
     list: '最新文章',
-    comments: '{number}件',
+    views: '阅读 {number}',
+    comments: '回复 {number}',
+    stars: '喜欢 {number}',
     readMore: '阅读更多',
     createdDate: '发布于 {date}',
     updatedDate: '更新于 {date}',
-    views: '浏览{number}次',
   },
   auth: {
     register: '注册',

@@ -2,19 +2,65 @@
   v-hover
     v-card(
         slot-scope="{ hover }"
+        class="text-xs-center"
         :class="`elevation-${hover ? 8 : 2}`"
-        to="#"
       )
-        v-img(:src="article.image")
+        // Image
+        v-card-title(
+          class="post-image pa-0"
+          :class="{ 'img-scale': hover }"
+        )
+          img(:src="article.image" :alt="article.title")
 
-        post-date-time(:datetime="article.created_at")
+        // Detail
+        v-card-text(class="post-detail")
+          // Datetime
+          post-date-time(:datetime="article.created_at")
+
+          // Tags
+          v-flex(class="post-tags" wrap)
+            a(
+              v-for="(tag, index) in article.tags"
+              :key="index"
+              href="#"
+            )
+              | \#{{ tag }}
+
+          // Title
+          v-flex(
+            class="post-title title font-weight-bold"
+            wrap
+          )
+            nuxt-link(
+              :to="localePath({ name: 'articles-id', params: { id: article.id } })"
+            )
+              | {{ article.title }}
+
+          // Info
+          v-flex(
+            class="post-info"
+          )
+            // Views
+            span
+              v-icon(small)
+                | far fa-eye
+              | {{ $t('article.views', { number: article.views }) }}
+
+            // Comments
+            a(href="#")
+              v-icon(small)
+                | far fa-comments
+              | {{ commtns }}
+
+            // Stars
+            span
+              v-icon(small)
+                | far fa-heart
+              | {{ $t('article.stars', { number: article.stars }) }}
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import { distanceInWordsToNow } from 'date-fns';
-import zh_cn from 'date-fns/locale/zh_cn';
-import ja from 'date-fns/locale/ja';
 
 @Component({
   components: {
@@ -27,33 +73,42 @@ export default class ListItem extends Vue {
   readonly article!: Record<string, string>;
 
   // Computed
-  get loadingImage(): string {
-    return `${process.env.DOMAIN}/public/loading/spin.svg`;
-  }
-
-  get locales() {
-    return {
-      'zh-CN': zh_cn,
-      'ja-JP': ja,
-    };
-  }
-
-  get distanceToNow(): string {
-    return distanceInWordsToNow(this.article.created_at, {
-      addSuffix: true,
-      locale: this.locales[this.$i18n.locale],
-    });
-  }
-
-  get summary(): string {
-    const content = this.article.content;
-    if (content.length <= 120) return content;
-    return `${this.article.content.slice(0, 120)}...`;
+  /**
+   * Number of comments with localized
+   */
+  get commtns(): string {
+    const comments = this.article.comments;
+    let count = 0;
+    if (comments != null) {
+      count = comments.length;
+    }
+    return this.$i18n.t('article.comments', { number: count }).toString();
   }
 }
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
+a
+  text-decoration none
+  &:hover
+    text-decoration underline
+
+.post-image
+  overflow hidden
+  &>img
+    height auto
+    width 100%
+    opacity 0.8
+    transition opacity 1s, transform 1s
+
+.img-scale
+  &>img
+    opacity 1
+    transform scale(1.1)
+
+.post-detail
+  padding 25px 25px 35px 25px
+
 .post-datetime
   position absolute
   top 20px
@@ -64,4 +119,30 @@ export default class ListItem extends Vue {
     margin-bottom 1px
   &>.month
     font-size 13px
+
+.post-tags
+  font-size 11px
+  margin-bottom 26px
+  &>a
+    margin-right 4px
+    color var(--v-secondary-darken2)
+
+.post-title
+  margin-bottom 25px
+  &>a
+    transition color 0.15s linear 0s
+  &>a:hover
+    color var(--v-accent-base)
+
+.post-info
+  font-size 13px
+  &>span, &>a
+    color var(--v-secondary-darken2)
+    margin-right 20px
+  &>*:last-child
+    margin-right 0
+  &>>>.v-icon
+    display inline-block
+    margin 0 6px 3px 0
+    color var(--v-secondary-darken2)
 </style>
