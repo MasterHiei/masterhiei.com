@@ -45,7 +45,7 @@ v-card(class="pt-2 pb-3 px-4" flat)
       v-show="loading"
       id="loading"
       color="accent"
-      size="60"
+      size="48"
     )
       | far fa-snowflake fa-spin
 </template>
@@ -122,5 +122,5 @@ export default class List extends Vue {
     transform rotate(90deg)
 
 #loading
-  margin 12px
+  margin 18px 24px
 </style>
