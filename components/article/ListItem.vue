@@ -3,7 +3,7 @@
     v-card(
         slot-scope="{ hover }"
         class="text-xs-center"
-        :class="`elevation-${hover ? 8 : 2}`"
+        :class="`elevation-${ hover ? 8 : 2 }`"
       )
         // Image
         v-card-title(
@@ -144,6 +144,6 @@ a
     margin-right 0
   &>>>.v-icon
     display inline-block
-    margin 0 6px 3px 0
+    margin 0 6px 4px 0
     color var(--v-secondary-darken2)
 </style>

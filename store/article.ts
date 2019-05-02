@@ -6,6 +6,9 @@ import { NuxtAxiosInstance } from '@nuxtjs/axios';
 export const name = 'article';
 export const namespaced = true;
 
+// Page limit
+const limit = process.env.PAGE_LIMIT;
+
 // Mutation types
 export const types = {
   SET: 'SET',
@@ -36,14 +39,18 @@ export const getters: GetterTree<State, RootState> = {
 
 // Actions
 interface Actions<S, R> extends ActionTree<S, R> {
-  fetchAll(context: ActionContext<S, R>): void;
+  fetch(context: ActionContext<S, R>, page: number): void;
   fetchOneById(context: ActionContext<S, R>, id: string): void;
 }
 
 export const actions: Actions<State, RootState> = {
-  async fetchAll({ commit }): Promise<void> {
+  async fetch({ commit }, page): Promise<void> {
     const $axios = this.$axios as NuxtAxiosInstance;
-    const { data } = await $axios.$get('/articles');
+    const params = {
+      page: page,
+      limit: limit,
+    };
+    const { data } = await $axios.$get('/articles', { params: params });
     commit(types.SET, data);
   },
 

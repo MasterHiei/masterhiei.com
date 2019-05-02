@@ -6,8 +6,11 @@ import ArticleModel, { Article } from '../models/article';
  * Find articles from DB
  * @returns {Promise<Article[]>} Articles
  */
-const findArticles = (): Promise<Article[]> => {
+const findArticles = (page: number, limit: number): Promise<Article[]> => {
+  const skip = page === 1 ? 0 : page * limit;
   return ArticleModel.find()
+    .skip(skip)
+    .limit(Number(limit))
     .populate({
       path: 'comments',
       select: 'content created_at updated_at',
@@ -46,15 +49,16 @@ const generateArticles = (times: number = 12): Promise<Article[]> => {
 
 /**
  * Get All Articles with desc
- * @param {Request} _
+ * @param {Request} req
  * @param {Response} res
  */
-const index = async (_: Request, res: Response): Promise<void> => {
+const index = async (req: Request, res: Response): Promise<void> => {
   try {
-    const articles = await findArticles();
+    const { page, limit } = req.query;
+    const articles = await findArticles(page, limit);
     if (articles.length < 1) {
       await generateArticles();
-      const newArticles = await findArticles();
+      const newArticles = await findArticles(page, limit);
       res.json({ code: 0, data: newArticles });
     } else {
       res.json({ code: 0, data: articles });

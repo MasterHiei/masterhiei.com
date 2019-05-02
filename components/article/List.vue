@@ -23,6 +23,17 @@ v-card(class="py-2 px-4" flat)
       wrap
     )
       article-list-item(:article="article")
+
+  // Loader button
+  v-flex(class="text-xs-center" my-4 wrap)
+    v-hover
+      button(
+        slot-scope="{ hover }"
+        id="loader-btn"
+        :class="`elevation-${ hover ? 6 : 0 }`"
+      )
+        v-icon(:class="{ rotate: hover }" color="accent")
+          | fas fa-plus
 </template>
 
 <script lang="ts">
@@ -45,4 +56,18 @@ export default class List extends Vue {
 <style scoped lang="stylus" rel="stylesheet/stylus">
 .section-title
   font-size 30px
+
+#loader-btn
+  margin 12px 0
+  width 97px
+  height 60px
+  border 1px solid var(--v-secondary-base)
+  outline none
+  background transparent
+  transition box-shadow 0.3s
+  &>>>.v-icon:before
+    transition transform 0.3s
+
+.rotate:before
+    transform rotate(90deg)
 </style>

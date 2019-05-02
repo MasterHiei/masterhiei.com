@@ -25,7 +25,7 @@ export default {
   article: {
     recommend: 'おすすめ記事',
     list: '新着記事',
-    views: '閲覧 {number}',
+    views: '閲覧数 {number}',
     comments: 'コメント {number}',
     stars: 'いいね {number}',
     readMore: '続きを読む',
