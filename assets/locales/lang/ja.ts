@@ -18,6 +18,7 @@ export default {
     skill: '技術スタック',
   },
   tooltip: {
+    star: 'いいね',
     search: '記事を検索',
     github: 'ソースコード',
     feedback: 'バグレポート',
@@ -28,9 +29,6 @@ export default {
     views: '閲覧数 {number}',
     comments: 'コメント {number}',
     stars: 'いいね {number}',
-    readMore: '続きを読む',
-    createdDate: '{date}に作成',
-    updatedDate: '{date}に更新',
   },
   auth: {
     register: '登録',

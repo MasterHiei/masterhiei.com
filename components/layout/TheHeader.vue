@@ -159,7 +159,7 @@ export default class TheHeader extends Vue {
   background-repeat no-repeat
   background-size cover
   background-position center center
-  &:before
+  &::before
     content ''
     width 100%
     height 100%

@@ -115,10 +115,10 @@ export default class List extends Vue {
   outline none
   background transparent
   transition box-shadow 0.3s
-  &>>>.v-icon:before
+  &>>>.v-icon::before
     transition transform 0.3s
 
-.rotate:before
+.rotate::before
     transform rotate(90deg)
 
 #loading
