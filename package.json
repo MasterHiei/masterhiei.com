@@ -52,7 +52,7 @@
     "@types/jsonwebtoken": "^8.3.2",
     "@types/mongoose": "^5.3.27",
     "@types/morgan": "^1.7.35",
-    "@types/node": "^11.13.8",
+    "@types/node": "^11.13.9",
     "@types/sanitize-html": "^1.18.3",
     "@typescript-eslint/eslint-plugin": "^1.7.0",
     "@typescript-eslint/parser": "^1.7.0",
