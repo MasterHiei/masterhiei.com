@@ -65,9 +65,6 @@ export default class ListItem extends Vue {
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
 .post-datetime
-  position absolute
-  top 20px
-  right 20px
   &>span
     display block
   &>.day

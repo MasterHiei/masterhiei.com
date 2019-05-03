@@ -21,12 +21,14 @@ export interface GithubUser {
 
 export interface Article {
   id: string;
-  category: string;
-  tags: string[];
+  image: string;
   title: string;
   content: string;
-  views: number;
+  category: string;
+  tags: string[];
   stars: number;
+  views: number;
+  comments: Comment[];
   created_at: string;
   updated_at: string;
   modified_at: string;

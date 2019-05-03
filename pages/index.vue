@@ -63,6 +63,7 @@
       xs11
       pt-4
       wrap
+      data-aos="fade-up"
     )
       article-list
 </template>
@@ -76,7 +77,7 @@ import { Component, Vue } from 'vue-property-decorator';
   },
 
   async fetch({ store }) {
-    await store.dispatch('article/fetchAll');
+    await store.dispatch('article/fetch', 1);
   },
 })
 export default class IndexPage extends Vue {

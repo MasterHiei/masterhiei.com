@@ -1,5 +1,6 @@
 import { CleanEnv, cleanEnv, host, port, str, num } from 'envalid';
 
+// Environment variables declaration
 export interface Env extends CleanEnv {
   HOST: string;
   PORT: number;
@@ -12,8 +13,10 @@ export interface Env extends CleanEnv {
   GITHUB_CLIENT_ID: string;
   GITHUB_CLIENT_SECRET: string;
   BCRYPT_SALT_ROUND: number;
+  PAGE_LIMIT: number;
 }
 
+// Validate
 const validateEnv = (): Readonly<Env> =>
   cleanEnv(process.env, {
     HOST: host(),
@@ -27,6 +30,7 @@ const validateEnv = (): Readonly<Env> =>
     GITHUB_CLIENT_ID: str(),
     GITHUB_CLIENT_SECRET: str(),
     BCRYPT_SALT_ROUND: num(),
+    PAGE_LIMIT: num(),
   });
 
 export default validateEnv();

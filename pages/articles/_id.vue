@@ -1,64 +1,85 @@
 <template lang="pug">
-  v-container(grid-list-xs)
-    v-layout(row justify-center wrap)
-      v-flex(md8 xs12 wrap)
-        // TODO: Edit Button
-        v-btn(
-          v-if="this.$auth.hasScope('admin')"
-          color="success"
-          :to="localePath({ name: 'articles-edit-id', params: { id: article.id } })"
-          nuxt
-          extra
+  v-layout(justify-center wrap)
+    v-flex(md5 xs12 pa-3 wrap)
+      // Article
+      v-card(tag="article")
+        // Image
+        v-card-title(
+          class="post-image pa-0"
         )
-          | Edit
+          img(:src="article.image" :alt="article.title")
 
-        // Title
-        v-flex(tag="h1" class="primary-text" pt-4)
-          | {{ article.title }}
+        // Content
+        v-card-text(class="post-container text-xs-center")
+          // Header
+          v-flex(tag="header" wrap)
+            // Tags
+            v-flex(class="post-tags" wrap)
+              a(
+                v-for="(tag, index) in article.tags"
+                :key="index"
+                href="#"
+              )
+                | \#{{ tag }}
 
-        // Detail
-        v-flex(v-if="isNew" tag="span" mr-3)
-          | {{ $t('article.createdDate', { date: dateFormate(article.created_at) }) }}
+            // Title
+            v-flex(
+              class="post-title title font-weight-bold"
+              wrap
+            )
+              span
+                | {{ article.title }}
 
-        v-tooltip(
-          v-else
-          top
-          color="secondary lighten-3"
-          content-class="primary--text"
-          lazy
-        )
-          template(#activator="{ on }")
-            v-flex(tag="span" mr-3 v-on="on")
-              | {{ $t('article.updatedDate', { date: dateFormate(article.modified_at) }) }}
-          span {{ $t('article.createdDate', { date: dateFormate(article.created_at) }) }}
+              // Datetime
+              post-date-time(:datetime="article.created_at")
 
-        v-flex(tag="span" mr-3)
-          | {{ $t('article.views', { number: article.views }) }}
+            // Info
+            v-flex(
+              class="post-info"
+            )
+              // Views
+              span
+                v-icon(small)
+                  | far fa-eye
+                | {{ $t('article.views', { number: article.views }) }}
 
-        v-flex(pb-2 wrap)
-          v-chip(
-            v-for="(tag, index) in article.tags"
-            :key="index"
-            class="mr-3"
-            color="secondary"
-            small
-          )
-            | {{ tag }}
+              // Comments
+              a(href="#")
+                v-icon(small)
+                  | far fa-comments
+                | {{ commentsNum }}
 
-        // Contents
-        v-flex(v-html="sanitizedContent" wrap)
+              // Stars
+              span
+                v-icon(small)
+                  | far fa-heart
+                | {{ $t('article.stars', { number: article.stars }) }}
 
-        // Comments
-        comment-list(:comments="article.comments")
+          // Content
+          v-flex(class="post-content" v-html="sanitizedContent" wrap)
 
-        // Poster
-        comment-poster
+          // Footer
+          v-flex(tag="footer" pa-2 style="display: none;")
+            // TODO: Star
+            v-flex(wrap)
+              v-tooltip(top)
+                template(#activator="{ on }")
+                  v-btn(v-on="on" icon)
+                    v-icon(color="accent" small)
+                      | fas fa-heart
+                span {{ $t('tooltip.star') }}
+
+            // TODO: Social
+
+    // Sidebar
+    v-flex(md2 xs12 pa-3 wrap)
+      v-card
+        | adasdasd
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { namespace } from 'vuex-class';
-import isEqual from 'date-fns/is_equal';
 import sanitizer from '@/common/utils/sanitizer';
 import * as article from '@/store/article';
 import { Article as ArticleModel } from '@/models';
@@ -67,6 +88,7 @@ const Article = namespace(article.name);
 
 @Component({
   components: {
+    PostDateTime: () => import('@/components/article/Datetime.vue'),
     CommentList: () => import('@/components/comment/List.vue'),
     CommentPoster: () => import('@/components/comment/Poster.vue'),
   },
@@ -83,26 +105,68 @@ export default class ArticlePage extends Vue {
     return this.findOneById(this.$route.params.id);
   }
 
-  get isNew(): boolean {
-    if (!this.article.created_at || !this.article.modified_at) {
-      return true;
+  /**
+   * Number of comments with localized
+   */
+  get commentsNum(): string {
+    const comments = this.article.comments;
+    let count = 0;
+    if (comments != null) {
+      count = comments.length;
     }
-    return isEqual(this.article.created_at, this.article.modified_at);
+    return this.$i18n.t('article.comments', { number: count }).toString();
   }
 
   get sanitizedContent(): string {
     const md = this.$md.render(this.article.content);
     return sanitizer(md);
   }
-
-  // Methods
-  dateFormate(date: string): string {
-    return this.$d(new Date(date), 'short', this.$i18n.locale);
-  }
 }
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-.v-chip__content .v-icon
-  margin-left -2px
+a:hover
+  text-decoration underline
+
+.post-image
+  &>img
+    height auto
+    width 100%
+
+.post-container
+  padding 40px 50px
+
+.post-tags
+  font-size 11px
+  margin-bottom 26px
+  &>a
+    margin-right 4px
+    color var(--v-secondary-darken2)
+
+.post-title
+  position relative
+  margin-bottom 25px
+  &>>>time
+    position absolute
+    top -10px
+    left -60px
+
+.post-info
+  font-size 13px
+  &>span, &>a
+    color var(--v-secondary-darken2)
+    margin-right 20px
+  &>*:last-child
+    margin-right 0
+  &>>>.v-icon
+    display inline-block
+    margin 0 6px 4px 0
+    color var(--v-secondary-darken2)
+
+.post-content
+  margin-top 40px
+
+.post-footer
+  &>button
+    margin-right 12px
 </style>

@@ -1,64 +1,58 @@
-import faker from 'faker';
+// import faker from 'faker';
 import { Request, Response } from 'express';
-import ArticleModel, { Article } from '../models/article';
-
-/**
- * Find articles from DB
- * @returns {Promise<Article[]>} Articles
- */
-const findArticles = (): Promise<Article[]> => {
-  return ArticleModel.find()
-    .populate({
-      path: 'comments',
-      select: 'content created_at updated_at',
-      options: {
-        sort: 'created_at',
-      },
-      populate: {
-        path: 'user',
-        select: 'username avatar',
-      },
-    })
-    .sort('-created_at')
-    .exec();
-};
+import ArticleModel from '../models/article';
 
 /**
  * Generate dummy data of Article
  * @param {Number} times Number of data
  * @returns {Promise<Array>} Result of generation
  */
-const generateArticles = (times: number = 12): Promise<Article[]> => {
-  const dummies: object[] = [];
+// const generateArticles = (times: number = 12): Promise<Article[]> => {
+//   const dummies: object[] = [];
 
-  // generate dummy data N times
-  for (let i = 0; i < times; i++) {
-    const dummy = {
-      title: faker.name.title(),
-      content: faker.lorem.sentence(10).repeat(100),
-      category: faker.name.jobType(),
-      tags: faker.lorem.words(),
-    };
-    dummies.push(dummy);
-  }
-  return ArticleModel.insertMany(dummies);
-};
+//   // generate dummy data N times
+//   for (let i = 0; i < times; i++) {
+//     const dummy = {
+//       title: faker.name.title(),
+//       content: faker.lorem.sentence(10).repeat(100),
+//       category: faker.name.jobType(),
+//       tags: faker.lorem.words(),
+//     };
+//     dummies.push(dummy);
+//   }
+//   return ArticleModel.insertMany(dummies);
+// };
 
 /**
- * Get All Articles with desc
- * @param {Request} _
+ * Find Articles
+ * @param {Request} req
  * @param {Response} res
  */
-const index = async (_: Request, res: Response): Promise<void> => {
+const index = async (req: Request, res: Response): Promise<void> => {
   try {
-    const articles = await findArticles();
-    if (articles.length < 1) {
-      await generateArticles();
-      const newArticles = await findArticles();
-      res.json({ code: 0, data: newArticles });
-    } else {
-      res.json({ code: 0, data: articles });
-    }
+    const { page, limit } = req.query;
+    const skip = (page - 1) * limit;
+
+    // Find articles from DB
+    const articles = await ArticleModel.find()
+      .skip(skip)
+      .limit(Number(limit))
+      .populate({
+        path: 'comments',
+        select: 'content created_at updated_at',
+        options: {
+          sort: 'created_at',
+        },
+        populate: {
+          path: 'user',
+          select: 'username avatar',
+        },
+      })
+      .sort('-created_at')
+      .exec();
+
+    // Set response
+    res.json({ code: 0, data: articles });
   } catch (error) {
     // TODO: Error handler
     console.error(error);

@@ -18,6 +18,7 @@ export default {
     skill: '技术栈',
   },
   tooltip: {
+    star: '点赞',
     search: '搜索文章',
     github: '查看源码',
     feedback: '提交Bug',
@@ -27,10 +28,7 @@ export default {
     list: '最新文章',
     views: '阅读 {number}',
     comments: '回复 {number}',
-    stars: '喜欢 {number}',
-    readMore: '阅读更多',
-    createdDate: '发布于 {date}',
-    updatedDate: '更新于 {date}',
+    stars: '点赞 {number}',
   },
   auth: {
     register: '注册',

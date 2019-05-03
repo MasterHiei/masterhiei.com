@@ -3,7 +3,7 @@
     v-card(
         slot-scope="{ hover }"
         class="text-xs-center"
-        :class="`elevation-${hover ? 8 : 2}`"
+        :class="`elevation-${ hover ? 8 : 2 }`"
       )
         // Image
         v-card-title(
@@ -50,7 +50,7 @@
             a(href="#")
               v-icon(small)
                 | far fa-comments
-              | {{ commtns }}
+              | {{ comments }}
 
             // Stars
             span
@@ -76,7 +76,7 @@ export default class ListItem extends Vue {
   /**
    * Number of comments with localized
    */
-  get commtns(): string {
+  get comments(): string {
     const comments = this.article.comments;
     let count = 0;
     if (comments != null) {
@@ -88,10 +88,8 @@ export default class ListItem extends Vue {
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-a
-  text-decoration none
-  &:hover
-    text-decoration underline
+a:hover
+  text-decoration underline
 
 .post-image
   overflow hidden
@@ -108,17 +106,10 @@ a
 
 .post-detail
   padding 25px 25px 35px 25px
-
-.post-datetime
-  position absolute
-  top 20px
-  right 20px
-  &>span
-    display block
-  &>.day
-    margin-bottom 1px
-  &>.month
-    font-size 13px
+  &>>>time
+    position absolute
+    top 20px
+    right 20px
 
 .post-tags
   font-size 11px
@@ -144,6 +135,6 @@ a
     margin-right 0
   &>>>.v-icon
     display inline-block
-    margin 0 6px 3px 0
+    margin 0 6px 4px 0
     color var(--v-secondary-darken2)
 </style>
