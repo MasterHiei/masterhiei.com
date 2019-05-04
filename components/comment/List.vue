@@ -4,7 +4,7 @@
       v-flex(
         tag="h2"
         class="subheading"
-        mb-4
+        mb-3
       )
         | {{ $t('comment.title', { number: comments.length }) }}
 
@@ -33,5 +33,5 @@ export default class List extends Vue {
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
 #comment-container
-  padding 40px 50px
+  padding 30px 50px
 </style>

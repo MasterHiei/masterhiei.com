@@ -1,80 +1,46 @@
 <template lang="pug">
-  v-container(grid-list-xs pa-1)
-    v-layout(row wrap style="height: 44px;")
-      // Avatar
-      v-flex(class="avatar-container" pa-0 wrap)
-        v-avatar(size="44" tile)
-          img(v-lazy="comment.user.avatar" :alt="comment.user.username")
+  v-flex(class="comment-container")
+    // Avatar
+    v-avatar(class="d-inline-block" size="44" tile)
+      img(
+        v-lazy="comment.user.avatar"
+        :alt="comment.user.username"
+      )
 
-      // User info
-      v-layout(xs11 sm11 column ma-0 wrap)
-        v-layout(class="primary-text" row ma-0 wrap style="height: 44px;")
-          v-flex(class="caption" pa-0 wrap)
-            v-flex(tag="span")
-              | {{ comment.user.username }}
-            v-flex(tag="span" d-block)
-              | {{ formatDate(comment.created_at) }}
+    // Content
+    v-flex(class="comment-content" wrap)
+      // Meta
+      v-flex(class="comment-meta" mb-2 wrap)
+        // Author
+        a(class="comment-author")
+          | {{ comment.user.username }}
 
-          v-flex(class="text-xs-right" wrap)
-            v-flex(tag="span" d-block py-0 pr-2 style="font-size: 13px;")
-              | {{ commentNo }}
+        // Date
+        v-tooltip(right)
+          template(#activator="{ on }")
+            span(class="caption ml-2" v-on="on")
+              | {{ distanceToNow }}
 
-            v-flex(wrap)
-              v-menu(slide-x-transiton)
-                template(#activator="{ on }")
-                  v-btn(
-                    class="ma-0"
-                    color="secondary"
-                    flat
-                    small
-                    icon
-                    v-on="on"
-                  )
-                    v-icon(small)
-                      | fas fa-ellipsis-h
+          // Tooltip
+          span
+            | {{ formatDate(comment.created_at) }}
 
-                v-list
-                  template(v-if="isAuthor")
-                    v-list-tile(@click="isEdit = true")
-                      v-list-tile-title(class="body-1 info-text")
-                        | {{ $t('comment.edit') }}
+      // Text
+      v-flex(v-html="sanitizedHTML" wrap)
 
-                    v-list-tile(@click="remove")
-                      v-list-tile-title(class="body-1 error-text")
-                        | {{ $t('comment.remove') }}
-
-                  template(v-else)
-                    v-list-tile(@click="reply")
-                        v-list-tile(class="body-1 success-text")
-                          | {{ $t('comment.reply') }}
-
-    v-flex(v-if="!isEdit" v-html="sanitizedContent" py-2 wrap)
-
-    v-flex(v-else class="text-xs-right" mt-2 mb-2 wrap)
-        v-textarea(
-          v-model="modifiedContent"
-          class="body-2"
-          solo
-          auto-grow
-          :label="$t('comment.placeholder')"
-        )
-
-        v-btn(color="success" flat small @click="edit")
-          | {{ $t('comment.update') }}
-
-        v-btn(color="error" flat small @click="revokeEdit")
-          | {{ $t('comment.cancel') }}
-
-    v-divider(class="mt-3 mb-4")
-
-    v-confirm(ref="confirm")
+      // Actions
+      v-flex(wrap)
+        a(class="comment-reply")
+          | {{ $t('comment.reply') }}
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import { distanceInWordsToNow } from 'date-fns';
+import ja from 'date-fns/locale/ja';
+import zh from 'date-fns/locale/zh_cn';
 import sanitizer from '@/common/utils/sanitizer';
 import { Comment } from '@/models/index';
-import { ConfirmInstance } from '@/types/index';
 
 @Component({
   components: {
@@ -83,7 +49,6 @@ import { ConfirmInstance } from '@/types/index';
 })
 export default class ListItem extends Vue {
   // Props
-  @Prop({ type: Number, required: true }) readonly index!: number;
   @Prop({ type: Object, required: true })
   readonly comment!: Comment;
 
@@ -91,22 +56,31 @@ export default class ListItem extends Vue {
   isEdit = false;
   modifiedContent = this.comment.content;
 
-  // Coumputed
-  get isAuthor(): boolean {
-    const user = this.$auth.user;
-    if (user == null) return false;
-    return user.id === this.comment.user.id;
+  // Computed
+  /**
+   * Import date-fns i18n file
+   */
+  get locales(): object {
+    return {
+      'zh-CN': zh,
+      'ja-JP': ja,
+    };
   }
 
-  get commentNo(): string {
-    return `#${this.index + 1}`;
+  /**
+   * Distance in words to now with i18n
+   */
+  get distanceToNow(): string {
+    return distanceInWordsToNow(new Date(this.comment.created_at), {
+      addSuffix: true,
+      locale: this.locales[this.$i18n.locale],
+    });
   }
 
-  get confirm(): ConfirmInstance {
-    return this.$refs.confirm as ConfirmInstance;
-  }
-
-  get sanitizedContent(): string {
+  /**
+   * Sanitize HTML string
+   */
+  get sanitizedHTML(): string {
     const md = this.$md.render(this.comment.content);
     return sanitizer(md);
   }
@@ -120,51 +94,33 @@ export default class ListItem extends Vue {
     // TODO: reply a comment
     console.log(this.comment.id);
   }
-
-  edit(): void {
-    this.confirm
-      .show(this.$i18n.t('comment.confirmEdit'))
-      .then(async confirm => {
-        if (!confirm) return;
-        await this.$axios.$patch(
-          `/articles/${this.$route.params.id}/comments/${this.comment.id}`,
-          {
-            content: this.modifiedContent,
-          }
-        );
-        this.$router.go(0);
-      })
-      .catch(() => {});
-  }
-
-  revokeEdit(): void {
-    this.confirm
-      .show(this.$i18n.t('comment.revokeEdit'))
-      .then(confirm => {
-        if (!confirm) return;
-        this.isEdit = false;
-      })
-      .catch(() => {});
-  }
-
-  remove(): void {
-    this.confirm
-      .show(this.$i18n.t('comment.confirmRemove'))
-      .then(async confirm => {
-        if (!confirm) return;
-        await this.$axios.$delete(
-          `/articles/${this.$route.params.id}/comments/${this.comment.id}`
-        );
-        this.$router.go(0);
-      })
-      .catch(() => {});
-  }
 }
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-.avatar-container
-  min-width 44px
-  max-width 64px
-  max-height 44px
+.comment-container
+  display flex
+  padding 12px 0
+
+.comment-content
+  padding 12px 16px
+  margin-left 20px
+  vertical-align top
+  flex 1
+  background-color #f6f9fe
+
+.comment-meta
+  position relative
+  color var(--v-secondary-darken2)
+
+.comment-author
+  font-weight 700
+  &:hover
+    color var(--v-accent-base)
+
+.comment-reply
+  font-size 12px
+  color var(--v-secondary-darken2)
+  &:hover
+    color var(--v-accent-base)
 </style>

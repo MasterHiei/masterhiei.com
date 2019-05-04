@@ -37,5 +37,8 @@ export interface Article {
 export interface Comment {
   id: string;
   user: LocalUser;
+  article: string;
   content: string;
+  created_at: string;
+  updated_at: string;
 }

@@ -50,13 +50,6 @@ export default {
     promotion: '{name}さん、コメントを書きましょう！',
     placeholder: 'コメントを始めてね！',
     reply: '返信',
-    edit: '編集',
-    confirmEdit: 'このコメントを更新します。よろしいですか？',
-    revokeEdit: '変更を破棄します。よろしいですか？',
-    remove: '削除',
-    confirmRemove: 'このコメントを削除します。よろしいですか？',
-    update: '更新',
-    cancel: 'キャンセル',
   },
   post: '投稿',
   dialog: {

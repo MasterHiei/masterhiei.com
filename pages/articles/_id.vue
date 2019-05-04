@@ -56,7 +56,7 @@
                 | {{ $t('article.stars', { number: article.stars }) }}
 
           // Content
-          v-flex(class="post-content" v-html="sanitizedHTML" wrap)
+          v-flex(v-html="sanitizedHTML" class="post-content" wrap)
 
           // Footer
           v-flex(tag="footer" pa-2 style="display: none;")

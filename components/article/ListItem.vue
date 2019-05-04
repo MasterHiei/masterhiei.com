@@ -74,7 +74,7 @@ export default class ListItem extends Vue {
 
   // Computed
   /**
-   * Number of comments with localized
+   * Number of comments with i18n
    */
   get comments(): string {
     const comments = this.article.comments;
