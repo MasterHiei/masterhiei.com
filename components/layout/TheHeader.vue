@@ -98,8 +98,9 @@ export default class TheHeader extends Vue {
    * Background height
    */
   get height(): number {
-    const path = this.$route.path;
-    return path === '/' ? 720 : 360;
+    const name = this.$route.name || '';
+    const isIndex = name.includes('index');
+    return isIndex ? 720 : 360;
   }
 
   /**
