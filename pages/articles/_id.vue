@@ -44,7 +44,7 @@
                 | {{ $t('article.views', { number: article.views }) }}
 
               // Comments
-              a(href="#")
+              a(href="#comments")
                 v-icon(small)
                   | far fa-comments
                 | {{ $t('article.comments', { number: article.comments.length }) }}

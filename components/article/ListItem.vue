@@ -31,7 +31,7 @@
             class="post-title title font-weight-bold"
             wrap
           )
-            nuxt-link(
+            n-link(
               :to="localePath({ name: 'articles-id', params: { id: article.id } })"
             )
               | {{ article.title }}
@@ -47,7 +47,9 @@
               | {{ $t('article.views', { number: article.views }) }}
 
             // Comments
-            a(href="#")
+            n-link(
+              :to="`${localePath({ name: 'articles-id', params: { id: article.id } })}#comments`"
+            )
               v-icon(small)
                 | far fa-comments
               | {{ comments }}

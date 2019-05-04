@@ -30,7 +30,7 @@
 
       // Actions
       v-flex(wrap)
-        a(class="comment-reply")
+        a(class="comment-reply" @click="reply")
           | {{ $t('comment.reply') }}
 </template>
 

@@ -1,9 +1,9 @@
 <template lang="pug">
-  v-card(id="comment-container")
+  v-card(id="comments")
     v-card-title(class="pa-0")
       v-flex(
         tag="h2"
-        class="subheading"
+        class="title"
         mb-3
       )
         | {{ $t('comment.title', { number: comments.length }) }}
@@ -32,6 +32,6 @@ export default class List extends Vue {
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-#comment-container
+#comments
   padding 30px 50px
 </style>

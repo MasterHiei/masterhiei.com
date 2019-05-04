@@ -14,7 +14,7 @@
 
         // Title
         v-toolbar-title
-          nuxt-link(:to="localePath('index')" extra)
+          n-link(:to="localePath('index')" extra)
             img(src="~static/logo.png" alt="logo")
 
         v-spacer
