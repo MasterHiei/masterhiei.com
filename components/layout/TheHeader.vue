@@ -82,9 +82,9 @@ export default class TheHeader extends Vue {
    * Background image
    */
   get bgStyle(): string {
-    return `background-image: url(${
-      process.env.DOMAIN
-    }/public/sites/default/cover-3.jpg);`;
+    return `background-image:\
+    url(${process.env.DOMAIN}/public/sites/default/cover-3.jpg);\
+    height:${this.height}px`;
   }
 
   /**
@@ -92,6 +92,14 @@ export default class TheHeader extends Vue {
    */
   get color(): string {
     return this.didScroll ? 'white' : 'transparent';
+  }
+
+  /**
+   * Background height
+   */
+  get height(): number {
+    const path = this.$route.path;
+    return path === '/' ? 720 : 360;
   }
 
   /**
@@ -152,7 +160,6 @@ export default class TheHeader extends Vue {
 
 #header-background
   position absolute
-  height 720px
   top 0
   left 0
   right 0

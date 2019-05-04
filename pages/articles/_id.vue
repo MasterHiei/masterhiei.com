@@ -2,7 +2,7 @@
   v-layout(justify-center wrap)
     v-flex(md5 xs12 pa-3 wrap)
       // Article
-      v-card(tag="article")
+      v-card(id="article-container" tag="article")
         // Image
         v-card-title(
           class="post-image pa-0"
@@ -47,7 +47,7 @@
               a(href="#")
                 v-icon(small)
                   | far fa-comments
-                | {{ commentsNum }}
+                | {{ $t('article.comments', { number: article.comments.length }) }}
 
               // Stars
               span
@@ -56,7 +56,7 @@
                 | {{ $t('article.stars', { number: article.stars }) }}
 
           // Content
-          v-flex(class="post-content" v-html="sanitizedContent" wrap)
+          v-flex(class="post-content" v-html="sanitizedHTML" wrap)
 
           // Footer
           v-flex(tag="footer" pa-2 style="display: none;")
@@ -70,6 +70,9 @@
                 span {{ $t('tooltip.star') }}
 
             // TODO: Social
+
+      // Comments
+      comment-list(:comments="article.comments")
 
     // Sidebar
     v-flex(md2 xs12 pa-3 wrap)
@@ -101,23 +104,17 @@ export default class ArticlePage extends Vue {
   // Computed
   @Article.Getter findOneById;
 
+  /**
+   * Article in vuex store
+   */
   get article(): ArticleModel {
     return this.findOneById(this.$route.params.id);
   }
 
   /**
-   * Number of comments with localized
+   * Sanitize HTML string
    */
-  get commentsNum(): string {
-    const comments = this.article.comments;
-    let count = 0;
-    if (comments != null) {
-      count = comments.length;
-    }
-    return this.$i18n.t('article.comments', { number: count }).toString();
-  }
-
-  get sanitizedContent(): string {
+  get sanitizedHTML(): string {
     const md = this.$md.render(this.article.content);
     return sanitizer(md);
   }
@@ -127,6 +124,9 @@ export default class ArticlePage extends Vue {
 <style scoped lang="stylus" rel="stylesheet/stylus">
 a:hover
   text-decoration underline
+
+#article-container
+  margin-bottom 50px
 
 .post-image
   &>img

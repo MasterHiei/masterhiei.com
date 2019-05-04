@@ -1,11 +1,19 @@
-<template>
-  <v-flex mt-2 wrap>
-    <v-divider class="mb-4" />
+<template lang="pug">
+  v-card(id="comment-container")
+    v-card-title(class="pa-0")
+      v-flex(
+        tag="h2"
+        class="subheading"
+        mb-4
+      )
+        | {{ $t('comment.title', { number: comments.length }) }}
 
-    <v-flex v-for="(comment, index) in comments" :key="index" wrap>
-      <comment-list-item :index="index" :comment="comment" />
-    </v-flex>
-  </v-flex>
+    v-flex(
+      v-for="(comment, index) in comments"
+      :key="index"
+      wrap
+    )
+      comment-list-item(:comment="comment")
 </template>
 
 <script lang="ts">
@@ -22,3 +30,8 @@ export default class List extends Vue {
   @Prop({ type: Array, required: true }) readonly comments!: Comment[];
 }
 </script>
+
+<style scoped lang="stylus" rel="stylesheet/stylus">
+#comment-container
+  padding 40px 50px
+</style>
