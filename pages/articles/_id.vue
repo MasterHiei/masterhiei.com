@@ -47,7 +47,7 @@
               a(href="#comments")
                 v-icon(small)
                   | far fa-comments
-                | {{ $t('article.comments', { number: 33 }) }}
+                | {{ $t('article.comments', { number: commentsCount }) }}
 
               // Stars
               span
@@ -72,7 +72,7 @@
             // TODO: Social
 
       // Comment List
-      v-gitalk
+      v-gitalk(:id="article.id")
 
     // Sidebar
     v-flex(md2 xs12 pa-3 wrap)
@@ -81,8 +81,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue } from 'nuxt-property-decorator';
 import { namespace } from 'vuex-class';
+import getIssueCommentsCount from '@/apollo/queries/github/getIssueCommentsCount';
 import sanitizer from '@/common/utils/sanitizer';
 import * as article from '@/store/article';
 import { Article as ArticleModel } from '@/models';
@@ -96,7 +97,29 @@ const Article = namespace(article.name);
   },
 })
 export default class ArticlePage extends Vue {
+  // Data
+  commentsCount = 0;
+
   // Hooks
+  async asyncData({ app, params }) {
+    // Get total comment count using GitHub's API
+    const client = app.apolloProvider.defaultClient;
+    const { data } = await client.query({
+      query: getIssueCommentsCount,
+      variables: {
+        owner: process.env.GITHUB_OWNER,
+        repo: process.env.COMMENTS_PEPO,
+        labels: [params.id, process.env.COMMENTS_LABEL],
+      },
+    });
+    const edges = data.repository.issues.edges;
+    if (edges.length > 0) {
+      const commentsCount = edges[0].node.comments.totalCount;
+      return { commentsCount };
+    }
+    return { commentsCount: 0 };
+  }
+
   async fetch({ store, params }) {
     await store.dispatch('article/fetchOneById', params.id);
   }

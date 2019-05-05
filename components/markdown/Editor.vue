@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Component, Vue, Prop } from 'nuxt-property-decorator';
 import { mavonEditor } from 'mavon-editor';
 import 'mavon-editor/dist/css/index.css';
 mavonEditor.getMarkdownIt();

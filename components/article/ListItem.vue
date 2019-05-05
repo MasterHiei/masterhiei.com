@@ -52,7 +52,7 @@
             )
               v-icon(small)
                 | far fa-comments
-              | {{ comments }}
+              | {{ $t('article.comments', { number: commentsCount }) }}
 
             // Stars
             span
@@ -62,7 +62,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Component, Vue, Prop } from 'nuxt-property-decorator';
+import getIssueCommentsCount from '@/apollo/queries/github/getIssueCommentsCount';
 
 @Component({
   components: {
@@ -74,17 +75,25 @@ export default class ListItem extends Vue {
   @Prop({ type: Object, required: true })
   readonly article!: Record<string, string>;
 
-  // Computed
-  /**
-   * Number of comments with i18n
-   */
-  get comments(): string {
-    const comments = this.article.comments || [];
-    let count = 0;
-    if (comments != null) {
-      count = comments.length;
+  // Data
+  commentsCount = 0;
+
+  // Hooks
+  async created() {
+    // TODO: Get total comment count using GitHub's API
+    const client = this.$apollo.getClient();
+    const { data } = await client.query({
+      query: getIssueCommentsCount,
+      variables: {
+        owner: process.env.GITHUB_OWNER,
+        repo: process.env.COMMENTS_PEPO,
+        labels: [this.article.id, process.env.COMMENTS_LABEL],
+      },
+    });
+    const edges = data.repository.issues.edges;
+    if (edges.length > 0) {
+      this.commentsCount = edges[0].node.comments.totalCount;
     }
-    return this.$i18n.t('article.comments', { number: count }).toString();
   }
 }
 </script>

@@ -71,7 +71,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue } from 'nuxt-property-decorator';
 import SHA256 from 'crypto-js/sha256';
 
 @Component({

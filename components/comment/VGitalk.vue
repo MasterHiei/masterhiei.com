@@ -3,12 +3,15 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Prop } from 'nuxt-property-decorator';
 import Gitalk from 'gitalk';
 import 'gitalk/dist/gitalk.css';
 
 @Component
 export default class VGitalk extends Vue {
+  // Props
+  @Prop({ type: String, required: true }) readonly id!: string;
+
   // Hooks
   mounted() {
     const gitalk = new Gitalk({
@@ -17,7 +20,7 @@ export default class VGitalk extends Vue {
       repo: process.env.COMMENTS_PEPO,
       owner: process.env.GITHUB_OWNER,
       admin: [process.env.GITHUB_OWNER],
-      id: window.location.pathname,
+      id: this.id,
       labels: [process.env.COMMENTS_LABEL],
       perPage: Number(process.env.COMMENTS_LIMIT),
     });
@@ -29,7 +32,7 @@ export default class VGitalk extends Vue {
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
 #comments
-  padding 30px 50px
+  padding 4px 50px 30px 50px
   &>>>.gt-meta
     z-index 1
   &>>>.gt-popup

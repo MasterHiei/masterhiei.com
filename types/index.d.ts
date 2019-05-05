@@ -1,22 +1,29 @@
 import Vue from 'vue';
-import VueI18n from 'vue-i18n';
+import { ApolloClient } from 'apollo-client';
+import { DollarApollo } from './vue-apollo';
 import { Auth } from './auth';
-
-export interface ConfirmInstance extends Vue {
-  show: (
-    message: string | VueI18n.TranslateResult,
-    title?: string
-  ) => Promise<boolean>;
-}
 
 interface MarkdownIt {
   render(md: string): string;
 }
 
+/**
+ * Extends interfaces in Vue.js
+ */
 declare module 'vue/types/vue' {
   interface Vue {
     readonly $auth: Auth;
     readonly $md: MarkdownIt;
+    readonly $apollo: DollarApollo<any>;
+    $apolloHelpers: {
+      onLogin(
+        token: string,
+        apolloClient?: ApolloClient<{}>,
+        tokenExpires?: number
+      ): Promise<void>;
+      onLogout(apolloClient?: ApolloClient<{}>): Promise<void>;
+      getToken(tokenName?: string): string;
+    };
   }
 }
 
