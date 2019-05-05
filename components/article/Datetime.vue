@@ -16,7 +16,7 @@
         // Day
         v-flex(
           tag="span"
-          class="day title font-weight-bold"
+          class="day font-weight-bold"
         )
           | {{ day }}
 
@@ -65,10 +65,13 @@ export default class ListItem extends Vue {
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
 .post-datetime
-  &>span
+  & span
     display block
-  &>.day
-    margin-bottom 1px
-  &>.month
-    font-size 13px
+    height 18px
+    line-height 18px
+  & .day
+    font-size 19px
+    margin 2px 0 2px 0
+  & .month
+    font-size 12px
 </style>

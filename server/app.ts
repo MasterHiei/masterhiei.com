@@ -29,7 +29,6 @@ mongoose
     (): void => {
       require('./models/user');
       require('./models/article');
-      require('./models/comment');
       consola.ready({
         message: 'Connected to MongoDB',
         badge: true,

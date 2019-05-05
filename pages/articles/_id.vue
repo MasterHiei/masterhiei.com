@@ -47,7 +47,7 @@
               a(href="#comments")
                 v-icon(small)
                   | far fa-comments
-                | {{ $t('article.comments', { number: article.comments.length }) }}
+                | {{ $t('article.comments', { number: 33 }) }}
 
               // Stars
               span
@@ -71,8 +71,8 @@
 
             // TODO: Social
 
-      // Comments
-      comment-list(:comments="article.comments")
+      // Comment List
+      v-gitalk
 
     // Sidebar
     v-flex(md2 xs12 pa-3 wrap)
@@ -92,15 +92,15 @@ const Article = namespace(article.name);
 @Component({
   components: {
     PostDateTime: () => import('@/components/article/Datetime.vue'),
-    CommentList: () => import('@/components/comment/List.vue'),
-    CommentPoster: () => import('@/components/comment/Poster.vue'),
-  },
-
-  async fetch({ store, params }) {
-    await store.dispatch('article/fetchOneById', params.id);
+    VGitalk: () => import('@/components/comment/VGitalk.vue'),
   },
 })
 export default class ArticlePage extends Vue {
+  // Hooks
+  async fetch({ store, params }) {
+    await store.dispatch('article/fetchOneById', params.id);
+  }
+
   // Computed
   @Article.Getter findOneById;
 

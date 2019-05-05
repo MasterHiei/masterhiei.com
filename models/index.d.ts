@@ -28,17 +28,7 @@ export interface Article {
   tags: string[];
   stars: number;
   views: number;
-  comments: Comment[];
   created_at: string;
   updated_at: string;
   modified_at: string;
-}
-
-export interface Comment {
-  id: string;
-  user: LocalUser;
-  article: string;
-  content: string;
-  created_at: string;
-  updated_at: string;
 }

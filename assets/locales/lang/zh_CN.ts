@@ -45,12 +45,6 @@ export default {
     password: '密码',
     passwordTips: '必须：字母和数字，允许：下划线',
   },
-  comment: {
-    title: '{number}条评论',
-    promotion: '{name}，欢迎留言评论～',
-    placeholder: '开始评论吧！',
-    reply: '回复',
-  },
   post: '发布',
   dialog: {
     title: '确认',

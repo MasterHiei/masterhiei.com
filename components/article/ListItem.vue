@@ -79,7 +79,7 @@ export default class ListItem extends Vue {
    * Number of comments with i18n
    */
   get comments(): string {
-    const comments = this.article.comments;
+    const comments = this.article.comments || [];
     let count = 0;
     if (comments != null) {
       count = comments.length;

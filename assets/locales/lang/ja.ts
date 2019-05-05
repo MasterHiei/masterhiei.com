@@ -45,12 +45,6 @@ export default {
     password: 'パスワード',
     passwordTips: '必須：半角英数字、可：下線',
   },
-  comment: {
-    title: '{number}件のコメント',
-    promotion: '{name}さん、コメントを書きましょう！',
-    placeholder: 'コメントを始めてね！',
-    reply: '返信',
-  },
   post: '投稿',
   dialog: {
     title: '確認',
