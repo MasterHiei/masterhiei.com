@@ -63,7 +63,6 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator';
-import getIssueCommentsCount from '@/apollo/queries/github/getIssueCommentsCount';
 
 @Component({
   components: {
@@ -77,24 +76,6 @@ export default class ListItem extends Vue {
 
   // Data
   commentsCount = 0;
-
-  // Hooks
-  async created() {
-    // TODO: Get total comment count using GitHub's API
-    const client = this.$apollo.getClient();
-    const { data } = await client.query({
-      query: getIssueCommentsCount,
-      variables: {
-        owner: process.env.GITHUB_OWNER,
-        repo: process.env.COMMENTS_PEPO,
-        labels: [this.article.id, process.env.COMMENTS_LABEL],
-      },
-    });
-    const edges = data.repository.issues.edges;
-    if (edges.length > 0) {
-      this.commentsCount = edges[0].node.comments.totalCount;
-    }
-  }
 }
 </script>
 

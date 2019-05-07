@@ -6,25 +6,26 @@
 import { Component, Vue, Prop } from 'nuxt-property-decorator';
 import Gitalk from 'gitalk';
 import 'gitalk/dist/gitalk.css';
+import { hashedId } from '@/common/utils/gitalk';
 
 @Component
 export default class VGitalk extends Vue {
   // Props
-  @Prop({ type: String, required: true }) readonly id!: string;
+  @Prop({ type: String, required: true }) readonly articleId!: string;
 
   // Hooks
   mounted() {
+    // Gitalk render setup
     const gitalk = new Gitalk({
       clientID: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
       repo: process.env.COMMENTS_PEPO,
       owner: process.env.GITHUB_OWNER,
       admin: [process.env.GITHUB_OWNER],
-      id: this.id,
+      id: hashedId(this.articleId),
       labels: [process.env.COMMENTS_LABEL],
       perPage: Number(process.env.COMMENTS_LIMIT),
     });
-
     gitalk.render('comments');
   }
 }

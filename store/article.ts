@@ -1,29 +1,29 @@
 import { ActionTree, MutationTree, GetterTree, ActionContext } from 'vuex';
-import { Article } from '@/models/index';
+import { RootState } from 'store';
+import { Article } from 'models/article';
 import { NuxtAxiosInstance } from '@nuxtjs/axios';
 
-// Namespace
+// Name
 export const name = 'article';
-export const namespaced = true;
 
-// Page limit
+// Get page limit from environment variables
 const limit = Number(process.env.PAGE_LIMIT);
 
-// Mutation types
-export const types = {
+// Types declaration
+const types = {
   SET_PAGE: 'SET_PAGE',
   FETCH: 'FETCH',
   FETCH_ONE_BY_ID: 'FETCH_ONE_BY_ID',
 };
 
-// Interface
-interface RootState {
-  rootState: State;
-}
-
 interface State {
   page: number;
   articles: Article[];
+}
+
+interface Actions<S, R> extends ActionTree<S, R> {
+  fetch(context: ActionContext<S, R>, page: number): Promise<boolean>;
+  fetchOneById(context: ActionContext<S, R>, id: string): Promise<void>;
 }
 
 // State
@@ -44,11 +44,6 @@ export const getters: GetterTree<State, RootState> = {
 };
 
 // Actions
-interface Actions<S, R> extends ActionTree<S, R> {
-  fetch(context: ActionContext<S, R>, page: number): Promise<boolean>;
-  fetchOneById(context: ActionContext<S, R>, id: string): Promise<void>;
-}
-
 export const actions: Actions<State, RootState> = {
   /**
    * Fetch article data
