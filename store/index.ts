@@ -1,7 +1,9 @@
-import { ActionTree, MutationTree, GetterTree, ActionContext } from 'vuex';
+import { ActionTree, MutationTree, GetterTree } from 'vuex';
 
 // Interface
 export interface RootState {}
+
+interface Actions<S, R> extends ActionTree<S, R> {}
 
 // State
 export const state = (): RootState => ({});
@@ -10,15 +12,7 @@ export const state = (): RootState => ({});
 export const getters: GetterTree<RootState, RootState> = {};
 
 // Actions
-interface Actions<S, R> extends ActionTree<S, R> {
-  nuxtServerInit(context: ActionContext<S, R>): void;
-}
-
-export const actions: Actions<RootState, RootState> = {
-  async nuxtServerInit({ dispatch }): Promise<void> {
-    // await dispatch('article/fetch', 1);
-  },
-};
+export const actions: Actions<RootState, RootState> = {};
 
 // Mutations
 export const mutations: MutationTree<RootState> = {};

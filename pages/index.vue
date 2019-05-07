@@ -1,18 +1,18 @@
 <template lang="pug">
-  v-flex(pa-2 wrap)
+  v-flex(class="section" pa-2 wrap)
     // Today
     v-flex(
       tag="section"
-      class="content-item"
+      class="today section-item"
       md4
       xs11
       data-aos="fade-up"
       wrap
     )
-      v-card(id="today-card" class="pa-3" flat)
+      v-card(class="today-card pa-3" flat)
         // Season
         v-flex(
-          class="text-xs-center secondary-text middle-line"
+          class="today-title text-xs-center secondary-text"
           py-3
           wrap
         )
@@ -58,7 +58,7 @@
     // Articles
     v-flex(
       tag="section"
-      class="content-item"
+      class="section-item"
       md6
       xs11
       pt-4
@@ -140,28 +140,19 @@ export default class IndexPage extends Vue {
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-.content-item
-  margin 24px auto
+.section
+  &-item
+    margin 24px auto
 
-#today-card
-  background-color rgba(255, 255, 255, 0.3)
-
-.middle-line
-  &:before, &:after
-    content ''
-    vertical-align middle
-    display inline-block
-    width 15%
-    margin  0 4% 4% 4%
-    border 1px solid var(--v-secondary-base)
-
-
-#side-menu
-  position fixed
-  top 40%
-  right 1.3rem
-  opacity 0.35
-  transition opacity 0.75s
-  &:hover
-    opacity 1
+.today
+  &-card
+    background-color rgba(255, 255, 255, 0.3)
+  &-title
+    &:before, &:after
+      content ''
+      vertical-align middle
+      display inline-block
+      width 15%
+      margin  0 4% 4% 4%
+      border 1px solid var(--v-secondary-base)
 </style>
