@@ -5,7 +5,5 @@ import VueLazyLoad from 'vue-lazyload';
 const { DOMAIN } = process.env;
 
 Vue.use(VueLazyLoad, {
-  attempt: 1,
-  error: `${DOMAIN}/public/avatar/avatar.png`,
-  loading: `${DOMAIN}/public/loading/spin.svg`,
+  loading: `${DOMAIN}/public/loading/eclipse.svg`,
 });
