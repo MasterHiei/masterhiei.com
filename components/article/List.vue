@@ -51,7 +51,7 @@ v-card(class="pt-2 pb-3 px-4" flat)
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue } from 'nuxt-property-decorator';
 import { namespace } from 'vuex-class';
 import * as article from '@/store/article';
 

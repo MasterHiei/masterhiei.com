@@ -5,18 +5,18 @@
       v-card(
         tag="time"
         :datetime="datetime"
-        v-on="on"
         class="post-datetime text-xs-center white--text pa-2"
         width="58"
         height="58"
         color="accent"
         tile
         flat
+        v-on="on"
       )
         // Day
         v-flex(
           tag="span"
-          class="day title font-weight-bold"
+          class="day font-weight-bold"
         )
           | {{ day }}
 
@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Component, Vue, Prop } from 'nuxt-property-decorator';
 
 @Component
 export default class ListItem extends Vue {
@@ -48,7 +48,7 @@ export default class ListItem extends Vue {
   }
 
   /**
-   * Post month with localized(en-US)
+   * Post month with i18n(en-US)
    */
   get monthWithEn(): string {
     return this.$i18n.d(this.date, 'month', 'en-US');
@@ -65,10 +65,13 @@ export default class ListItem extends Vue {
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
 .post-datetime
-  &>span
+  & span
     display block
-  &>.day
-    margin-bottom 1px
-  &>.month
-    font-size 13px
+    height 18px
+    line-height 18px
+  & .day
+    font-size 19px
+    margin 2px 0 2px 0
+  & .month
+    font-size 12px
 </style>

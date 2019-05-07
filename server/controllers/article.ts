@@ -37,17 +37,6 @@ const index = async (req: Request, res: Response): Promise<void> => {
     const articles = await ArticleModel.find()
       .skip(skip)
       .limit(Number(limit))
-      .populate({
-        path: 'comments',
-        select: 'content created_at updated_at',
-        options: {
-          sort: 'created_at',
-        },
-        populate: {
-          path: 'user',
-          select: 'username avatar',
-        },
-      })
       .sort('-created_at')
       .exec();
 
@@ -76,17 +65,6 @@ const show = async (req: Request, res: Response): Promise<void> => {
     { $inc: { views: 1 } },
     { new: true }
   )
-    .populate({
-      path: 'comments',
-      select: 'content created_at updated_at',
-      options: {
-        sort: 'created_at',
-      },
-      populate: {
-        path: 'user',
-        select: 'username avatar',
-      },
-    })
     .exec()
     .catch(
       (error: Error): void => {

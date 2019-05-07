@@ -8,7 +8,6 @@ export interface Article extends Document {
   category: string;
   tags: string[];
   stars: number;
-  comments: Schema.Types.ObjectId[];
   views: number;
   modified_at: Date;
   created_at: Date;
@@ -45,12 +44,6 @@ const articleSchema = new Schema(
       type: Number,
       default: 0,
     },
-    comments: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Comment',
-      },
-    ],
     modified_at: {
       type: Date,
       default: undefined,

@@ -18,24 +18,3 @@ export interface GithubUser {
   avatar_url: string;
   isFetched?: boolean;
 }
-
-export interface Article {
-  id: string;
-  image: string;
-  title: string;
-  content: string;
-  category: string;
-  tags: string[];
-  stars: number;
-  views: number;
-  comments: Comment[];
-  created_at: string;
-  updated_at: string;
-  modified_at: string;
-}
-
-export interface Comment {
-  id: string;
-  user: LocalUser;
-  content: string;
-}

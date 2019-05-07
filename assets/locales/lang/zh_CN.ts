@@ -45,18 +45,6 @@ export default {
     password: '密码',
     passwordTips: '必须：字母和数字，允许：下划线',
   },
-  comment: {
-    promotion: '{name}，欢迎留言评论～',
-    placeholder: '开始评论吧！',
-    reply: '回复',
-    edit: '编辑',
-    confirmEdit: '确定要更新这条评论吗？',
-    revokeEdit: ' 您编辑过的内容将不会被保存,确定要取消吗？',
-    remove: '删除',
-    confirmRemove: '确定要删除这条评论吗？',
-    update: '更新',
-    cancel: '取消',
-  },
   post: '发布',
   dialog: {
     title: '确认',

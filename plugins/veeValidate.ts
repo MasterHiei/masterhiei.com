@@ -67,7 +67,7 @@ Validator.localize('zh-CN', zh_CN);
 Validator.localize('ja-JP', ja);
 
 export default ({ app }): void => {
-  // Localizing the app when user refresh or access a localized link
+  // Localizing the app when user refresh or access a i18n link
   Validator.localize(app.i18n.locale);
 
   // Reset Vee localizetion before setting a new locale

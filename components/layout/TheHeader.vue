@@ -14,7 +14,7 @@
 
         // Title
         v-toolbar-title
-          nuxt-link(:to="localePath('index')" extra)
+          n-link(:to="localePath('index')" extra)
             img(src="~static/logo.png" alt="logo")
 
         v-spacer
@@ -69,7 +69,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue } from 'nuxt-property-decorator';
 import { NuxtVueI18n } from 'nuxt-i18n/types/vue';
 
 @Component
@@ -82,9 +82,9 @@ export default class TheHeader extends Vue {
    * Background image
    */
   get bgStyle(): string {
-    return `background-image: url(${
-      process.env.DOMAIN
-    }/public/sites/default/cover-3.jpg);`;
+    return `background-image:\
+    url(${process.env.DOMAIN}/public/sites/default/cover-3.jpg);\
+    height:${this.height}px`;
   }
 
   /**
@@ -92,6 +92,15 @@ export default class TheHeader extends Vue {
    */
   get color(): string {
     return this.didScroll ? 'white' : 'transparent';
+  }
+
+  /**
+   * Background height
+   */
+  get height(): number {
+    const name = this.$route.name || '';
+    const isIndex = name.includes('index');
+    return isIndex ? 720 : 360;
   }
 
   /**
@@ -152,7 +161,6 @@ export default class TheHeader extends Vue {
 
 #header-background
   position absolute
-  height 720px
   top 0
   left 0
   right 0

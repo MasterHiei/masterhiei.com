@@ -67,6 +67,7 @@ const config: NuxtConfiguration = {
    ** Nuxt.js modules
    */
   modules: [
+    '@nuxtjs/apollo',
     '@nuxtjs/axios',
     '@nuxtjs/auth',
     '@nuxtjs/dotenv',
@@ -100,6 +101,17 @@ const config: NuxtConfiguration = {
     ],
     '@nuxtjs/markdownit',
   ],
+
+  /**
+   * Nuxt Apollo modules
+   */
+  apollo: {
+    clientConfigs: {
+      default: {
+        httpEndpoint: 'https://api.github.com/graphql',
+      },
+    },
+  },
 
   /*
    ** Nuxt Auth modules
