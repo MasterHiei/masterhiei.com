@@ -1,6 +1,6 @@
 <template lang="pug">
   v-layout(justify-center wrap)
-    v-flex(md5 xs12 pa-3 wrap)
+    v-flex(md6 xs12 pa-3 wrap)
       // Article
       v-card(id="article-container" tag="article")
         // Image
@@ -100,7 +100,7 @@ export default class ArticlePage extends Vue {
   commentsCount = 0;
 
   async fetch({ store, params }) {
-    // Get article data from Vuex store
+    // Dispatch Vuex action to query article data
     await store.dispatch('article/fetchOneById', params.id);
   }
 

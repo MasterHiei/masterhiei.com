@@ -6,6 +6,7 @@
 import { Component, Vue, Prop } from 'nuxt-property-decorator';
 import Gitalk from 'gitalk';
 import 'gitalk/dist/gitalk.css';
+import '@/assets/style/gitalk.styl';
 import { hashedId } from '@/common/utils/gitalk';
 
 @Component
@@ -34,8 +35,4 @@ export default class VGitalk extends Vue {
 <style scoped lang="stylus" rel="stylesheet/stylus">
 #comments
   padding 4px 50px 30px 50px
-  &>>>.gt-meta
-    z-index 1
-  &>>>.gt-popup
-    margin-top .3rem
 </style>
