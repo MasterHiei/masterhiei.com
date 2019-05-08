@@ -71,8 +71,8 @@
 
             // TODO: Social
 
-      // Comment List
-      v-gitalk(:articleId="article.id")
+      // Gitalk
+      the-gitalk(:articleId="article.id")
 
     // Sidebar
     v-flex(md2 xs12 pa-3 wrap)
@@ -87,7 +87,7 @@ import sanitizer from '@/common/utils/sanitizer';
 @Component({
   components: {
     PostDateTime: () => import('@/components/article/Datetime.vue'),
-    VGitalk: () => import('@/components/comment/VGitalk.vue'),
+    TheGitalk: () => import('@/components/comment/TheGitalk.vue'),
   },
 
   // Hooks

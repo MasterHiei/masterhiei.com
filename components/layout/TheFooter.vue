@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-footer(height="auto")
+  v-footer(class="footer" height="auto")
     v-flex(
       class="text-xs-center caption font-weight-light primary-text"
       xs12
@@ -40,14 +40,11 @@ export default class TheFooter extends Vue {}
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-.v-footer
+.footer
   background-color var(--v-secondary-base)
-
-a
-  color var(--v-accent-base)
-  text-decoration none
-  &:hover
-    text-decoration underline
-  &:visited
+  // Link
+  a
     color var(--v-accent-base)
+    &:hover
+      text-decoration underline
 </style>

@@ -1,11 +1,10 @@
 <template lang="pug">
-  header(id="header")
-    // Bar
-    v-flex(id="header-content" pa-0 wrap)
+  header(class="header")
+    // Nav
+    v-flex(class="header-container" pa-0 wrap)
       v-toolbar(
-        id="nav"
         :class="didScroll ? 'nav-sticky' : 'nav-transparent'"
-        class="hidden-sm-and-down text-xs-center"
+        class="header-nav hidden-sm-and-down text-xs-center"
         :flat="!didScroll"
         height="60"
         app
@@ -20,7 +19,10 @@
         v-spacer
 
         // Page transitions
-        v-toolbar-items(v-for="(page, index) in pages" :key="index")
+        v-toolbar-items(
+          v-for="(page, index) in pages"
+          :key="index"
+        )
           v-btn(
             active-class=""
             :class="didScroll ? 'primary-text' : 'secondary-text'"
@@ -60,8 +62,8 @@
         v-spacer
 
     // Background
-    v-flex(id="header-background" :style="bgStyle")
-      v-flex(id="my-brand" class="text-xs-center secondary-text" wrap)
+    v-flex(class="header-background" :style="bgStyle")
+      v-flex(class="header-brand text-xs-center secondary-text" wrap)
         v-flex(tag="h1" class="display-2")
           | Mr_Hiei
         v-flex(tag="h2" class="subheading" mt-4)
@@ -139,43 +141,46 @@ export default class TheHeader extends Vue {
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-#header
+.header
   margin-bottom 120px
+  // Container
+  &-container
+    height 60px
+    // Animation
+    .nav-transparent
+      position relative !important
+      padding 15px 0
+      background-color transparent
 
-#header-content
-  height 60px
+    .nav-sticky
+      background-color white
 
-#nav
-  transition-property background-color, padding
-  transition-duration 0.3s
-  transition-timing-function ease-out
-  transition-delay 0.1s
+  // Nav
+  &-nav
+    transition-property background-color, padding
+    transition-duration 0.3s
+    transition-timing-function ease-out
+    transition-delay 0.1s
 
-.nav-transparent
-  position relative !important
-  padding 15px 0
-  background-color transparent
-
-.nav-sticky
-  background-color white
-
-#header-background
-  position absolute
-  top 0
-  left 0
-  right 0
-  background-repeat no-repeat
-  background-size cover
-  background-position center center
-  &::before
-    content ''
-    width 100%
-    height 100%
+  // Background
+  &-background
     position absolute
     top 0
     left 0
+    right 0
+    background-repeat no-repeat
+    background-size cover
+    background-position center center
+    &::before
+      content ''
+      width 100%
+      height 100%
+      position absolute
+      top 0
+      left 0
 
-#my-brand
-  position relative
-  top 120px
+  // Brand
+  &-brand
+    position relative
+    top 120px
 </style>
