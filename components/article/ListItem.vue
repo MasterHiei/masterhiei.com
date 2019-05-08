@@ -12,7 +12,7 @@
         )
           img(v-lazy="article.image" :alt="article.title")
 
-        // Detail
+        // Content
         v-card-text(class="post-content")
           // Datetime
           post-date-time(:datetime="article.created_at")
@@ -102,7 +102,7 @@ export default class ListItem extends Vue {
       opacity 0.8
       transition opacity 1s, transform 1s
 
-  // Content
+  // Detail
   &-content
     padding 25px 25px 35px 25px
     &>>>time

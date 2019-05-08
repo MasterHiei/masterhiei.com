@@ -76,6 +76,7 @@ import { Component, Vue } from 'nuxt-property-decorator';
     ArticleList: () => import('@/components/article/List.vue'),
   },
 
+  // Hooks
   async fetch({ store }) {
     await store.dispatch('article/fetch', 1);
   },
