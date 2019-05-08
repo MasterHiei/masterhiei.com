@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import env from './envalid';
 
 /**
- * Obtain token secret from the environment variables
+ * Get token secret from the environment variables
  * @returns {String} Token secret
  * @throws Will throw a error if token secret is null or undefined
  */

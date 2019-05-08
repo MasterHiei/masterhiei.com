@@ -57,7 +57,7 @@ v-card(class="post-list pt-2 pb-3 px-4" flat)
 <script lang="ts">
 import { Component, Vue, namespace } from 'nuxt-property-decorator';
 import * as article from '@/store/article';
-import { Article as ArticleModel } from '../../models/article';
+import { Article as ArticleModel } from '@/models/article';
 
 const Article = namespace(article.name);
 

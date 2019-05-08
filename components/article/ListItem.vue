@@ -53,7 +53,7 @@
             )
               v-icon(small)
                 | far fa-comments
-              | {{ $t('article.comments', { number: commentsCount }) }}
+              | {{ $t('article.comments', { number: commentCount }) }}
 
             // Stars
             span(class="detail-item")
@@ -63,7 +63,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'nuxt-property-decorator';
+import { Component, Vue, Prop, namespace } from 'nuxt-property-decorator';
+import * as issue from '@/store/issue';
+
+const Issue = namespace(issue.name);
 
 @Component({
   components: {
@@ -75,8 +78,17 @@ export default class ListItem extends Vue {
   @Prop({ type: Object, required: true })
   readonly article!: Record<string, string>;
 
-  // Data
-  commentsCount = 0;
+  // Computed
+  @Issue.Getter findOneById;
+
+  /**
+   * Comment count number
+   */
+  get commentCount(): number {
+    const issue = this.findOneById(this.article.id);
+    if (issue == null) return 0;
+    return issue.comments;
+  }
 }
 </script>
 

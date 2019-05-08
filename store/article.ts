@@ -3,9 +3,6 @@ import { RootState } from 'store';
 import { Article } from 'models/article';
 import { NuxtAxiosInstance } from '@nuxtjs/axios';
 
-// Name
-export const name = 'article';
-
 // Get page limit from environment variables
 const limit = Number(process.env.PAGE_LIMIT);
 
@@ -28,6 +25,9 @@ interface Actions<S, R> extends ActionTree<S, R> {
   fetchOneById(context: ActionContext<S, R>, id: string): Promise<Article>;
 }
 
+// Name
+export const name = 'article';
+
 // State
 export const state = (): State => ({
   articles: [],
@@ -49,7 +49,7 @@ export const getters: GetterTree<State, RootState> = {
 // Actions
 export const actions: Actions<State, RootState> = {
   /**
-   * Fetch article data
+   * Mutate article data
    * @param context Vuex action context
    * @param page Number of page
    */
@@ -68,7 +68,7 @@ export const actions: Actions<State, RootState> = {
   },
 
   /**
-   * Fetch an article data by ID
+   * Mutate an article data by ID
    * @param context Vuex action context
    * @param id Article ID
    */

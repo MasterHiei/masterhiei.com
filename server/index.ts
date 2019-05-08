@@ -4,7 +4,7 @@ import config from '../nuxt.config';
 import app from './app';
 import env from './utils/envalid';
 
-// Obtain environment variables
+// Get environment variables
 const { isDev, HOST, PORT } = env;
 
 // Start server with Nuxt.js

@@ -8,7 +8,7 @@ import env from './utils/envalid';
 import token from './utils/token';
 import routes from './routes';
 
-// Obtain environment variables
+// Get environment variables
 const { isDev, DB_URI, DB_NAME, API_PREFIX } = env;
 
 // Create Express server
