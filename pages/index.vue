@@ -83,6 +83,7 @@ import { Component, Vue } from 'nuxt-property-decorator';
 })
 export default class IndexPage extends Vue {
   // Computed
+
   /**
    * Now
    */

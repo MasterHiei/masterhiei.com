@@ -80,6 +80,7 @@ export default class TheHeader extends Vue {
   @Prop({ type: Boolean, required: true }) readonly didScroll!: boolean;
 
   // Computed
+
   /**
    * Background image
    */

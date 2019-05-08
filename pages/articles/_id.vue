@@ -103,6 +103,7 @@ export default class ArticlePage extends Vue {
   commentsCount = 0;
 
   // Computed
+
   /**
    * Sanitize HTML string
    */

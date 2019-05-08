@@ -40,6 +40,7 @@ export default class ListItem extends Vue {
   @Prop({ type: String, required: true }) readonly datetime!: string;
 
   // Computed
+
   /**
    * Post date
    */
