@@ -123,7 +123,7 @@ export default class ListItem extends Vue {
       margin-bottom 25px
       a
         transition color 0.15s linear 0s
-      &:hover
+        &:hover
           color var(--v-accent-base)
           text-decoration none
 

@@ -12,24 +12,27 @@ const limit = Number(process.env.PAGE_LIMIT);
 // Types declaration
 const types = {
   SET_PAGE: 'SET_PAGE',
+  SET_TOTAL_COUNT: 'SET_TOTAL_COUNT',
   FETCH: 'FETCH',
-  FETCH_ONE_BY_ID: 'FETCH_ONE_BY_ID',
+  FETCH_ONE: 'FETCH_ONE',
 };
 
 interface State {
-  page: number;
   articles: Article[];
+  page: number;
+  totalCount: number;
 }
 
 interface Actions<S, R> extends ActionTree<S, R> {
-  fetch(context: ActionContext<S, R>, page: number): Promise<boolean>;
+  fetch(context: ActionContext<S, R>, page: number): Promise<void>;
   fetchOneById(context: ActionContext<S, R>, id: string): Promise<Article>;
 }
 
 // State
 export const state = (): State => ({
-  page: 1,
   articles: [],
+  page: 1,
+  totalCount: 0,
 });
 
 // Getters
@@ -50,19 +53,18 @@ export const actions: Actions<State, RootState> = {
    * @param context Vuex action context
    * @param page Number of page
    */
-  async fetch({ commit }, page): Promise<boolean> {
+  async fetch({ commit }, page): Promise<void> {
     const $axios = this.$axios as NuxtAxiosInstance;
     const params = {
       page: page,
       limit: limit,
     };
-    const { data } = await $axios.$get('/articles', { params: params });
-    if (data != null && data.length > 0) {
-      commit(types.SET_PAGE, page);
-      commit(types.FETCH, data);
-      return true;
-    }
-    return false;
+    const { articles, totalCount } = await $axios.$get('/articles', {
+      params: params,
+    });
+    commit(types.SET_PAGE, page);
+    commit(types.SET_TOTAL_COUNT, totalCount);
+    commit(types.FETCH, articles);
   },
 
   /**
@@ -72,21 +74,30 @@ export const actions: Actions<State, RootState> = {
    */
   async fetchOneById({ commit }, id): Promise<Article> {
     const $axios = this.$axios as NuxtAxiosInstance;
-    const { data } = await $axios.$get(`/articles/${id}`);
-    commit(types.FETCH_ONE_BY_ID, data);
-    return data;
+    const { article } = await $axios.$get(`/articles/${id}`);
+    commit(types.FETCH_ONE, article);
+    return article;
   },
 };
 
 // Mutations
 export const mutations: MutationTree<State> = {
   /**
-   * Set page number of articles
+   * Set page number
    * @param state State of Article store
    * @param page Page number
    */
   [types.SET_PAGE](state, page: number): void {
     state.page = page;
+  },
+
+  /**
+   * Set article count number
+   * @param state State of Article store
+   * @param totalCount Article count number
+   */
+  [types.SET_TOTAL_COUNT](state, totalCount: number): void {
+    state.totalCount = totalCount;
   },
 
   /**
@@ -112,7 +123,7 @@ export const mutations: MutationTree<State> = {
    * @param state State of Article store
    * @param article Article
    */
-  [types.FETCH_ONE_BY_ID](state, article: Article): void {
+  [types.FETCH_ONE](state, article: Article): void {
     const articles = state.articles;
     const index = articles.findIndex((item): boolean => item.id === article.id);
     if (index < 0) {

@@ -3,27 +3,6 @@ import { Request, Response } from 'express';
 import ArticleModel from '../models/article';
 
 /**
- * Generate dummy data of Article
- * @param {Number} times Number of data
- * @returns {Promise<Array>} Result of generation
- */
-// const generateArticles = (times: number = 12): Promise<Article[]> => {
-//   const dummies: object[] = [];
-
-//   // generate dummy data N times
-//   for (let i = 0; i < times; i++) {
-//     const dummy = {
-//       title: faker.name.title(),
-//       content: faker.lorem.sentence(10).repeat(100),
-//       category: faker.name.jobType(),
-//       tags: faker.lorem.words(),
-//     };
-//     dummies.push(dummy);
-//   }
-//   return ArticleModel.insertMany(dummies);
-// };
-
-/**
  * Find Articles
  * @param {Request} req
  * @param {Response} res
@@ -33,15 +12,20 @@ const index = async (req: Request, res: Response): Promise<void> => {
     const { page, limit } = req.query;
     const skip = (page - 1) * limit;
 
-    // Find articles from DB
-    const articles = await ArticleModel.find()
+    // Query database
+    const articlesQuery = ArticleModel.find()
       .skip(skip)
       .limit(Number(limit))
-      .sort('-created_at')
-      .exec();
+      .sort('-created_at');
+    const countQuery = ArticleModel.find().count();
+
+    const [articles, totalCount] = await Promise.all([
+      articlesQuery.exec(),
+      countQuery.exec(),
+    ]);
 
     // Set response
-    res.json({ code: 0, data: articles });
+    res.json({ articles, totalCount });
   } catch (error) {
     // TODO: Error handler
     console.error(error);
@@ -73,7 +57,7 @@ const show = async (req: Request, res: Response): Promise<void> => {
       }
     );
   if (article) {
-    res.json({ code: 0, data: article });
+    res.json({ article });
   } else {
     res.status(404).send({ message: 'Article data does not exist.' });
   }

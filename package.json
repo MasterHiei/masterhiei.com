@@ -42,8 +42,7 @@
     "vue-lazyload": "^1.2.6",
     "vue-scrollto": "^2.15.0",
     "vuetify": "^1.5.14",
-    "vuetify-loader": "^1.2.2",
-    "vuex-class": "^0.3.2"
+    "vuetify-loader": "^1.2.2"
   },
   "devDependencies": {
     "@nuxt/typescript": "^2.6.3",
