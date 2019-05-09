@@ -1,8 +1,11 @@
 <template lang="pug">
-v-card(class="pt-2 pb-3 px-4" flat)
+v-card(class="post-list pt-2 pb-3 px-4" flat)
   // Title
   v-card-title(class="text-xs-center")
-    v-flex(tag="span" class="section-title font-weight-bold")
+    v-flex(
+      tag="span"
+      class="post-list-title font-weight-bold"
+    )
       v-icon(
         class="mb-1"
         color="primary"
@@ -24,17 +27,18 @@ v-card(class="pt-2 pb-3 px-4" flat)
     )
       article-list-item(:article="article")
 
-  // Loader button
+  // Actions
   v-flex(
     v-show="isHaveNext"
-    class="text-xs-center"
+    class="post-list-action text-xs-center"
     my-4
     wrap
   )
-    v-hover(v-show="!loading")
+    v-hover
       button(
+        v-show="!loading"
         slot-scope="{ hover }"
-        id="loader-btn"
+        class="fetch-button"
         :class="`elevation-${ hover ? 6 : 0 }`"
         @click="fetchNext"
       )
@@ -43,7 +47,7 @@ v-card(class="pt-2 pb-3 px-4" flat)
 
     v-icon(
       v-show="loading"
-      id="loading"
+      class="fetch-icon"
       color="accent"
       size="48"
     )
@@ -51,9 +55,9 @@ v-card(class="pt-2 pb-3 px-4" flat)
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator';
-import { namespace } from 'vuex-class';
+import { Component, Vue, namespace } from 'nuxt-property-decorator';
 import * as article from '@/store/article';
+import { Article as ArticleModel } from '@/models/article';
 
 const Article = namespace(article.name);
 
@@ -64,24 +68,32 @@ const Article = namespace(article.name);
 })
 export default class List extends Vue {
   // Data
-  @Article.State page;
   @Article.State articles;
+  @Article.State page;
+  @Article.State totalCount;
   loading = false;
   isHaveNext = true;
 
   // Coumputed
   /**
+   * Watch articles
+   */
+  get storedArticles(): ArticleModel[] {
+    return this.articles;
+  }
+
+  /**
    * Watch page number
    */
-  get storedPage() {
+  get storedPage(): number {
     return this.page;
   }
 
   /**
-   * Watch article
+   * Watch article count number
    */
-  get storedArticles() {
-    return this.articles;
+  get storedTotalCount(): number {
+    return this.totalCount;
   }
 
   // Methods
@@ -92,9 +104,10 @@ export default class List extends Vue {
    */
   async fetchNext() {
     this.loading = true;
-    const isHaveNext = await this.fetch(this.storedPage + 1);
+    await this.fetch(this.storedPage + 1);
     this.loading = false;
 
+    const isHaveNext = this.storedArticles.length < this.storedTotalCount;
     if (isHaveNext) {
       this.$forceUpdate();
     }
@@ -104,23 +117,28 @@ export default class List extends Vue {
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-.section-title
-  font-size 30px
+.post-list
+  // Title
+  &-title
+    font-size 30px
 
-#loader-btn
-  margin 12px 0
-  width 97px
-  height 60px
-  border 1px solid var(--v-secondary-base)
-  outline none
-  background transparent
-  transition box-shadow 0.3s
-  &>>>.v-icon::before
-    transition transform 0.3s
+  // Actions
+  &-action
+    // Button
+    .fetch-button
+      margin 12px 0
+      width 97px
+      height 60px
+      border 1px solid var(--v-secondary-base)
+      outline none
+      background transparent
+      transition box-shadow 0.3s
+        .v-icon::before
+          transition transform 0.3s
+          .rotate::before
+            transform rotate(90deg)
 
-.rotate::before
-    transform rotate(90deg)
-
-#loading
-  margin 18px 24px
+    // Icon
+    .fetch-icon
+      margin 18px 24px
 </style>

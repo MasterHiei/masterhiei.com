@@ -1,5 +1,8 @@
 <template lang="pug">
-  v-app(v-scroll="viewDidScroll")
+  v-app(
+    v-scroll="onScrollOrResize"
+    v-resize="onScrollOrResize"
+  )
     the-header(ref="header" :didScroll="didScroll")
 
     v-content
@@ -47,7 +50,7 @@ export default class DefaultLayout extends Vue {
   }
 
   // Methods
-  viewDidScroll() {
+  onScrollOrResize() {
     const scrollOffset =
       window.pageYOffset ||
       document.documentElement.scrollTop ||

@@ -63,7 +63,7 @@ const logout = (_: Request, res: Response): void => {
 };
 
 /**
- * Obtain user from jwt
+ * Get user from jwt
  * @param {Request} req
  * @param {Response} res
  */

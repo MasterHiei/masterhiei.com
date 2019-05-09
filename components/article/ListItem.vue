@@ -12,7 +12,7 @@
         )
           img(v-lazy="article.image" :alt="article.title")
 
-        // Detail
+        // Content
         v-card-text(class="post-content")
           // Datetime
           post-date-time(:datetime="article.created_at")
@@ -53,7 +53,7 @@
             )
               v-icon(small)
                 | far fa-comments
-              | {{ $t('article.comments', { number: commentsCount }) }}
+              | {{ $t('article.comments', { number: commentCount }) }}
 
             // Stars
             span(class="detail-item")
@@ -63,7 +63,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'nuxt-property-decorator';
+import { Component, Vue, Prop, namespace } from 'nuxt-property-decorator';
+import * as issue from '@/store/issue';
+
+const Issue = namespace(issue.name);
 
 @Component({
   components: {
@@ -75,8 +78,17 @@ export default class ListItem extends Vue {
   @Prop({ type: Object, required: true })
   readonly article!: Record<string, string>;
 
-  // Data
-  commentsCount = 0;
+  // Computed
+  @Issue.Getter findOneById;
+
+  /**
+   * Comment count number
+   */
+  get commentCount(): number {
+    const issue = this.findOneById(this.article.id);
+    if (issue == null) return 0;
+    return issue.comments;
+  }
 }
 </script>
 
@@ -102,7 +114,7 @@ export default class ListItem extends Vue {
       opacity 0.8
       transition opacity 1s, transform 1s
 
-  // Content
+  // Detail
   &-content
     padding 25px 25px 35px 25px
     &>>>time
@@ -123,7 +135,7 @@ export default class ListItem extends Vue {
       margin-bottom 25px
       a
         transition color 0.15s linear 0s
-      &:hover
+        &:hover
           color var(--v-accent-base)
           text-decoration none
 

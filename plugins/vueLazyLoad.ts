@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueLazyLoad from 'vue-lazyload';
 
-// Obtain environment variables
+// Get environment variables
 const { DOMAIN } = process.env;
 
 Vue.use(VueLazyLoad, {

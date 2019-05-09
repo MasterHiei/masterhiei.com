@@ -76,12 +76,17 @@ import { Component, Vue } from 'nuxt-property-decorator';
     ArticleList: () => import('@/components/article/List.vue'),
   },
 
+  // Hooks
   async fetch({ store }) {
-    await store.dispatch('article/fetch', 1);
+    await Promise.all([
+      store.dispatch('article/fetch', 1),
+      store.dispatch('issue/fetch'),
+    ]);
   },
 })
 export default class IndexPage extends Vue {
   // Computed
+
   /**
    * Now
    */

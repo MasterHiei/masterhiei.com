@@ -10,7 +10,7 @@ import '@/assets/style/gitalk.styl';
 import { hashedId } from '@/common/utils/gitalk';
 
 @Component
-export default class VGitalk extends Vue {
+export default class TheGitalk extends Vue {
   // Props
   @Prop({ type: String, required: true }) readonly articleId!: string;
 

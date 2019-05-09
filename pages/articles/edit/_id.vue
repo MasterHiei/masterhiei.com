@@ -3,8 +3,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator';
-import { namespace } from 'vuex-class';
+import { Component, Vue, namespace } from 'nuxt-property-decorator';
 import * as article from '@/store/article';
 
 const Article = namespace(article.name);
