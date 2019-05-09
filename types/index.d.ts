@@ -1,6 +1,4 @@
 import Vue from 'vue';
-import { ApolloClient } from 'apollo-client';
-import { DollarApollo } from './vue-apollo';
 import { Auth } from './auth';
 
 interface MarkdownIt {
@@ -14,16 +12,6 @@ declare module 'vue/types/vue' {
   interface Vue {
     readonly $auth: Auth;
     readonly $md: MarkdownIt;
-    readonly $apollo: DollarApollo<any>;
-    $apolloHelpers: {
-      onLogin(
-        token: string,
-        apolloClient?: ApolloClient<{}>,
-        tokenExpires?: number
-      ): Promise<void>;
-      onLogout(apolloClient?: ApolloClient<{}>): Promise<void>;
-      getToken(tokenName?: string): string;
-    };
   }
 }
 
