@@ -25,6 +25,9 @@
     },
     "types": [
       "./types",
+      "nuxt-i18n",
+      "@types",
+      "@nuxtjs/axios",
       "@nuxt/vue-app"
     ]
   }
