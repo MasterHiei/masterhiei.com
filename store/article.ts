@@ -22,7 +22,7 @@ interface State {
 
 interface Actions<S, R> extends ActionTree<S, R> {
   fetch(context: ActionContext<S, R>, page: number): Promise<void>;
-  fetchOneById(context: ActionContext<S, R>, id: string): Promise<Article>;
+  fetchOneById(context: ActionContext<S, R>, id: string): Promise<void>;
 }
 
 // Name
@@ -72,11 +72,10 @@ export const actions: Actions<State, RootState> = {
    * @param context Vuex action context
    * @param id Article ID
    */
-  async fetchOneById({ commit }, id): Promise<Article> {
+  async fetchOneById({ commit }, id): Promise<void> {
     const $axios = this.$axios as NuxtAxiosInstance;
     const { article } = await $axios.$get(`/articles/${id}`);
     commit(types.FETCH_ONE, article);
-    return article;
   },
 };
 

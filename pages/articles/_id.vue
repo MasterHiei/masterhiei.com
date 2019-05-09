@@ -47,7 +47,7 @@
               a(class="detail-item" href="#comments")
                 v-icon(small)
                   | far fa-comments
-                | {{ $t('article.comments', { number: commentsCount }) }}
+                | {{ $t('article.comments', { number: commentCount }) }}
 
               // Stars
               span(class="detail-item")
@@ -92,15 +92,21 @@ import sanitizer from '@/common/utils/sanitizer';
 
   // Hooks
   async asyncData({ store, params }) {
-    // Dispatch Vuex action to query article data
-    const article = await store.dispatch('article/fetchOneById', params.id);
-    return { article };
+    // Dispatch Vuex action to query api
+    await Promise.all([
+      store.dispatch('article/fetchOneById', params.id),
+      store.dispatch('issue/fetchOneById', params.id),
+    ]);
+
+    // Using getters to get article and comment data
+    const article = store.getters['article/findOneById'](params.id);
+    const issue = store.getters['issue/findOneById'](params.id);
+    return { article, commentCount: issue.comments };
   },
 })
 export default class ArticlePage extends Vue {
   // Data
   article: any = null;
-  commentsCount = 0;
 
   // Computed
 

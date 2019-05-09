@@ -52,7 +52,7 @@ interface State {
 
 interface Actions<S, R> extends ActionTree<S, R> {
   fetch(context: ActionContext<S, R>, page: number): Promise<void>;
-  fetchOneById(context: ActionContext<S, R>, id: string): Promise<Issue>;
+  fetchOneById(context: ActionContext<S, R>, id: string): Promise<void>;
 }
 
 // Name
@@ -105,16 +105,18 @@ export const actions: Actions<State, RootState> = {
    * @param context Vuex action context
    * @param id Gitalk ID
    */
-  async fetchOneById({ commit }, id): Promise<Issue> {
+  async fetchOneById({ commit }, id): Promise<void> {
+    const gitalkId = hashedId(id);
     const { data } = await axios.get(`/repos/${owner}/${repo}/issues`, {
       params: {
         client_id: clientId,
         client_secret: clientSecret,
-        labels: `${label},${id}`,
+        labels: `${label},${gitalkId}`,
       },
     });
-    commit(types.FETCH_ONE, data);
-    return data;
+    if (data != null && data.length > 0) {
+      commit(types.FETCH_ONE, data[0]);
+    }
   },
 };
 
