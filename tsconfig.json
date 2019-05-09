@@ -25,18 +25,7 @@
     },
     "types": [
       "./types",
-      "bcrypt",
-      "body-parser",
-      "dotenv",
-      "express",
-      "express-serve-static-core",
-      "jsonwebtoken",
-      "mongoose",
-      "morgan",
-      "node",
-      "@nuxtjs/axios",
-      "@nuxt/vue-app",
-      "nuxt-i18n"
+      "@nuxt/vue-app"
     ]
   }
 }

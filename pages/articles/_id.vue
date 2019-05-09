@@ -103,6 +103,11 @@ import sanitizer from '@/common/utils/sanitizer';
     const issue = store.getters['issue/findOneById'](params.id);
     return { article, commentCount: issue.comments };
   },
+
+  // Validator
+  validate({ params }) {
+    return params.id != null && params.id.length > 0;
+  },
 })
 export default class ArticlePage extends Vue {
   // Data

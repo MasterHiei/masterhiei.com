@@ -1,5 +1,5 @@
-// import faker from 'faker';
 import { Request, Response } from 'express';
+import { validationResult } from 'express-validator/check';
 import ArticleModel from '../models/article';
 
 /**
@@ -8,29 +8,31 @@ import ArticleModel from '../models/article';
  * @param {Response} res
  */
 const index = async (req: Request, res: Response): Promise<void> => {
-  try {
-    const { page, limit } = req.query;
-    const skip = (page - 1) * limit;
-
-    // Query database
-    const articlesQuery = ArticleModel.find()
-      .skip(skip)
-      .limit(Number(limit))
-      .sort('-created_at');
-    const countQuery = ArticleModel.find().count();
-
-    const [articles, totalCount] = await Promise.all([
-      articlesQuery.exec(),
-      countQuery.exec(),
-    ]);
-
-    // Set response
-    res.json({ articles, totalCount });
-  } catch (error) {
-    // TODO: Error handler
-    console.error(error);
-    res.sendStatus(500);
+  // Validator
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    res.status(422).json({ errors: errors.array() });
+    return;
   }
+
+  // Get query parameter
+  const { page, limit } = req.query;
+  const skip = (page - 1) * limit;
+
+  // Query database
+  const articlesQuery = ArticleModel.find()
+    .skip(skip)
+    .limit(limit)
+    .sort('-created_at');
+  const countQuery = ArticleModel.find().estimatedDocumentCount();
+
+  const [articles, totalCount] = await Promise.all([
+    articlesQuery.exec(),
+    countQuery.exec(),
+  ]);
+
+  // Set response
+  res.json({ articles, totalCount });
 };
 
 /**

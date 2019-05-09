@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { queryValidator } from '../validator/article';
 import userController from '../controllers/user';
 import articleController from '../controllers/article';
 
@@ -14,7 +15,7 @@ router.post('/users', userController.create);
 router.post('/users/social', userController.fetchSocial);
 
 // Routes of Article
-router.get('/articles', articleController.index);
+router.get('/articles', queryValidator, articleController.index);
 router.get('/articles/:id', articleController.show);
 
 export default router;
