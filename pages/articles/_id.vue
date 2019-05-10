@@ -58,9 +58,9 @@
           // Text
           v-flex(v-html="sanitizedHTML" class="post-text" wrap)
 
-          // Footer
+          // TODO: Footer
           v-flex(tag="footer" pa-2 style="display: none;")
-            // TODO: Star
+            // Star
             v-flex(wrap)
               v-tooltip(top)
                 template(#activator="{ on }")
@@ -69,20 +69,28 @@
                       | fas fa-heart
                 span {{ $t('tooltip.star') }}
 
-            // TODO: Social
+            // Social
 
       // Gitalk
       the-gitalk(:articleId="article.id")
 
-    // Sidebar
+    // TODO: Sidebar
     v-flex(md2 xs12 pa-3 wrap)
       v-card
         | adasdasd
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator';
+import { Component, Vue, namespace } from 'nuxt-property-decorator';
+import { AxiosError } from 'axios';
+import * as article from '@/store/article';
+import * as issue from '@/store/issue';
+import { Article as ArticleModel } from '@/models/article';
 import sanitizer from '@/common/utils/sanitizer';
+
+// Vuex module
+const Article = namespace(article.name);
+const Issue = namespace(issue.name);
 
 @Component({
   components: {
@@ -91,17 +99,16 @@ import sanitizer from '@/common/utils/sanitizer';
   },
 
   // Hooks
-  async asyncData({ store, params }) {
+  async fetch({ store, params, error }) {
     // Dispatch Vuex action to query api
     await Promise.all([
       store.dispatch('article/fetchOneById', params.id),
       store.dispatch('issue/fetchOneById', params.id),
-    ]);
-
-    // Using getters to get article and comment data
-    const article = store.getters['article/findOneById'](params.id);
-    const issue = store.getters['issue/findOneById'](params.id);
-    return { article, commentCount: issue.comments };
+    ]).catch((e: AxiosError) => {
+      const response = e.response;
+      const statusCode = response ? response.status : 500;
+      error({ statusCode: statusCode, message: e.message });
+    });
   },
 
   // Validator
@@ -110,10 +117,27 @@ import sanitizer from '@/common/utils/sanitizer';
   },
 })
 export default class ArticlePage extends Vue {
-  // Data
-  article: any = null;
-
   // Computed
+  @Article.Getter('findOneById') findArticleById;
+  @Issue.Getter('findOneById') findIssueById;
+
+  /**
+   * Get article data from Vuex store
+   */
+  get article(): ArticleModel {
+    return this.findArticleById(this.$route.params.id);
+  }
+
+  /**
+   * Get comments number from Vuex store
+   */
+  get commentCount(): number {
+    const issue = this.findIssueById(this.$route.params.id);
+    if (issue == null) {
+      return 0;
+    }
+    return issue.comments;
+  }
 
   /**
    * Sanitize HTML string
@@ -131,10 +155,9 @@ export default class ArticlePage extends Vue {
         {
           hid: 'description',
           name: 'description',
-          content: `${this.article.tags} - ${this.article.content.slice(
-            0,
-            300
-          )}`,
+          content: `${this.article.tags.join(
+            ', '
+          )} - ${this.article.content.slice(0, 300)}`,
         },
       ],
     };
