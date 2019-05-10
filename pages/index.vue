@@ -83,8 +83,7 @@ import { AxiosError } from 'axios';
       store.dispatch('article/fetch', 1),
       store.dispatch('issue/fetch'),
     ]).catch((e: AxiosError) => {
-      const response = e.response;
-      const statusCode = response ? response.status : 500;
+      const statusCode = e.response ? e.response.status : 500;
       error({ statusCode: statusCode, message: e.message });
     });
   },

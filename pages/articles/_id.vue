@@ -105,8 +105,7 @@ const Issue = namespace(issue.name);
       store.dispatch('article/fetchOneById', params.id),
       store.dispatch('issue/fetchOneById', params.id),
     ]).catch((e: AxiosError) => {
-      const response = e.response;
-      const statusCode = response ? response.status : 500;
+      const statusCode = e.response ? e.response.status : 500;
       error({ statusCode: statusCode, message: e.message });
     });
   },
@@ -155,9 +154,7 @@ export default class ArticlePage extends Vue {
         {
           hid: 'description',
           name: 'description',
-          content: `${this.article.tags.join(
-            ', '
-          )} - ${this.article.content.slice(0, 300)}`,
+          content: this.article.content.slice(0, 300),
         },
       ],
     };
