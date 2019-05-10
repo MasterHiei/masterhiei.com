@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { queryValidator } from '../validator/article';
+import { queryValidator, paramValidator } from '../validator/article';
 import userController from '../controllers/user';
 import articleController from '../controllers/article';
 
@@ -16,6 +16,6 @@ router.post('/users/social', userController.fetchSocial);
 
 // Routes of Article
 router.get('/articles', queryValidator, articleController.index);
-router.get('/articles/:id', articleController.show);
+router.get('/articles/:id', paramValidator, articleController.show);
 
 export default router;
