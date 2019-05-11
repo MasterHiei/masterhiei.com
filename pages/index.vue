@@ -70,6 +70,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
+import { AxiosError } from 'axios';
 
 @Component({
   components: {
@@ -77,11 +78,14 @@ import { Component, Vue } from 'nuxt-property-decorator';
   },
 
   // Hooks
-  async fetch({ store }) {
+  async fetch({ store, error }) {
     await Promise.all([
       store.dispatch('article/fetch', 1),
       store.dispatch('issue/fetch'),
-    ]);
+    ]).catch((e: AxiosError) => {
+      const statusCode = e.response ? e.response.status : 500;
+      error({ statusCode: statusCode, message: e.message });
+    });
   },
 })
 export default class IndexPage extends Vue {

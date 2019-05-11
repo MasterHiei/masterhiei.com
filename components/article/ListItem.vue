@@ -33,6 +33,7 @@
           )
             n-link(
               :to="localePath({ name: 'articles-id', params: { id: article.id } })"
+              exact
             )
               | {{ article.title }}
 
@@ -50,6 +51,7 @@
             n-link(
               class="detail-item"
               :to="`${localePath({ name: 'articles-id', params: { id: article.id } })}#comments`"
+              exact
             )
               v-icon(small)
                 | far fa-comments

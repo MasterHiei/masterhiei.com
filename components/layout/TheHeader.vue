@@ -1,10 +1,10 @@
 <template lang="pug">
   header(class="header")
     // Nav
-    v-flex(class="header-container" pa-0 wrap)
+    v-flex(class="header-present" pa-0 wrap)
       v-toolbar(
         :class="didScroll ? 'nav-sticky' : 'nav-transparent'"
-        class="header-nav hidden-sm-and-down text-xs-center"
+        class="header-nav text-xs-center"
         :flat="!didScroll"
         height="60"
         app
@@ -18,10 +18,11 @@
 
         v-spacer
 
-        // Page transitions
+        // Pages
         v-toolbar-items(
           v-for="(page, index) in pages"
           :key="index"
+          class="hidden-xs-only"
         )
           v-btn(
             active-class=""
@@ -35,8 +36,8 @@
               | {{ page.icon }}
             | {{ page.text }}
 
-        v-toolbar-items
-          // Locales
+        // Localization
+        v-toolbar-items(class="hidden-xs-only")
           v-menu(offset-y transition="slide-y-transition")
             v-btn(
               :class="didScroll ? 'primary-text' : 'secondary-text'"
@@ -59,15 +60,45 @@
                   v-flex(tag="span" class="primary-text body-2")
                     | {{ locale.name }}
 
+        // Menu
+        v-toolbar-items(class="hidden-sm-and-up")
+          v-btn(flat)
+            v-icon(color="secondary" small)
+              | fas fa-bars
+
         v-spacer
 
     // Background
     v-flex(class="header-background" :style="bgStyle")
-      v-flex(class="header-brand text-xs-center secondary-text" wrap)
-        v-flex(tag="h1" class="display-2")
-          | Mr_Hiei
-        v-flex(tag="h2" class="subheading" mt-4)
-          | 万物有因必有果，洗洗皆可吃
+      // Brand
+      v-flex(
+        class="header-brand text-xs-center secondary-text"
+        wrap
+      )
+        div(class="brand-name display-2")
+          span(class="hidden-text") M
+          span(class="hidden-text") r
+          span(class="hidden-text") _
+          span H
+          span i
+          span(class="hidden-text") e
+          span(class="hidden-text") i
+          span(class="present-text") !
+
+        div(class="brand-motto subheading")
+          span(class="hidden-text") 万
+          span(class="hidden-text") 物
+          span(class="hidden-text") 有
+          span(class="hidden-text") 因
+          span(class="hidden-text") 必
+          span(class="hidden-text") 有
+          span(class="hidden-text") 果
+          span(class="hidden-text") ，
+          span(class="hidden-text") 洗
+          span(class="hidden-text") 洗
+          span(class="hidden-text") 皆
+          span(class="hidden-text") 可
+          span(class="hidden-text") 吃
 </template>
 
 <script lang="ts">
@@ -142,26 +173,27 @@ export default class TheHeader extends Vue {
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
+$mb = 120px
+
 .header
-  margin-bottom 120px
+  margin-bottom $mb
   // Container
-  &-container
+  &-present
     height 60px
     // Animation
     .nav-transparent
       position relative !important
       padding 15px 0
       background-color transparent
-
     .nav-sticky
       background-color white
 
-  // Nav
-  &-nav
-    transition-property background-color, padding
-    transition-duration 0.3s
-    transition-timing-function ease-out
-    transition-delay 0.1s
+    // Nav
+    .header-nav
+      transition-property background-color, padding
+      transition-duration .3s
+      transition-timing-function ease-out
+      transition-delay .1s
 
   // Background
   &-background
@@ -183,5 +215,24 @@ export default class TheHeader extends Vue {
   // Brand
   &-brand
     position relative
-    top 120px
+    top $mb
+
+    .brand-name, .brand-motto
+      display flex
+      justify-content center
+
+    .brand-motto
+      margin-top $spacer * 1.5
+
+    .hidden-text
+      max-width 0
+      opacity 0
+      transition .5s ease-in
+
+    &:hover .hidden-text
+      max-width 1em
+      opacity 1
+    &:hover .present-text
+      max-width 0
+      opacity 0
 </style>

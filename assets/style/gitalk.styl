@@ -10,7 +10,6 @@
   // icons
   .gt-svg
     svg
-      margin-bottom 2px
       fill var(--v-accent-base) !important
 
   // loader
@@ -25,7 +24,7 @@
       color var(--v-accent-base) !important
       &:hover
         border-color var(--v-accent-lighten1) !important
-    &-public
+    &-public, &-login
       background-color var(--v-accent-base) !important
       &:hover
         background-color var(--v-accent-lighten1) !important
@@ -65,6 +64,11 @@
       &-tip
         color var(--v-accent-base) !important
 
+  // avatar
+  .gt-avatar
+    width 44px !important
+    height 44px !important
+
   // comment
   .gt-comment
     &-username
@@ -73,3 +77,9 @@
       &:hover
         border-radius 2px
         box-shadow inset 0 1px 2px rgba(27,31,35,.075), 0 0 0 0.1em rgba(232,103,107,.3) !important
+      span
+        display inline-block !important
+    &-like, &-edit, &-reply
+      @media (max-width $grid-breakpoints.sm)
+        top auto !important
+        bottom 0 !important
