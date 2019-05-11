@@ -18,50 +18,50 @@
 
         v-spacer
 
-        v-toolbar-items(v-show="$vuetify.breakpoint.smAndUp")
-          // Pages
-          v-toolbar-items(
-            v-for="(page, index) in pages"
-            :key="index"
+        // Pages
+        v-toolbar-items(
+          v-for="(page, index) in pages"
+          :key="index"
+          class="hidden-xs-only"
+        )
+          v-btn(
+            active-class=""
+            :class="didScroll ? 'primary-text' : 'secondary-text'"
+            :to="page.path"
+            flat
+            nuxt
+            exact
           )
+            v-icon(class="mr-1" small)
+              | {{ page.icon }}
+            | {{ page.text }}
+
+        // Localization
+        v-toolbar-items(class="hidden-xs-only")
+          v-menu(offset-y transition="slide-y-transition")
             v-btn(
-              active-class=""
               :class="didScroll ? 'primary-text' : 'secondary-text'"
-              :to="page.path"
+              slot="activator"
               flat
-              nuxt
-              exact
             )
               v-icon(class="mr-1" small)
-                | {{ page.icon }}
-              | {{ page.text }}
+                | fas fa-globe
+              | {{ $t('link.locale') }}
 
-          // Localization
-          v-toolbar-items
-            v-menu(offset-y transition="slide-y-transition")
-              v-btn(
-                :class="didScroll ? 'primary-text' : 'secondary-text'"
-                slot="activator"
-                flat
+            v-list
+              v-list-tile(
+                v-for="(locale, index) in locales"
+                :key="index"
+                :to="switchLocalePath(locale.code)"
+                nuxt
+                exact
               )
-                v-icon(class="mr-1" small)
-                  | fas fa-globe
-                | {{ $t('link.locale') }}
-
-              v-list
-                v-list-tile(
-                  v-for="(locale, index) in locales"
-                  :key="index"
-                  :to="switchLocalePath(locale.code)"
-                  nuxt
-                  exact
-                )
-                  v-list-tile-title(class="text-xs-center")
-                    v-flex(tag="span" class="primary-text body-2")
-                      | {{ locale.name }}
+                v-list-tile-title(class="text-xs-center")
+                  v-flex(tag="span" class="primary-text body-2")
+                    | {{ locale.name }}
 
         // Menu
-        v-toolbar-items(v-show="!$vuetify.breakpoint.smAndUp")
+        v-toolbar-items(class="hidden-sm-and-up")
           v-btn(flat)
             v-icon(color="secondary" small)
               | fas fa-bars
