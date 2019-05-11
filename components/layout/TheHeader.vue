@@ -216,6 +216,8 @@ $mb = 120px
   &-brand
     position relative
     top $mb
+    max-width 360px
+    margin 0 auto
 
     .brand-name, .brand-motto
       display flex

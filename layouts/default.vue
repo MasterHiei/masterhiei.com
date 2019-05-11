@@ -3,7 +3,7 @@
     v-scroll="onScrollOrResize"
     v-resize="onScrollOrResize"
   )
-    the-header(ref="header" :didScroll="didScroll")
+    the-header(:didScroll="didScroll")
 
     v-content
       nuxt
@@ -38,17 +38,6 @@ export default class DefaultLayout extends Vue {
   showScrollToBtn = false;
   scrollPercent = 0;
 
-  // Computed
-
-  /**
-   * Header height
-   */
-  get headerHeight(): number {
-    const header = this.$refs.header as Vue;
-    if (header == null) return 0;
-    return header.$el.clientHeight;
-  }
-
   // Methods
   onScrollOrResize() {
     const scrollOffset =
@@ -60,7 +49,7 @@ export default class DefaultLayout extends Vue {
     this.didScroll = scrollOffset > 0;
 
     // Control ScrollToBtn
-    this.showScrollToBtn = scrollOffset >= this.headerHeight;
+    this.showScrollToBtn = scrollOffset >= 60;
 
     // Calculate scroll percentage
     const docHeight = document.documentElement.scrollHeight;
