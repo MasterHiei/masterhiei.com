@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-layout(justify-center)
+  v-layout(justify-center wrap)
     v-flex#error(md6 xs11 my-3 wrap)
       v-card.box
         // Ghost
@@ -33,8 +33,8 @@
             div.description-text
               | {{ message }}
           // Button
-          v-layout(justify-center)
-            v-flex(md12 xs9)
+          v-layout(justify-center wrap)
+            v-flex(xs12 wrap)
               v-btn(
                 class="description-button"
                 color="accent"
@@ -271,7 +271,8 @@ $text-color = #8C8AA7
 
       // Text
       &-container
-        width 400px
+        min-width 300px
+        max-width 400px
         margin 0 auto
         color $ghost-color
         text-align center
