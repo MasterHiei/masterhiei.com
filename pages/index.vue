@@ -53,11 +53,27 @@
       class="section-item"
       md6
       xs11
-      pt-4
       wrap
-      data-aos="fade-up"
     )
-      article-list
+
+      v-card(
+        color="transparent"
+        flat
+        data-aos="fade-up"
+      )
+        // Title
+        v-card-title(class="section-item-title")
+          v-flex(tag="span")
+            v-icon(
+              class="mb-1"
+              color="primary"
+              size="30"
+              left
+            )
+              | fas fa-feather-alt
+            | {{ $t('article.list') }}
+
+        article-list
 </template>
 
 <script lang="ts">
@@ -140,7 +156,15 @@ export default class IndexPage extends Vue {
 <style scoped lang="stylus" rel="stylesheet/stylus">
 .section
   &-item
-    margin 24px auto
+    margin 40px auto
+
+    // Title
+    &-title
+      font-size 34px
+      font-weight 700
+      text-align center
+      padding 20px
+
   // Today card
   .today
     &-card
