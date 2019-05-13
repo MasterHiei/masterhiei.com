@@ -1,50 +1,35 @@
 <template lang="pug">
-  v-footer(class="footer" height="auto")
-    v-flex(
-      class="text-xs-center caption font-weight-light primary-text"
-      xs12
-      wrap
-    )
-      // MasterHiei
-      v-flex(tag="p" mt-3 mb-0)
-        | &copy;&nbsp;2019&nbsp;
-        a(
-          href="https://github.com/MasterHiei"
-          target="_blank"
-        )
-          | Master&nbsp;Hiei
-
-      // Powered by
-      v-flex(tag="p" mt-0)
-        | Powered&nbsp;by
-        a(
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-        )
-          | &nbsp;Nuxt.js
-        | &nbsp;and
-
-        a(
-          href="https://github.com/expressjs/express"
-          target="_blank"
-        )
-          | &nbsp;Express
-        | .
+  v-footer(id="footer" height="auto")
+    v-card(color="transparent" width="100%" flat tile)
+      v-card-text(class="footer-text")
+        | {{ `&copy;&nbsp;${year}&nbsp;` }}
+        a(href="")
+          | MasterHiei
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
 
 @Component
-export default class TheFooter extends Vue {}
+export default class TheFooter extends Vue {
+  // Computed
+  get year(): string {
+    const year = new Date().getFullYear();
+    return year > 2019 ? `2019-${year}` : '2019';
+  }
+}
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-.footer
-  background-color var(--v-secondary-base)
-  // Link
-  a
-    color var(--v-accent-base)
-    &:hover
-      text-decoration underline
+#footer
+  background-color transparent
+  .footer-text
+    text-align center
+    padding 0 0 24px 0
+    font-size 12px
+    color var(--v-secondary-darken2)
+    a
+      color var(--v-secondary-darken2)
+      &:hover
+        text-decoration underline
 </style>

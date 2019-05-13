@@ -1,6 +1,12 @@
 <template lang="pug">
   v-layout(justify-center wrap)
-    v-flex#error(md6 xs11 my-3 wrap)
+    v-flex(
+      id="error"
+      md6
+      xs11
+      my-3
+      wrap
+    )
       v-card.box
         // Ghost
         div.ghost
