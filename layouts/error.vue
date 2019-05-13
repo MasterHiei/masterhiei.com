@@ -88,8 +88,8 @@ export default class ErrorPage extends Vue {
    * Reload if on index page
    */
   transiTo() {
-    const path = this.$route.path;
-    if (path === '/') {
+    const name = this.$route.name || '';
+    if (name.startsWith('index')) {
       this.$router.go(0);
     }
   }

@@ -109,11 +109,6 @@ const Issue = namespace(issue.name);
       error({ statusCode: statusCode, message: e.message });
     });
   },
-
-  // Validator
-  validate({ params }) {
-    return params.id != null && params.id.length > 0;
-  },
 })
 export default class ArticlePage extends Vue {
   // Computed
