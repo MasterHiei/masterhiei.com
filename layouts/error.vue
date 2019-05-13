@@ -48,6 +48,7 @@
                 :to="localePath('index')"
                 nuxt
                 exact
+                @click="transiTo"
               )
                 | Go back
 </template>
@@ -88,6 +89,16 @@ export default class ErrorPage extends Vue {
     const x = (event.clientX / winWidth) * 100 - 100;
     const y = ((winHeight / 2 - event.clientY) / winHeight) * -300;
     this.eyesStyle = `transform: translate(${x}%, ${y}%);`;
+  }
+
+  /**
+   * Reload if on index page
+   */
+  transiTo() {
+    const path = this.$route.path;
+    if (path === '/') {
+      this.$router.go(0);
+    }
   }
 
   // Hooks

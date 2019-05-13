@@ -1,5 +1,4 @@
 import mongoose, { Schema, Document } from 'mongoose';
-import env from '../utils/envalid';
 
 export interface Article extends Document {
   _id: Schema.Types.ObjectId;
@@ -26,7 +25,7 @@ const articleSchema = new Schema(
     },
     image: {
       type: String,
-      default: `${env.DOMAIN}/public/sites/default/cover-2.jpg`,
+      default: '/sites/upload/cover-2.jpg',
     },
     category: {
       type: String,
