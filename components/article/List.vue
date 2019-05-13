@@ -1,57 +1,41 @@
 <template lang="pug">
-v-card(class="post-list pt-2 pb-3 px-4" flat)
-  // Title
-  v-card-title(class="text-xs-center")
-    v-flex(
-      tag="span"
-      class="post-list-title font-weight-bold"
-    )
-      v-icon(
-        class="mb-1"
-        color="primary"
-        size="30"
-        left
-      )
-        | fas fa-feather-alt
-      | {{ $t('article.list') }}
-
   // Items
-  v-layout(wrap)
+  v-layout(class="post-list" wrap)
     v-flex(
       v-for="(article, index) in storedArticles"
       :key="index"
+      class="post-list-item"
       md6
       xs12
-      pa-3
       wrap
     )
       article-list-item(:article="article")
 
-  // Actions
-  v-flex(
-    v-show="isHaveNext"
-    class="post-list-action text-xs-center"
-    my-4
-    wrap
-  )
-    v-hover
-      button(
-        v-show="!loading"
-        slot-scope="{ hover }"
-        class="fetch-button"
-        :class="`elevation-${ hover ? 6 : 0 }`"
-        @click="fetchNext"
-      )
-        v-icon(:class="{ rotate: hover }" color="accent")
-          | fas fa-plus
-
-    v-icon(
-      v-show="loading"
-      class="fetch-icon"
-      color="accent"
-      size="48"
+    // Actions
+    v-flex(
+      v-show="isHaveNext"
+      class="post-list-action text-xs-center"
+      my-3
+      wrap
     )
-      | far fa-snowflake fa-spin
+      v-hover
+        button(
+          v-show="!loading"
+          slot-scope="{ hover }"
+          class="fetch-button"
+          :class="`elevation-${ hover ? 6 : 0 }`"
+          @click="fetchNext"
+        )
+          v-icon(:class="{ rotate: hover }" color="accent")
+            | fas fa-plus
+
+      v-icon(
+        v-show="loading"
+        class="fetch-icon"
+        color="accent"
+        size="48"
+      )
+        | far fa-snowflake fa-spin
 </template>
 
 <script lang="ts">
@@ -118,9 +102,12 @@ export default class List extends Vue {
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
 .post-list
-  // Title
-  &-title
-    font-size 30px
+  // Item
+  &-item
+    padding 0 8px
+    margin-bottom 25px
+    @media (max-width $grid-breakpoints.sm)
+      padding 0
 
   // Actions
   &-action
@@ -129,7 +116,7 @@ export default class List extends Vue {
       margin 12px 0
       width 97px
       height 60px
-      border 1px solid var(--v-secondary-base)
+      border 1px solid var(--v-secondary-darken1)
       outline none
       background transparent
       transition box-shadow 0.3s

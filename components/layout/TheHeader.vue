@@ -14,7 +14,7 @@
         // Title
         v-toolbar-title
           n-link(:to="localePath('index')" extra)
-            img(src="~static/logo.png" alt="logo")
+            img(src="/logo.png" alt="logo")
 
         v-spacer
 
@@ -69,7 +69,7 @@
         v-spacer
 
     // Background
-    v-flex(class="header-background" :style="bgStyle")
+    v-flex(class="header-background")
       // Brand
       v-flex(
         class="header-brand text-xs-center secondary-text"
@@ -113,28 +113,10 @@ export default class TheHeader extends Vue {
   // Computed
 
   /**
-   * Background image
-   */
-  get bgStyle(): string {
-    return `background-image:\
-    url(${process.env.DOMAIN}/public/sites/default/cover-3.jpg);\
-    height:${this.height}px`;
-  }
-
-  /**
    * Background color
    */
   get color(): string {
     return this.didScroll ? 'white' : 'transparent';
-  }
-
-  /**
-   * Background height
-   */
-  get height(): number {
-    const name = this.$route.name || '';
-    const isIndex = name.includes('index');
-    return isIndex ? 720 : 360;
   }
 
   /**
@@ -197,10 +179,12 @@ $mb = 120px
 
   // Background
   &-background
+    height 360px
     position absolute
     top 0
     left 0
     right 0
+    background-image url('/sites/upload/cover-3.jpg')
     background-repeat no-repeat
     background-size cover
     background-position center center
@@ -216,6 +200,8 @@ $mb = 120px
   &-brand
     position relative
     top $mb
+    max-width 360px
+    margin 0 auto
 
     .brand-name, .brand-motto
       display flex

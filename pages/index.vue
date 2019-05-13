@@ -9,10 +9,10 @@
       data-aos="fade-up"
       wrap
     )
-      v-card(class="today-card pa-3" flat)
+      v-card(class="today-card pa-3")
         // Season
         v-flex(
-          class="today-title text-xs-center secondary-text"
+          class="today-title text-xs-center"
           py-3
           wrap
         )
@@ -26,30 +26,22 @@
             |{{ season.word }}
 
         // Date
-        v-layout(wrap)
-          v-flex(
-            tag="span"
-            class="display-4 font-weight-medium accent-text text-xs-right"
-            mr-3
-          )
-            | {{ dayOfMonth }}
+        v-layout(class="today-date" wrap)
+          // Day
+          v-flex(class="day display-4" xs6)
+            | {{ date.dayOfMonth }}
 
-          v-layout(
-            class="secondary-text justify-center ml-3"
-            column
-            wrap
-          )
-            span(class="display-1 d-block")
-              | {{ $d(now, 'weekday', this.$i18n.locale) }}
+          // Weekday
+          v-flex(class="today-weekday" xs6 wrap)
+            span(class="weekday display-1")
+              | {{ $d(date.now, 'weekday', this.$i18n.locale) }}
 
-            div(class="my-1")
-
-            span(class="title")
-              | {{ $d(now, 'date', this.$i18n.locale) }}
+            span(class="month title")
+              | {{ $d(date.now, 'date', this.$i18n.locale) }}
 
         // Poem
         v-flex(
-          class="text-xs-center subheading secondary-text font-italic"
+          class="today-poem"
           py-3
           wrap
         )
@@ -61,11 +53,27 @@
       class="section-item"
       md6
       xs11
-      pt-4
       wrap
-      data-aos="fade-up"
     )
-      article-list
+
+      v-card(
+        color="transparent"
+        flat
+        data-aos="fade-up"
+      )
+        // Title
+        v-card-title(class="section-item-title")
+          v-flex(tag="span")
+            v-icon(
+              class="mb-1"
+              color="primary"
+              size="30"
+              left
+            )
+              | fas fa-feather-alt
+            | {{ $t('article.list') }}
+
+        article-list
 </template>
 
 <script lang="ts">
@@ -92,24 +100,28 @@ export default class IndexPage extends Vue {
   // Computed
 
   /**
-   * Now
+   * Date object
    */
-  get now(): Date {
-    return new Date();
+  get date(): object {
+    const now = new Date();
+    return {
+      now: now,
+      dayOfMonth: now.getDate(),
+    };
   }
 
   /**
    * Season
    */
   get season(): Record<string, string> {
-    const month = this.now.getMonth() + 1;
+    const month = new Date().getMonth() + 1;
 
     // Spring
     if (month >= 3 && month <= 5) {
       return {
         word: 'Spring',
         locale: this.$i18n.t('season.spring').toString(),
-        poem: '好雨知時節，當春乃発生。',
+        poem: '《春夜喜雨》- 好雨知時節，當春乃発生。',
       };
     }
 
@@ -118,7 +130,7 @@ export default class IndexPage extends Vue {
       return {
         word: 'Summer',
         locale: this.$i18n.t('season.summer').toString(),
-        poem: '小荷才露尖尖角，早有蜻蜓立上頭。',
+        poem: '《小池》- 小荷才露尖尖角，早有蜻蜓立上頭。',
       };
     }
 
@@ -127,7 +139,7 @@ export default class IndexPage extends Vue {
       return {
         word: 'Autumn',
         locale: this.$i18n.t('season.autumn').toString(),
-        poem: '停車坐愛楓林晩，霜葉紅於二月花。',
+        poem: '《水調歌頭》- 但願人長久，千里共嬋娟。',
       };
     }
 
@@ -135,15 +147,8 @@ export default class IndexPage extends Vue {
     return {
       word: 'Winter',
       locale: this.$i18n.t('season.winter').toString(),
-      poem: '孤舟蓑笠翁，独釣寒江雪。',
+      poem: '《江雪》- 孤舟蓑笠翁，独釣寒江雪。',
     };
-  }
-
-  /**
-   * Day of month
-   */
-  get dayOfMonth(): number {
-    return this.now.getDate();
   }
 }
 </script>
@@ -151,17 +156,42 @@ export default class IndexPage extends Vue {
 <style scoped lang="stylus" rel="stylesheet/stylus">
 .section
   &-item
-    margin 24px auto
+    margin 40px auto
 
-.today
-  &-card
-    background-color rgba(255, 255, 255, 0.3)
-  &-title
-    &:before, &:after
-      content ''
-      vertical-align middle
-      display inline-block
-      width 15%
-      margin  0 4% 4% 4%
-      border 1px solid var(--v-secondary-base)
+    // Title
+    &-title
+      font-size 34px
+      font-weight 700
+      text-align center
+      padding 20px
+
+  // Today card
+  .today
+    &-card
+      box-shadow 0 1px 6px rgba(0, 0, 0, .12), 0 1px 4px rgba(0, 0, 0, .24)
+    &-title
+      color var(--v-secondary-darken2)
+      &:before, &:after
+        content ''
+        vertical-align middle
+        display inline-block
+        width 14%
+        margin  0 4% 4% 4%
+        border 1px solid var(--v-secondary-darken2)
+    &-date
+      .day
+        color var(--v-accent-base)
+        font-weight 500
+        text-align right
+        padding-right 20px
+    &-weekday
+      text-align left
+      padding-left 20px
+      .weekday, .month
+        display block
+        margin 16px 0
+    &-poem
+      color var(--v-secondary-darken2)
+      text-align center
+      font-style italic
 </style>

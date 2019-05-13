@@ -27,10 +27,7 @@ const config: NuxtConfiguration = {
       },
       {
         rel: 'stylesheet',
-        href: 'https://use.fontawesome.com/releases/v5.8.1/css/all.css',
-        integers:
-          'sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf',
-        crossOrigin: 'anonymous',
+        href: 'https://use.fontawesome.com/releases/v5.8.2/css/all.css',
       },
     ],
   },

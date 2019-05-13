@@ -1,4 +1,3 @@
-import path from 'path';
 import consola from 'consola';
 import express from 'express';
 import mongoose from 'mongoose';
@@ -45,7 +44,6 @@ mongoose
   );
 
 // Express configuration
-app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(token);
 app.use(
