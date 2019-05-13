@@ -9,34 +9,27 @@
     )
       v-card.box
         // Ghost
-        div.ghost
-          div.ghost-symbol
-          div.ghost-symbol
-          div.ghost-symbol
-          div.ghost-symbol
-          div.ghost-symbol
-          div.ghost-symbol
+        .ghost
+          - for (let i = 0; i < 6; i += 1)
+            .ghost-symbol
 
-          div.ghost-body
-            div.eyes(:style="eyesStyle")
-              div.eye-left
-              div.eye-right
+          .ghost-body
+            .eyes(:style="eyesStyle")
+              .eye-left
+              .eye-right
 
-            div.foot
-              div
-              div
-              div
-              div
-              div
+            .foot
+              - for (let i = 0; i < 5; i += 1)
+                .block
 
-          div.ghost-shadow
+          .ghost-shadow
 
         // Description
-        div.description
-          div.description-container
-            div.description-title
+        .description
+          .description-container
+            .description-title
               | Oops!
-            div.description-text
+            .description-text
               | {{ message }}
           // Button
           v-layout(justify-center wrap)
@@ -259,7 +252,7 @@ $text-color = #8C8AA7
           top 100%
           left 0
           right 0
-          div
+          .block
             flex-grow 1
             height 20px
             border-radius 100%

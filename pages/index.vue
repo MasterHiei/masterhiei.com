@@ -29,15 +29,15 @@
         v-layout(class="today-date" wrap)
           // Day
           v-flex(class="day display-4" xs6)
-            | {{ dayOfMonth }}
+            | {{ date.dayOfMonth }}
 
           // Weekday
           v-flex(class="today-weekday" xs6 wrap)
             span(class="weekday display-1")
-              | {{ $d(now, 'weekday', this.$i18n.locale) }}
+              | {{ $d(date.now, 'weekday', this.$i18n.locale) }}
 
             span(class="month title")
-              | {{ $d(now, 'date', this.$i18n.locale) }}
+              | {{ $d(date.now, 'date', this.$i18n.locale) }}
 
         // Poem
         v-flex(
@@ -84,17 +84,21 @@ export default class IndexPage extends Vue {
   // Computed
 
   /**
-   * Now
+   * Date object
    */
-  get now(): Date {
-    return new Date();
+  get date(): object {
+    const now = new Date();
+    return {
+      now: now,
+      dayOfMonth: now.getDate(),
+    };
   }
 
   /**
    * Season
    */
   get season(): Record<string, string> {
-    const month = this.now.getMonth() + 1;
+    const month = new Date().getMonth() + 1;
 
     // Spring
     if (month >= 3 && month <= 5) {
@@ -129,13 +133,6 @@ export default class IndexPage extends Vue {
       locale: this.$i18n.t('season.winter').toString(),
       poem: '《江雪》- 孤舟蓑笠翁，独釣寒江雪。',
     };
-  }
-
-  /**
-   * Day of month
-   */
-  get dayOfMonth(): number {
-    return this.now.getDate();
   }
 }
 </script>

@@ -3,7 +3,7 @@
     v-card(color="transparent" width="100%" flat tile)
       v-card-text(class="footer-text")
         | {{ `&copy;&nbsp;${year}&nbsp;` }}
-        a(href="")
+        a(href="https://github.com/MasterHiei" target="_blank")
           | MasterHiei
 </template>
 
