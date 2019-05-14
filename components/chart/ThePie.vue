@@ -4,11 +4,15 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator';
-import ECharts from 'echarts';
+import { Component, Vue, Prop } from 'nuxt-property-decorator';
+import ECharts, { EChartOption } from 'echarts';
 
 @Component
 export default class TheWordCloud extends Vue {
+  // Props
+  @Prop({ type: Array, default: [] })
+  readonly data!: EChartOption.SeriesPie.DataObject[];
+
   // Hooks
   mounted() {
     this.$nextTick(() => {

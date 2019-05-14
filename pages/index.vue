@@ -157,6 +157,8 @@ export default class IndexPage extends Vue {
 .section
   &-item
     margin 40px auto
+    &:last-child
+      margin-bottom 0
 
     // Title
     &-title
