@@ -147,8 +147,11 @@ export default class TheHeader extends Vue {
    */
   get locales(): (string | NuxtVueI18n.Options.LocaleObject)[] {
     return this.$i18n.locales.filter(locale => {
-      const localeObject = locale as NuxtVueI18n.Options.LocaleObject;
-      return localeObject.code !== this.$i18n.locale;
+      if (typeof locale !== 'string') {
+        return locale.code !== this.$i18n.locale;
+      } else {
+        return locale !== this.$i18n.locale;
+      }
     });
   }
 }

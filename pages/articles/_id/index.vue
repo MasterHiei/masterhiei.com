@@ -86,7 +86,7 @@ import { AxiosError } from 'axios';
 import * as article from '@/store/article';
 import * as issue from '@/store/issue';
 import { Article as ArticleModel } from '@/models/article';
-import sanitizer from '@/common/utils/sanitizer';
+import sanitizeHTML from '@/common/sanitizer';
 
 // Vuex module
 const Article = namespace(article.name);
@@ -138,7 +138,7 @@ export default class ArticlePage extends Vue {
    */
   get sanitizedHTML(): string {
     const md = this.$md.render(this.article.content);
-    return sanitizer(md);
+    return sanitizeHTML(md);
   }
 
   // SEO

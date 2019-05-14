@@ -2,7 +2,7 @@ import Axios from 'axios';
 import { ActionTree, MutationTree, GetterTree, ActionContext } from 'vuex';
 import { RootState } from 'store';
 import { Issue, Label } from '@/models/issue';
-import { hashedId } from '@/common/utils/gitalk';
+import { generateId } from '@/common/gitalk';
 
 // Instance of axios
 const axios = Axios.create({
@@ -71,7 +71,7 @@ export const getters: GetterTree<State, RootState> = {
   findOneById: (state): ((id: string) => Issue | undefined) => (
     id: string
   ): Issue | undefined => {
-    const gitalkId = hashedId(id);
+    const gitalkId = generateId(id);
     return state.issues.find(
       (issue): boolean => {
         const label = issue.labels.find(
@@ -106,7 +106,7 @@ export const actions: Actions<State, RootState> = {
    * @param id Gitalk ID
    */
   async fetchOneById({ commit }, id): Promise<void> {
-    const gitalkId = hashedId(id);
+    const gitalkId = generateId(id);
     const { data } = await axios.get(`/repos/${owner}/${repo}/issues`, {
       params: {
         client_id: clientId,

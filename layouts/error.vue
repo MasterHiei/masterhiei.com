@@ -43,7 +43,7 @@
                 exact
                 @click="transiTo"
               )
-                | Go back
+                | Go to the homepage?
 </template>
 
 <script lang="ts">
@@ -281,7 +281,7 @@ $text-color = #8C8AA7
 
       // Text
       &-container
-        min-width 300px
+        min-width 280px
         max-width 400px
         margin 0 auto
         color $ghost-color
