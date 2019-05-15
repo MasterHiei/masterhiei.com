@@ -68,6 +68,7 @@ const config: NuxtConfiguration = {
     '@nuxtjs/axios',
     '@nuxtjs/auth',
     '@nuxtjs/dotenv',
+    '@nuxtjs/markdownit',
     [
       'nuxt-i18n',
       {
@@ -96,7 +97,7 @@ const config: NuxtConfiguration = {
         parsePages: false,
       },
     ],
-    '@nuxtjs/markdownit',
+    'nuxt-device-detect',
   ],
 
   /*

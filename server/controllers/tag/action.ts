@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { validationResult } from 'express-validator/check';
 import consola from 'consola';
 import ArticleModel from '../../models/article';
+import { Tag } from '@/models/tag';
 
 /**
  * Get all tags in article
@@ -12,9 +13,10 @@ const index = (_, res: Response): void => {
     .unwind('tags')
     .group({ _id: '$tags', value: { $sum: 1 } })
     .project({ _id: 0, name: '$_id', value: 1 })
+    .sort('value')
     .exec()
     .then(
-      (tags): void => {
+      (tags: Tag[]): void => {
         // Set response
         res.json(tags);
       }

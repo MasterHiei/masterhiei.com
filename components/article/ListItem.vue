@@ -22,7 +22,7 @@
             n-link(
               v-for="(tag, index) in article.tags"
               :key="index"
-              :to="localePath({ name: 'articles-tags-tag', params: { tag: tag } })"
+              :to="localePath({ name: 'tags-tag', params: { tag: tag } })"
             )
               | \#{{ tag }}
 

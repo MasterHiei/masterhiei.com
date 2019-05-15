@@ -30,6 +30,12 @@ export default {
     comments: 'コメント {number}',
     stars: 'いいね {number}',
   },
+  tag: {
+    title: 'タグ一覧',
+    total: '合計',
+    less: '少ない',
+    more: '多い',
+  },
   auth: {
     register: '登録',
     registerLink: 'こちら',
