@@ -7,7 +7,7 @@ import { Component, Vue, Prop } from 'nuxt-property-decorator';
 import ECharts, { EChartOption } from 'echarts';
 
 @Component
-export default class TheWordCloud extends Vue {
+export default class ThePie extends Vue {
   // Props
   @Prop({ type: Array, default: () => [] })
   readonly data!: EChartOption.SeriesPie.DataObject[];
@@ -26,11 +26,7 @@ export default class TheWordCloud extends Vue {
           trigger: 'item',
           formatter: '{a}<br/>{b} : {c} ({d}%)',
         },
-        legend: {
-          orient: 'vertical',
-          x: 'right',
-          data: ['data1', 'data2', 'data3'],
-        },
+        legend: { show: false },
         series: [
           {
             name: 'Tags',
@@ -40,15 +36,11 @@ export default class TheWordCloud extends Vue {
               normal: { show: false, position: 'center' },
               emphasis: {
                 show: true,
-                textStyle: { fontSize: '30', fontWeight: 'bold' },
+                textStyle: { fontSize: '20', fontWeight: 'bold' },
               },
             },
             labelLine: { normal: { show: false } },
-            data: [
-              { name: 'data1', value: 50 },
-              { name: 'data2', value: 120 },
-              { name: 'data3', value: 480 },
-            ],
+            data: this.data,
           },
         ],
       });

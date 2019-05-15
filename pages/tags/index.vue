@@ -6,7 +6,7 @@
         v-flex(class="chart-card-title" wrap)
           | Title
 
-        the-pie
+        the-pie(:data="tags")
 </template>
 
 <script lang="ts">
@@ -16,8 +16,16 @@ import { Component, Vue } from 'nuxt-property-decorator';
   components: {
     ThePie: () => import('@/components/chart/ThePie.vue'),
   },
+
+  async asyncData({ $axios }) {
+    const tags = await $axios.$get('/tags');
+    return { tags };
+  },
 })
-export default class TagsPage extends Vue {}
+export default class TagsPage extends Vue {
+  // Data
+  tags = [];
+}
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">

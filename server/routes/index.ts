@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import article from '../controllers/article/route';
+import tag from '../controllers/tag/route';
 import userController from '../controllers/user';
 
 // Experss app router
@@ -13,4 +14,4 @@ router.put('/users/validate', userController.validate);
 router.post('/users', userController.create);
 router.post('/users/social', userController.fetchSocial);
 
-export default [router, article];
+export default [router, article, tag];

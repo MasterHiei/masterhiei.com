@@ -50,6 +50,7 @@ const config: NuxtConfiguration = {
    */
   plugins: [
     { src: '~plugins/aos', ssr: false },
+    '~plugins/axios',
     '~plugins/vuetify',
     '~plugins/vueScrollTo',
     '~plugins/veeValidate',
