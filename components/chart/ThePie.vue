@@ -1,6 +1,5 @@
 <template lang="pug">
-  no-ssr
-    v-flex(ref="pie" id="pie-chart" wrap)
+  div(ref="pie" class="chart-pie")
 </template>
 
 <script lang="ts">
@@ -10,7 +9,7 @@ import ECharts, { EChartOption } from 'echarts';
 @Component
 export default class TheWordCloud extends Vue {
   // Props
-  @Prop({ type: Array, default: [] })
+  @Prop({ type: Array, default: () => [] })
   readonly data!: EChartOption.SeriesPie.DataObject[];
 
   // Hooks
@@ -22,7 +21,7 @@ export default class TheWordCloud extends Vue {
 
       // Set echarts option
       echarts.setOption({
-        title: { text: 'This is a title' },
+        textStyle: { fontFamily: 'Noto Sans SC, sans-serif' },
         tooltip: {
           trigger: 'item',
           formatter: '{a}<br/>{b} : {c} ({d}%)',
@@ -59,6 +58,7 @@ export default class TheWordCloud extends Vue {
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-#pie-chart
+.chart-pie
+  height 100%
   min-height 400px
 </style>

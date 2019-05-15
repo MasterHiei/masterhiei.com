@@ -1,6 +1,6 @@
 <template lang="pug">
   v-layout(justify-center wrap)
-    v-flex(md6 xs12 pa-3 wrap)
+    v-flex(md6 pa-3 wrap)
       // Article
       v-card(class="post" tag="article")
         // Image
@@ -75,7 +75,7 @@
       the-gitalk(:articleId="article.id")
 
     // TODO: Sidebar
-    v-flex(md2 xs12 pa-3 wrap)
+    v-flex(md2 pa-3 wrap)
       v-card
         | adasdasd
 </template>

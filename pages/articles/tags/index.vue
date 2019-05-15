@@ -1,8 +1,12 @@
 <template lang="pug">
-  div
-    | tags
+  v-layout(justify-center wrap)
+    // Chart
+    v-flex(tag="section" md6 xs11 wrap)
+      v-card(class="chart-card")
+        v-flex(class="chart-card-title" wrap)
+          | Title
 
-    the-pie
+        the-pie
 </template>
 
 <script lang="ts">
@@ -16,4 +20,12 @@ import { Component, Vue } from 'nuxt-property-decorator';
 export default class TagsPage extends Vue {}
 </script>
 
-<style scoped lang="stylus" rel="stylesheet/stylus"></style>
+<style scoped lang="stylus" rel="stylesheet/stylus">
+.chart-card
+  padding 30px
+  &-title
+    font-size 24px
+    font-weight 700
+    text-align center
+    margin-bottom 8px
+</style>

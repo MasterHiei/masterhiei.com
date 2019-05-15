@@ -6,7 +6,6 @@
       :key="index"
       class="post-list-item"
       md6
-      xs12
       wrap
     )
       article-list-item(:article="article")

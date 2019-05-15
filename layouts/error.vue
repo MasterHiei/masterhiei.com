@@ -33,7 +33,7 @@
               | {{ message }}
           // Button
           v-layout(justify-center wrap)
-            v-flex(xs12 wrap)
+            v-flex(wrap)
               v-btn(
                 class="description-button"
                 color="accent"
