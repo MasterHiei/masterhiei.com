@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { validationResult } from 'express-validator/check';
-import ArticleModel from '../models/article';
+import ArticleModel from '../../models/article';
 
 /**
  * Return articles using passed parameters
@@ -26,13 +26,19 @@ const index = async (req: Request, res: Response): Promise<void> => {
     .sort('-created_at');
   const countQuery = ArticleModel.find().estimatedDocumentCount();
 
-  const [articles, totalCount] = await Promise.all([
-    articlesQuery.exec(),
-    countQuery.exec(),
-  ]);
-
-  // Set response
-  res.json({ articles, totalCount });
+  await Promise.all([articlesQuery.exec(), countQuery.exec()])
+    .then(
+      ([articles, totalCount]): void => {
+        // Set response
+        res.json({ articles, totalCount });
+      }
+    )
+    .catch(
+      (): void => {
+        // Set response
+        res.status(500).json({ error: { msg: 'Failed to query documents.' } });
+      }
+    );
 };
 
 /**
@@ -60,14 +66,12 @@ const show = async (req: Request, res: Response): Promise<void> => {
   if (article != null) {
     res.json({ article });
   } else {
-    res.status(404).send({
-      errors: [
-        {
-          param: 'id',
-          value: id,
-          msg: 'Data does not exist.',
-        },
-      ],
+    res.status(404).json({
+      error: {
+        param: 'id',
+        value: id,
+        msg: 'Data does not exist.',
+      },
     });
   }
 };

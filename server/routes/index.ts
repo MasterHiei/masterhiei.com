@@ -1,7 +1,6 @@
 import { Router } from 'express';
-import { queryValidator, paramValidator } from '../validator/article';
+import article from '../controllers/article/route';
 import userController from '../controllers/user';
-import articleController from '../controllers/article';
 
 // Experss app router
 const router = Router();
@@ -14,8 +13,4 @@ router.put('/users/validate', userController.validate);
 router.post('/users', userController.create);
 router.post('/users/social', userController.fetchSocial);
 
-// Routes of Article
-router.get('/articles', queryValidator, articleController.index);
-router.get('/articles/:id', paramValidator, articleController.show);
-
-export default router;
+export default [router, article];

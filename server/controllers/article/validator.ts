@@ -3,9 +3,9 @@ import { sanitizeQuery } from 'express-validator/filter';
 import mongoose from 'mongoose';
 
 /**
- * Validator for queries
+ * Validate for queries
  */
-const queryValidator = [
+const queries = [
   // Page
   query('page')
     .not()
@@ -28,9 +28,9 @@ const queryValidator = [
 ];
 
 /**
- * Validator for params
+ * Validate for params
  */
-const paramValidator = [
+const params = [
   // ID
   param('id').custom(
     (value: any): Promise<any> => {
@@ -44,4 +44,4 @@ const paramValidator = [
   ),
 ];
 
-export { queryValidator, paramValidator };
+export default { queries, params };
