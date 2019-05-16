@@ -155,6 +155,12 @@ const config: NuxtConfiguration = {
       },
     },
 
+    splitChunks: {
+      layouts: true,
+      pages: true,
+      commons: true,
+    },
+
     analyze: {
       analyzerMode: 'server',
     },

@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import LRU from 'lru-cache';
-import Vuetify, { VuetifyOptions, VuetifyTheme } from 'vuetify';
+import Vuetify from 'vuetify/lib';
+import { VuetifyOptions, VuetifyTheme } from 'vuetify';
+import 'vuetify/src/stylus/app.styl';
 
 // Theme
 const theme: Partial<VuetifyTheme> = {
