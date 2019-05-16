@@ -58,7 +58,7 @@ const config: NuxtConfiguration = {
   ],
 
   generate: {
-    routes: ['/about', '/ja-JP/about'],
+    routes: ['/about', '/ja/about'],
   },
 
   /*
@@ -74,24 +74,24 @@ const config: NuxtConfiguration = {
       {
         vueI18n: {
           dateTimeFormats: dateTimeFormats,
-          fallbackLocale: 'zh-CN',
+          fallbackLocale: 'zh',
         },
         vueI18nLoader: true,
         locales: [
           {
-            code: 'zh-CN',
+            code: 'zh',
             name: '简体中文',
             iso: 'zh-CN',
             file: 'zh_CN.ts',
           },
           {
-            code: 'ja-JP',
+            code: 'ja',
             name: '日本語',
             iso: 'ja-JP',
             file: 'ja.ts',
           },
         ],
-        defaultLocale: 'zh-CN',
+        defaultLocale: 'zh',
         lazy: true,
         langDir: 'assets/locales/lang/',
         parsePages: false,

@@ -52,7 +52,7 @@ export default class ListItem extends Vue {
    * Post month with i18n(en-US)
    */
   get monthWithEn(): string {
-    return this.$i18n.d(this.date, 'month', 'en-US');
+    return this.$i18n.d(this.date, 'month', 'en');
   }
 
   /**
