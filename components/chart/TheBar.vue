@@ -1,12 +1,21 @@
 <template lang="pug">
-  div(ref="bar" :style="barStyle")
+  figure
+    v-flex(class="chart-title" wrap)
+      v-icon
+        | fas fa-chart-bar
+      | {{ $t('tag.chart.title') }}
+    div(ref="bar" :style="barStyle")
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator';
 import { maxBy, groupBy, size } from 'lodash';
-import ECharts from 'echarts';
+import ECharts from 'echarts/lib/echarts';
 import { Tag } from 'models/tag';
+import 'echarts/lib/chart/bar';
+import 'echarts/lib/component/title';
+import 'echarts/lib/component/tooltip';
+import 'echarts/lib/component/visualMap';
 
 @Component
 export default class TheBar extends Vue {
@@ -48,7 +57,10 @@ export default class TheBar extends Vue {
 
       // Set echarts option
       echarts.setOption({
-        textStyle: { fontFamily: 'Noto Sans SC, sans-serif' },
+        textStyle: {
+          color: '#757575',
+          fontFamily: 'Noto Sans SC, sans-serif',
+        },
         tooltip: {
           trigger: 'axis',
           axisPointer: { type: 'shadow' },
@@ -57,13 +69,13 @@ export default class TheBar extends Vue {
         grid: {
           top: '10',
           right: '30',
-          bottom: '65',
+          bottom: '60',
           left: '30',
           containLabel: !this.$device.isMobile,
         },
         xAxis: {
           type: 'value',
-          name: this.$i18n.t('tag.total').toString(),
+          name: this.$i18n.t('tag.chart.total').toString(),
           nameLocation: 'center',
           nameTextStyle: { padding: 10 },
           minInterval: 1,
@@ -80,17 +92,20 @@ export default class TheBar extends Vue {
             left: 'center',
             min: 1,
             max: this.maxValue,
-            text: [this.$i18n.t('tag.more'), this.$i18n.t('tag.less')],
+            text: [
+              this.$i18n.t('tag.chart.more'),
+              this.$i18n.t('tag.chart.less'),
+            ],
             dimension: 0,
             inRange: {
-              color: ['#4CAF50', '#E65100'],
+              color: ['#C6E48B', '#239A3B', '#196127'],
             },
           },
         ],
         dataset: { source: this.data },
         series: [
           {
-            name: this.$i18n.t('tag.total').toString(),
+            name: this.$i18n.t('tag.chart.total').toString(),
             type: 'bar',
             barCategoryGap: '65%',
             encode: { x: 'value', y: 'name' },
@@ -101,3 +116,14 @@ export default class TheBar extends Vue {
   }
 }
 </script>
+
+<style scoped lang="stylus" rel="stylesheet/stylus">
+.chart-title
+  text-align center
+  font-size 20px
+  font-weight 700
+  padding-bottom 12px
+  .v-icon
+    color var(--v-primary-base)
+    margin 0 8px 4px 0
+</style>

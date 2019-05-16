@@ -32,9 +32,12 @@ export default {
   },
   tag: {
     title: '文章标签',
-    total: '合计',
-    less: '更少',
-    more: '更多',
+    chart: {
+      title: '文章标签条形图',
+      total: '合计',
+      less: '更少',
+      more: '更多',
+    },
   },
   auth: {
     register: '注册',

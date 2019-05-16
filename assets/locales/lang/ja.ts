@@ -32,9 +32,12 @@ export default {
   },
   tag: {
     title: 'タグ一覧',
-    total: '合計',
-    less: '少ない',
-    more: '多い',
+    chart: {
+      title: 'タグ情報（バーチャート）',
+      total: '合計',
+      less: '少ない',
+      more: '多い',
+    },
   },
   auth: {
     register: '登録',
