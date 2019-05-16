@@ -1,8 +1,8 @@
 export default {
-  'en-US': {
+  en: {
     month: { month: 'short' },
   },
-  'zh-CN': {
+  zh: {
     short: {
       year: 'numeric',
       month: 'short',
@@ -20,7 +20,7 @@ export default {
     date: { month: 'short', year: 'numeric' },
   },
 
-  'ja-JP': {
+  ja: {
     short: {
       year: 'numeric',
       month: 'short',

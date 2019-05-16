@@ -1,6 +1,6 @@
 <template lang="pug">
   v-layout(justify-center wrap)
-    v-flex(md6 xs12 pa-3 wrap)
+    v-flex(md6 pa-3 wrap)
       // Article
       v-card(class="post" tag="article")
         // Image
@@ -75,7 +75,7 @@
       the-gitalk(:articleId="article.id")
 
     // TODO: Sidebar
-    v-flex(md2 xs12 pa-3 wrap)
+    v-flex(md2 pa-3 wrap)
       v-card
         | adasdasd
 </template>
@@ -86,7 +86,7 @@ import { AxiosError } from 'axios';
 import * as article from '@/store/article';
 import * as issue from '@/store/issue';
 import { Article as ArticleModel } from '@/models/article';
-import sanitizer from '@/common/utils/sanitizer';
+import sanitizeHTML from '@/common/sanitizer';
 
 // Vuex module
 const Article = namespace(article.name);
@@ -108,11 +108,6 @@ const Issue = namespace(issue.name);
       const statusCode = e.response ? e.response.status : 500;
       error({ statusCode: statusCode, message: e.message });
     });
-  },
-
-  // Validator
-  validate({ params }) {
-    return params.id != null && params.id.length > 0;
   },
 })
 export default class ArticlePage extends Vue {
@@ -143,7 +138,7 @@ export default class ArticlePage extends Vue {
    */
   get sanitizedHTML(): string {
     const md = this.$md.render(this.article.content);
-    return sanitizer(md);
+    return sanitizeHTML(md);
   }
 
   // SEO

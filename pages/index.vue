@@ -32,7 +32,7 @@
             | {{ date.dayOfMonth }}
 
           // Weekday
-          v-flex(class="today-weekday" xs6 wrap)
+          v-flex(class="month-weekday" xs6 wrap)
             span(class="weekday display-1")
               | {{ $d(date.now, 'weekday', this.$i18n.locale) }}
 
@@ -55,7 +55,6 @@
       xs11
       wrap
     )
-
       v-card(
         color="transparent"
         flat
@@ -157,8 +156,8 @@ export default class IndexPage extends Vue {
 .section
   &-item
     margin 40px auto
-
-    // Title
+    &:last-child
+      margin-bottom 0
     &-title
       font-size 34px
       font-weight 700
@@ -184,12 +183,12 @@ export default class IndexPage extends Vue {
         font-weight 500
         text-align right
         padding-right 20px
-    &-weekday
-      text-align left
-      padding-left 20px
-      .weekday, .month
-        display block
-        margin 16px 0
+      .month-weekday
+        text-align left
+        padding-left 20px
+        .weekday, .month
+          display block
+          margin 16px 0
     &-poem
       color var(--v-secondary-darken2)
       text-align center

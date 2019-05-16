@@ -19,10 +19,10 @@
 
           // Tags
           v-flex(class="post-content-tag" wrap)
-            a(
+            n-link(
               v-for="(tag, index) in article.tags"
               :key="index"
-              href="#"
+              :to="localePath({ name: 'tags-tag', params: { tag: tag } })"
             )
               | \#{{ tag }}
 

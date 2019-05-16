@@ -3,6 +3,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
+import { forEach } from 'lodash';
 import env from './utils/envalid';
 import token from './utils/token';
 import routes from './routes';
@@ -53,6 +54,11 @@ app.use(
 );
 
 // Primary app routes
-app.use(API_PREFIX, routes);
+forEach(
+  routes,
+  (route): void => {
+    app.use(API_PREFIX, route);
+  }
+);
 
 export default app;

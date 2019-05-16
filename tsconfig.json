@@ -25,10 +25,11 @@
     },
     "types": [
       "./types",
-      "nuxt-i18n",
       "@types",
       "@nuxtjs/axios",
-      "@nuxt/vue-app"
+      "@nuxt/vue-app",
+      "nuxt-i18n",
+      "nuxt-device-detect",
     ]
   }
 }

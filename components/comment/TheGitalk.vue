@@ -7,7 +7,7 @@ import { Component, Vue, Prop } from 'nuxt-property-decorator';
 import Gitalk from 'gitalk';
 import 'gitalk/dist/gitalk.css';
 import '@/assets/style/gitalk.styl';
-import { hashedId } from '@/common/utils/gitalk';
+import { generateId } from '@/common/gitalk';
 
 @Component
 export default class TheGitalk extends Vue {
@@ -23,7 +23,7 @@ export default class TheGitalk extends Vue {
       repo: process.env.COMMENTS_PEPO,
       owner: process.env.GITHUB_OWNER,
       admin: [process.env.GITHUB_OWNER],
-      id: hashedId(this.articleId),
+      id: generateId(this.articleId),
       labels: [process.env.COMMENTS_LABEL],
       perPage: Number(process.env.COMMENTS_LIMIT),
     });

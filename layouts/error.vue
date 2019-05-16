@@ -33,7 +33,7 @@
               | {{ message }}
           // Button
           v-layout(justify-center wrap)
-            v-flex(xs12 wrap)
+            v-flex(wrap)
               v-btn(
                 class="description-button"
                 color="accent"
@@ -43,7 +43,7 @@
                 exact
                 @click="transiTo"
               )
-                | Go back
+                | Go to the homepage?
 </template>
 
 <script lang="ts">
@@ -88,8 +88,8 @@ export default class ErrorPage extends Vue {
    * Reload if on index page
    */
   transiTo() {
-    const path = this.$route.path;
-    if (path === '/') {
+    const name = this.$route.name || '';
+    if (name.startsWith('index')) {
       this.$router.go(0);
     }
   }
@@ -281,7 +281,7 @@ $text-color = #8C8AA7
 
       // Text
       &-container
-        min-width 300px
+        min-width 280px
         max-width 400px
         margin 0 auto
         color $ghost-color

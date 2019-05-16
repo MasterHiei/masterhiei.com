@@ -29,7 +29,7 @@ import { Component, Vue } from 'nuxt-property-decorator';
   components: {
     TheHeader: () => import('@/components/layout/TheHeader.vue'),
     TheFooter: () => import('@/components/layout/TheFooter.vue'),
-    TheScrollToBtn: () => import('@/components/ui/TheScrollToBtn.vue'),
+    TheScrollToBtn: () => import('@/components/layout/TheScrollToBtn.vue'),
   },
 })
 export default class DefaultLayout extends Vue {

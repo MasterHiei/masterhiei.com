@@ -25,7 +25,7 @@ export default class TheFooter extends Vue {
   background-color transparent
   .footer-text
     text-align center
-    padding 0 0 24px 0
+    padding 8px 0 24px 0
     font-size 12px
     color var(--v-secondary-darken2)
     a

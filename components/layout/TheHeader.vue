@@ -9,6 +9,15 @@
         height="60"
         app
       )
+
+        // Mobile navbar
+        the-navbar-mobile(
+          v-if="$device.isMobile"
+          :didScroll="didScroll"
+          :pages="pages"
+          :locales="locales"
+        )
+
         v-spacer
 
         // Title
@@ -18,53 +27,13 @@
 
         v-spacer
 
-        // Pages
-        v-toolbar-items(
-          v-for="(page, index) in pages"
-          :key="index"
-          class="hidden-xs-only"
+        // Desktop navbar
+        the-navbar-desktop(
+          v-if="!$device.isMobile"
+          :didScroll="didScroll"
+          :pages="pages"
+          :locales="locales"
         )
-          v-btn(
-            active-class=""
-            :class="didScroll ? 'primary-text' : 'secondary-text'"
-            :to="page.path"
-            flat
-            nuxt
-            exact
-          )
-            v-icon(class="mr-1" small)
-              | {{ page.icon }}
-            | {{ page.text }}
-
-        // Localization
-        v-toolbar-items(class="hidden-xs-only")
-          v-menu(offset-y transition="slide-y-transition")
-            v-btn(
-              :class="didScroll ? 'primary-text' : 'secondary-text'"
-              slot="activator"
-              flat
-            )
-              v-icon(class="mr-1" small)
-                | fas fa-globe
-              | {{ $t('link.locale') }}
-
-            v-list
-              v-list-tile(
-                v-for="(locale, index) in locales"
-                :key="index"
-                :to="switchLocalePath(locale.code)"
-                nuxt
-                exact
-              )
-                v-list-tile-title(class="text-xs-center")
-                  v-flex(tag="span" class="primary-text body-2")
-                    | {{ locale.name }}
-
-        // Menu
-        v-toolbar-items(class="hidden-sm-and-up")
-          v-btn(flat)
-            v-icon(color="secondary" small)
-              | fas fa-bars
 
         v-spacer
 
@@ -105,7 +74,12 @@
 import { Component, Prop, Vue } from 'nuxt-property-decorator';
 import { NuxtVueI18n } from 'nuxt-i18n/types/vue';
 
-@Component
+@Component({
+  components: {
+    TheNavbarMobile: () => import('./mobile/TheNavbar.vue'),
+    TheNavbarDesktop: () => import('./desktop/TheNavbar.vue'),
+  },
+})
 export default class TheHeader extends Vue {
   // Props
   @Prop({ type: Boolean, required: true }) readonly didScroll!: boolean;
@@ -147,8 +121,11 @@ export default class TheHeader extends Vue {
    */
   get locales(): (string | NuxtVueI18n.Options.LocaleObject)[] {
     return this.$i18n.locales.filter(locale => {
-      const localeObject = locale as NuxtVueI18n.Options.LocaleObject;
-      return localeObject.code !== this.$i18n.locale;
+      if (typeof locale !== 'string') {
+        return locale.code !== this.$i18n.locale;
+      } else {
+        return locale !== this.$i18n.locale;
+      }
     });
   }
 }

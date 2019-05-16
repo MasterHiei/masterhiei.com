@@ -1,8 +1,9 @@
 import Axios from 'axios';
 import { ActionTree, MutationTree, GetterTree, ActionContext } from 'vuex';
+import { forEach } from 'lodash';
 import { RootState } from 'store';
 import { Issue, Label } from '@/models/issue';
-import { hashedId } from '@/common/utils/gitalk';
+import { generateId } from '@/common/gitalk';
 
 // Instance of axios
 const axios = Axios.create({
@@ -21,16 +22,21 @@ const label = process.env.COMMENTS_LABEL;
  * @param data Issue in API response
  */
 const deconstructIssue = (data: any): Issue => {
-  // Get labels
+  // Extract labels
   const labels: Label[] = [];
-  for (let index = 0; index < data.labels.length; index++) {
-    labels[index] = {
-      id: data.labels[index].id,
-      name: data.labels[index].name,
-    };
-  }
+  forEach(
+    data.labels,
+    (item): void => {
+      // Jump to next loop if label name is 'Comment' label name
+      if (item.name === label) {
+        return;
+      }
 
-  // Get issue
+      labels.push({ id: item.id, name: item.name });
+    }
+  );
+
+  // Remake issue
   const issue: Issue = {
     id: data.id,
     labels: labels,
@@ -71,7 +77,7 @@ export const getters: GetterTree<State, RootState> = {
   findOneById: (state): ((id: string) => Issue | undefined) => (
     id: string
   ): Issue | undefined => {
-    const gitalkId = hashedId(id);
+    const gitalkId = generateId(id);
     return state.issues.find(
       (issue): boolean => {
         const label = issue.labels.find(
@@ -106,7 +112,7 @@ export const actions: Actions<State, RootState> = {
    * @param id Gitalk ID
    */
   async fetchOneById({ commit }, id): Promise<void> {
-    const gitalkId = hashedId(id);
+    const gitalkId = generateId(id);
     const { data } = await axios.get(`/repos/${owner}/${repo}/issues`, {
       params: {
         client_id: clientId,
@@ -130,10 +136,13 @@ export const mutations: MutationTree<State> = {
   [types.FETCH](state, res: any[]): void {
     // Get issues from response
     const issues: Issue[] = [];
-    for (let index = 0; index < res.length; index++) {
-      const issue = deconstructIssue(res[index]);
-      issues.push(issue);
-    }
+    forEach(
+      res,
+      (item): void => {
+        const issue = deconstructIssue(item);
+        issues.push(issue);
+      }
+    );
     state.issues = issues;
   },
 

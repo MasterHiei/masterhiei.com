@@ -1,4 +1,5 @@
 import { ActionTree, MutationTree, GetterTree, ActionContext } from 'vuex';
+import { forEach } from 'lodash';
 import { RootState } from 'store';
 import { Article } from 'models/article';
 import { NuxtAxiosInstance } from '@nuxtjs/axios';
@@ -110,11 +111,15 @@ export const mutations: MutationTree<State> = {
       return;
     }
 
+    // Overwrite article data
     let start = limit * (state.page - 1);
-    for (let i = 0; i < articles.length; i++) {
-      state.articles[start] = articles[i];
-      start += 1;
-    }
+    forEach(
+      articles,
+      (article): void => {
+        state.articles[start] = article;
+        start += 1;
+      }
+    );
   },
 
   /**

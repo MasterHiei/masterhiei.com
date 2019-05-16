@@ -70,7 +70,6 @@
                     v-flex(
                       v-for="(skill, index) in skills"
                       :key="index"
-                      xs12
                       md6
                       my-2
                       px-2
