@@ -48,6 +48,16 @@ export default class TheBar extends Vue {
     return size(group);
   }
 
+  /**
+   * X axis name
+   */
+  get xAxisName(): string {
+    if (this.$device.isMobile) {
+      return '';
+    }
+    return this.$i18n.t('tag.chart.total').toString();
+  }
+
   // Hooks
   mounted() {
     this.$nextTick(() => {
@@ -69,13 +79,13 @@ export default class TheBar extends Vue {
         grid: {
           top: '10',
           right: '30',
-          bottom: '60',
+          bottom: '50',
           left: '30',
           containLabel: !this.$device.isMobile,
         },
         xAxis: {
           type: 'value',
-          name: this.$i18n.t('tag.chart.total').toString(),
+          name: this.xAxisName,
           nameLocation: 'center',
           nameTextStyle: { padding: 10 },
           minInterval: 1,
@@ -124,6 +134,7 @@ export default class TheBar extends Vue {
   font-weight 700
   padding-bottom 12px
   .v-icon
+    font-size 24px
     color var(--v-primary-base)
     margin 0 8px 4px 0
 </style>
