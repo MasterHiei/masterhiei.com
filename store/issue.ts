@@ -1,5 +1,6 @@
 import Axios from 'axios';
 import { ActionTree, MutationTree, GetterTree, ActionContext } from 'vuex';
+import { forEach } from 'lodash';
 import { RootState } from 'store';
 import { Issue, Label } from '@/models/issue';
 import { generateId } from '@/common/gitalk';
@@ -21,16 +22,21 @@ const label = process.env.COMMENTS_LABEL;
  * @param data Issue in API response
  */
 const deconstructIssue = (data: any): Issue => {
-  // Get labels
+  // Extract labels
   const labels: Label[] = [];
-  for (let index = 0; index < data.labels.length; index++) {
-    labels[index] = {
-      id: data.labels[index].id,
-      name: data.labels[index].name,
-    };
-  }
+  forEach(
+    data.labels,
+    (item): void => {
+      // Jump to next loop if label name is 'Comment' label name
+      if (item.name === label) {
+        return;
+      }
 
-  // Get issue
+      labels.push({ id: item.id, name: item.name });
+    }
+  );
+
+  // Remake issue
   const issue: Issue = {
     id: data.id,
     labels: labels,
@@ -130,10 +136,13 @@ export const mutations: MutationTree<State> = {
   [types.FETCH](state, res: any[]): void {
     // Get issues from response
     const issues: Issue[] = [];
-    for (let index = 0; index < res.length; index++) {
-      const issue = deconstructIssue(res[index]);
-      issues.push(issue);
-    }
+    forEach(
+      res,
+      (item): void => {
+        const issue = deconstructIssue(item);
+        issues.push(issue);
+      }
+    );
     state.issues = issues;
   },
 
