@@ -9,7 +9,9 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator';
-import { maxBy, groupBy, size } from 'lodash';
+import maxBy from 'lodash/maxBy';
+import groupBy from 'lodash/groupBy';
+import size from 'lodash/size';
 import ECharts from 'echarts/lib/echarts';
 import { Tag } from 'models/tag';
 import 'echarts/lib/chart/bar';

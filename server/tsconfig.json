@@ -1,13 +1,8 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "module": "esnext",
+    "module": "commonjs",
     "moduleResolution": "node",
-    "lib": [
-      "esnext",
-      "esnext.asynciterable",
-      "dom"
-    ],
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "allowJs": true,
@@ -19,15 +14,9 @@
     "baseUrl": ".",
     "resolveJsonModule": true,
     "paths": {
-      "~/*": ["./*"],
-      "@/*": ["./*"]
+      "~/*": ["../*"],
+      "@/*": ["../*"]
     },
-    "types": [
-      "./types",
-      "@nuxtjs/axios",
-      "@nuxt/vue-app",
-      "nuxt-i18n",
-      "nuxt-device-detect",
-    ]
+    "types": [ "../types" ]
   }
 }

@@ -3,7 +3,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
-import { forEach } from 'lodash';
+import forEach from 'lodash/forEach';
 import env from './utils/envalid';
 import token from './utils/token';
 import routes from './routes';

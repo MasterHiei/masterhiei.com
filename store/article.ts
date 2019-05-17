@@ -1,5 +1,5 @@
 import { ActionTree, MutationTree, GetterTree, ActionContext } from 'vuex';
-import { forEach } from 'lodash';
+import forEach from 'lodash/forEach';
 import { RootState } from 'store';
 import { Article } from 'models/article';
 import { NuxtAxiosInstance } from '@nuxtjs/axios';
