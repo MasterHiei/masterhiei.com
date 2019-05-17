@@ -39,10 +39,7 @@ const config: NuxtConfiguration = {
   /*
    ** Customize the progress-bar color
    */
-  loading: {
-    color: '#43A047',
-    continuous: true,
-  },
+  loading: '@/components/layout/loading.vue',
 
   /*
    ** Global CSS
@@ -156,8 +153,8 @@ const config: NuxtConfiguration = {
    ** Build configuration
    */
   build: {
-    transpile: ['vuetify/lib'],
     plugins: [new VuetifyLoaderPlugin()],
+    transpile: ['vuetify/lib'],
     loaders: {
       stylus: {
         import: ['~assets/style/variables'],

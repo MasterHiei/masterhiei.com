@@ -170,7 +170,7 @@ export default class IndexPage extends Vue {
       box-shadow 0 1px 6px rgba(0, 0, 0, .12), 0 1px 4px rgba(0, 0, 0, .24)
     &-title
       color var(--v-secondary-darken2)
-      &:before, &:after
+      &::before, &::after
         content ''
         vertical-align middle
         display inline-block

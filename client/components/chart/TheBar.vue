@@ -4,7 +4,7 @@
       v-icon
         | fas fa-chart-bar
       | {{ $t('tag.chart.title') }}
-    div(ref="bar" :style="barStyle")
+    div(id="chart-bar" :style="barStyle")
 </template>
 
 <script lang="ts">
@@ -64,7 +64,7 @@ export default class TheBar extends Vue {
   mounted() {
     this.$nextTick(() => {
       // Initialize echarts
-      const dom = this.$refs.bar as HTMLDivElement;
+      const dom = document.getElementById('chart-bar');
       const echarts = ECharts.init(dom);
 
       // Set echarts option
