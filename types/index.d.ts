@@ -1,12 +1,9 @@
 import Vue from 'vue';
+import MarkdownIt from 'markdown-it';
 import { Auth } from './auth';
 
-interface MarkdownIt {
-  render(md: string): string;
-}
-
 /**
- * Extends interfaces in Vue.js
+ * Extends definition in Vue.js
  */
 declare module 'vue/types/vue' {
   interface Vue {
@@ -15,6 +12,9 @@ declare module 'vue/types/vue' {
   }
 }
 
+/**
+ * Extends definition in Express
+ */
 declare global {
   namespace Express {
     export interface Request {

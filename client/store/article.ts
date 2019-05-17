@@ -1,8 +1,8 @@
 import { ActionTree, MutationTree, GetterTree, ActionContext } from 'vuex';
-import { forEach } from 'lodash';
-import { RootState } from 'store';
-import { Article } from 'models/article';
+import forEach from 'lodash/forEach';
 import { NuxtAxiosInstance } from '@nuxtjs/axios';
+import { RootState } from 'store';
+import { Article } from '@/models/article';
 
 // Get page limit from environment variables
 const limit = Number(process.env.PAGE_LIMIT);

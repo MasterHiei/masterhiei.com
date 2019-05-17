@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import { ActionTree, MutationTree, GetterTree, ActionContext } from 'vuex';
-import { forEach } from 'lodash';
+import forEach from 'lodash/forEach';
 import { RootState } from 'store';
 import { Issue, Label } from '@/models/issue';
 import { generateId } from '@/common/gitalk';

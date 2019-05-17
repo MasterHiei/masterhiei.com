@@ -134,7 +134,7 @@ $text-color = #8C8AA7
         &:nth-child(1)
           opacity .2
           animation shine 4s ease-in-out 3s infinite
-          &:before, &:after
+          &::before, &::after
             content ''
             width 12px
             height 4px
@@ -143,9 +143,9 @@ $text-color = #8C8AA7
             position absolute
             bottom 65px
             left 0
-          &:before
+          &::before
             transform rotate(45deg)
-          &:after
+          &::after
             transform rotate(-45deg)
         &:nth-child(2)
           width 18px
@@ -160,7 +160,7 @@ $text-color = #8C8AA7
         &:nth-child(3)
           opacity .2
           animation shine 3s ease-in-out .5s infinite
-          &:before, &:after
+          &::before, &::after
             content ''
             width 12px
             height 4px
@@ -169,14 +169,14 @@ $text-color = #8C8AA7
             position absolute
             top 5px
             left 40px
-          &:before
+          &::before
             transform rotate(90deg)
-          &:after
+          &::after
             transform rotate(180deg)
         &:nth-child(4)
           opacity .2
           animation shine 6s ease-in-out 1.6s infinite
-          &:before, &:after
+          &::before, &::after
             content ''
             width 15px
             height 4px
@@ -185,9 +185,9 @@ $text-color = #8C8AA7
             position absolute
             top 10px
             right 30px
-          &:before
+          &::before
             transform rotate(45deg)
-          &:after
+          &::after
             transform rotate(-45deg)
         &:nth-child(5)
           width 12px
@@ -202,7 +202,7 @@ $text-color = #8C8AA7
         &:nth-child(6)
           opacity .2
           animation shine 2s ease-in-out 6s infinite
-          &:before, &:after
+          &::before, &::after
             content ''
             width 15px
             height 4px
@@ -211,9 +211,9 @@ $text-color = #8C8AA7
             position absolute
             bottom 65px
             right -5px
-          &:before
+          &::before
             transform rotate(90deg)
-          &:after
+          &::after
             transform rotate(180deg)
 
       // Ghost body

@@ -8,11 +8,12 @@
       xs11
       wrap
     )
-      v-card(class="chart-card")
-        v-flex(tag="h1" class="chart-card-title" wrap)
+      v-card(class="tag-card")
+        v-flex(class="tag-card-title" wrap)
           v-icon(size="26") fas fa-tags
           | {{ $t('tag.title') }}
 
+      v-card(class="chart-card")
         the-bar(:data="tags")
 </template>
 
@@ -40,13 +41,19 @@ export default class TagsPage extends Vue {
 .section
   &-item
     margin-bottom 16px
-    .chart-card
+    // Tag card
+    .tag-card
       padding 30px
+      margin-bottom 30px
       &-title
         font-size 28px
         font-weight 700
         text-align center
         margin-bottom 8px
         .v-icon
+          color var(--v-primary-base)
           margin 0 8px 4px 0
+    // Chart card
+    .chart-card
+      padding 30px
 </style>

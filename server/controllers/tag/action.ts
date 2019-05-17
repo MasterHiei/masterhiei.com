@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { validationResult } from 'express-validator/check';
 import consola from 'consola';
 import ArticleModel from '../../models/article';
-import { Tag } from '@/models/tag';
+import { Tag } from '../../../client/models/tag';
 
 /**
  * Get all tags in article
