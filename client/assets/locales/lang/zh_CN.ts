@@ -33,7 +33,7 @@ export default {
   tag: {
     title: '文章标签',
     chart: {
-      title: '文章标签条形图',
+      title: '文章标签统计',
       total: '合计',
       less: '更少',
       more: '更多',

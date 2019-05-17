@@ -2,11 +2,15 @@ import NuxtConfiguration from '@nuxt/config';
 import VuetifyLoaderPlugin from 'vuetify-loader/lib/plugin';
 import pkg from './package.json';
 import env from './server/utils/envalid';
-import dateTimeFormats from './assets/locales/dateTimeFormats';
+import dateTimeFormats from './client/assets/locales/dateTimeFormats';
 
 // Load environment variables from .env file
 require('dotenv').config();
 
+// Source directory
+const srcDir = 'client/';
+
+// Nuxt configuration options
 const config: NuxtConfiguration = {
   /*
    ** Headers of the page
@@ -45,6 +49,11 @@ const config: NuxtConfiguration = {
    */
   css: ['~assets/style/app'],
 
+  /**
+   * Source directory
+   */
+  srcDir: srcDir,
+
   /*
    ** Plugins to load before mounting the App
    */
@@ -67,7 +76,7 @@ const config: NuxtConfiguration = {
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/auth',
-    '@nuxtjs/dotenv',
+    ['@nuxtjs/dotenv', { path: __dirname }],
     '@nuxtjs/markdownit',
     [
       'nuxt-i18n',
@@ -154,13 +163,11 @@ const config: NuxtConfiguration = {
         import: ['~assets/style/variables'],
       },
     },
-
     splitChunks: {
       layouts: true,
       pages: true,
       commons: true,
     },
-
     analyze: {
       analyzerMode: 'server',
     },
