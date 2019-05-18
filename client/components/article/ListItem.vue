@@ -10,7 +10,11 @@
             class="post-image"
             :class="{ 'scale': hover }"
           )
-            img(v-lazy="article.image" :alt="article.title")
+            img(
+              v-lazy="article.image"
+              :alt="article.title"
+              draggable="false"
+            )
 
           // Content
           v-card-text(class="post-content")
@@ -112,11 +116,15 @@ export default class ListItem extends Vue {
   &-image
     padding 0
     overflow hidden
+    justify-content center
     img
       height auto
       width 100%
       opacity 0.8
       transition opacity 1s, transform 1s
+      &[lazy=loading]
+        width 60px
+        padding 30px 0
 
   // Detail
   &-content
