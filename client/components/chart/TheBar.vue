@@ -28,17 +28,24 @@ export default class TheBar extends Vue {
   // Coumputed
 
   /**
+   * Return a reversed tags array
+   */
+  get tags(): Tag[] {
+    return this.data.slice().reverse();
+  }
+
+  /**
    * Bar contaner style
    */
   get barStyle(): string {
-    return `height: ${this.data.length * 40}px;`;
+    return `height: ${this.tags.length * 40}px;`;
   }
 
   /**
    * Max value of values
    */
   get maxValue(): number {
-    const maxItem = maxBy(this.data, 'value');
+    const maxItem = maxBy(this.tags, 'value');
     return maxItem == null ? 0 : maxItem.value;
   }
 
@@ -46,7 +53,7 @@ export default class TheBar extends Vue {
    * Split number of values
    */
   get splitNumber(): number {
-    const group = groupBy(this.data, 'value');
+    const group = groupBy(this.tags, 'value');
     return size(group);
   }
 
@@ -114,7 +121,7 @@ export default class TheBar extends Vue {
             },
           },
         ],
-        dataset: { source: this.data },
+        dataset: { source: this.tags },
         series: [
           {
             name: this.$i18n.t('tag.chart.total').toString(),
