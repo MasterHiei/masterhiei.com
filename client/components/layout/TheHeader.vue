@@ -104,6 +104,11 @@ export default class TheHeader extends Vue {
         text: this.$i18n.t('link.index'),
       },
       {
+        path: this.localePath('tags'),
+        icon: 'fas fa-tags',
+        text: this.$i18n.t('link.tags'),
+      },
+      {
         path: this.localePath('archives'),
         icon: 'fas fa-archive',
         text: this.$i18n.t('link.archives'),

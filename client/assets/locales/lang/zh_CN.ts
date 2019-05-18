@@ -2,6 +2,7 @@ export default {
   link: {
     locale: '简体中文',
     index: '首页',
+    tags: '标签',
     archives: '归档',
     about: '关于',
   },

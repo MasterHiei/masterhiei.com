@@ -67,7 +67,7 @@ export default class TheBar extends Vue {
       const dom = document.getElementById('chart-bar');
       const echarts = ECharts.init(dom);
 
-      // Set echarts option
+      // Set echarts options
       echarts.setOption({
         textStyle: {
           color: '#757575',
@@ -123,6 +123,14 @@ export default class TheBar extends Vue {
             encode: { x: 'value', y: 'name' },
           },
         ],
+      });
+
+      // Set click event on echarts
+      const me = this;
+      echarts.on('click', function(params): void {
+        me.$router.push(
+          me.localePath({ name: 'tags-tag', params: { tag: params.data.name } })
+        );
       });
     });
   }
