@@ -1,14 +1,19 @@
 <template lang="pug">
   // Items
   v-layout(class="post-list" wrap)
-    v-flex(
-      v-for="(article, index) in storedArticles"
-      :key="index"
-      class="post-list-item"
-      md6
-      wrap
+    transition-group(
+      tag="div"
+      class="layout wrap"
+      enter-active-class="animated zoomIn"
     )
-      article-list-item(:article="article")
+      v-flex(
+        v-for="article in storedArticles"
+        :key="article.id"
+        class="post-list-item"
+        md6
+        wrap
+      )
+        article-list-item(:article="article")
 
     // Actions
     v-flex(

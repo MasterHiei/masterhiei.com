@@ -8,7 +8,7 @@
       xs11
       wrap
     )
-      v-card(class="tag-card")
+      v-card(class="tag-card animated fadeInUp")
         // Title
         v-flex(class="tag-card-title" wrap)
           v-icon(size="26") fas fa-tags
@@ -31,7 +31,7 @@
             )
               | {{ tag.name }}
 
-      v-card(class="tag-chart-card")
+      v-card(class="tag-chart-card animated fadeInUp")
         the-bar(:data="tags")
 </template>
 
@@ -94,12 +94,13 @@ export default class TagsPage extends Vue {
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
 .section
+  margin-top 48px
   &-item
-    margin-bottom 16px
+    margin-bottom 30px
     // Tag card
     .tag-card
       padding 30px
-      margin-bottom 30px
+      margin-bottom 60px
       &-title
         font-size 28px
         font-weight 700

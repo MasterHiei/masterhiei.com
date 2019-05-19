@@ -3,10 +3,9 @@
     // Today
     v-flex(
       tag="section"
-      class="today section-item"
+      class="today section-item animated fadeInUp"
       md4
       xs11
-      data-aos="fade-up"
       wrap
     )
       v-card(class="today-card pa-3")
@@ -50,7 +49,7 @@
     // Articles
     v-flex(
       tag="section"
-      class="section-item"
+      class="section-item animated fadeInUp"
       md6
       xs11
       wrap
@@ -58,7 +57,6 @@
       v-card(
         color="transparent"
         flat
-        data-aos="fade-up"
       )
         // Title
         v-card-title(class="section-item-title")
