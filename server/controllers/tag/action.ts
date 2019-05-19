@@ -13,7 +13,7 @@ const index = (_, res: Response): void => {
     .unwind('tags')
     .group({ _id: '$tags', value: { $sum: 1 } })
     .project({ _id: 0, name: '$_id', value: 1 })
-    .sort('value')
+    .sort('-value')
     .exec()
     .then(
       (tags: Tag[]): void => {

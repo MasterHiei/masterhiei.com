@@ -41,7 +41,7 @@
                 :to="localePath('index')"
                 nuxt
                 exact
-                @click="transiTo"
+                @click="backToHome"
               )
                 | Go to the homepage?
 </template>
@@ -87,7 +87,7 @@ export default class ErrorPage extends Vue {
   /**
    * Reload if on index page
    */
-  transiTo() {
+  backToHome() {
     const name = this.$route.name || '';
     if (name.startsWith('index')) {
       this.$router.go(0);

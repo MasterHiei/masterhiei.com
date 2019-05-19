@@ -1,14 +1,19 @@
 <template lang="pug">
   // Items
   v-layout(class="post-list" wrap)
-    v-flex(
-      v-for="(article, index) in storedArticles"
-      :key="index"
-      class="post-list-item"
-      md6
-      wrap
+    transition-group(
+      tag="div"
+      class="layout wrap"
+      enter-active-class="animated zoomIn"
     )
-      article-list-item(:article="article")
+      v-flex(
+        v-for="article in storedArticles"
+        :key="article.id"
+        class="post-list-item"
+        md6
+        wrap
+      )
+        article-list-item(:article="article")
 
     // Actions
     v-flex(
@@ -18,15 +23,15 @@
       wrap
     )
       v-hover
-        button(
-          v-show="!loading"
-          slot-scope="{ hover }"
-          class="fetch-button"
-          :class="`elevation-${ hover ? 6 : 0 }`"
-          @click="fetchNext"
-        )
-          v-icon(:class="{ rotate: hover }" color="accent")
-            | fas fa-plus
+        template(v-slot="{ hover }")
+          button(
+            v-show="!loading"
+            class="fetch-button"
+            :class="`elevation-${ hover ? 6 : 0 }`"
+            @click="fetchNext"
+          )
+            v-icon(:class="{ rotate: hover }" color="accent")
+              | fas fa-plus
 
       v-icon(
         v-show="loading"
@@ -119,10 +124,10 @@ export default class List extends Vue {
       outline none
       background transparent
       transition box-shadow 0.3s
-        .v-icon::before
-          transition transform 0.3s
-          .rotate::before
-            transform rotate(90deg)
+      .v-icon::before
+        transition transform 0.3s
+      .rotate::before
+        transform rotate(90deg)
 
     // Icon
     .fetch-icon

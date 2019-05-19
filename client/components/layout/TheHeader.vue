@@ -4,7 +4,7 @@
     v-flex(class="header-present" pa-0 wrap)
       v-toolbar(
         :class="didScroll ? 'nav-sticky' : 'nav-transparent'"
-        class="header-nav text-xs-center"
+        class="header-nav"
         :flat="!didScroll"
         height="60"
         app
@@ -104,6 +104,11 @@ export default class TheHeader extends Vue {
         text: this.$i18n.t('link.index'),
       },
       {
+        path: this.localePath('tags'),
+        icon: 'fas fa-tags',
+        text: this.$i18n.t('link.tags'),
+      },
+      {
         path: this.localePath('archives'),
         icon: 'fas fa-archive',
         text: this.$i18n.t('link.archives'),
@@ -149,6 +154,7 @@ $mb = 120px
 
     // Nav
     .header-nav
+      text-align center
       transition-property background-color, padding
       transition-duration .3s
       transition-timing-function ease-out

@@ -1,67 +1,71 @@
 <template lang="pug">
   v-hover
-    v-card(
-        slot-scope="{ hover }"
-        class="post text-xs-center"
-        :class="`elevation-${ hover ? 8 : 2 }`"
-      )
-        // Image
-        v-card-title(
-          class="post-image pa-0"
-          :class="{ 'scale': hover }"
+    template(v-slot="{ hover }")
+      v-card(
+          class="post"
+          :class="`elevation-${ hover ? 8 : 2 }`"
         )
-          img(v-lazy="article.image" :alt="article.title")
-
-        // Content
-        v-card-text(class="post-content")
-          // Datetime
-          post-date-time(:datetime="article.created_at")
-
-          // Tags
-          v-flex(class="post-content-tag" wrap)
-            n-link(
-              v-for="(tag, index) in article.tags"
-              :key="index"
-              :to="localePath({ name: 'tags-tag', params: { tag: tag } })"
-            )
-              | \#{{ tag }}
-
-          // Title
-          v-flex(
-            class="post-content-title title font-weight-bold"
-            wrap
+          // Image
+          v-card-title(
+            class="post-image"
+            :class="{ 'scale': hover }"
           )
-            n-link(
-              :to="localePath({ name: 'articles-id', params: { id: article.id } })"
-              exact
+            img(
+              v-lazy="article.image"
+              :alt="article.title"
+              draggable="false"
             )
-              | {{ article.title }}
 
-          // Detail
-          v-flex(
-            class="post-content-detail"
-          )
-            // Views
-            span(class="detail-item")
-              v-icon(small)
-                | far fa-eye
-              | {{ $t('article.views', { number: article.views }) }}
+          // Content
+          v-card-text(class="post-content")
+            // Datetime
+            post-date-time(:datetime="article.created_at")
 
-            // Comments
-            n-link(
-              class="detail-item"
-              :to="`${localePath({ name: 'articles-id', params: { id: article.id } })}#comments`"
-              exact
+            // Tags
+            v-flex(class="post-content-tag" wrap)
+              n-link(
+                v-for="(tag, index) in article.tags"
+                :key="index"
+                :to="localePath({ name: 'tags-tag', params: { tag: tag } })"
+              )
+                | \#{{ tag }}
+
+            // Title
+            v-flex(
+              class="post-content-title"
+              wrap
             )
-              v-icon(small)
-                | far fa-comments
-              | {{ $t('article.comments', { number: commentCount }) }}
+              n-link(
+                :to="localePath({ name: 'articles-id', params: { id: article.id } })"
+                exact
+              )
+                | {{ article.title }}
 
-            // Stars
-            span(class="detail-item")
-              v-icon(small)
-                | far fa-heart
-              | {{ $t('article.stars', { number: article.stars }) }}
+            // Detail
+            v-flex(
+              class="post-content-detail"
+            )
+              // Views
+              span(class="detail-item")
+                v-icon(small)
+                  | far fa-eye
+                | {{ $t('article.views', { number: article.views }) }}
+
+              // Comments
+              n-link(
+                class="detail-item"
+                :to="`${localePath({ name: 'articles-id', params: { id: article.id } })}#comments`"
+                exact
+              )
+                v-icon(small)
+                  | far fa-comments
+                | {{ $t('article.comments', { number: commentCount }) }}
+
+              // Stars
+              span(class="detail-item")
+                v-icon(small)
+                  | far fa-heart
+                | {{ $t('article.stars', { number: article.stars }) }}
 </template>
 
 <script lang="ts">
@@ -96,6 +100,7 @@ export default class ListItem extends Vue {
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
 .post
+  text-align center
   // Link
   a
     &:hover
@@ -109,12 +114,17 @@ export default class ListItem extends Vue {
 
   // Image
   &-image
+    padding 0
     overflow hidden
+    justify-content center
     img
       height auto
       width 100%
       opacity 0.8
       transition opacity 1s, transform 1s
+      &[lazy=loading]
+        width 60px
+        padding 30px 0
 
   // Detail
   &-content
@@ -134,6 +144,8 @@ export default class ListItem extends Vue {
 
     // Title
     &-title
+      font-size 20px
+      font-weight 700
       margin-bottom 25px
       a
         transition color 0.15s linear 0s

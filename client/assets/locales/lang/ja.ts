@@ -2,6 +2,7 @@ export default {
   link: {
     locale: '日本語',
     index: 'ホーム',
+    tags: 'タグ',
     archives: 'アーカイブ',
     about: 'サイト関連',
   },

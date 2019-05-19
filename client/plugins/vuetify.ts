@@ -23,7 +23,7 @@ const options: VuetifyOptions = {
     maxAge: 1000 * 60 * 60,
   }),
   customProperties: true,
-  cspNonce: 'nonce-Q1veajC7P6p',
+  cspNonce: 'Q1veajC7P6p',
 };
 
 // Use Vuetify
