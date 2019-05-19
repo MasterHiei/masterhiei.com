@@ -7,7 +7,8 @@
     )
       v-btn(
         active-class=""
-        :class="didScroll ? 'primary-text' : 'secondary-text'"
+        class="toolbar-item-link"
+        :class="didScroll ? 'button-sticky' : 'button-transparent'"
         :to="page.path"
         flat
         nuxt
@@ -21,7 +22,7 @@
     v-toolbar-items
       v-menu(offset-y transition="slide-y-transition")
         v-btn(
-          :class="didScroll ? 'primary-text' : 'secondary-text'"
+          :class="didScroll ? 'button-sticky' : 'button-transparent'"
           slot="activator"
           flat
         )
@@ -56,4 +57,29 @@ export default class TheHeader extends Vue {
 }
 </script>
 
-<style scoped lang="stylus" rel="stylesheet/stylus"></style>
+<style scoped lang="stylus" rel="stylesheet/stylus">
+.button-transparent
+  color var(--v-secondary-base)
+  &>>>.v-btn__content::after
+    background-color var(--v-secondary-base) !important
+
+.button-sticky
+  color var(--v-primary-base)
+
+.toolbar-item-link
+  &>>>.v-btn__content
+    &::after
+      content ''
+      position absolute
+      left 0
+      bottom -10px
+      width 100%
+      height 3px
+      border-radius 1.5px
+      background-color var(--v-accent-base)
+      transform scaleX(0)
+      transform-origin center top
+      transition transform .3s
+  &:hover>>>.v-btn__content::after
+    transform scaleX(1)
+</style>
