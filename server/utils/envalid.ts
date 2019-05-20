@@ -14,7 +14,6 @@ export interface Env extends CleanEnv {
   GITHUB_CLIENT_ID: string;
   GITHUB_CLIENT_SECRET: string;
   BCRYPT_SALT_ROUND: number;
-  PAGE_LIMIT: number;
   COMMENTS_PEPO: string;
   COMMENTS_LABEL: string;
   COMMENTS_LIMIT: number;
@@ -35,7 +34,6 @@ const validateEnv = (): Readonly<Env> =>
     GITHUB_CLIENT_ID: str(),
     GITHUB_CLIENT_SECRET: str(),
     BCRYPT_SALT_ROUND: num(),
-    PAGE_LIMIT: num(),
     COMMENTS_PEPO: str(),
     COMMENTS_LABEL: str(),
     COMMENTS_LIMIT: num(),
