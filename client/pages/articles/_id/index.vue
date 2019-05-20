@@ -109,6 +109,12 @@ const Issue = namespace(issue.name);
       error({ statusCode: statusCode, message: e.message });
     });
   },
+
+  // Transition animation
+  transition: {
+    enterActiveClass: 'animated slideInLeft',
+    leaveActiveClass: 'animated slideOutRight',
+  },
 })
 export default class ArticlePage extends Vue {
   // Computed

@@ -88,7 +88,13 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
 
-@Component
+@Component({
+  // Transition animation
+  transition: {
+    enterActiveClass: 'animated slideInLeft',
+    leaveActiveClass: 'animated slideOutRight',
+  },
+})
 export default class AboutPage extends Vue {
   // Computed
 

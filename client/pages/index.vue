@@ -3,7 +3,7 @@
     // Today
     v-flex(
       tag="section"
-      class="today section-item animated fadeInUp"
+      class="today section-item"
       md4
       xs11
       wrap
@@ -49,7 +49,7 @@
     // Articles
     v-flex(
       tag="section"
-      class="section-item animated fadeInUp"
+      class="section-item"
       md6
       xs11
       wrap
@@ -91,6 +91,12 @@ import { AxiosError } from 'axios';
       const statusCode = e.response ? e.response.status : 500;
       error({ statusCode: statusCode, message: e.message });
     });
+  },
+
+  // Transition animation
+  transition: {
+    enterActiveClass: 'animated slideInLeft',
+    leaveActiveClass: 'animated slideOutRight',
   },
 })
 export default class IndexPage extends Vue {

@@ -5,6 +5,7 @@
       tag="div"
       class="layout wrap"
       enter-active-class="animated zoomIn"
+      leave-active-class="animated zoomOut"
     )
       v-flex(
         v-for="article in storedArticles"
