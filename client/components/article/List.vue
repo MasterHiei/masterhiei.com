@@ -8,7 +8,7 @@
       leave-active-class="animated zoomOut"
     )
       v-flex(
-        v-for="article in storedArticles"
+        v-for="article in articles"
         :key="article.id"
         class="post-list-item"
         md6
@@ -18,7 +18,7 @@
 
     // Actions
     v-flex(
-      v-show="isHaveNext"
+      v-show="isHaveMore"
       class="post-list-action text-xs-center"
       my-3
       wrap
@@ -44,11 +44,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, namespace } from 'nuxt-property-decorator';
-import * as article from '@/store/article';
-import { Article as ArticleModel } from '@/models/article';
-
-const Article = namespace(article.name);
+import { Component, Prop, Vue } from 'nuxt-property-decorator';
+import { Article } from '@/models/article';
 
 @Component({
   components: {
@@ -56,51 +53,44 @@ const Article = namespace(article.name);
   },
 })
 export default class List extends Vue {
+  // Props
+  @Prop({ type: Array, required: true }) readonly initData!: Article[];
+  @Prop({ type: Number, required: true }) readonly initCount!: number;
+
   // Data
-  @Article.State articles;
-  @Article.State page;
-  @Article.State totalCount;
+  articles = this.initData;
+  totalCount = this.initCount;
+  page = 1;
   loading = false;
-  isHaveNext = true;
 
-  // Coumputed
-  /**
-   * Watch articles
-   */
-  get storedArticles(): ArticleModel[] {
-    return this.articles;
-  }
+  // Computed
 
   /**
-   * Watch page number
+   * Returns true if have data can be fetched
    */
-  get storedPage(): number {
-    return this.page;
-  }
-
-  /**
-   * Watch article count number
-   */
-  get storedTotalCount(): number {
-    return this.totalCount;
+  get isHaveMore(): boolean {
+    return this.articles.length < this.totalCount;
   }
 
   // Methods
-  @Article.Action fetch;
 
   /**
-   * Fectch article data of the next page
+   * Fetch next page article data
    */
   async fetchNext() {
     this.loading = true;
-    await this.fetch(this.storedPage + 1);
+    this.page += 1;
+    const { articles, totalCount } = await this.$axios.$get('/articles', {
+      params: { page: this.page, limit: process.env.PAGE_LIMIT },
+    });
+    const data = articles || [];
+    this.articles.push(...data);
+    this.totalCount = totalCount;
     this.loading = false;
 
-    const isHaveNext = this.storedArticles.length < this.storedTotalCount;
-    if (isHaveNext) {
+    if (this.isHaveMore) {
       this.$forceUpdate();
     }
-    this.isHaveNext = isHaveNext;
   }
 }
 </script>

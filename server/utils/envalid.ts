@@ -17,6 +17,7 @@ export interface Env extends CleanEnv {
   COMMENTS_PEPO: string;
   COMMENTS_LABEL: string;
   COMMENTS_LIMIT: number;
+  PAGE_LIMIT: number;
 }
 
 // Validate
@@ -37,6 +38,7 @@ const validateEnv = (): Readonly<Env> =>
     COMMENTS_PEPO: str(),
     COMMENTS_LABEL: str(),
     COMMENTS_LIMIT: num(),
+    PAGE_LIMIT: num(),
   });
 
 export default validateEnv();

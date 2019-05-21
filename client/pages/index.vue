@@ -70,7 +70,7 @@
               | fas fa-feather-alt
             | {{ $t('article.list') }}
 
-        article-list
+        article-list(:init-data="articles" :init-count="totalCount")
 </template>
 
 <script lang="ts">
@@ -83,11 +83,17 @@ import { AxiosError } from 'axios';
   },
 
   // Hooks
+  async asyncData({ $axios }) {
+    // Fetch articles
+    const { articles, totalCount } = await $axios.$get('/articles', {
+      params: { page: 1, limit: process.env.PAGE_LIMIT },
+    });
+    return { articles, totalCount };
+  },
+
   async fetch({ store, error }) {
-    await Promise.all([
-      store.dispatch('article/fetch', 1),
-      store.dispatch('issue/fetch'),
-    ]).catch((e: AxiosError) => {
+    // Fetch issues
+    await store.dispatch('issue/fetch').catch((e: AxiosError) => {
       const statusCode = e.response ? e.response.status : 500;
       error({ statusCode: statusCode, message: e.message });
     });
