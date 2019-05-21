@@ -17,6 +17,6 @@
       "~/*": ["../*"],
       "@/*": ["../*"]
     },
-    "types": [ "../types" ]
+    "types": [ "../types", "jest", "supertest" ]
   }
 }

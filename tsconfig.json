@@ -28,7 +28,8 @@
       "@nuxt/vue-app",
       "nuxt-i18n",
       "nuxt-device-detect",
-      "vue-infinite-loading"
+      "vue-infinite-loading",
+      "jest"
     ]
   }
 }

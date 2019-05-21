@@ -31,7 +31,7 @@ const index = (req: Request, res: Response): void => {
     .then(
       ([articles, totalCount]): void => {
         // Set response
-        res.json({ articles, totalCount });
+        res.status(200).json({ articles, totalCount });
       }
     )
     .catch(
@@ -64,7 +64,7 @@ const show = (req: Request, res: Response): void => {
       (article): void => {
         // Set response
         if (article != null) {
-          res.json({ article });
+          res.status(200).json({ article });
         } else {
           res.status(404).json({
             error: {

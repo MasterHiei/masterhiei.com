@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import article from '../controllers/article/route';
-import tag from '../controllers/tag/route';
+import article from '../controllers/article/router';
+import tag from '../controllers/tag/router';
 import userController from '../controllers/user';
 
 // Experss app router

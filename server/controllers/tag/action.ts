@@ -18,7 +18,7 @@ const index = (_, res: Response): void => {
     .then(
       (tags: Tag[]): void => {
         // Set response
-        res.json(tags);
+        res.status(200).json(tags);
       }
     )
     .catch(
@@ -50,7 +50,7 @@ const show = (req: Request, res: Response): void => {
     .then(
       (article): void => {
         // Set response
-        res.json({ article });
+        res.status(200).json({ article });
       }
     )
     .catch(
