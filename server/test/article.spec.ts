@@ -1,6 +1,6 @@
 import { Server } from 'http';
 import request, { SuperTest, Test } from 'supertest';
-import mongoose from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 import forEach from 'lodash/forEach';
 import app from '../app';
 import ArticleModel, { ArticleInput } from '../models/article';
@@ -12,7 +12,7 @@ const url = '/api/v1/articles';
 // Get environment variables
 
 // Instance of test server, request and data
-let server: Server, agent: SuperTest<Test>, mocks: ArticleInput[];
+let server: Server, agent: SuperTest<Test>;
 
 // Before all tests
 beforeAll(
@@ -34,7 +34,11 @@ beforeAll(
 // Close test server
 afterAll(
   (done): void => {
-    mongoose.disconnect().then((): Server => server.close(done));
+    mongoose.disconnect().then(
+      (): void => {
+        server.close(done);
+      }
+    );
   }
 );
 
@@ -44,7 +48,10 @@ describe('Testing Article Routing', (): void => {
   describe('Get /articles', (): void => {
     // Successful request
     describe('Success', (): void => {
-      // Insert mocking data
+      // Mock data
+      let mocks: ArticleInput[];
+
+      // Insert mock data to database
       beforeEach(
         (done): void => {
           mocks = mockGenerator();
@@ -52,7 +59,7 @@ describe('Testing Article Routing', (): void => {
         }
       );
 
-      // Remove mocking data
+      // Remove mock data in database
       afterEach(
         (done): void => {
           ArticleModel.deleteMany({}, done);
@@ -119,7 +126,38 @@ describe('Testing Article Routing', (): void => {
 
   // Get an article with id
   describe('Get /articles/:id', (): void => {
-    // TODO: Successful request
+    // Successful request
+    describe('Success', (): void => {
+      let mock: ArticleInput;
+      let id: Schema.Types.ObjectId;
+
+      // Insert mock data to database
+      beforeEach(
+        (done): void => {
+          mock = mockGenerator(1)[0];
+          ArticleModel.create(mock).then(
+            (doc): void => {
+              id = doc._id;
+              done();
+            }
+          );
+        }
+      );
+
+      // Remove mocking data in database
+      afterEach(
+        (done): void => {
+          ArticleModel.deleteMany({}, done);
+        }
+      );
+
+      // Test
+      it('Return status 200 with a article object', async (): Promise<void> => {
+        const response = await agent.get(`${url}/${id}`);
+        expect(response.status).toBe(200);
+        expect(response.body.article).toEqual(expect.objectContaining(mock));
+      });
+    });
 
     // Incorrect id type
     describe('Failure: Incorrect id type', (): void => {
