@@ -37,7 +37,7 @@ const userSchema = new Schema(
     },
     avatar: {
       type: String,
-      default: `${env.DOMAIN}/public/avatar/avatar.png`,
+      default: '/avatar/avatar.png', // Deprecated
     },
     social_id: {
       type: String,

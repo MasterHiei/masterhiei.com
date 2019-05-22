@@ -5,7 +5,6 @@ export interface Env extends CleanEnv {
   HOST: string;
   PORT: number;
   API_PREFIX: string;
-  DOMAIN: string;
   DB_URI: string;
   DB_NAME: string;
   TOKEN_SECRET: string;
@@ -26,7 +25,6 @@ const validateEnv = (): Readonly<Env> =>
     HOST: host(),
     PORT: port(),
     API_PREFIX: str(),
-    DOMAIN: str(),
     DB_URI: str(),
     DB_NAME: str(),
     TOKEN_SECRET: str(),
