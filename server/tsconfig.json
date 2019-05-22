@@ -11,12 +11,20 @@
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": false,
     "noEmit": true,
-    "baseUrl": ".",
+    "baseUrl": "../client",
     "resolveJsonModule": true,
     "paths": {
-      "~/*": ["../*"],
-      "@/*": ["../*"]
+      "~/*": [
+        "./*"
+      ],
+      "@/*": [
+        "./*"
+      ]
     },
-    "types": [ "../types", "jest", "supertest" ]
+    "types": [
+      "../types",
+      "jest",
+      "supertest",
+    ]
   }
 }

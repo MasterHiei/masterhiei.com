@@ -1,39 +1,78 @@
 import { Server } from 'http';
 import request, { SuperTest, Test } from 'supertest';
 import mongoose from 'mongoose';
-import app from '../../app';
+import forEach from 'lodash/forEach';
+import app from '../app';
+import ArticleModel, { ArticleInput } from '../models/article';
+import mockGenerator from './mock/article';
 
 // Base url
 const url = '/api/v1/articles';
 
-// Instance of test server and request
-let server!: Server, agent: SuperTest<Test>;
+// Get environment variables
 
-// Create test server
+// Instance of test server, request and data
+let server: Server, agent: SuperTest<Test>, mocks: ArticleInput[];
+
+// Before all tests
 beforeAll(
   (done): void => {
+    // Create a test server
     server = app.listen(4000);
     agent = request(server);
-    done();
+    mongoose
+      .connect('mongodb://127.0.0.1:27017', {
+        dbName: 'test_masterhiei_db',
+        useNewUrlParser: true,
+        useCreateIndex: true,
+        useFindAndModify: false,
+      })
+      .then((): void => done());
   }
 );
 
 // Close test server
 afterAll(
   (done): void => {
-    server.close((): void => done());
+    mongoose.disconnect().then((): Server => server.close(done));
   }
 );
 
 // Routing tests
 describe('Testing Article Routing', (): void => {
   // Get articles with query params
-  describe('Get articles with query params', (): void => {
+  describe('Get /articles', (): void => {
     // Successful request
     describe('Success', (): void => {
-      it('Return status 200', async (): Promise<void> => {
-        const response = await agent.get(url).query({ page: 1, limit: 4 });
+      // Insert mocking data
+      beforeEach(
+        (done): void => {
+          mocks = mockGenerator();
+          ArticleModel.insertMany(mocks, done);
+        }
+      );
+
+      // Remove mocking data
+      afterEach(
+        (done): void => {
+          ArticleModel.deleteMany({}, done);
+        }
+      );
+
+      // Test
+      it('Return status 200 with a article list', async (): Promise<void> => {
+        const response = await agent
+          .get(url)
+          .query({ page: 1, limit: mocks.length });
         expect(response.status).toBe(200);
+        expect(response.body.articles.length).toBe(mocks.length);
+        forEach(
+          mocks,
+          (mock): void =>
+            expect(response.body.articles).toEqual(
+              expect.arrayContaining([expect.objectContaining(mock)])
+            )
+        );
       });
     });
 
@@ -79,7 +118,7 @@ describe('Testing Article Routing', (): void => {
   });
 
   // Get an article with id
-  describe('Get an article with id', (): void => {
+  describe('Get /articles/:id', (): void => {
     // TODO: Successful request
 
     // Incorrect id type

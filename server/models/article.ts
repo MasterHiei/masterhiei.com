@@ -1,18 +1,27 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
+// Document type declaration
 export interface Article extends Document {
   _id: Schema.Types.ObjectId;
   title: string;
   content: string;
-  category: string;
+  image: string;
   tags: string[];
   stars: number;
   views: number;
-  modified_at: Date;
   created_at: Date;
   updated_at: Date;
 }
 
+// Input type declaration
+export interface ArticleInput {
+  title: Article['title'];
+  content: Article['content'];
+  image: Article['image'];
+  tags: Article['tags'];
+}
+
+// Schema type declaration
 const articleSchema = new Schema(
   {
     title: {
@@ -42,10 +51,6 @@ const articleSchema = new Schema(
     views: {
       type: Number,
       default: 0,
-    },
-    modified_at: {
-      type: Date,
-      default: undefined,
     },
   },
   {

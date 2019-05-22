@@ -19,8 +19,12 @@
     "baseUrl": "./client",
     "resolveJsonModule": true,
     "paths": {
-      "~/*": ["./*"],
-      "@/*": ["./*"]
+      "~/*": [
+        "./*"
+      ],
+      "@/*": [
+        "./*"
+      ]
     },
     "types": [
       "./types",
