@@ -23,12 +23,19 @@ jobs:
       - image: circleci/node:lts
       - image: circleci/mongo:latest
     steps:
+      - checkout
       - run:
-          name: Lint Project
+          name: Lint
           command: yarn lint
       - run:
-          name: Test Project
+          name: Test
           command: yarn test
+      - run:
+          name: Send Coverage Repo
+          command: cat ./coverage/lcov.info | ./node_modules/.bin/coveralls
+      - run:
+          name: Remove Local Repo
+          command: rm -rf ./coverage
 
 workflows:
   version: 2

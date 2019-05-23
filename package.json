@@ -13,7 +13,7 @@
     "lint": "eslint --ext .ts,.vue --ignore-path .gitignore .",
     "lintfix": "eslint --fix --ext .ts,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint",
-    "test": "jest --forceExit --detectOpenHandles --coverage --verbose"
+    "test": "jest --forceExit --detectOpenHandles --verbose --coverage"
   },
   "dependencies": {
     "@nuxtjs/auth": "^4.5.3",
@@ -69,6 +69,7 @@
     "@types/supertest": "^2.0.7",
     "@typescript-eslint/eslint-plugin": "^1.9.0",
     "@typescript-eslint/parser": "^1.9.0",
+    "coveralls": "^3.0.3",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^4.3.0",
     "eslint-config-standard": "^12.0.0",
