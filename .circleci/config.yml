@@ -63,5 +63,9 @@ workflows:
   install_and_test:
     jobs:
       - install
-      - lint: { requires: install }
-      - test: { requires: lint }
+      - lint:
+          requires:
+            - install
+      - test:
+          requires:
+            - lint
