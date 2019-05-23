@@ -26,7 +26,13 @@ jobs:
       - checkout
       - run:
           name: Lint
-          command: yarn lint
+          command: |
+            mkdir -p ~/reports
+            node_modules/.bin/eslint . --format junit --output-file ~/reports/eslint.xml
+      - store_test_results:
+          path: ~/reports
+      - store_artifacts:
+          path: ~/reports
       - run:
           name: Test
           command: yarn test
