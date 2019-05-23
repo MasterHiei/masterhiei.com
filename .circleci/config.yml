@@ -45,6 +45,7 @@ jobs:
   test:
     <<: *defaults
     docker:
+      - image: circleci/node:latest
       - image: circleci/mongo:latest
     steps:
       - checkout
