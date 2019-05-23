@@ -1,4 +1,5 @@
 [![GitHub version](https://badge.fury.io/gh/MasterHiei%2Fmasterhiei.com.svg)](https://badge.fury.io/gh/MasterHiei%2Fmasterhiei.com)
+[![CircleCI](https://circleci.com/gh/MasterHiei/masterhiei.com.svg?style=shield)](https://circleci.com/gh/MasterHiei/masterhiei.com)
 [![Coverage Status](https://coveralls.io/repos/github/MasterHiei/masterhiei.com/badge.svg?branch=master)](https://coveralls.io/github/MasterHiei/masterhiei.com?branch=master)
 
 # masterhiei.com
