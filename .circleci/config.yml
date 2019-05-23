@@ -1,8 +1,17 @@
 version: 2
+
+defaults: &defaults
+  working_directory: ~/project
+  docker:
+    - image: circleci/mongo:latest
+  environment:
+    NODE_ENV: test
+    NODE_OPTIONS: --max_old_space_size=4096
+
 jobs:
-  build:
-    docker:
-      - image: circleci/node:lts
+  # Install
+  install:
+    <<: *defaults
     steps:
       - checkout
       - restore_cache:
@@ -11,47 +20,48 @@ jobs:
             - yarn-packages-{{ checksum "yarn.lock" }}
       - run:
           name: Install Dependencies
-          command: yarn install --frozen-lockfile
+          command: yarn install --frozen-lockfile --non-interactive
       - save_cache:
           name: Save Yarn Package Cache
           key: yarn-packages-{{ checksum "yarn.lock" }}
           paths:
-            - ~/.cache/yarn
+            - node_modules
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+            - node_modules
 
+  # Lint
+  lint:
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/project
+      - run:
+          name: Lint
+          command: yarn lint
+
+  # Test
   test:
+    <<: *defaults
     docker:
-      - image: circleci/node:lts
       - image: circleci/mongo:latest
     steps:
       - checkout
-      - restore_cache:
-          name: Restore Yarn Package Cache
-          keys:
-            - yarn-packages-{{ checksum "yarn.lock" }}
-      - run:
-          name: Lint
-          command: |
-            mkdir -p ~/reports
-            node_modules/.bin/eslint . --format junit --output-file ~/reports/eslint.xml
-      - store_test_results:
-          path: ~/reports
-      - store_artifacts:
-          path: ~/reports
+      - attach_workspace:
+          at: ~/project
       - run:
           name: Test
           command: yarn test
       - run:
           name: Send Coverage Repo
-          command: cat ./coverage/lcov.info | ./node_modules/.bin/coveralls
-      - run:
-          name: Remove Local Repo
-          command: rm -rf ./coverage
+          command: cat coverage/lcov.info | node_modules/.bin/coveralls
 
 workflows:
   version: 2
   build_test:
     jobs:
       - build
-      - test:
-          requires:
-            - build
+      - lint: { requires: build }
+      - test: { requires: lint }
