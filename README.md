@@ -7,7 +7,8 @@
 
 ## Build Setup
 
-*You need create a `.env` file on the root directory. It will be loaded automatically.* 
+:warning:
+*You need to create a `.env` file on the root directory. It will be loaded automatically.* 
 *If you are not sure what you should do, please check the `.env.sample` file.* 
 
 ``` bash
