@@ -67,7 +67,7 @@
                   v-btn(v-on="on" icon)
                     v-icon(color="accent" small)
                       | fas fa-heart
-                span {{ $t('tooltip.star') }}
+                span star
 
             // Social
 
@@ -83,13 +83,11 @@
 <script lang="ts">
 import { Component, Vue, namespace } from 'nuxt-property-decorator';
 import { AxiosError } from 'axios';
-import * as article from '@/store/article';
 import * as issue from '@/store/issue';
-import { Article as ArticleModel } from '@/models/article';
+import { Article } from '@/models/article';
 import sanitizeHTML from '@/common/sanitizer';
 
 // Vuex module
-const Article = namespace(article.name);
 const Issue = namespace(issue.name);
 
 @Component({
@@ -99,38 +97,44 @@ const Issue = namespace(issue.name);
   },
 
   // Hooks
+  async asyncData({ $axios, params, error }) {
+    // Fetch article
+    const { article } = await $axios.$get(`/articles/${params.id}`);
+    if (article == null) {
+      error({ statusCode: 404, message: 'Data not found.' });
+    }
+    return { article };
+  },
+
   async fetch({ store, params, error }) {
-    // Dispatch Vuex action to query api
-    await Promise.all([
-      store.dispatch('article/fetchOneById', params.id),
-      store.dispatch('issue/fetchOneById', params.id),
-    ]).catch((e: AxiosError) => {
-      const statusCode = e.response ? e.response.status : 500;
-      error({ statusCode: statusCode, message: e.message });
-    });
+    // Fetch issue
+    await store
+      .dispatch('issue/fetchOneById', params.id)
+      .catch((e: AxiosError) => {
+        const statusCode = e.response ? e.response.status : 500;
+        error({ statusCode: statusCode, message: e.message });
+      });
+  },
+
+  // Transition animation
+  transition: {
+    enterActiveClass: 'animated slideInLeft',
+    leaveActiveClass: 'animated slideOutRight',
   },
 })
 export default class ArticlePage extends Vue {
-  // Computed
-  @Article.Getter('findOneById') findArticleById;
-  @Issue.Getter('findOneById') findIssueById;
+  // Data
+  article!: Article;
 
-  /**
-   * Get article data from Vuex store
-   */
-  get article(): ArticleModel {
-    return this.findArticleById(this.$route.params.id);
-  }
+  // Computed
+  @Issue.Getter('findOneById') findIssueById;
 
   /**
    * Get comments number from Vuex store
    */
   get commentCount(): number {
     const issue = this.findIssueById(this.$route.params.id);
-    if (issue == null) {
-      return 0;
-    }
-    return issue.comments;
+    return issue.comments || 0;
   }
 
   /**

@@ -19,8 +19,12 @@
     "baseUrl": "./client",
     "resolveJsonModule": true,
     "paths": {
-      "~/*": ["./*"],
-      "@/*": ["./*"]
+      "~/*": [
+        "./*"
+      ],
+      "@/*": [
+        "./*"
+      ]
     },
     "types": [
       "./types",
@@ -28,6 +32,8 @@
       "@nuxt/vue-app",
       "nuxt-i18n",
       "nuxt-device-detect",
+      "vue-infinite-loading",
+      "jest"
     ]
   }
 }

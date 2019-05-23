@@ -12,17 +12,10 @@ export default {
     autumn: '秋',
     winter: '冬',
   },
-  profile: {
-    name: 'S.Ryu',
-    position: 'iOS & フルスタック（仮）エンジニア',
-    experience: '経歴',
-    skill: '技術スタック',
-  },
-  tooltip: {
-    star: 'いいね',
-    search: '記事を検索',
-    github: 'ソースコード',
-    feedback: 'バグレポート',
+  loading: {
+    noResult: 'データがありません。',
+    error:
+      '何か問題が起こったようです。しばらくしてからもう一度お試しください。',
   },
   article: {
     recommend: 'おすすめ記事',
@@ -39,6 +32,12 @@ export default {
       less: '少ない',
       more: '多い',
     },
+  },
+  profile: {
+    name: 'S.Ryu',
+    position: 'iOS & フルスタック（仮）エンジニア',
+    experience: '経歴',
+    skill: '技術スタック',
   },
   auth: {
     register: '登録',

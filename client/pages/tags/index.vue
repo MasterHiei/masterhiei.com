@@ -8,7 +8,7 @@
       xs11
       wrap
     )
-      v-card(class="tag-card animated fadeInUp")
+      v-card(class="tag-card")
         // Title
         v-flex(class="tag-card-title" wrap)
           v-icon(size="26") fas fa-tags
@@ -31,7 +31,7 @@
             )
               | {{ tag.name }}
 
-      v-card(class="tag-chart-card animated fadeInUp")
+      v-card(class="tag-chart-card")
         the-bar(:data="tags")
 </template>
 
@@ -48,6 +48,12 @@ import sample from 'lodash/sample';
   async asyncData({ $axios }) {
     const tags = await $axios.$get('/tags');
     return { tags };
+  },
+
+  // Transition animation
+  transition: {
+    enterActiveClass: 'animated slideInLeft',
+    leaveActiveClass: 'animated slideOutRight',
   },
 })
 export default class TagsPage extends Vue {

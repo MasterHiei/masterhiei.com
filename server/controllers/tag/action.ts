@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { validationResult } from 'express-validator/check';
 import consola from 'consola';
 import ArticleModel from '../../models/article';
-import { Tag } from '../../../client/models/tag';
+import { Tag } from '@/models/tag';
 
 /**
  * Get all tags in article
@@ -18,7 +18,7 @@ const index = (_, res: Response): void => {
     .then(
       (tags: Tag[]): void => {
         // Set response
-        res.json(tags);
+        res.status(200).json(tags);
       }
     )
     .catch(
@@ -50,7 +50,7 @@ const show = (req: Request, res: Response): void => {
     .then(
       (article): void => {
         // Set response
-        res.json({ article });
+        res.status(200).json({ article });
       }
     )
     .catch(

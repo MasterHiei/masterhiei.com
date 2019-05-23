@@ -12,17 +12,9 @@ export default {
     autumn: '秋',
     winter: '冬',
   },
-  profile: {
-    name: 'L.',
-    position: 'iOS & （伪）全栈程序员',
-    experience: '经历',
-    skill: '技术栈',
-  },
-  tooltip: {
-    star: '点赞',
-    search: '搜索文章',
-    github: '查看源码',
-    feedback: '提交Bug',
+  loading: {
+    noResult: '然而，什么都没有发生。',
+    error: '我们计划在下一个补丁中修复这个问题。',
   },
   article: {
     recommend: '推荐文章',
@@ -39,6 +31,12 @@ export default {
       less: '更少',
       more: '更多',
     },
+  },
+  profile: {
+    name: 'L.',
+    position: 'iOS & （伪）全栈程序员',
+    experience: '经历',
+    skill: '技术栈',
   },
   auth: {
     register: '注册',

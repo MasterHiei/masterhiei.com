@@ -1,13 +1,14 @@
+import { Article } from '../../server/models/article';
+
+// Article type declaration
 export interface Article {
-  id: string;
-  image: string;
-  title: string;
-  content: string;
-  category: string;
-  tags: string[];
-  stars: number;
-  views: number;
-  created_at: string;
-  updated_at: string;
-  modified_at: string;
+  id: Article['_id'];
+  title: Article['title'];
+  content: Article['content'];
+  image: Article['image'];
+  tags: Article['tags'];
+  stars: Article['stars'];
+  views: Article['views'];
+  created_at: Article['created_at'];
+  updated_at: Article['updated_at'];
 }
