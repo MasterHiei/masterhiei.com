@@ -1,9 +1,8 @@
-version: 2.1
+version: 2
 jobs:
   build:
     docker:
       - image: circleci/node:lts
-      - image: circleci/mongo:latest
     steps:
       - checkout
       - restore_cache:
@@ -18,9 +17,24 @@ jobs:
           key: yarn-packages-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
+
+  test:
+    docker:
+      - image: circleci/node:lts
+      - image: circleci/mongo:latest
+    steps:
       - run:
           name: Lint Project
           command: yarn lint
       - run:
           name: Test Project
           command: yarn test
+
+workflows:
+  version: 2
+  build_test:
+    jobs:
+      - build
+      - test
+        requires:
+          - build
