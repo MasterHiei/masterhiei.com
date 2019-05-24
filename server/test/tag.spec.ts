@@ -84,7 +84,10 @@ describe('Testing Tag Routing', (): void => {
           groupBy(tags),
           (item): object => ({ name: item[0], value: item.length })
         );
-        const descendantGroup = sortBy(countedGroup, 'value').reverse();
+        const descendantGroup = sortBy(countedGroup, [
+          'value',
+          'name',
+        ]).reverse();
         expect(response.body.tags).toEqual(descendantGroup);
       });
     });
