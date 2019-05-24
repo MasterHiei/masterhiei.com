@@ -101,6 +101,10 @@ const config: NuxtConfiguration = {
         lazy: true,
         langDir: 'assets/locales/lang/',
         parsePages: false,
+        detectBrowserLanguage: {
+          useCookie: true,
+          alwaysRedirect: true,
+        },
       },
     ],
     'nuxt-device-detect',

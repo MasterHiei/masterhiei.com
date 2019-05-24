@@ -34,9 +34,9 @@
           v-list-tile(
             v-for="(locale, index) in locales"
             :key="index"
-            :to="switchLocalePath(locale.code)"
             nuxt
             exact
+            @click="switchLocale(locale.code)"
           )
             v-list-tile-title(class="text-xs-center")
               v-flex(tag="span" class="primary-text body-2")
@@ -54,6 +54,17 @@ export default class TheHeader extends Vue {
   @Prop({ type: Array, required: true }) readonly pages!: object[];
   @Prop({ type: Array, required: true })
   readonly locales!: (string | NuxtVueI18n.Options.LocaleObject)[];
+
+  // Methods
+
+  /**
+   * Switch locale
+   */
+  switchLocale(locale: string): void {
+    this.$i18n.setLocaleCookie(locale);
+    console.log(this.switchLocalePath(locale));
+    this.$router.replace(this.switchLocalePath(locale));
+  }
 }
 </script>
 
