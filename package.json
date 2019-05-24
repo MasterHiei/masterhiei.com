@@ -13,7 +13,7 @@
     "lint": "eslint --ext .ts,.vue --ignore-path .gitignore .",
     "lintfix": "eslint --fix --ext .ts,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint",
-    "test": "jest --forceExit --detectOpenHandles --verbose && codecov"
+    "test": "jest --forceExit --detectOpenHandles --verbose"
   },
   "jest": {
     "preset": "ts-jest",
@@ -106,6 +106,7 @@
     "eslint-plugin-vue": "^5.2.2",
     "faker": "^4.1.0",
     "jest": "^24.8.0",
+    "jest-junit": "^6.4.0",
     "nodemon": "^1.19.0",
     "prettier": "^1.17.1",
     "pug": "^2.0.3",
