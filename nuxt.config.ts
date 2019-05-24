@@ -102,7 +102,8 @@ const config: NuxtConfiguration = {
         langDir: 'assets/locales/lang/',
         parsePages: false,
         detectBrowserLanguage: {
-          useCookie: false,
+          useCookie: true,
+          alwaysRedirect: true,
         },
       },
     ],

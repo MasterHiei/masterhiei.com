@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import { validationResult } from 'express-validator/check';
 import consola from 'consola';
 import ArticleModel from '../../models/article';
 import { Tag } from '@/models/tag';
@@ -13,12 +12,12 @@ const index = (_, res: Response): void => {
     .unwind('tags')
     .group({ _id: '$tags', value: { $sum: 1 } })
     .project({ _id: 0, name: '$_id', value: 1 })
-    .sort('-value')
+    .sort('-value -name')
     .exec()
     .then(
       (tags: Tag[]): void => {
         // Set response
-        res.status(200).json(tags);
+        res.status(200).json({ tags });
       }
     )
     .catch(
@@ -36,21 +35,14 @@ const index = (_, res: Response): void => {
  * @param res
  */
 const show = (req: Request, res: Response): void => {
-  // Check validation result
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    res.status(422).json({ errors: errors.array() });
-    return;
-  }
-
   // Find data from database
   const tag = req.params.tag;
   ArticleModel.find({ tags: tag })
     .exec()
     .then(
-      (article): void => {
+      (articles): void => {
         // Set response
-        res.status(200).json({ article });
+        res.status(200).json({ articles });
       }
     )
     .catch(

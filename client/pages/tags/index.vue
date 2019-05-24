@@ -46,7 +46,7 @@ import sample from 'lodash/sample';
 
   // Hooks
   async asyncData({ $axios }) {
-    const tags = await $axios.$get('/tags');
+    const { tags } = await $axios.$get('/tags');
     return { tags };
   },
 

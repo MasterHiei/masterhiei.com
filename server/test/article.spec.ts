@@ -22,7 +22,7 @@ beforeAll(
     agent = request(server);
     mongoose
       .connect('mongodb://127.0.0.1:27017', {
-        dbName: 'test_masterhiei_db',
+        dbName: 'test_db_masterhiei_com',
         useNewUrlParser: true,
         useCreateIndex: true,
         useFindAndModify: false,
@@ -134,10 +134,12 @@ describe('Testing Article Routing', (): void => {
       // Insert mock data to database
       beforeEach(
         (done): void => {
-          mock = mockGenerator(1)[0];
-          ArticleModel.create(mock).then(
-            (doc): void => {
-              id = doc._id;
+          const mocks = mockGenerator();
+          mock = mocks[0];
+          ArticleModel.insertMany(
+            mocks,
+            (_, docs): void => {
+              id = docs[0]._id;
               done();
             }
           );
