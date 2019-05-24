@@ -57,7 +57,7 @@ jobs:
           at: ~/project
       - run:
           name: Test
-          command: yarn test --ci --testResultsProcessor="jest-junit"
+          command: yarn test --ci --reporters=default --reporters=jest-junit
           environment:
             JEST_JUNIT_OUTPUT: "reports/jest-results.xml"
       - store_test_results:
