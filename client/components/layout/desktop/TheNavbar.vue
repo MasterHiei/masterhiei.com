@@ -62,7 +62,6 @@ export default class TheHeader extends Vue {
    */
   switchLocale(locale: string): void {
     this.$i18n.setLocaleCookie(locale);
-    console.log(this.switchLocalePath(locale));
     this.$router.replace(this.switchLocalePath(locale));
   }
 }
