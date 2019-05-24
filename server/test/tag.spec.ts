@@ -1,0 +1,154 @@
+import { Server } from 'http';
+import request, { SuperTest, Test } from 'supertest';
+import mongoose from 'mongoose';
+import groupBy from 'lodash/groupBy';
+import map from 'lodash/map';
+import filter from 'lodash/filter';
+import flatMap from 'lodash/flatMap';
+import flatten from 'lodash/flatten';
+import forEach from 'lodash/forEach';
+import sortBy from 'lodash/sortBy';
+import app from '../app';
+import ArticleModel, { ArticleInput } from '../models/article';
+import mockGenerator from './mock/article';
+
+// Base url
+const url = '/api/v1/tags';
+
+// Get environment variables
+
+// Instance of test server, request and data
+let server: Server, agent: SuperTest<Test>;
+
+// Before all tests
+beforeAll(
+  (done): void => {
+    // Create a test server
+    server = app.listen(4000);
+    agent = request(server);
+    mongoose
+      .connect('mongodb://127.0.0.1:27017', {
+        dbName: 'test_db_masterhiei_com',
+        useNewUrlParser: true,
+        useCreateIndex: true,
+        useFindAndModify: false,
+      })
+      .then((): void => done());
+  }
+);
+
+// Close test server
+afterAll(
+  (done): void => {
+    mongoose.disconnect().then(
+      (): void => {
+        server.close(done);
+      }
+    );
+  }
+);
+
+// Routing tests
+describe('Testing Tag Routing', (): void => {
+  // Get tags
+  describe('Get /tags', (): void => {
+    // Successful request
+    describe('Success', (): void => {
+      // Mock data
+      let mocks: ArticleInput[];
+
+      // Insert mock data to database
+      beforeEach(
+        (done): void => {
+          mocks = mockGenerator();
+          ArticleModel.insertMany(mocks, done);
+        }
+      );
+
+      // Remove mock data in database
+      afterEach(
+        (done): void => {
+          ArticleModel.deleteMany({}, done);
+        }
+      );
+
+      // Test
+      it('Return status 200 with a list of tag stats', async (): Promise<
+        void
+      > => {
+        const response = await agent.get(url);
+        expect(response.status).toBe(200);
+
+        const tags = flatMap(mocks, (mock): string[] => flatten(mock.tags));
+        const countedGroup = map(
+          groupBy(tags),
+          (item): object => ({ name: item[0], value: item.length })
+        );
+        const descendantGroup = sortBy(countedGroup, 'value').reverse();
+        expect(response.body.tags).toEqual(descendantGroup);
+      });
+    });
+
+    // Success but no results
+    describe('Success but no results', (): void => {
+      it('Return status 200 with a empty list', async (): Promise<void> => {
+        const response = await agent.get(url);
+        expect(response.status).toBe(200);
+        expect(response.body.tags).toEqual([]);
+      });
+    });
+  });
+
+  // Get articles by tag
+  describe('Get /tags:tag', (): void => {
+    // Successful request
+    describe('Success', (): void => {
+      // Mock data
+      let mocks: ArticleInput[];
+
+      // Insert mock data to database
+      beforeEach(
+        (done): void => {
+          mocks = mockGenerator();
+          ArticleModel.insertMany(mocks, done);
+        }
+      );
+
+      // Remove mock data in database
+      afterEach(
+        (done): void => {
+          ArticleModel.deleteMany({}, done);
+        }
+      );
+
+      // Test
+      it('Return status 200 with a article list', async (): Promise<void> => {
+        const tag = mocks[0].tags[0];
+        const response = await agent.get(`${url}/${tag}`);
+        expect(response.status).toBe(200);
+
+        const expectData = filter(
+          mocks,
+          (mock): boolean => mock.tags.includes(tag)
+        );
+        expect(response.body.articles.length).toBe(expectData.length);
+        forEach(
+          expectData,
+          (item): void =>
+            expect(response.body.articles).toEqual(
+              expect.arrayContaining([expect.objectContaining(item)])
+            )
+        );
+      });
+    });
+
+    // Success but no results
+    describe('Success but no results', (): void => {
+      it('Return status 200 with a empty list', async (): Promise<void> => {
+        const response = await agent.get(`${url}/tag`);
+        expect(response.status).toBe(200);
+        expect(response.body.articles).toEqual([]);
+      });
+    });
+  });
+});

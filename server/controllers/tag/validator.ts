@@ -1,17 +1,11 @@
-import { param } from 'express-validator/check';
+import { sanitizeParam } from 'express-validator/filter';
 
 /**
  * Validate for params
  */
 const params = [
-  // ID
-  param('tag')
-    .not()
-    .isEmpty()
-    .withMessage('Missing field.')
-    .isString()
-    .withMessage('The field must be a string.')
-    .trim(),
+  // Sanitization
+  sanitizeParam('tag').trim(),
 ];
 
 export default { params };
