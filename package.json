@@ -83,7 +83,7 @@
     "@types/jsonwebtoken": "^8.3.2",
     "@types/lodash": "^4.14.132",
     "@types/markdown-it": "^0.0.7",
-    "@types/mongoose": "^5.5.1",
+    "@types/mongoose": "^5.5.3",
     "@types/morgan": "^1.7.35",
     "@types/node": "^12.0.2",
     "@types/sanitize-html": "^1.18.3",
@@ -96,7 +96,7 @@
     "eslint-config-prettier": "^4.3.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-loader": "^2.1.2",
-    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-import": "^2.17.3",
     "eslint-plugin-jest": "^22.6.4",
     "eslint-plugin-node": "^9.1.0",
     "eslint-plugin-nuxt": "^0.4.3",
@@ -115,7 +115,7 @@
     "stylus-loader": "^3.0.2",
     "supertest": "^4.0.2",
     "ts-jest": "^24.0.2",
-    "ts-node": "^8.1.0",
+    "ts-node": "^8.1.1",
     "typescript": "^3.4.5",
     "webpack-bundle-analyzer": "^3.3.2"
   }
