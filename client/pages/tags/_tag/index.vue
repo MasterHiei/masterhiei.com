@@ -1,25 +1,98 @@
 <template lang="pug">
-  div
-    | {{ $route.params }}
+  v-flex(
+    tag="section"
+    class="section-item"
+    md6
+    wrap
+  )
+    v-layout(class="post-list" justify-center wrap)
+      v-flex(
+        v-for="(article, index) in articles"
+        :key="index"
+        class="post-list-item"
+        md6
+        xs11
+        wrap
+      )
+        article-list-item(:article="article")
+
+      infinite-loading(@infinite="fetchArticles")
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
+import { Article } from '@/models/article';
+import { StateChanger } from 'vue-infinite-loading';
 
 @Component({
+  components: {
+    ArticleListItem: () => import('@/components/article/ListItem.vue'),
+    InfiniteLoading: () => import('vue-infinite-loading'),
+  },
+
+  // Hooks
+  async asyncData({ $axios, params }) {
+    let page = 1;
+    const { articles } = await $axios.$get(`/tags/${params.tag}`, {
+      params: {
+        page: page,
+        limit: process.env.PAGE_LIMIT,
+      },
+    });
+    if (articles != null && articles.length > 0) {
+      page += 1;
+    }
+    return { articles, page: page };
+  },
+
   // Transition animation
   transition: {
     enterActiveClass: 'animated slideInLeft',
     leaveActiveClass: 'animated slideOutRight',
   },
-
-  // Hooks
-  async asyncData({ $axios, params }) {
-    const { articles } = await $axios.$get(`/tags/${params.tag}`);
-    return { articles };
-  },
 })
-export default class TagPage extends Vue {}
+export default class TagPage extends Vue {
+  // Data
+  page = 1;
+  articles: Article[] = [];
+
+  // Methods
+
+  /**
+   * Fetch articles by tag
+   */
+  async fetchArticles($state: StateChanger): Promise<void> {
+    const { articles } = await this.$axios.$get(
+      `tags/${this.$route.params.tag}`,
+      {
+        params: {
+          page: this.page,
+          limit: process.env.PAGE_LIMIT,
+        },
+      }
+    );
+    if (articles != null && articles.length > 0) {
+      this.page += 1;
+      this.articles.push(...articles);
+      $state.loaded();
+    } else {
+      $state.complete();
+    }
+  }
+}
 </script>
 
-<style scoped lang="stylus" rel="stylesheet/stylus"></style>
+<style scoped lang="stylus" rel="stylesheet/stylus">
+.section-item
+  margin: 48px auto 24px auto
+.post-list
+  // Item
+  &-item
+    padding 0 8px
+    margin-bottom 25px
+    @media (max-width $grid-breakpoints.sm)
+      padding 0
+  // Infinite loading
+  .infinite-loading-container
+    margin-top 16px
+</style>

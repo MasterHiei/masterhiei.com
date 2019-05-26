@@ -134,6 +134,9 @@ export default class ArticlePage extends Vue {
    */
   get commentCount(): number {
     const issue = this.findIssueById(this.$route.params.id);
+    if (issue == null) {
+      return 0;
+    }
     return issue.comments || 0;
   }
 
