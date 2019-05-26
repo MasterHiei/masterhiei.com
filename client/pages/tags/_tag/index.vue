@@ -12,6 +12,12 @@ import { Component, Vue } from 'nuxt-property-decorator';
     enterActiveClass: 'animated slideInLeft',
     leaveActiveClass: 'animated slideOutRight',
   },
+
+  // Hooks
+  async asyncData({ $axios, params }) {
+    const { articles } = await $axios.$get(`/tags/${params.tag}`);
+    return { articles };
+  },
 })
 export default class TagPage extends Vue {}
 </script>

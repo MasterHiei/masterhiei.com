@@ -1,20 +1,14 @@
 <template lang="pug">
   // Items
   v-layout(class="post-list" wrap)
-    transition-group(
-      tag="div"
-      class="layout wrap"
-      enter-active-class="animated zoomIn"
-      leave-active-class="animated zoomOut"
+    v-flex(
+      v-for="(article, index) in articles"
+      :key="index"
+      class="post-list-item"
+      md6
+      wrap
     )
-      v-flex(
-        v-for="article in articles"
-        :key="article.id"
-        class="post-list-item"
-        md6
-        wrap
-      )
-        article-list-item(:article="article")
+      article-list-item(:article="article")
 
     // Actions
     v-flex(
@@ -23,16 +17,13 @@
       my-3
       wrap
     )
-      v-hover
-        template(v-slot="{ hover }")
-          button(
-            v-show="!loading"
-            class="fetch-button"
-            :class="`elevation-${ hover ? 6 : 0 }`"
-            @click="fetchNext"
-          )
-            v-icon(:class="{ rotate: hover }" color="accent")
-              | fas fa-plus
+      button(
+        v-show="!loading"
+        class="fetch-button"
+        @click="fetchNext"
+      )
+        v-icon(color="accent")
+          | fas fa-plus
 
       v-icon(
         v-show="loading"
@@ -114,11 +105,13 @@ export default class List extends Vue {
       border 1px solid var(--v-secondary-darken1)
       outline none
       background transparent
-      transition box-shadow 0.3s
+      transition box-shadow .3s
       .v-icon::before
-        transition transform 0.3s
-      .rotate::before
-        transform rotate(90deg)
+        transition transform .3s
+      &:hover
+        box-shadow 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15)
+        .v-icon::before
+          transform rotate(90deg)
 
     // Icon
     .fetch-icon
