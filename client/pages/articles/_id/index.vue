@@ -194,7 +194,7 @@ export default class ArticlePage extends Vue {
   &-title
     position relative
     margin-bottom 25px
-    &>>>time
+    & >>> time
       position absolute
       top -10px
       left -60px

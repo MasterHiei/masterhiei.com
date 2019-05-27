@@ -46,7 +46,7 @@ const deconstructIssue = (data: any): Issue => {
   return issue;
 };
 
-// Types declaration
+// Mutation types declaration
 const types = {
   FETCH: 'FETCH',
   FETCH_ONE: 'FETCH_ONE',

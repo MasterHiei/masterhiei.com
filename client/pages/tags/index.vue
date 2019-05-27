@@ -125,10 +125,10 @@ export default class TagsPage extends Vue {
         &:hover
           color #FFF !important
           background var(--v-accent-base) !important
-        &>>>.v-chip__content
+        & >>> .v-chip__content
           cursor pointer
       .v-badge
-        &>>>.v-badge__badge
+        & >>> .v-badge__badge
           top 2px
           right 2px
 

@@ -20,8 +20,8 @@
 
         v-spacer
 
-        // Title
-        v-toolbar-title
+        // Logo
+        v-toolbar-title(class="header-logo")
           n-link(:to="localePath('index')" extra)
             img(src="/logo.png" alt="logo")
 
@@ -159,6 +159,12 @@ $mb = 120px
       transition-duration .3s
       transition-timing-function ease-out
       transition-delay .1s
+      .header-logo
+        margin 0
+      @media (max-width $grid-breakpoints.sm)
+        padding 0
+        & >>> .v-toolbar__content
+          padding 0
 
   // Background
   &-background
