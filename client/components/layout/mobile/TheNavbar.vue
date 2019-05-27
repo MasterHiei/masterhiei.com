@@ -1,16 +1,15 @@
 <template lang="pug">
   v-toolbar-items
+    // Nav button
     v-toolbar-items
-      v-btn(flat)
-        v-icon(
-          :color="didScroll ? 'primary' : 'secondary'"
-          small
-        )
+      v-btn(flat @click.stop="openNavDrawer")
+        v-icon(:color="didScroll ? 'primary' : 'secondary'")
           | fas fa-bars
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator';
+import { Mutation } from 'vuex-class';
 import { NuxtVueI18n } from 'nuxt-i18n/types/vue';
 
 @Component
@@ -20,7 +19,8 @@ export default class TheHeader extends Vue {
   @Prop({ type: Array, required: true }) readonly pages!: object[];
   @Prop({ type: Array, required: true })
   readonly locales!: (string | NuxtVueI18n.Options.LocaleObject)[];
+
+  // Methods
+  @Mutation('OPEN_NAV_DRAWER') openNavDrawer;
 }
 </script>
-
-<style scoped lang="stylus" rel="stylesheet/stylus"></style>

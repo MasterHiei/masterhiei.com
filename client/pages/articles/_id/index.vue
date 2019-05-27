@@ -44,7 +44,7 @@
                 | {{ $t('article.views', { number: article.views }) }}
 
               // Comments
-              a(class="detail-item" href="#comments")
+              a(class="detail-item" v-scroll-to="{ el: '#comments' }")
                 v-icon(small)
                   | far fa-comments
                 | {{ $t('article.comments', { number: commentCount }) }}
@@ -134,6 +134,9 @@ export default class ArticlePage extends Vue {
    */
   get commentCount(): number {
     const issue = this.findIssueById(this.$route.params.id);
+    if (issue == null) {
+      return 0;
+    }
     return issue.comments || 0;
   }
 
@@ -191,7 +194,7 @@ export default class ArticlePage extends Vue {
   &-title
     position relative
     margin-bottom 25px
-    &>>>time
+    & >>> time
       position absolute
       top -10px
       left -60px

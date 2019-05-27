@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-flex(class="section" pa-2 wrap)
+  v-flex(class="section" wrap)
     // Today
     v-flex(
       tag="section"
@@ -164,8 +164,9 @@ export default class IndexPage extends Vue {
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
 .section
+  margin 48px auto 24px auto
   &-item
-    margin 40px auto
+    margin 0 auto 40px auto
     &:last-child
       margin-bottom 0
     &-title

@@ -70,14 +70,14 @@ export default class TheHeader extends Vue {
 <style scoped lang="stylus" rel="stylesheet/stylus">
 .button-transparent
   color var(--v-secondary-base)
-  &>>>.v-btn__content::after
+  & >>> .v-btn__content::after
     background-color var(--v-secondary-base) !important
 
 .button-sticky
   color var(--v-primary-base)
 
 .toolbar-item-link
-  &>>>.v-btn__content
+  & >>> .v-btn__content
     &::after
       content ''
       position absolute
@@ -90,6 +90,6 @@ export default class TheHeader extends Vue {
       transform scaleX(0)
       transform-origin center top
       transition transform .3s
-  &:hover>>>.v-btn__content::after
+  &:hover >>> .v-btn__content::after
     transform scaleX(1)
 </style>

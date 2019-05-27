@@ -58,7 +58,6 @@ const config: NuxtConfiguration = {
     { src: '~plugins/aos', ssr: false },
     '~plugins/axios',
     '~plugins/vuetify',
-    '~plugins/vueScrollTo',
     '~plugins/veeValidate',
     { src: '~plugins/vueLazyLoad', ssr: false },
   ],
@@ -108,6 +107,15 @@ const config: NuxtConfiguration = {
       },
     ],
     'nuxt-device-detect',
+    [
+      'vue-scrollto/nuxt',
+      {
+        duration: 1000,
+        onStart: false,
+        onDone: false,
+        onCancel: false,
+      },
+    ],
   ],
 
   /*

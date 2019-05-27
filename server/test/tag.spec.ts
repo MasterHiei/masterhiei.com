@@ -127,7 +127,9 @@ describe('Testing Tag Routing', (): void => {
       // Test
       it('Return status 200 with a article list', async (): Promise<void> => {
         const tag = mocks[0].tags[0];
-        const response = await agent.get(`${url}/${tag}`);
+        const response = await agent
+          .get(`${url}/${tag}`)
+          .query({ page: 1, limit: mocks.length });
         expect(response.status).toBe(200);
 
         const expectData = filter(
@@ -146,11 +148,53 @@ describe('Testing Tag Routing', (): void => {
     });
 
     // Success but no results
-    describe('Success but no results', (): void => {
+    describe('Success: no results', (): void => {
       it('Return status 200 with a empty list', async (): Promise<void> => {
-        const response = await agent.get(`${url}/tag`);
+        const response = await agent
+          .get(`${url}/tag`)
+          .query({ page: 1, limit: 1 });
         expect(response.status).toBe(200);
         expect(response.body.articles).toEqual([]);
+      });
+    });
+
+    // Missing all params
+    describe('Failure: Missing all params', (): void => {
+      it('Return status 422', async (): Promise<void> => {
+        const response = await agent.get(`${url}/tag`);
+        expect(response.status).toBe(422);
+      });
+    });
+
+    // Missing page
+    describe('Failure: Missing page', (): void => {
+      it('Return status 422', async (): Promise<void> => {
+        const response = await agent.get(`${url}/tag`).query({ limit: 4 });
+        expect(response.status).toBe(422);
+      });
+    });
+
+    // Missing limit
+    describe('Failure: Missing limit', (): void => {
+      it('Return status 422', async (): Promise<void> => {
+        const response = await agent.get(`${url}/tag`).query({ page: 1 });
+        expect(response.status).toBe(422);
+      });
+    });
+
+    // Incorrect page type
+    describe('Failure: Incorrect page type', (): void => {
+      it('Return status 422', async (): Promise<void> => {
+        const response = await agent.get(`${url}/tag`).query({ page: 'a' });
+        expect(response.status).toBe(422);
+      });
+    });
+
+    // Incorrect limit type
+    describe('Failure: Incorrect limit type', (): void => {
+      it('Return status 422', async (): Promise<void> => {
+        const response = await agent.get(`${url}/tag`).query({ limit: 'b' });
+        expect(response.status).toBe(422);
       });
     });
   });
