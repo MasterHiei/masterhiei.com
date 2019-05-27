@@ -72,11 +72,7 @@ workflows:
   version: 2
   install_and_test:
     jobs:
-      - install:
-          filters:
-            branches:
-              only:
-                - master
+      - install
       - lint:
           requires:
             - install
