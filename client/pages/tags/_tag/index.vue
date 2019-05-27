@@ -5,7 +5,8 @@
     md6
     wrap
   )
-    v-layout(class="post-list" justify-center wrap)
+    // Article list
+    v-layout(class="post-list" wrap)
       v-flex(
         v-for="(article, index) in articles"
         :key="index"
@@ -16,7 +17,17 @@
       )
         article-list-item(:article="article")
 
-      infinite-loading(@infinite="fetchArticles")
+    // Infinite loading
+    infinite-loading(
+      spinner="waveDots"
+      @infinite="fetchArticles"
+    )
+      template(#no-results)
+        error(:error="{ statusCode: 404, message: 'No Results.' }")
+      template(#no-more)
+        div
+      template(#error)
+        div
 </template>
 
 <script lang="ts">
@@ -28,21 +39,7 @@ import { StateChanger } from 'vue-infinite-loading';
   components: {
     ArticleListItem: () => import('@/components/article/ListItem.vue'),
     InfiniteLoading: () => import('vue-infinite-loading'),
-  },
-
-  // Hooks
-  async asyncData({ $axios, params }) {
-    let page = 1;
-    const { articles } = await $axios.$get(`/tags/${params.tag}`, {
-      params: {
-        page: page,
-        limit: process.env.PAGE_LIMIT,
-      },
-    });
-    if (articles != null && articles.length > 0) {
-      page += 1;
-    }
-    return { articles, page: page };
+    Error: () => import('@/layouts/error.vue'),
   },
 
   // Transition animation

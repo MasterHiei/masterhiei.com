@@ -7,6 +7,9 @@ defaults: &defaults
   environment:
     NODE_ENV: test
     NODE_OPTIONS: --max_old_space_size=4096
+  branches:
+    only:
+      - master
 
 jobs:
   # Install

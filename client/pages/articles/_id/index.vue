@@ -44,7 +44,7 @@
                 | {{ $t('article.views', { number: article.views }) }}
 
               // Comments
-              a(class="detail-item" href="#comments")
+              a(class="detail-item" v-scroll-to="{ el: '#comments' }")
                 v-icon(small)
                   | far fa-comments
                 | {{ $t('article.comments', { number: commentCount }) }}
