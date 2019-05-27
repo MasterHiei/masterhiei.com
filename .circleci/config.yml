@@ -73,10 +73,10 @@ workflows:
   install_and_test:
     jobs:
       - install
-        filters:
-          branches:
-            only:
-              - master
+          filters:
+            branches:
+              only:
+                - master
       - lint:
           requires:
             - install
