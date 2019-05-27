@@ -72,7 +72,7 @@ workflows:
   version: 2
   install_and_test:
     jobs:
-      - install
+      - install:
           filters:
             branches:
               only:
