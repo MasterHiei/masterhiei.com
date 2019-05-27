@@ -18,16 +18,17 @@
         article-list-item(:article="article")
 
     // Infinite loading
-    infinite-loading(
-      spinner="waveDots"
-      @infinite="fetchArticles"
-    )
-      template(#no-results)
-        error(:error="{ statusCode: 404, message: 'No Results.' }")
-      template(#no-more)
-        div
-      template(#error)
-        div
+    no-ssr
+      infinite-loading(
+        spinner="waveDots"
+        @infinite="fetchArticles"
+      )
+        template(#no-results)
+          error(:error="{ statusCode: 404, message: 'No Results.' }")
+        template(#no-more)
+          div
+        template(#error)
+          div
 </template>
 
 <script lang="ts">
@@ -83,6 +84,8 @@ export default class TagPage extends Vue {
 .section-item
   margin: 48px auto 24px auto
 .post-list
+  @media (max-width $grid-breakpoints.sm)
+    justify-content center
   // Item
   &-item
     padding 0 8px
