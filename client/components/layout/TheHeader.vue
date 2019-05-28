@@ -1,5 +1,12 @@
 <template lang="pug">
   header(class="header")
+    // Nav drawer
+    the-nav-drawer(
+      v-if="$device.isMobile"
+      :pages="pages"
+      :locales="locales"
+    )
+
     // Nav
     v-flex(class="header-present" pa-0 wrap)
       v-toolbar(
@@ -78,6 +85,7 @@ import { NuxtVueI18n } from 'nuxt-i18n/types/vue';
   components: {
     TheNavbarMobile: () => import('./mobile/TheNavbar.vue'),
     TheNavbarDesktop: () => import('./desktop/TheNavbar.vue'),
+    TheNavDrawer: () => import('@/components/layout/mobile/TheNavDrawer.vue'),
   },
 })
 export default class TheHeader extends Vue {
