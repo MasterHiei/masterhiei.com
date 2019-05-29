@@ -1,8 +1,8 @@
 <template lang="pug">
   v-navigation-drawer(
     v-model="show"
-    absolute
     temporary
+    fixed
     app
   )
     // Avatar
@@ -12,7 +12,7 @@
           img(src="https://avatars1.githubusercontent.com/u/20240686?v=4")
         v-list-tile-content
           v-list-tile-title
-            | 万物有因必有果，洗洗皆可吃。
+            | 万物有因必有果，洗洗皆可吃
 
     v-list(dense)
       v-divider
@@ -22,12 +22,11 @@
         v-for="(page, index) in pages"
         :key="index"
         :to="page.path"
-        exact-active-class="link--active"
         nuxt
         exact
       )
         v-list-tile-action
-          v-icon(small)
+          v-icon(color="primary" small)
             | {{ page.icon }}
 
         v-list-tile-content
@@ -94,11 +93,12 @@ export default class TheNavDrawer extends Vue {
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
->>> .link--active
-  background-color var(--v-secondary-lighten1)
+>>> .v-list__tile--active
+  background-color var(--v-secondary-base)
 
 >>> .v-list__group__header
   .v-list__group__header__prepend-icon, .v-list__group__header__append-icon
     .v-icon::before
       font-size 1.15rem !important
+      color var(--v-primary-base)
 </style>

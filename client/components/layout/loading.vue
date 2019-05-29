@@ -45,8 +45,8 @@ export default class Loading extends Vue {
     bottom 0
     left 0
     margin auto
-    width 6rem
-    height 6rem
+    width 60px
+    height 60px
     background-color var(--v-accent-base)
     border-radius 50%
     animation sk-scaleout 1.0s infinite ease-in-out
