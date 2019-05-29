@@ -18,21 +18,22 @@
           tag="span"
           class="day font-weight-bold"
         )
-          | {{ day }}
+          | {{ postDate.date() }}
 
         // Month
         v-flex(
           tag="span"
           class="month font-weight-bold"
         )
-          | {{ monthWithEn }}
+          | {{ $d(postDate, 'month', 'en') }}
 
     // Tooltip
-    span {{ $d(date, 'short', this.$i18n.locale) }}
+    span {{ $d(postDate, 'short', this.$i18n.locale) }}
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator';
+import dayjs, { Dayjs } from 'dayjs';
 
 @Component
 export default class ListItem extends Vue {
@@ -44,22 +45,8 @@ export default class ListItem extends Vue {
   /**
    * Post date
    */
-  get date(): Date {
-    return new Date(this.datetime);
-  }
-
-  /**
-   * Post month with i18n(en-US)
-   */
-  get monthWithEn(): string {
-    return this.$i18n.d(this.date, 'month', 'en');
-  }
-
-  /**
-   * Post day of month
-   */
-  get day(): number {
-    return this.date.getDate();
+  get postDate(): Dayjs {
+    return dayjs(this.datetime);
   }
 }
 </script>
