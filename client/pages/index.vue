@@ -33,10 +33,10 @@
           // Weekday
           v-flex(class="month-weekday" xs6 wrap)
             span(class="weekday display-1")
-              | {{ $d(now, 'weekday', this.$i18n.locale) }}
+              | {{ $d(now.toDate(), 'weekday', this.$i18n.locale) }}
 
             span(class="month title")
-              | {{ $d(now, 'date', this.$i18n.locale) }}
+              | {{ $d(now.toDate(), 'date', this.$i18n.locale) }}
 
         // Poem
         v-flex(

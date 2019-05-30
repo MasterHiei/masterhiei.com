@@ -36,10 +36,6 @@ const articleSchema = new Schema(
       type: String,
       default: '/sites/upload/cover-2.jpg',
     },
-    category: {
-      type: String,
-      default: '',
-    },
     tags: {
       type: [String],
       default: [],

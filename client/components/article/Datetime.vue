@@ -25,10 +25,10 @@
           tag="span"
           class="month font-weight-bold"
         )
-          | {{ $d(postDate, 'month', 'en') }}
+          | {{ $d(postDate.toDate(), 'month', 'en') }}
 
     // Tooltip
-    span {{ $d(postDate, 'short', this.$i18n.locale) }}
+    span {{ $d(postDate.toDate(), 'short', this.$i18n.locale) }}
 </template>
 
 <script lang="ts">
