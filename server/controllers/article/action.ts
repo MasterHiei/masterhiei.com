@@ -24,7 +24,7 @@ const index = (req: Request, res: Response): void => {
   const articlesQuery = ArticleModel.find()
     .skip(skip)
     .limit(limit)
-    .sort('-created_at');
+    .sort('-created_at -_id');
   const countQuery = ArticleModel.find().estimatedDocumentCount();
 
   Promise.all([articlesQuery.exec(), countQuery.exec()])

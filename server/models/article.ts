@@ -36,10 +36,6 @@ const articleSchema = new Schema(
       type: String,
       default: '/sites/upload/cover-2.jpg',
     },
-    category: {
-      type: String,
-      default: '',
-    },
     tags: {
       type: [String],
       default: [],
@@ -52,11 +48,15 @@ const articleSchema = new Schema(
       type: Number,
       default: 0,
     },
+    updated_at: {
+      type: Date,
+      default: Date.now,
+    },
   },
   {
     timestamps: {
       createdAt: 'created_at',
-      updatedAt: 'updated_at',
+      updatedAt: false,
     },
   }
 );

@@ -13,9 +13,6 @@
     // Footer
     the-footer
 
-    // Nav drawer
-    the-nav-drawer(v-if="$device.isMobile")
-
     // Scroll progess linear
     v-progress-linear(
       v-model="scrollPercent"
@@ -35,7 +32,6 @@ import { Component, Vue } from 'nuxt-property-decorator';
 @Component({
   components: {
     TheHeader: () => import('@/components/layout/TheHeader.vue'),
-    TheNavDrawer: () => import('@/components/layout/mobile/TheNavDrawer.vue'),
     TheFooter: () => import('@/components/layout/TheFooter.vue'),
     TheScrollToBtn: () => import('@/components/layout/TheScrollToBtn.vue'),
   },
@@ -47,6 +43,10 @@ export default class DefaultLayout extends Vue {
   scrollPercent = 0;
 
   // Methods
+
+  /**
+   * Trigger event on page scroll
+   */
   onScrollOrResize() {
     const scrollOffset =
       window.pageYOffset ||

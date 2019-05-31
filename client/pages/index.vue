@@ -28,15 +28,15 @@
         v-layout(class="today-date" wrap)
           // Day
           v-flex(class="day display-4" xs6)
-            | {{ date.dayOfMonth }}
+            | {{ now.date() }}
 
           // Weekday
           v-flex(class="month-weekday" xs6 wrap)
             span(class="weekday display-1")
-              | {{ $d(date.now, 'weekday', this.$i18n.locale) }}
+              | {{ $d(now.toDate(), 'weekday', this.$i18n.locale) }}
 
             span(class="month title")
-              | {{ $d(date.now, 'date', this.$i18n.locale) }}
+              | {{ $d(now.toDate(), 'date', this.$i18n.locale) }}
 
         // Poem
         v-flex(
@@ -75,6 +75,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
+import dayjs, { Dayjs } from 'dayjs';
 import { AxiosError } from 'axios';
 
 @Component({
@@ -109,21 +110,17 @@ export default class IndexPage extends Vue {
   // Computed
 
   /**
-   * Date object
+   * Dayjs object
    */
-  get date(): object {
-    const now = new Date();
-    return {
-      now: now,
-      dayOfMonth: now.getDate(),
-    };
+  get now(): Dayjs {
+    return dayjs();
   }
 
   /**
    * Season
    */
   get season(): Record<string, string> {
-    const month = new Date().getMonth() + 1;
+    const month = this.now.month();
 
     // Spring
     if (month >= 3 && month <= 5) {

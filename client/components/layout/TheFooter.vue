@@ -9,12 +9,13 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
+import dayjs from 'dayjs';
 
 @Component
 export default class TheFooter extends Vue {
   // Computed
   get year(): string {
-    const year = new Date().getFullYear();
+    const year = dayjs().year();
     return year > 2019 ? `2019-${year}` : '2019';
   }
 }
