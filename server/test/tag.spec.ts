@@ -6,10 +6,9 @@ import map from 'lodash/map';
 import filter from 'lodash/filter';
 import flatMap from 'lodash/flatMap';
 import flatten from 'lodash/flatten';
-import forEach from 'lodash/forEach';
 import sortBy from 'lodash/sortBy';
 import app from '../app';
-import ArticleModel, { ArticleInput } from '../models/article';
+import ArticleModel, { Article } from '../models/article';
 import mockGenerator from './mock/article';
 
 // Base url
@@ -55,13 +54,13 @@ describe('Testing Tag Routing', (): void => {
     // Successful request
     describe('Success', (): void => {
       // Mock data
-      let mocks: ArticleInput[];
+      let mocks: Article[];
 
       // Insert mock data to database
       beforeEach(
-        (done): void => {
-          mocks = mockGenerator();
-          ArticleModel.insertMany(mocks, done);
+        async (done): Promise<void> => {
+          mocks = await ArticleModel.insertMany(mockGenerator());
+          done();
         }
       );
 
@@ -107,18 +106,18 @@ describe('Testing Tag Routing', (): void => {
     // Successful request
     describe('Success', (): void => {
       // Mock data
-      let mocks: ArticleInput[];
+      let mocks: Article[];
 
       // Insert mock data to database
-      beforeEach(
-        (done): void => {
-          mocks = mockGenerator();
-          ArticleModel.insertMany(mocks, done);
+      beforeAll(
+        async (done): Promise<void> => {
+          mocks = await ArticleModel.insertMany(mockGenerator());
+          done();
         }
       );
 
       // Remove mock data in database
-      afterEach(
+      afterAll(
         (done): void => {
           ArticleModel.deleteMany({}, done);
         }
@@ -132,18 +131,12 @@ describe('Testing Tag Routing', (): void => {
           .query({ page: 1, limit: mocks.length });
         expect(response.status).toBe(200);
 
-        const expectData = filter(
+        const expected = filter(
           mocks,
           (mock): boolean => mock.tags.includes(tag)
         );
-        expect(response.body.articles.length).toBe(expectData.length);
-        forEach(
-          expectData,
-          (item): void =>
-            expect(response.body.articles).toEqual(
-              expect.arrayContaining([expect.objectContaining(item)])
-            )
-        );
+        const articles = response.body.articles;
+        expect(JSON.stringify(articles)).toEqual(JSON.stringify(expected));
       });
     });
 

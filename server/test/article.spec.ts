@@ -1,9 +1,10 @@
 import { Server } from 'http';
 import request, { SuperTest, Test } from 'supertest';
-import mongoose, { Schema } from 'mongoose';
-import forEach from 'lodash/forEach';
+import mongoose from 'mongoose';
+import dropRight from 'lodash/dropRight';
+import sortBy from 'lodash/sortBy';
 import app from '../app';
-import ArticleModel, { ArticleInput } from '../models/article';
+import ArticleModel, { Article } from '../models/article';
 import mockGenerator from './mock/article';
 
 // Base url
@@ -49,13 +50,13 @@ describe('Testing Article Routing', (): void => {
     // Successful request
     describe('Success', (): void => {
       // Mock data
-      let mocks: ArticleInput[];
+      let mocks: Article[];
 
       // Insert mock data to database
       beforeEach(
-        (done): void => {
-          mocks = mockGenerator();
-          ArticleModel.insertMany(mocks, done);
+        async (done): Promise<void> => {
+          mocks = await ArticleModel.insertMany(mockGenerator());
+          done();
         }
       );
 
@@ -70,16 +71,16 @@ describe('Testing Article Routing', (): void => {
       it('Return status 200 with a article list', async (): Promise<void> => {
         const response = await agent
           .get(url)
-          .query({ page: 1, limit: mocks.length });
+          .query({ page: 1, limit: mocks.length - 1 });
+
+        // Test status code
         expect(response.status).toBe(200);
-        expect(response.body.articles.length).toBe(mocks.length);
-        forEach(
-          mocks,
-          (mock): void =>
-            expect(response.body.articles).toEqual(
-              expect.arrayContaining([expect.objectContaining(mock)])
-            )
-        );
+
+        // Test article list
+        const descendant = sortBy(mocks, ['created_at', '_id']).reverse();
+        const expected = dropRight(descendant);
+        const articles = response.body.articles;
+        expect(JSON.stringify(articles)).toEqual(JSON.stringify(expected));
       });
     });
 
@@ -128,26 +129,19 @@ describe('Testing Article Routing', (): void => {
   describe('Get /articles/:id', (): void => {
     // Successful request
     describe('Success', (): void => {
-      let mock: ArticleInput;
-      let id: Schema.Types.ObjectId;
+      let mock: Article;
 
       // Insert mock data to database
-      beforeEach(
-        (done): void => {
-          const mocks = mockGenerator();
+      beforeAll(
+        async (done): Promise<void> => {
+          const mocks = await ArticleModel.insertMany(mockGenerator());
           mock = mocks[0];
-          ArticleModel.insertMany(
-            mocks,
-            (_, docs): void => {
-              id = docs[0]._id;
-              done();
-            }
-          );
+          done();
         }
       );
 
       // Remove mocking data in database
-      afterEach(
+      afterAll(
         (done): void => {
           ArticleModel.deleteMany({}, done);
         }
@@ -155,9 +149,12 @@ describe('Testing Article Routing', (): void => {
 
       // Test
       it('Return status 200 with a article object', async (): Promise<void> => {
-        const response = await agent.get(`${url}/${id}`);
+        const response = await agent.get(`${url}/${mock._id}`);
         expect(response.status).toBe(200);
-        expect(response.body.article).toEqual(expect.objectContaining(mock));
+
+        mock.views += 1;
+        const article = response.body.article;
+        expect(JSON.stringify(article)).toEqual(JSON.stringify(mock));
       });
     });
 

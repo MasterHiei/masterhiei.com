@@ -58,7 +58,7 @@ describe('Testing Tag Routing', (): void => {
       let mocks: Article[];
 
       // Insert mock data to database
-      beforeEach(
+      beforeAll(
         async (done): Promise<void> => {
           mocks = await ArticleModel.insertMany(mockGenerator(5));
 
@@ -99,7 +99,7 @@ describe('Testing Tag Routing', (): void => {
       );
 
       // Remove mock data in database
-      afterEach(
+      afterAll(
         (done): void => {
           ArticleModel.deleteMany({}, done);
         }

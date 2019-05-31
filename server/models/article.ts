@@ -48,11 +48,15 @@ const articleSchema = new Schema(
       type: Number,
       default: 0,
     },
+    updated_at: {
+      type: Date,
+      default: Date.now,
+    },
   },
   {
     timestamps: {
       createdAt: 'created_at',
-      updatedAt: 'updated_at',
+      updatedAt: false,
     },
   }
 );
