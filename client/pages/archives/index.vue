@@ -7,13 +7,24 @@
     wrap
   )
     // Calendar
-    v-card(class="calendar-card") ads
+    v-card(class="calendar-card")
+      the-calendar(:data="yearMonthDay")
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
 
 @Component({
+  components: {
+    TheCalendar: () => import('@/components/chart/TheCalendar.vue'),
+  },
+
+  // Hooks
+  async asyncData({ $axios }) {
+    const { articles, yearMonthDay } = await $axios.$get('/archives');
+    return { articles, yearMonthDay };
+  },
+
   // Transition animation
   transition: {
     enterActiveClass: 'animated slideInLeft',

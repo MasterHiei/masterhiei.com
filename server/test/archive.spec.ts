@@ -106,7 +106,7 @@ describe('Testing Tag Routing', (): void => {
       );
 
       // Test
-      it('Return status 200 with a Object includes articles created in last year and statistics data', async (): Promise<
+      it('Return status 200 with a object includes articles created in last year and date statistics', async (): Promise<
         void
       > => {
         // Test status code
@@ -129,7 +129,7 @@ describe('Testing Tag Routing', (): void => {
         const articles = response.body.articles;
         expect(JSON.stringify(articles)).toEqual(JSON.stringify(descendant));
 
-        // Test statistics list
+        // Test yearMonthDay list
         const days: string[] = [];
         forEach(
           mocks,
@@ -140,12 +140,12 @@ describe('Testing Tag Routing', (): void => {
         const countedGroup = map(
           groupBy(days),
           (item): object => ({
-            yearMonthDay: item[0],
+            date: item[0],
             value: item.length,
           })
         );
-        const descendantGroup = sortBy(countedGroup, 'yearMonthDay').reverse();
-        expect(response.body.statistics).toEqual(descendantGroup);
+        const descendantGroup = sortBy(countedGroup, 'date').reverse();
+        expect(response.body.yearMonthDay).toEqual(descendantGroup);
       });
     });
 
@@ -155,7 +155,7 @@ describe('Testing Tag Routing', (): void => {
         const response = await agent.get(url);
         expect(response.status).toBe(200);
         expect(response.body.articles).toEqual([]);
-        expect(response.body.statistics).toEqual([]);
+        expect(response.body.yearMonthDay).toEqual([]);
       });
     });
   });
