@@ -82,7 +82,6 @@
 
 <script lang="ts">
 import { Component, Vue, namespace } from 'nuxt-property-decorator';
-import { AxiosError } from 'axios';
 import * as issue from '@/store/issue';
 import { Article } from '@/models/article';
 import sanitizeHTML from '@/common/sanitizer';
@@ -106,14 +105,9 @@ const Issue = namespace(issue.name);
     return { article };
   },
 
-  async fetch({ store, params, error }) {
-    // Fetch issue
-    await store
-      .dispatch('issue/fetchOneById', params.id)
-      .catch((e: AxiosError) => {
-        const statusCode = e.response ? e.response.status : 500;
-        error({ statusCode: statusCode, message: e.message });
-      });
+  async fetch({ store, params }) {
+    // Fetch issue by id
+    await store.dispatch('issue/fetchOneById', params.id);
   },
 
   // Transition animation
