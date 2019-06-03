@@ -97,27 +97,29 @@ export const getters: GetterTree<State, RootState> = {
 // Actions
 export const actions: Actions<State, RootState> = {
   async fetch({ commit }): Promise<void> {
-    const { data } = await axios.get(`/repos/${owner}/${repo}/issues`, {
+    const response = await axios.get(`/repos/${owner}/${repo}/issues`, {
       params: {
         client_id: clientId,
         client_secret: clientSecret,
         labels: label,
       },
     });
-    commit(types.FETCH, data);
+    if (response != null) {
+      commit(types.FETCH, response.data);
+    }
   },
 
   async fetchOneById({ commit }, id): Promise<void> {
     const gitalkId = generateId(id);
-    const { data } = await axios.get(`/repos/${owner}/${repo}/issues`, {
+    const response = await axios.get(`/repos/${owner}/${repo}/issues`, {
       params: {
         client_id: clientId,
         client_secret: clientSecret,
         labels: `${label},${gitalkId}`,
       },
     });
-    if (data != null && data.length > 0) {
-      commit(types.FETCH_ONE, data[0]);
+    if (response != null && Array.isArray(response.data)) {
+      commit(types.FETCH_ONE, response.data[0]);
     }
   },
 };
