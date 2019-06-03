@@ -16,6 +16,7 @@ const index = (_: Request, res: Response): void => {
     .lte(now.toDate())
     .gte(now.subtract(1, 'year'))
     .sort('-created_at -_id');
+  // TODO: Need to fix the date period
   const yearMonthDayQuery = ArticleModel.aggregate()
     .project({
       date: {

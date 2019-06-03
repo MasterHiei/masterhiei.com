@@ -38,5 +38,5 @@ export default class ArchivesPage extends Vue {}
 .section-item
   margin 48px auto 24px auto
   .calendar-card
-    padding 30px
+    padding 0 24px
 </style>

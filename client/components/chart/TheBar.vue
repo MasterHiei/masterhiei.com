@@ -15,7 +15,6 @@ import size from 'lodash/size';
 import ECharts from 'echarts/lib/echarts';
 import { Tag } from 'models/tag';
 import 'echarts/lib/chart/bar';
-import 'echarts/lib/component/title';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/visualMap';
 
@@ -30,7 +29,7 @@ export default class TheBar extends Vue {
   /**
    * Return a reversed tags array
    */
-  get tags(): Tag[] {
+  get dataset(): Tag[] {
     return this.data.slice().reverse();
   }
 
@@ -38,14 +37,14 @@ export default class TheBar extends Vue {
    * Bar contaner style
    */
   get barStyle(): string {
-    return `height: ${this.tags.length * 40}px;`;
+    return `height: ${this.dataset.length * 40}px;`;
   }
 
   /**
    * Max value of values
    */
   get maxValue(): number {
-    const maxItem = maxBy(this.tags, 'value');
+    const maxItem = maxBy(this.dataset, 'value');
     return maxItem == null ? 0 : maxItem.value;
   }
 
@@ -53,7 +52,7 @@ export default class TheBar extends Vue {
    * Split number of values
    */
   get splitNumber(): number {
-    const group = groupBy(this.tags, 'value');
+    const group = groupBy(this.dataset, 'value');
     return size(group);
   }
 
@@ -121,7 +120,7 @@ export default class TheBar extends Vue {
             },
           },
         ],
-        dataset: { source: this.tags },
+        dataset: { source: this.dataset },
         series: [
           {
             name: this.$i18n.t('tag.chart.total').toString(),
