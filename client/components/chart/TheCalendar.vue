@@ -127,19 +127,22 @@ export default class TheCalendar extends Vue {
           ],
         },
         calendar: {
-          top: 90,
+          top: 85,
           right: 'center',
           cellSize: 10,
           splitLine: { show: false },
           range: this.range,
           itemStyle: {
-            color: '#EEE',
+            color: '#EBEDF0',
             borderColor: '#FFF',
             borderWidth: 2,
           },
           yearLabel: { show: false },
           monthLabel: {
-            nameMap: 'cn',
+            nameMap: this.$i18n
+              .t('archives.chart.monthLabel')
+              .toString()
+              .split(','),
             color: '#767676',
             fontSize: 11,
           },
