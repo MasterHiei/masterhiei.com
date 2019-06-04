@@ -7,7 +7,7 @@
     wrap
   )
     // Calendar
-    v-card(class="calendar-card")
+    v-card(v-if="$device.isDesktopOrTablet")
       the-calendar(:data="yearMonthDay")
 </template>
 
@@ -37,6 +37,4 @@ export default class ArchivesPage extends Vue {}
 <style scoped lang="stylus" rel="stylesheet/stylus">
 .section-item
   margin 48px auto 24px auto
-  .calendar-card
-    padding 0 24px
 </style>

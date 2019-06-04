@@ -93,7 +93,7 @@ export default class TheCalendar extends Vue {
           fontFamily: 'Noto Sans SC, sans-serif',
         },
         title: {
-          top: 24,
+          top: 30,
           left: 'center',
           text: this.$i18n.t('archives.chart.title'),
         },
@@ -111,13 +111,13 @@ export default class TheCalendar extends Vue {
         visualMap: {
           type: 'piecewise',
           orient: 'horizontal',
-          bottom: 24,
+          bottom: 30,
           left: 'center',
-          itemWidth: 10,
-          itemHeight: 10,
+          itemWidth: 12,
+          itemHeight: 12,
           pieces: [
             { min: 1, max: 2, color: '#C6E48B' },
-            { min: 3, max: 5, color: '#7bc96f' },
+            { min: 3, max: 5, color: '#7BC96F' },
             { min: 6, max: 7, color: '#239A3B' },
             { min: 8, max: 999, color: '#196127' },
           ],
@@ -127,13 +127,13 @@ export default class TheCalendar extends Vue {
           ],
         },
         calendar: {
-          top: 85,
+          top: 95,
           right: 'center',
-          cellSize: 10,
+          cellSize: 12,
           splitLine: { show: false },
           range: this.range,
           itemStyle: {
-            color: '#EBEDF0',
+            color: '#EBEDEF',
             borderColor: '#FFF',
             borderWidth: 2,
           },
@@ -168,5 +168,5 @@ export default class TheCalendar extends Vue {
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
 #chart-calendar
-  height 220px
+  height 250px
 </style>

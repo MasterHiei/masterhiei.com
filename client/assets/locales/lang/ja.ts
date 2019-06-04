@@ -27,7 +27,7 @@ export default {
   tag: {
     title: 'タグ一覧',
     chart: {
-      title: 'タグ情報',
+      title: 'タグ数（棒グラフ）',
       total: '合計',
       less: '少ない',
       more: '多い',
