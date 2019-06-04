@@ -6,7 +6,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator';
 import dayjs from 'dayjs';
-import maxBy from 'lodash/maxBy';
+import map from 'lodash/map';
 import values from 'lodash/values';
 import ECharts from 'echarts/lib/echarts';
 import { YearMonthDay } from 'models/yearMonthDay';
@@ -24,21 +24,34 @@ export default class TheCalendar extends Vue {
   // Computed
 
   /**
-   * Max value of values
+   * Calendar range
    */
-  get maxValue(): number {
-    const maxItem = maxBy(this.data, 'value');
-    if (maxItem == null) {
-      return 0;
-    }
-    return maxItem.value;
+  get range(): string[] {
+    const template = 'YYYY-MM-DD';
+    const end = dayjs();
+    const start = end.subtract(1, 'year');
+    return [start.format(template), end.format(template)];
   }
 
   /**
    * ECharts series data
    */
   get seriesData(): (string | number)[][] {
-    return this.data.map((item): (string | number)[] => values(item).reverse());
+    const seriesData = this.data;
+    const originDates = map(this.data, 'date');
+    const start = dayjs(this.range[0]).valueOf();
+    const end = dayjs(this.range[1]).valueOf();
+    const oneDayMilliseconds = 24 * 60 * 60 * 1000;
+    for (let ms = start; ms <= end; ms += oneDayMilliseconds) {
+      // Fill data if no activity
+      const ymd = dayjs(ms).format('YYYY-MM-DD');
+      if (!originDates.includes(ymd)) {
+        seriesData.push({ value: 0, date: ymd });
+      }
+    }
+    return seriesData.map(
+      (item): (string | number)[] => values(item).reverse()
+    );
   }
 
   // Methods
@@ -47,10 +60,23 @@ export default class TheCalendar extends Vue {
    * Tooltip formatter
    */
   formatter(data: any): string {
-    const date = dayjs(data.value[0]).format('MMM D, YYYY');
-    return `${
-      data.value[1]
-    } contributions <span style='color: #D7D7D7; font-weight: 300;'> on ${date}</span>`;
+    const date = this.$i18n.d(
+      dayjs(data.value[0]).toDate(),
+      'short',
+      this.$i18n.locale
+    );
+    const number = data.value[1];
+    if (number === 0) {
+      return this.$i18n
+        .t('archives.chart.tooltip.noData', { date: date })
+        .toString();
+    }
+    return this.$i18n
+      .t('archives.chart.tooltip.normal', {
+        date: date,
+        number: number,
+      })
+      .toString();
   }
 
   // Hooks
@@ -62,12 +88,17 @@ export default class TheCalendar extends Vue {
 
       // Set echarts options
       echarts.setOption({
+        textStyle: {
+          color: '#191919',
+          fontFamily: 'Noto Sans SC, sans-serif',
+        },
         title: {
-          top: 20,
+          top: 24,
           left: 'center',
-          text: 'Calendar',
+          text: this.$i18n.t('archives.chart.title'),
         },
         tooltip: {
+          position: 'top',
           padding: 10,
           formatter: this.formatter,
           backgroundColor: 'rgba(0, 0, 0, 0.75)',
@@ -75,40 +106,51 @@ export default class TheCalendar extends Vue {
             color: '#FFF',
             fontSize: 12,
             fontWerght: 'lighter',
-            fontFamily: 'Noto Sans SC, sans-serif',
           },
         },
         visualMap: {
-          show: false,
-          min: 0,
-          max: this.maxValue,
-          inRange: {
-            symbol: 'rect',
-            color: ['#C6E48B', '#239A3B', '#196127'],
-          },
+          type: 'piecewise',
+          orient: 'horizontal',
+          bottom: 24,
+          left: 'center',
+          itemWidth: 10,
+          itemHeight: 10,
+          pieces: [
+            { min: 1, max: 2, color: '#C6E48B' },
+            { min: 3, max: 5, color: '#7bc96f' },
+            { min: 6, max: 7, color: '#239A3B' },
+            { min: 8, max: 999, color: '#196127' },
+          ],
+          text: [
+            this.$i18n.t('archives.chart.more'),
+            this.$i18n.t('archives.chart.less'),
+          ],
         },
         calendar: {
-          top: 75,
+          top: 90,
           right: 'center',
           cellSize: 10,
           splitLine: { show: false },
+          range: this.range,
           itemStyle: {
+            color: '#EEE',
             borderColor: '#FFF',
             borderWidth: 2,
           },
           yearLabel: { show: false },
           monthLabel: {
+            nameMap: 'cn',
             color: '#767676',
-            fontSize: 10,
-            fontFamily: 'Noto Sans SC, sans-serif',
+            fontSize: 11,
           },
           dayLabel: {
-            nameMap: ['', 'Mon', '', 'Wed', '', 'Fri', ''],
+            nameMap: this.$i18n
+              .t('archives.chart.dayLabel')
+              .toString()
+              .split(','),
             color: '#767676',
-            fontSize: 9,
-            fontFamily: 'Noto Sans SC, sans-serif',
+            fontSize: 11,
           },
-          range: '2019',
         },
         series: {
           type: 'heatmap',

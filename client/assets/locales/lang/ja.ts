@@ -33,6 +33,20 @@ export default {
       more: '多い',
     },
   },
+  archives: {
+    chart: {
+      title: 'アクティビティカレンダー',
+      dayLabel: ',月,,水,,金,',
+      tooltip: {
+        noData:
+          '<span style="color: #D7D7D7; font-weight: 300;">{date}の</span>記事はありません',
+        normal:
+          '<span style="color: #D7D7D7; font-weight: 300;">{date}に</span>{number}件の記事があります',
+      },
+      less: '少ない',
+      more: '多い',
+    },
+  },
   profile: {
     name: 'S.Ryu',
     position: 'iOS & フルスタック（仮）エンジニア',
