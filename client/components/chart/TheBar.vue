@@ -1,17 +1,11 @@
 <template lang="pug">
   figure
-    v-flex(class="chart-title" wrap)
-      v-icon
-        | fas fa-chart-bar
-      | {{ $t('tag.chart.title') }}
     div(id="chart-bar" :style="barStyle")
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator';
 import maxBy from 'lodash/maxBy';
-import groupBy from 'lodash/groupBy';
-import size from 'lodash/size';
 import ECharts from 'echarts/lib/echarts';
 import { Tag } from 'models/tag';
 import 'echarts/lib/chart/bar';
@@ -30,7 +24,7 @@ export default class TheBar extends Vue {
   /**
    * Return a reversed tags array
    */
-  get tags(): Tag[] {
+  get dataset(): Tag[] {
     return this.data.slice().reverse();
   }
 
@@ -38,33 +32,15 @@ export default class TheBar extends Vue {
    * Bar contaner style
    */
   get barStyle(): string {
-    return `height: ${this.tags.length * 40}px;`;
+    return `height: ${this.dataset.length * 40}px;`;
   }
 
   /**
    * Max value of values
    */
   get maxValue(): number {
-    const maxItem = maxBy(this.tags, 'value');
+    const maxItem = maxBy(this.dataset, 'value');
     return maxItem == null ? 0 : maxItem.value;
-  }
-
-  /**
-   * Split number of values
-   */
-  get splitNumber(): number {
-    const group = groupBy(this.tags, 'value');
-    return size(group);
-  }
-
-  /**
-   * X axis name
-   */
-  get xAxisName(): string {
-    if (this.$device.isMobile) {
-      return '';
-    }
-    return this.$i18n.t('tag.chart.total').toString();
   }
 
   // Hooks
@@ -80,35 +56,42 @@ export default class TheBar extends Vue {
           color: '#757575',
           fontFamily: 'Noto Sans SC, sans-serif',
         },
+        title: {
+          top: 30,
+          left: 'center',
+          text: this.$i18n.t('tag.chart.title'),
+          textStyle: { fontSize: 20 },
+        },
         tooltip: {
+          padding: 10,
           trigger: 'axis',
           axisPointer: { type: 'shadow' },
+          backgroundColor: 'rgba(0, 0, 0, 0.75)',
         },
         legend: { show: false },
         grid: {
-          top: '10',
-          right: '30',
-          bottom: '50',
-          left: '30',
-          containLabel: !this.$device.isMobile,
+          top: '80',
+          right: '120',
+          bottom: '80',
+          left: '60',
+          containLabel: true,
         },
         xAxis: {
           type: 'value',
-          name: this.xAxisName,
-          nameLocation: 'center',
+          name: this.$i18n.t('tag.chart.total'),
           nameTextStyle: { padding: 10 },
           minInterval: 1,
         },
-        yAxis: {
-          type: 'category',
-          show: !this.$device.isMobile,
-        },
+        yAxis: { type: 'category' },
         visualMap: [
           {
             type: 'piecewise',
-            splitNumber: this.splitNumber,
             orient: 'horizontal',
+            bottom: 30,
             left: 'center',
+            itemWidth: 12,
+            itemHeight: 12,
+            splitNumber: 4,
             min: 1,
             max: this.maxValue,
             text: [
@@ -117,19 +100,17 @@ export default class TheBar extends Vue {
             ],
             dimension: 0,
             inRange: {
-              color: ['#C6E48B', '#239A3B', '#196127'],
+              color: ['#C6E48B', '#7BC96F', '#239A3B', '#196127'],
             },
           },
         ],
-        dataset: { source: this.tags },
-        series: [
-          {
-            name: this.$i18n.t('tag.chart.total').toString(),
-            type: 'bar',
-            barCategoryGap: '65%',
-            encode: { x: 'value', y: 'name' },
-          },
-        ],
+        dataset: { source: this.dataset },
+        series: {
+          name: this.$i18n.t('tag.chart.total').toString(),
+          type: 'bar',
+          barCategoryGap: '70%',
+          encode: { x: 'value', y: 'name' },
+        },
       });
 
       // Set click event on echarts
@@ -143,15 +124,3 @@ export default class TheBar extends Vue {
   }
 }
 </script>
-
-<style scoped lang="stylus" rel="stylesheet/stylus">
-.chart-title
-  text-align center
-  font-size 20px
-  font-weight 700
-  padding-bottom 12px
-  .v-icon
-    font-size 24px
-    color var(--v-primary-base)
-    margin 0 8px 4px 0
-</style>

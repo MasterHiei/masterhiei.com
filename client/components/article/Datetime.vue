@@ -25,7 +25,7 @@
           tag="span"
           class="month font-weight-bold"
         )
-          | {{ $d(postDate.toDate(), 'month', 'en') }}
+          | {{ postMonth }}
 
     // Tooltip
     span {{ $d(postDate.toDate(), 'short', this.$i18n.locale) }}
@@ -47,6 +47,13 @@ export default class ListItem extends Vue {
    */
   get postDate(): Dayjs {
     return dayjs(this.datetime);
+  }
+
+  /**
+   * Post date
+   */
+  get postMonth(): string {
+    return this.postDate.format('MMM');
   }
 }
 </script>

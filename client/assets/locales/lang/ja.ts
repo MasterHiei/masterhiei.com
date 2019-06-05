@@ -27,8 +27,24 @@ export default {
   tag: {
     title: 'タグ一覧',
     chart: {
-      title: 'タグ情報',
+      title: 'タグ数（棒グラフ）',
       total: '合計',
+      less: '少ない',
+      more: '多い',
+    },
+  },
+  archives: {
+    chart: {
+      title: 'アクティビティカレンダー',
+      monthLabel:
+        '一月,二月,三月,四月,五月,六月,七月,八月,九月,十月,十一月,十二月',
+      dayLabel: ',月,,水,,金,',
+      tooltip: {
+        noData:
+          '<span style="color: #D7D7D7; font-weight: 300;">{date}の</span>記事はありません',
+        normal:
+          '<span style="color: #D7D7D7; font-weight: 300;">{date}に</span>{number}件の記事があります',
+      },
       less: '少ない',
       more: '多い',
     },

@@ -10,7 +10,7 @@
     v-card(class="tag-card")
       // Title
       v-flex(class="tag-card-title" wrap)
-        v-icon(size="26") fas fa-tags
+        v-icon(size="20") fas fa-tags
         | {{ $t('tag.title') }}
 
       // Tags
@@ -31,7 +31,7 @@
             | {{ tag.name }}
 
     // Chart
-    v-card(class="tag-chart-card")
+    v-card(v-if="$device.isDesktopOrTablet")
       the-bar(:data="tags")
 </template>
 
@@ -105,8 +105,10 @@ export default class TagsPage extends Vue {
   .tag-card
     padding 30px
     margin-bottom 60px
+    @media (max-width $grid-breakpoints.sm)
+      padding 30px 12px
     &-title
-      font-size 28px
+      font-size 24px
       font-weight 700
       text-align center
       margin-bottom 8px
@@ -131,8 +133,4 @@ export default class TagsPage extends Vue {
         & >>> .v-badge__badge
           top 2px
           right 2px
-
-  // Chart card
-  .tag-chart-card
-    padding 30px
 </style>

@@ -7,13 +7,24 @@
     wrap
   )
     // Calendar
-    v-card(class="calendar-card") ads
+    v-card(v-if="$device.isDesktopOrTablet")
+      the-calendar(:data="yearMonthDay")
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
 
 @Component({
+  components: {
+    TheCalendar: () => import('@/components/chart/TheCalendar.vue'),
+  },
+
+  // Hooks
+  async asyncData({ $axios }) {
+    const { articles, yearMonthDay } = await $axios.$get('/archives');
+    return { articles, yearMonthDay };
+  },
+
   // Transition animation
   transition: {
     enterActiveClass: 'animated slideInLeft',
@@ -26,6 +37,4 @@ export default class ArchivesPage extends Vue {}
 <style scoped lang="stylus" rel="stylesheet/stylus">
 .section-item
   margin 48px auto 24px auto
-  .calendar-card
-    padding 30px
 </style>

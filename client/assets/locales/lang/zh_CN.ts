@@ -32,6 +32,22 @@ export default {
       more: '更多',
     },
   },
+  archives: {
+    chart: {
+      title: '敬业日历',
+      monthLabel:
+        '一月,二月,三月,四月,五月,六月,七月,八月,九月,十月,十一月,十二月',
+      dayLabel: ',一,,三,,五,',
+      tooltip: {
+        noData:
+          '<span style="color: #D7D7D7; font-weight: 300;">{date}</span>我摸了',
+        normal:
+          '<span style="color: #D7D7D7; font-weight: 300;">{date}</span>发布了{number}篇文章',
+      },
+      less: '更少',
+      more: '更多',
+    },
+  },
   profile: {
     name: 'L.',
     position: 'iOS & （伪）全栈程序员',

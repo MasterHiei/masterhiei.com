@@ -16,24 +16,25 @@ const index = (_: Request, res: Response): void => {
     .lte(now.toDate())
     .gte(now.subtract(1, 'year'))
     .sort('-created_at -_id');
-  const statisticsQuery = ArticleModel.aggregate()
+  // TODO: Need to fix the date period
+  const yearMonthDayQuery = ArticleModel.aggregate()
     .project({
-      yearMonthDay: {
+      date: {
         $dateToString: { date: '$created_at', format: '%Y-%m-%d' },
       },
     })
     .group({
-      _id: '$yearMonthDay',
+      _id: '$date',
       value: { $sum: 1 },
     })
-    .project({ _id: 0, yearMonthDay: '$_id', value: 1 })
-    .sort('-yearMonthDay');
+    .project({ _id: 0, date: '$_id', value: 1 })
+    .sort('-date');
 
-  Promise.all([articlesQuery.exec(), statisticsQuery.exec()])
+  Promise.all([articlesQuery.exec(), yearMonthDayQuery.exec()])
     .then(
-      ([articles, statistics]): void => {
+      ([articles, yearMonthDay]): void => {
         // Set response
-        res.status(200).json({ articles, statistics });
+        res.status(200).json({ articles, yearMonthDay });
       }
     )
     .catch(

@@ -76,7 +76,6 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
 import dayjs, { Dayjs } from 'dayjs';
-import { AxiosError } from 'axios';
 
 @Component({
   components: {
@@ -90,14 +89,6 @@ import { AxiosError } from 'axios';
       params: { page: 1, limit: process.env.PAGE_LIMIT },
     });
     return { articles, totalCount };
-  },
-
-  async fetch({ store, error }) {
-    // Fetch issues
-    await store.dispatch('issue/fetch').catch((e: AxiosError) => {
-      const statusCode = e.response ? e.response.status : 500;
-      error({ statusCode: statusCode, message: e.message });
-    });
   },
 
   // Transition animation

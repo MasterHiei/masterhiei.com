@@ -1,14 +1,9 @@
-import Axios from 'axios';
 import { ActionTree, MutationTree, GetterTree, ActionContext } from 'vuex';
 import forEach from 'lodash/forEach';
+import axios from '@/api/axios/github';
 import { RootState } from 'store';
 import { Issue, Label } from '@/models/issue';
 import { generateId } from '@/common/gitalk';
-
-// Instance of axios
-const axios = Axios.create({
-  baseURL: 'https://api.github.com',
-});
 
 // Get environment variables
 const clientId = process.env.GITHUB_CLIENT_ID;
@@ -57,7 +52,17 @@ interface State {
 }
 
 interface Actions<S, R> extends ActionTree<S, R> {
+  /**
+   * Fetch issue data
+   * @param context Vuex action context
+   */
   fetch(context: ActionContext<S, R>, page: number): Promise<void>;
+
+  /**
+   * Fetch an issue data by ID
+   * @param context Vuex action context
+   * @param id Gitalk ID
+   */
   fetchOneById(context: ActionContext<S, R>, id: string): Promise<void>;
 }
 
@@ -91,37 +96,30 @@ export const getters: GetterTree<State, RootState> = {
 
 // Actions
 export const actions: Actions<State, RootState> = {
-  /**
-   * Fetch issue data
-   * @param context Vuex action context
-   */
   async fetch({ commit }): Promise<void> {
-    const { data } = await axios.get(`/repos/${owner}/${repo}/issues`, {
+    const response = await axios.get(`/repos/${owner}/${repo}/issues`, {
       params: {
         client_id: clientId,
         client_secret: clientSecret,
         labels: label,
       },
     });
-    commit(types.FETCH, data);
+    if (response != null) {
+      commit(types.FETCH, response.data);
+    }
   },
 
-  /**
-   * Fetch an issue data by ID
-   * @param context Vuex action context
-   * @param id Gitalk ID
-   */
   async fetchOneById({ commit }, id): Promise<void> {
     const gitalkId = generateId(id);
-    const { data } = await axios.get(`/repos/${owner}/${repo}/issues`, {
+    const response = await axios.get(`/repos/${owner}/${repo}/issues`, {
       params: {
         client_id: clientId,
         client_secret: clientSecret,
         labels: `${label},${gitalkId}`,
       },
     });
-    if (data != null && data.length > 0) {
-      commit(types.FETCH_ONE, data[0]);
+    if (response != null && Array.isArray(response.data)) {
+      commit(types.FETCH_ONE, response.data[0]);
     }
   },
 };
