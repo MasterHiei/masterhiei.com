@@ -116,6 +116,7 @@ export default class TheCalendar extends Vue {
           itemWidth: 12,
           itemHeight: 12,
           pieces: [
+            { value: 0, color: '#EBEDEF' },
             { min: 1, max: 2, color: '#C6E48B' },
             { min: 3, max: 5, color: '#7BC96F' },
             { min: 6, max: 7, color: '#239A3B' },
@@ -133,7 +134,6 @@ export default class TheCalendar extends Vue {
           splitLine: { show: false },
           range: this.range,
           itemStyle: {
-            color: '#EBEDEF',
             borderColor: '#FFF',
             borderWidth: 2,
           },
