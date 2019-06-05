@@ -1,7 +1,4 @@
 export default {
-  en: {
-    month: { month: 'short' },
-  },
   zh: {
     short: {
       year: 'numeric',
