@@ -9,6 +9,16 @@
     // Calendar
     v-card(v-if="$device.isDesktopOrTablet")
       the-calendar(:data="yearMonthDay")
+
+    // Timeline
+    v-timeline(align-top dense)
+      v-timeline-item(
+        v-for="(article, index) in articles"
+        :key="index"
+        color="accent"
+        small
+      )
+        article-list-item(:article="article")
 </template>
 
 <script lang="ts">
@@ -17,6 +27,7 @@ import { Component, Vue } from 'nuxt-property-decorator';
 @Component({
   components: {
     TheCalendar: () => import('@/components/chart/TheCalendar.vue'),
+    ArticleListItem: () => import('@/components/article/ListItem.vue'),
   },
 
   // Hooks

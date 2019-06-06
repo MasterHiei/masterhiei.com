@@ -1,10 +1,8 @@
 <template lang="pug">
   article(data-aos="zoom-in")
-    v-card(tag="article" class="post")
+    v-card(class="post")
       // Image
-      v-card-title(
-        class="post-image"
-      )
+      v-card-title(class="post-image")
         n-link(
           :to="localePath({ name: 'articles-id', params: { id: article.id } })"
           exact

@@ -36,7 +36,7 @@
 
         // Desktop navbar
         the-navbar-desktop(
-          v-if="!$device.isMobile"
+          v-if="$device.isDesktopOrTablet"
           :didScroll="didScroll"
           :pages="pages"
           :locales="locales"
