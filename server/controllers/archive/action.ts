@@ -9,14 +9,21 @@ import ArticleModel from '../../models/article';
  * @param res
  */
 const index = (_: Request, res: Response): void => {
+  // Query a particular date range
+  const endDay = dayjs();
+  const startDay = endDay
+    .subtract(1, 'year')
+    .hour(0)
+    .minute(0)
+    .second(0)
+    .millisecond(0);
+
   // Find data from database
-  const now = dayjs();
   const articlesQuery = ArticleModel.find()
     .where('created_at')
-    .lte(now.toDate())
-    .gte(now.subtract(1, 'year'))
+    .gte(startDay.toDate())
+    .lte(endDay.toDate())
     .sort('-created_at -_id');
-  // TODO: Need to fix the date period
   const yearMonthDayQuery = ArticleModel.aggregate()
     .project({
       date: {
