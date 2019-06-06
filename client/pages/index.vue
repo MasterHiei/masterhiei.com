@@ -15,13 +15,13 @@
           py-3
           wrap
         )
-          span(class="display-2")
+          span.display-2
             | {{ season.locale }}
 
-          span(class="mx-2")
+          span.mx-2
             | &middot;
 
-          span(class="title")
+          span.title
             |{{ season.word }}
 
         // Date
@@ -32,10 +32,10 @@
 
           // Weekday
           v-flex(class="month-weekday" xs6 wrap)
-            span(class="weekday display-1")
+            span.weekday.display-1
               | {{ $d(now.toDate(), 'weekday', this.$i18n.locale) }}
 
-            span(class="month title")
+            span.month.title
               | {{ $d(now.toDate(), 'date', this.$i18n.locale) }}
 
         // Poem
@@ -59,7 +59,7 @@
         flat
       )
         // Title
-        v-card-title(class="section-item-title")
+        v-card-title.section-item-title
           v-flex(tag="span")
             v-icon(
               class="mb-1"

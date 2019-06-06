@@ -1,5 +1,5 @@
 <template lang="pug">
-  header(class="header")
+  header.header
     // Nav drawer
     the-nav-drawer(
       v-if="$device.isMobile"
@@ -28,7 +28,7 @@
         v-spacer
 
         // Logo
-        v-toolbar-title(class="header-logo")
+        v-toolbar-title.header-logo
           n-link(:to="localePath('index')" extra)
             img(src="/logo.png" alt="logo")
 
@@ -45,36 +45,33 @@
         v-spacer
 
     // Background
-    v-flex(class="header-background")
+    div.header-background
       // Brand
-      v-flex(
-        class="header-brand text-xs-center secondary-text"
-        wrap
-      )
-        div(class="brand-name display-2")
-          span(class="hidden-text") M
-          span(class="hidden-text") r
-          span(class="hidden-text") _
+      div.header-brand.text-xs-center.secondary-text
+        div.brand-name.display-2
+          span.hidden-text M
+          span.hidden-text r
+          span.hidden-text _
           span H
           span i
-          span(class="hidden-text") e
-          span(class="hidden-text") i
-          span(class="present-text") !
+          span.hidden-text e
+          span.hidden-text i
+          span.present-text !
 
-        div(class="brand-motto subheading")
-          span(class="hidden-text") 万
-          span(class="hidden-text") 物
-          span(class="hidden-text") 有
-          span(class="hidden-text") 因
-          span(class="hidden-text") 必
-          span(class="hidden-text") 有
-          span(class="hidden-text") 果
-          span(class="hidden-text") ，
-          span(class="hidden-text") 洗
-          span(class="hidden-text") 洗
-          span(class="hidden-text") 皆
-          span(class="hidden-text") 可
-          span(class="hidden-text") 吃
+        div.brand-motto.subheading
+          span.hidden-text 万
+          span.hidden-text 物
+          span.hidden-text 有
+          span.hidden-text 因
+          span.hidden-text 必
+          span.hidden-text 有
+          span.hidden-text 果
+          span.hidden-text ，
+          span.hidden-text 洗
+          span.hidden-text 洗
+          span.hidden-text 皆
+          span.hidden-text 可
+          span.hidden-text 吃
 </template>
 
 <script lang="ts">

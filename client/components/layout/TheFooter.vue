@@ -1,7 +1,7 @@
 <template lang="pug">
   v-footer(id="footer" height="auto")
     v-card(color="transparent" width="100%" flat tile)
-      v-card-text(class="footer-text")
+      v-card-text.footer-text
         | {{ `&copy;&nbsp;${year}&nbsp;` }}
         a(href="https://github.com/MasterHiei" target="_blank")
           | MasterHiei
