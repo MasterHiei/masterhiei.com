@@ -20,28 +20,22 @@ mongoose.connect(DB_URI, {
 });
 
 // Listen for mongoose connection successful
-mongoose.connection.on(
-  'connected',
-  (): void => {
-    require('./models/user');
-    require('./models/article');
-    consola.ready({
-      message: 'MongoDB Connected',
-      badge: true,
-    });
-  }
-);
+mongoose.connection.on('connected', (): void => {
+  require('./models/user');
+  require('./models/article');
+  consola.ready({
+    message: 'MongoDB Connected',
+    badge: true,
+  });
+});
 
 // Listen for mongoose connection failed
-mongoose.connection.on(
-  'error',
-  (error): void => {
-    consola.error({
-      message: `MongoDB connection error: ${error}`,
-      badge: true,
-    });
-  }
-);
+mongoose.connection.on('error', (error): void => {
+  consola.error({
+    message: `MongoDB connection error: ${error}`,
+    badge: true,
+  });
+});
 
 // Start server with Nuxt.js
 const start = async (): Promise<void> => {
@@ -60,14 +54,11 @@ const start = async (): Promise<void> => {
   }
 
   // Listen the server
-  app.listen(
-    PORT,
-    HOST,
-    (): void =>
-      consola.ready({
-        message: `Server is listening on http://${HOST}:${PORT}`,
-        badge: true,
-      })
+  app.listen(PORT, HOST, (): void =>
+    consola.ready({
+      message: `Server is listening on http://${HOST}:${PORT}`,
+      badge: true,
+    })
   );
 };
 start();

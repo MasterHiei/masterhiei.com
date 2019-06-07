@@ -38,19 +38,15 @@ const index = (_: Request, res: Response): void => {
     .sort('-date');
 
   Promise.all([articlesQuery.exec(), yearMonthDayQuery.exec()])
-    .then(
-      ([articles, yearMonthDay]): void => {
-        // Set response
-        res.status(200).json({ articles, yearMonthDay });
-      }
-    )
-    .catch(
-      (error): void => {
-        consola.error(error);
-        // Set response
-        res.status(500).json({ error: { msg: 'Failed to query documents.' } });
-      }
-    );
+    .then(([articles, yearMonthDay]): void => {
+      // Set response
+      res.status(200).json({ articles, yearMonthDay });
+    })
+    .catch((error): void => {
+      consola.error(error);
+      // Set response
+      res.status(500).json({ error: { msg: 'Failed to query documents.' } });
+    });
 };
 
 export default { index };

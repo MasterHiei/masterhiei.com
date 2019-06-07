@@ -49,8 +49,8 @@ export default class TheCalendar extends Vue {
         seriesData.push({ value: 0, date: ymd });
       }
     }
-    return seriesData.map(
-      (item): (string | number)[] => values(item).reverse()
+    return seriesData.map((item): (string | number)[] =>
+      values(item).reverse()
     );
   }
 

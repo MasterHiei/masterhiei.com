@@ -16,19 +16,15 @@ const index = (_: Request, res: Response): void => {
     .project({ _id: 0, name: '$_id', value: 1 })
     .sort('-value -name')
     .exec()
-    .then(
-      (tags: Tag[]): void => {
-        // Set response
-        res.status(200).json({ tags });
-      }
-    )
-    .catch(
-      (error: Error): void => {
-        consola.error(error);
-        // Set response
-        res.status(500).json({ error: { msg: 'Failed to query documents.' } });
-      }
-    );
+    .then((tags: Tag[]): void => {
+      // Set response
+      res.status(200).json({ tags });
+    })
+    .catch((error: Error): void => {
+      consola.error(error);
+      // Set response
+      res.status(500).json({ error: { msg: 'Failed to query documents.' } });
+    });
 };
 
 /**
@@ -54,19 +50,15 @@ const show = (req: Request, res: Response): void => {
     .skip(skip)
     .limit(limit)
     .exec()
-    .then(
-      (articles): void => {
-        // Set response
-        res.status(200).json({ articles });
-      }
-    )
-    .catch(
-      (error: Error): void => {
-        consola.error(error);
-        // Set response
-        res.status(500).json({ error: { msg: 'Failed to query documents.' } });
-      }
-    );
+    .then((articles): void => {
+      // Set response
+      res.status(200).json({ articles });
+    })
+    .catch((error: Error): void => {
+      consola.error(error);
+      // Set response
+      res.status(500).json({ error: { msg: 'Failed to query documents.' } });
+    });
 };
 
 export default { index, show };

@@ -62,14 +62,12 @@ export default class ArchivesPage extends Vue {
    */
   get months(): CreatedMonth[] {
     const months: CreatedMonth[] = [];
-    this.articles.forEach(
-      (article): void => {
-        const month = dayjs(article.created_at).month();
-        if (!includes(months, { month: month })) {
-          months.push({ id: article.id, month: month });
-        }
+    this.articles.forEach((article): void => {
+      const month = dayjs(article.created_at).month();
+      if (!includes(months, { month: month })) {
+        months.push({ id: article.id, month: month });
       }
-    );
+    });
     return months;
   }
 }

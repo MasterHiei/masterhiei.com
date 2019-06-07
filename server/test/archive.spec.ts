@@ -19,32 +19,26 @@ const url = '/api/v1/archives';
 let server: Server, agent: SuperTest<Test>;
 
 // Before all tests
-beforeAll(
-  (done): void => {
-    // Create a test server
-    server = app.listen(4000);
-    agent = request(server);
-    mongoose
-      .connect('mongodb://127.0.0.1:27017', {
-        dbName: 'test_db_masterhiei_com',
-        useNewUrlParser: true,
-        useCreateIndex: true,
-        useFindAndModify: false,
-      })
-      .then((): void => done());
-  }
-);
+beforeAll((done): void => {
+  // Create a test server
+  server = app.listen(4000);
+  agent = request(server);
+  mongoose
+    .connect('mongodb://127.0.0.1:27017', {
+      dbName: 'test_db_masterhiei_com',
+      useNewUrlParser: true,
+      useCreateIndex: true,
+      useFindAndModify: false,
+    })
+    .then((): void => done());
+});
 
 // Close test server
-afterAll(
-  (done): void => {
-    mongoose.disconnect().then(
-      (): void => {
-        server.close(done);
-      }
-    );
-  }
-);
+afterAll((done): void => {
+  mongoose.disconnect().then((): void => {
+    server.close(done);
+  });
+});
 
 // Routing tests
 describe('Testing Tag Routing', (): void => {
@@ -62,46 +56,34 @@ describe('Testing Tag Routing', (): void => {
 
           // Update created date to past
           const past = dayjs().subtract(1, 'month');
-          await ArticleModel.findById(
-            mocks[0]._id,
-            (_, doc): void => {
-              if (doc) {
-                doc.created_at = past.toDate();
-                doc.save(
-                  (_, newVal): void => {
-                    mocks[0] = newVal;
-                  }
-                );
-              }
+          await ArticleModel.findById(mocks[0]._id, (_, doc): void => {
+            if (doc) {
+              doc.created_at = past.toDate();
+              doc.save((_, newVal): void => {
+                mocks[0] = newVal;
+              });
             }
-          );
+          });
 
           // Update created date to future
           const future = dayjs().add(1, 'month');
-          await ArticleModel.findById(
-            mocks[1]._id,
-            (_, doc): void => {
-              if (doc) {
-                doc.created_at = future.toDate();
-                doc.save(
-                  (_, newVal): void => {
-                    mocks[1] = newVal;
-                  }
-                );
-              }
+          await ArticleModel.findById(mocks[1]._id, (_, doc): void => {
+            if (doc) {
+              doc.created_at = future.toDate();
+              doc.save((_, newVal): void => {
+                mocks[1] = newVal;
+              });
             }
-          );
+          });
 
           done();
         }
       );
 
       // Remove mock data in database
-      afterAll(
-        (done): void => {
-          ArticleModel.deleteMany({}, done);
-        }
-      );
+      afterAll((done): void => {
+        ArticleModel.deleteMany({}, done);
+      });
 
       // Test
       it('Return status 200 with a object includes articles created in last year and date statistics', async (): Promise<
@@ -115,12 +97,11 @@ describe('Testing Tag Routing', (): void => {
         const past = dayjs().subtract(1, 'year');
         const now = dayjs();
         const template = 'YYYYMMDD';
-        const filtered = mocks.filter(
-          (item): boolean =>
-            every([
-              dayjs(item.created_at).format(template) >= past.format(template),
-              dayjs(item.created_at).format(template) <= now.format(template),
-            ])
+        const filtered = mocks.filter((item): boolean =>
+          every([
+            dayjs(item.created_at).format(template) >= past.format(template),
+            dayjs(item.created_at).format(template) <= now.format(template),
+          ])
         );
         const descendant = sortBy(filtered, ['created_at', '_id']).reverse();
         const articles = response.body.articles;
@@ -128,18 +109,13 @@ describe('Testing Tag Routing', (): void => {
 
         // Test yearMonthDay list
         const days: string[] = [];
-        mocks.forEach(
-          (item, index): void => {
-            days[index] = dayjs(item.created_at).format('YYYY-MM-DD');
-          }
-        );
-        const countedGroup = map(
-          groupBy(days),
-          (item): object => ({
-            date: item[0],
-            value: item.length,
-          })
-        );
+        mocks.forEach((item, index): void => {
+          days[index] = dayjs(item.created_at).format('YYYY-MM-DD');
+        });
+        const countedGroup = map(groupBy(days), (item): object => ({
+          date: item[0],
+          value: item.length,
+        }));
         const descendantGroup = sortBy(countedGroup, 'date').reverse();
         expect(response.body.yearMonthDay).toEqual(descendantGroup);
       });

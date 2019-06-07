@@ -28,19 +28,15 @@ const index = (req: Request, res: Response): void => {
   const countQuery = ArticleModel.find().estimatedDocumentCount();
 
   Promise.all([articlesQuery.exec(), countQuery.exec()])
-    .then(
-      ([articles, totalCount]): void => {
-        // Set response
-        res.status(200).json({ articles, totalCount });
-      }
-    )
-    .catch(
-      (error): void => {
-        consola.error(error);
-        // Set response
-        res.status(500).json({ error: { msg: 'Failed to query documents.' } });
-      }
-    );
+    .then(([articles, totalCount]): void => {
+      // Set response
+      res.status(200).json({ articles, totalCount });
+    })
+    .catch((error): void => {
+      consola.error(error);
+      // Set response
+      res.status(500).json({ error: { msg: 'Failed to query documents.' } });
+    });
 };
 
 /**
@@ -60,29 +56,25 @@ const show = (req: Request, res: Response): void => {
   const id = req.params.id;
   ArticleModel.findByIdAndUpdate(id, { $inc: { views: 1 } }, { new: true })
     .exec()
-    .then(
-      (article): void => {
-        // Set response
-        if (article != null) {
-          res.status(200).json({ article });
-        } else {
-          res.status(404).json({
-            error: {
-              param: 'id',
-              value: id,
-              msg: 'Data does not exist.',
-            },
-          });
-        }
+    .then((article): void => {
+      // Set response
+      if (article != null) {
+        res.status(200).json({ article });
+      } else {
+        res.status(404).json({
+          error: {
+            param: 'id',
+            value: id,
+            msg: 'Data does not exist.',
+          },
+        });
       }
-    )
-    .catch(
-      (error): void => {
-        consola.error(error);
-        // Set response
-        res.status(500).json({ error: { msg: 'Failed to query documents.' } });
-      }
-    );
+    })
+    .catch((error): void => {
+      consola.error(error);
+      // Set response
+      res.status(500).json({ error: { msg: 'Failed to query documents.' } });
+    });
 };
 
 export default { index, show };

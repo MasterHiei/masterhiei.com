@@ -20,8 +20,8 @@ extends:
     - 'prettier/@typescript-eslint'
 
 plugins:
-  - '@typescript-eslint'
   - prettier
+  - '@typescript-eslint'
 
 rules:
   no-console: off

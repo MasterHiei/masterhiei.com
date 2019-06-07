@@ -21,10 +21,8 @@ app.use(
 );
 
 // Primary app routes
-routes.forEach(
-  (route): void => {
-    app.use(API_PREFIX, route);
-  }
-);
+routes.forEach((route): void => {
+  app.use(API_PREFIX, route);
+});
 
 export default app;

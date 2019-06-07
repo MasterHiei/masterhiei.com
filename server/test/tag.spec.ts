@@ -19,32 +19,26 @@ const url = '/api/v1/tags';
 let server: Server, agent: SuperTest<Test>;
 
 // Before all tests
-beforeAll(
-  (done): void => {
-    // Create a test server
-    server = app.listen(4000);
-    agent = request(server);
-    mongoose
-      .connect('mongodb://127.0.0.1:27017', {
-        dbName: 'test_db_masterhiei_com',
-        useNewUrlParser: true,
-        useCreateIndex: true,
-        useFindAndModify: false,
-      })
-      .then((): void => done());
-  }
-);
+beforeAll((done): void => {
+  // Create a test server
+  server = app.listen(4000);
+  agent = request(server);
+  mongoose
+    .connect('mongodb://127.0.0.1:27017', {
+      dbName: 'test_db_masterhiei_com',
+      useNewUrlParser: true,
+      useCreateIndex: true,
+      useFindAndModify: false,
+    })
+    .then((): void => done());
+});
 
 // Close test server
-afterAll(
-  (done): void => {
-    mongoose.disconnect().then(
-      (): void => {
-        server.close(done);
-      }
-    );
-  }
-);
+afterAll((done): void => {
+  mongoose.disconnect().then((): void => {
+    server.close(done);
+  });
+});
 
 // Routing tests
 describe('Testing Tag Routing', (): void => {
@@ -64,11 +58,9 @@ describe('Testing Tag Routing', (): void => {
       );
 
       // Remove mock data in database
-      afterEach(
-        (done): void => {
-          ArticleModel.deleteMany({}, done);
-        }
-      );
+      afterEach((done): void => {
+        ArticleModel.deleteMany({}, done);
+      });
 
       // Test
       it('Return status 200 with a list of tag stats', async (): Promise<
@@ -78,10 +70,10 @@ describe('Testing Tag Routing', (): void => {
         expect(response.status).toBe(200);
 
         const tags = flatMap(mocks, (mock): string[] => flatten(mock.tags));
-        const countedGroup = map(
-          groupBy(tags),
-          (item): object => ({ name: item[0], value: item.length })
-        );
+        const countedGroup = map(groupBy(tags), (item): object => ({
+          name: item[0],
+          value: item.length,
+        }));
         const descendantGroup = sortBy(countedGroup, [
           'value',
           'name',
@@ -116,11 +108,9 @@ describe('Testing Tag Routing', (): void => {
       );
 
       // Remove mock data in database
-      afterAll(
-        (done): void => {
-          ArticleModel.deleteMany({}, done);
-        }
-      );
+      afterAll((done): void => {
+        ArticleModel.deleteMany({}, done);
+      });
 
       // Test
       it('Return status 200 with a article list', async (): Promise<void> => {
@@ -130,8 +120,8 @@ describe('Testing Tag Routing', (): void => {
           .query({ page: 1, limit: mocks.length });
         expect(response.status).toBe(200);
 
-        const expected = mocks.filter(
-          (mock): boolean => mock.tags.includes(tag)
+        const expected = mocks.filter((mock): boolean =>
+          mock.tags.includes(tag)
         );
         const articles = response.body.articles;
         expect(JSON.stringify(articles)).toEqual(JSON.stringify(expected));
