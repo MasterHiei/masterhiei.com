@@ -3,7 +3,6 @@ import request, { SuperTest, Test } from 'supertest';
 import mongoose from 'mongoose';
 import groupBy from 'lodash/groupBy';
 import map from 'lodash/map';
-import filter from 'lodash/filter';
 import flatMap from 'lodash/flatMap';
 import flatten from 'lodash/flatten';
 import sortBy from 'lodash/sortBy';
@@ -131,8 +130,7 @@ describe('Testing Tag Routing', (): void => {
           .query({ page: 1, limit: mocks.length });
         expect(response.status).toBe(200);
 
-        const expected = filter(
-          mocks,
+        const expected = mocks.filter(
           (mock): boolean => mock.tags.includes(tag)
         );
         const articles = response.body.articles;

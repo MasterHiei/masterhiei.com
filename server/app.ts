@@ -1,7 +1,6 @@
 import express from 'express';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
-import forEach from 'lodash/forEach';
 import env from './utils/envalid';
 import token from './utils/token';
 import routes from './routes';
@@ -22,8 +21,7 @@ app.use(
 );
 
 // Primary app routes
-forEach(
-  routes,
+routes.forEach(
   (route): void => {
     app.use(API_PREFIX, route);
   }

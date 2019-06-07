@@ -3,8 +3,6 @@ import dayjs from 'dayjs';
 import request, { SuperTest, Test } from 'supertest';
 import mongoose from 'mongoose';
 import every from 'lodash/every';
-import filter from 'lodash/filter';
-import forEach from 'lodash/forEach';
 import groupBy from 'lodash/groupBy';
 import map from 'lodash/map';
 import sortBy from 'lodash/sortBy';
@@ -117,8 +115,7 @@ describe('Testing Tag Routing', (): void => {
         const past = dayjs().subtract(1, 'year');
         const now = dayjs();
         const template = 'YYYYMMDD';
-        const filtered = filter(
-          mocks,
+        const filtered = mocks.filter(
           (item): boolean =>
             every([
               dayjs(item.created_at).format(template) >= past.format(template),
@@ -131,8 +128,7 @@ describe('Testing Tag Routing', (): void => {
 
         // Test yearMonthDay list
         const days: string[] = [];
-        forEach(
-          mocks,
+        mocks.forEach(
           (item, index): void => {
             days[index] = dayjs(item.created_at).format('YYYY-MM-DD');
           }

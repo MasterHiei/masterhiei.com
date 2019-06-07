@@ -23,6 +23,15 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
+import dayjs from 'dayjs';
+import includes from 'lodash/includes';
+import { Article } from '@/models/article';
+
+// Interface declaration
+declare interface CreatedMonth {
+  id: Article['id'];
+  month: number;
+}
 
 @Component({
   components: {
@@ -42,7 +51,28 @@ import { Component, Vue } from 'nuxt-property-decorator';
     leaveActiveClass: 'animated slideOutRight',
   },
 })
-export default class ArchivesPage extends Vue {}
+export default class ArchivesPage extends Vue {
+  // Data
+  articles: Article[] = [];
+
+  // Computed
+
+  /**
+   * Article created month list
+   */
+  get months(): CreatedMonth[] {
+    const months: CreatedMonth[] = [];
+    this.articles.forEach(
+      (article): void => {
+        const month = dayjs(article.created_at).month();
+        if (!includes(months, { month: month })) {
+          months.push({ id: article.id, month: month });
+        }
+      }
+    );
+    return months;
+  }
+}
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
