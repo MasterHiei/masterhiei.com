@@ -1,10 +1,10 @@
 import express from 'express';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
-import forEach from 'lodash/forEach';
 import env from './utils/envalid';
 import token from './utils/token';
 import routes from './routes';
+import errorHandler from './middleware/errorHandler';
 
 // Get environment variables
 const { API_PREFIX } = env;
@@ -12,7 +12,7 @@ const { API_PREFIX } = env;
 // Create Express server
 const app = express();
 
-// Express configuration
+// Express middleware configuration
 app.use(bodyParser.json());
 app.use(token);
 app.use(
@@ -22,11 +22,11 @@ app.use(
 );
 
 // Primary app routes
-forEach(
-  routes,
-  (route): void => {
-    app.use(API_PREFIX, route);
-  }
-);
+routes.forEach((route): void => {
+  app.use(API_PREFIX, route);
+});
+
+// Error handler
+app.use(errorHandler);
 
 export default app;

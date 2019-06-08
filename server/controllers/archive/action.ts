@@ -1,22 +1,30 @@
 import dayjs from 'dayjs';
-import { Request, Response } from 'express';
-import consola from 'consola';
+import { Request, Response, NextFunction } from 'express';
 import ArticleModel from '../../models/article';
+import InternalServerError from '../../exceptions/InternalServerError';
 
 /**
  * Return articles created in last year
- * @param _
- * @param res
+ * @param _ Request
+ * @param res Response
+ * @param next NextFunction
  */
-const index = (_: Request, res: Response): void => {
+const index = (_: Request, res: Response, next: NextFunction): void => {
+  // Query a particular date range
+  const endDay = dayjs();
+  const startDay = endDay
+    .subtract(1, 'year')
+    .hour(0)
+    .minute(0)
+    .second(0)
+    .millisecond(0);
+
   // Find data from database
-  const now = dayjs();
   const articlesQuery = ArticleModel.find()
     .where('created_at')
-    .lte(now.toDate())
-    .gte(now.subtract(1, 'year'))
+    .gte(startDay.toDate())
+    .lte(endDay.toDate())
     .sort('-created_at -_id');
-  // TODO: Need to fix the date period
   const yearMonthDayQuery = ArticleModel.aggregate()
     .project({
       date: {
@@ -31,19 +39,14 @@ const index = (_: Request, res: Response): void => {
     .sort('-date');
 
   Promise.all([articlesQuery.exec(), yearMonthDayQuery.exec()])
-    .then(
-      ([articles, yearMonthDay]): void => {
-        // Set response
-        res.status(200).json({ articles, yearMonthDay });
-      }
-    )
-    .catch(
-      (error): void => {
-        consola.error(error);
-        // Set response
-        res.status(500).json({ error: { msg: 'Failed to query documents.' } });
-      }
-    );
+    .then(([articles, yearMonthDay]): void => {
+      // Set response
+      res.status(200).json({ articles, yearMonthDay });
+    })
+    .catch((): void => {
+      // Pass error to Express
+      next(new InternalServerError('Failed to query documents.'));
+    });
 };
 
 export default { index };

@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-card(id="comments")
+  v-card#comments
 </template>
 
 <script lang="ts">

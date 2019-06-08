@@ -7,7 +7,7 @@
     wrap
   )
     // Tag list
-    v-card(class="tag-card")
+    v-card.tag-card
       // Title
       v-flex(class="tag-card-title" wrap)
         v-icon(size="20") fas fa-tags

@@ -1,5 +1,4 @@
 import { ActionTree, MutationTree, GetterTree, ActionContext } from 'vuex';
-import forEach from 'lodash/forEach';
 import axios from '@/api/axios/github';
 import { RootState } from 'store';
 import { Issue, Label } from '@/models/issue';
@@ -19,17 +18,14 @@ const label = process.env.COMMENTS_LABEL;
 const deconstructIssue = (data: any): Issue => {
   // Extract labels
   const labels: Label[] = [];
-  forEach(
-    data.labels,
-    (item): void => {
-      // Jump to next loop if label name is 'Comment' label name
-      if (item.name === label) {
-        return;
-      }
-
-      labels.push({ id: item.id, name: item.name });
+  data.labels.forEach((item): void => {
+    // Jump to next loop if label name is 'Comment' label name
+    if (item.name === label) {
+      return;
     }
-  );
+
+    labels.push({ id: item.id, name: item.name });
+  });
 
   // Remake issue
   const issue: Issue = {
@@ -83,14 +79,12 @@ export const getters: GetterTree<State, RootState> = {
     id: string
   ): Issue | undefined => {
     const gitalkId = generateId(id);
-    return state.issues.find(
-      (issue): boolean => {
-        const label = issue.labels.find(
-          (label): boolean => label.name === gitalkId
-        );
-        return label != null;
-      }
-    );
+    return state.issues.find((issue): boolean => {
+      const label = issue.labels.find(
+        (label): boolean => label.name === gitalkId
+      );
+      return label != null;
+    });
   },
 };
 
@@ -134,13 +128,10 @@ export const mutations: MutationTree<State> = {
   [types.FETCH](state, res: any[]): void {
     // Get issues from response
     const issues: Issue[] = [];
-    forEach(
-      res,
-      (item): void => {
-        const issue = deconstructIssue(item);
-        issues.push(issue);
-      }
-    );
+    res.forEach((item): void => {
+      const issue = deconstructIssue(item);
+      issues.push(issue);
+    });
     state.issues = issues;
   },
 

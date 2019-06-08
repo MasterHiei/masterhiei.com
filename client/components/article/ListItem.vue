@@ -1,10 +1,8 @@
 <template lang="pug">
   article(data-aos="zoom-in")
-    v-card(tag="article" class="post")
+    v-card.post
       // Image
-      v-card-title(
-        class="post-image"
-      )
+      v-card-title.post-image
         n-link(
           :to="localePath({ name: 'articles-id', params: { id: article.id } })"
           exact
@@ -16,7 +14,7 @@
           )
 
       // Content
-      v-card-text(class="post-content")
+      v-card-text.post-content
         // Datetime
         post-date-time(:datetime="article.created_at")
 
@@ -30,10 +28,7 @@
             | \#{{ tag }}
 
         // Title
-        v-flex(
-          class="post-content-title"
-          wrap
-        )
+        v-flex(class="post-content-title" wrap)
           n-link(
             :to="localePath({ name: 'articles-id', params: { id: article.id } })"
             exact
@@ -41,11 +36,9 @@
             | {{ article.title }}
 
         // Detail
-        v-flex(
-          class="post-content-detail"
-        )
+        v-flex(class="post-content-detail" wrap)
           // Views
-          span(class="detail-item")
+          span.detail-item
             v-icon(small)
               | far fa-eye
             | {{ $t('article.views', { number: article.views }) }}
@@ -61,7 +54,7 @@
             | {{ $t('article.comments', { number: commentCount }) }}
 
           // Stars
-          span(class="detail-item")
+          span.detail-item
             v-icon(small)
               | far fa-heart
             | {{ $t('article.stars', { number: article.stars }) }}

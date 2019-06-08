@@ -5,7 +5,7 @@ import dropRight from 'lodash/dropRight';
 import sortBy from 'lodash/sortBy';
 import app from '../app';
 import ArticleModel, { Article } from '../models/article';
-import mockGenerator from './mock/article';
+import mockGenerator from './__mocks__/article';
 
 // Base url
 const url = '/api/v1/articles';
@@ -16,32 +16,26 @@ const url = '/api/v1/articles';
 let server: Server, agent: SuperTest<Test>;
 
 // Before all tests
-beforeAll(
-  (done): void => {
-    // Create a test server
-    server = app.listen(4000);
-    agent = request(server);
-    mongoose
-      .connect('mongodb://127.0.0.1:27017', {
-        dbName: 'test_db_masterhiei_com',
-        useNewUrlParser: true,
-        useCreateIndex: true,
-        useFindAndModify: false,
-      })
-      .then((): void => done());
-  }
-);
+beforeAll((done): void => {
+  // Create a test server
+  server = app.listen(4000);
+  agent = request(server);
+  mongoose
+    .connect('mongodb://127.0.0.1:27017', {
+      dbName: 'test_db_masterhiei_com',
+      useNewUrlParser: true,
+      useCreateIndex: true,
+      useFindAndModify: false,
+    })
+    .then((): void => done());
+});
 
 // Close test server
-afterAll(
-  (done): void => {
-    mongoose.disconnect().then(
-      (): void => {
-        server.close(done);
-      }
-    );
-  }
-);
+afterAll((done): void => {
+  mongoose.disconnect().then((): void => {
+    server.close(done);
+  });
+});
 
 // Routing tests
 describe('Testing Article Routing', (): void => {
@@ -61,11 +55,9 @@ describe('Testing Article Routing', (): void => {
       );
 
       // Remove mock data in database
-      afterEach(
-        (done): void => {
-          ArticleModel.deleteMany({}, done);
-        }
-      );
+      afterEach((done): void => {
+        ArticleModel.deleteMany({}, done);
+      });
 
       // Test
       it('Return status 200 with a article list', async (): Promise<void> => {
@@ -141,11 +133,9 @@ describe('Testing Article Routing', (): void => {
       );
 
       // Remove mocking data in database
-      afterAll(
-        (done): void => {
-          ArticleModel.deleteMany({}, done);
-        }
-      );
+      afterAll((done): void => {
+        ArticleModel.deleteMany({}, done);
+      });
 
       // Test
       it('Return status 200 with a article object', async (): Promise<void> => {

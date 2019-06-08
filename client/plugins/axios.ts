@@ -20,10 +20,8 @@ export default ({ $axios, error }: Context): void => {
   );
 
   // Nuxt axios
-  $axios.onError(
-    (e): void => {
-      const statusCode = e.response ? e.response.status : 500;
-      error({ statusCode: statusCode, message: e.message });
-    }
-  );
+  $axios.onError((e): void => {
+    const statusCode = e.response ? e.response.status : 500;
+    error({ statusCode: statusCode, message: e.message });
+  });
 };

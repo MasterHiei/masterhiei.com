@@ -2,11 +2,9 @@
   v-layout(justify-center wrap)
     v-flex(md6 pa-3 wrap)
       // Article
-      v-card(class="post" tag="article")
+      v-card(tag="article" class="post")
         // Image
-        v-card-title(
-          class="post-image pa-0"
-        )
+        v-card-title.post-image.pa-0
           img(:src="article.image" :alt="article.title")
 
         // Content
@@ -34,11 +32,9 @@
               post-date-time(:datetime="article.created_at")
 
             // Detail
-            v-flex(
-              class="post-detail"
-            )
+            v-flex(class="post-detail" wrap)
               // Views
-              span(class="detail-item")
+              span.detail-item
                 v-icon(small)
                   | far fa-eye
                 | {{ $t('article.views', { number: article.views }) }}
@@ -50,7 +46,7 @@
                 | {{ $t('article.comments', { number: commentCount }) }}
 
               // Stars
-              span(class="detail-item")
+              span.detail-item
                 v-icon(small)
                   | far fa-heart
                 | {{ $t('article.stars', { number: article.stars }) }}

@@ -97,15 +97,13 @@ const create = (req: Request, res: Response): void => {
   } else {
     const user = new UserModel({ email: email, username: username });
     user.password = user.hash(password);
-    user.save(
-      (error: Error): void => {
-        if (error) {
-          res.json({ code: 500, message: 'Unexcepted Error.' });
-        } else {
-          res.json({ code: 0 });
-        }
+    user.save((error: Error): void => {
+      if (error) {
+        res.json({ code: 500, message: 'Unexcepted Error.' });
+      } else {
+        res.json({ code: 0 });
       }
-    );
+    });
   }
 };
 
@@ -133,12 +131,10 @@ const fetchSocial = async (req: Request, res: Response): Promise<void> => {
     { upsert: true }
   )
     .exec()
-    .catch(
-      (error: Error): void => {
-        console.log(error);
-        res.status(500).send({ message: 'Unexcepted Error.' });
-      }
-    );
+    .catch((error: Error): void => {
+      console.log(error);
+      res.status(500).send({ message: 'Unexcepted Error.' });
+    });
   res.json({ code: 0, user: user });
 };
 
@@ -153,12 +149,10 @@ const validate = async (req: Request, res: Response): Promise<void> => {
   if (!email || !pattern.test(email)) {
     res.json({ code: 400, message: 'Invalid email.' });
   } else {
-    const user = await findUserByEmail(email).catch(
-      (error: Error): void => {
-        console.log(error);
-        res.json({ code: 500, message: 'Unexcepted Error.' });
-      }
-    );
+    const user = await findUserByEmail(email).catch((error: Error): void => {
+      console.log(error);
+      res.json({ code: 500, message: 'Unexcepted Error.' });
+    });
     if (!user) {
       res.json({ code: 0 });
     } else {
