@@ -1,14 +1,15 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { validationResult } from 'express-validator/check';
-import consola from 'consola';
 import ArticleModel from '../../models/article';
+import InternalServerError from '../../exceptions/InternalServerError';
 
 /**
  * Return articles using passed parameters
- * @param req
- * @param res
+ * @param req Request
+ * @param res Response
+ * @param next NextFunction
  */
-const index = (req: Request, res: Response): void => {
+const index = (req: Request, res: Response, next: NextFunction): void => {
   // Check validation result
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -32,19 +33,19 @@ const index = (req: Request, res: Response): void => {
       // Set response
       res.status(200).json({ articles, totalCount });
     })
-    .catch((error): void => {
-      consola.error(error);
-      // Set response
-      res.status(500).json({ error: { msg: 'Failed to query documents.' } });
+    .catch((): void => {
+      // Pass error to Express
+      next(new InternalServerError('Failed to query documents.'));
     });
 };
 
 /**
  * Return an article depending the ID
- * @param req
- * @param res
+ * @param req Request
+ * @param res Response
+ * @param next NextFunction
  */
-const show = (req: Request, res: Response): void => {
+const show = (req: Request, res: Response, next: NextFunction): void => {
   // Check validation result
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -70,10 +71,9 @@ const show = (req: Request, res: Response): void => {
         });
       }
     })
-    .catch((error): void => {
-      consola.error(error);
-      // Set response
-      res.status(500).json({ error: { msg: 'Failed to query documents.' } });
+    .catch((): void => {
+      // Pass error to Express
+      next(new InternalServerError('Failed to query documents.'));
     });
 };
 

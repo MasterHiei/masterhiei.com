@@ -1,14 +1,15 @@
 import dayjs from 'dayjs';
-import { Request, Response } from 'express';
-import consola from 'consola';
+import { Request, Response, NextFunction } from 'express';
 import ArticleModel from '../../models/article';
+import InternalServerError from '../../exceptions/InternalServerError';
 
 /**
  * Return articles created in last year
- * @param _
- * @param res
+ * @param _ Request
+ * @param res Response
+ * @param next NextFunction
  */
-const index = (_: Request, res: Response): void => {
+const index = (_: Request, res: Response, next: NextFunction): void => {
   // Query a particular date range
   const endDay = dayjs();
   const startDay = endDay
@@ -42,10 +43,9 @@ const index = (_: Request, res: Response): void => {
       // Set response
       res.status(200).json({ articles, yearMonthDay });
     })
-    .catch((error): void => {
-      consola.error(error);
-      // Set response
-      res.status(500).json({ error: { msg: 'Failed to query documents.' } });
+    .catch((): void => {
+      // Pass error to Express
+      next(new InternalServerError('Failed to query documents.'));
     });
 };
 

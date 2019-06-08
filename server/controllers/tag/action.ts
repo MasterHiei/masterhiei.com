@@ -1,15 +1,16 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { validationResult } from 'express-validator/check';
-import consola from 'consola';
 import ArticleModel from '../../models/article';
 import { Tag } from '@/models/tag';
+import InternalServerError from '../../exceptions/InternalServerError';
 
 /**
  * Get all tags in article
- * @param _ Request
+ * @param req Request
  * @param res Response
+ * @param next NextFunction
  */
-const index = (_: Request, res: Response): void => {
+const index = (_: Request, res: Response, next: NextFunction): void => {
   ArticleModel.aggregate()
     .unwind('tags')
     .group({ _id: '$tags', value: { $sum: 1 } })
@@ -20,10 +21,9 @@ const index = (_: Request, res: Response): void => {
       // Set response
       res.status(200).json({ tags });
     })
-    .catch((error: Error): void => {
-      consola.error(error);
-      // Set response
-      res.status(500).json({ error: { msg: 'Failed to query documents.' } });
+    .catch((): void => {
+      // Pass error to Express
+      next(new InternalServerError('Failed to query documents.'));
     });
 };
 
@@ -31,8 +31,9 @@ const index = (_: Request, res: Response): void => {
  * Find articles by tag
  * @param req Request
  * @param res Response
+ * @param next NextFunction
  */
-const show = (req: Request, res: Response): void => {
+const show = (req: Request, res: Response, next: NextFunction): void => {
   // Check validation result
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -54,10 +55,9 @@ const show = (req: Request, res: Response): void => {
       // Set response
       res.status(200).json({ articles });
     })
-    .catch((error: Error): void => {
-      consola.error(error);
-      // Set response
-      res.status(500).json({ error: { msg: 'Failed to query documents.' } });
+    .catch((): void => {
+      // Pass error to Express
+      next(new InternalServerError('Failed to query documents.'));
     });
 };
 

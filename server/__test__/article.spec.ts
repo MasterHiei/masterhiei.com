@@ -5,7 +5,7 @@ import dropRight from 'lodash/dropRight';
 import sortBy from 'lodash/sortBy';
 import app from '../app';
 import ArticleModel, { Article } from '../models/article';
-import mockGenerator from './mock/article';
+import mockGenerator from './__mocks__/article';
 
 // Base url
 const url = '/api/v1/articles';

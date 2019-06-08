@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import env from './utils/envalid';
 import token from './utils/token';
 import routes from './routes';
+import errorHandler from './middleware/errorHandler';
 
 // Get environment variables
 const { API_PREFIX } = env;
@@ -11,7 +12,7 @@ const { API_PREFIX } = env;
 // Create Express server
 const app = express();
 
-// Express configuration
+// Express middleware configuration
 app.use(bodyParser.json());
 app.use(token);
 app.use(
@@ -24,5 +25,8 @@ app.use(
 routes.forEach((route): void => {
   app.use(API_PREFIX, route);
 });
+
+// Error handler
+app.use(errorHandler);
 
 export default app;

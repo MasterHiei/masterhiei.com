@@ -108,7 +108,7 @@
     "jest": "^24.8.0",
     "jest-junit": "^6.4.0",
     "nodemon": "^1.19.1",
-    "prettier": "^1.18.1",
+    "prettier": "^1.18.2",
     "pug": "^2.0.3",
     "pug-plain-loader": "^1.0.0",
     "stylus": "^0.54.5",
