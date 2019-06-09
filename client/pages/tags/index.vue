@@ -105,7 +105,7 @@ export default class TagsPage extends Vue {
   .tag-card
     padding 30px
     margin-bottom 60px
-    @media (max-width $grid-breakpoints.sm)
+    +breakpoints(sm)
       padding 30px 12px
     &-title
       font-size 24px
@@ -118,7 +118,7 @@ export default class TagsPage extends Vue {
     &-content
       text-align center
       padding 8px 30px
-      @media (max-width $grid-breakpoints.sm)
+      +breakpoints(sm)
         padding 12px 0
       .tag-label
         font-size 1rem

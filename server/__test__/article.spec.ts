@@ -1,6 +1,6 @@
 import { Server } from 'http';
 import request, { SuperTest, Test } from 'supertest';
-import mongoose from 'mongoose';
+import mongoose, { Types } from 'mongoose';
 import dropRight from 'lodash/dropRight';
 import sortBy from 'lodash/sortBy';
 import app from '../app';
@@ -159,7 +159,7 @@ describe('Testing Article Routing', (): void => {
     // No result
     describe('Failure: No result', (): void => {
       it('Return status 404', async (): Promise<void> => {
-        const id = mongoose.Types.ObjectId();
+        const id = Types.ObjectId();
         const response = await agent.get(`${url}/${id}`);
         expect(response.status).toBe(404);
       });

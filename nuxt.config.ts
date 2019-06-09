@@ -169,7 +169,7 @@ const config: NuxtConfiguration = {
     transpile: ['vuetify/lib'],
     loaders: {
       stylus: {
-        import: ['~assets/style/variables'],
+        import: ['~assets/style/variables', '~assets/style/mixins'],
       },
     },
     splitChunks: {

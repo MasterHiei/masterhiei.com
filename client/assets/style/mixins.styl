@@ -1,0 +1,19 @@
+/**
+ * Breakpoint
+ */
+breakpoints(size)
+  if size == 'xs'
+    @media (max-width $grid-breakpoints.xs)
+      {block}
+  else if size == 'sm'
+    @media (max-width $grid-breakpoints.sm)
+      {block}
+  else if size == 'md'
+    @media (max-width $grid-breakpoints.md)
+      {block}
+  else if size == 'lg'
+    @media (max-width $grid-breakpoints.lg)
+      {block}
+  else
+    @media (max-width $grid-breakpoints.xl)
+      {block}

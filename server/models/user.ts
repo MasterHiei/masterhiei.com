@@ -1,9 +1,9 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Document, Schema, Types } from 'mongoose';
 import bcrypt from 'bcrypt';
 import env from '../utils/envalid';
 
 export interface User extends Document {
-  _id: Schema.Types.ObjectId;
+  _id: Types.ObjectId;
   role: string[];
   email: string;
   username: string;

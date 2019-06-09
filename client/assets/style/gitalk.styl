@@ -80,6 +80,6 @@
       span
         display inline-block !important
     &-like, &-edit, &-reply
-      @media (max-width $grid-breakpoints.sm)
+      +breakpoints(sm)
         top auto !important
         bottom 0 !important
