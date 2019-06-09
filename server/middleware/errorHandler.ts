@@ -14,9 +14,11 @@ const errorHandler = (
   res: Response,
   next: NextFunction
 ): void => {
-  const status = err instanceof HttpException ? err.status : 500;
-  const message = err.message || 'Unexpected error.';
-  res.status(status).json({ error: { msg: message } });
+  if (err instanceof HttpException) {
+    res.status(err.status).json(err.message);
+  } else {
+    res.status(500).json({ error: { msg: 'Unexpected error.' } });
+  }
 };
 
 export default errorHandler;

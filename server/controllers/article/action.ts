@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import { validationResult } from 'express-validator/check';
 import ArticleModel from '../../models/article';
-import InternalServerError from '../../exceptions/InternalServerError';
+import InternalServerException from '../../exceptions/InternalServerException';
+import NotFoundException from '../../exceptions/NotFoundException';
 
 /**
  * Return articles using passed parameters
@@ -35,7 +36,7 @@ const index = (req: Request, res: Response, next: NextFunction): void => {
     })
     .catch((): void => {
       // Pass error to Express
-      next(new InternalServerError('Failed to query documents.'));
+      next(new InternalServerException('Failed to query documents.'));
     });
 };
 
@@ -62,18 +63,12 @@ const show = (req: Request, res: Response, next: NextFunction): void => {
       if (article != null) {
         res.status(200).json({ article });
       } else {
-        res.status(404).json({
-          error: {
-            param: 'id',
-            value: id,
-            msg: 'Data does not exist.',
-          },
-        });
+        next(new NotFoundException(id));
       }
     })
     .catch((): void => {
       // Pass error to Express
-      next(new InternalServerError('Failed to query documents.'));
+      next(new InternalServerException('Failed to query documents.'));
     });
 };
 
