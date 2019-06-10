@@ -13,27 +13,32 @@
     // Timeline
     v-layout(justify-center wrap)
       v-flex(md10 wrap)
-        v-timeline(align-top dense)
+        v-timeline(dense)
           // Year
           v-timeline-item(color="accent" large)
-            v-flex(pt-2 wrap)
-              strong.display-1
+            template(#icon)
+              span.white--text
                 | {{ year }}
+            div.py-4
 
-          // Items
-          v-timeline-item(
-            v-for="(month, index) in createdMonths"
-            :key="index"
-            color="accent"
-            small
-          )
-            v-layout(pt-2 wrap)
-              v-flex(pa-2 md2 wrap)
-                strong
-                  | {{ month.month }}
+          template(v-for="monthlyArticle in monthlyArticles")
+            // Month
+            v-timeline-item(color="accent")
+              template(#icon)
+                span.white--text
+                  | {{ monthlyArticle.month }}
+              div.py-3
 
-              v-flex(pa-2 md8 wrap)
-                article-list-item(:article="findArticleById(month.id)")
+            // Articles
+            v-timeline-item(
+              v-for="article in monthlyArticle.articles"
+              :key="article.id  "
+              color="accent"
+              small
+            )
+              v-layout(justify-center wrap)
+                v-flex(md10 wrap)
+                  article-list-item(:article="article")
 </template>
 
 <script lang="ts">
@@ -42,10 +47,9 @@ import dayjs from 'dayjs';
 import { Article } from '@/models/article';
 
 // Interface declaration
-declare interface CreatedMonth {
-  id: Article['id'];
+declare interface MonthlyArticle {
   month: string;
-  date: Article['created_at'];
+  articles: Article[];
 }
 
 @Component({
@@ -69,47 +73,31 @@ declare interface CreatedMonth {
 export default class ArchivesPage extends Vue {
   // Data
   articles: Article[] = [];
+  year = dayjs().year();
 
   // Computed
 
   /**
-   * The number of year
+   * Article list grouped by created month
    */
-  get year(): number {
-    return dayjs().year();
-  }
-
-  /**
-   * Article created month list
-   */
-  get createdMonths(): CreatedMonth[] {
-    const createdMonths: CreatedMonth[] = [];
-    const months: string[] = [];
+  get monthlyArticles(): MonthlyArticle[] {
+    const monthlyArticles: MonthlyArticle[] = [];
+    const months: number[] = [];
     this.articles.forEach((article): void => {
       const createdAt = dayjs(article.created_at);
-      let month = createdAt.month().toString();
+      const month = createdAt.month();
       if (months.includes(month)) {
-        month = '';
+        monthlyArticles[monthlyArticles.length - 1].articles.push(article);
       } else {
+        const monthlyArticle: MonthlyArticle = {
+          month: this.$i18n.d(createdAt.toDate(), 'month', this.$i18n.locale),
+          articles: [article],
+        };
+        monthlyArticles.push(monthlyArticle);
         months.push(month);
-        month = this.$i18n.d(createdAt.toDate(), 'month', this.$i18n.locale);
       }
-      createdMonths.push({
-        id: article.id,
-        month: month,
-        date: article.created_at,
-      });
     });
-    return createdMonths;
-  }
-
-  // Methods
-
-  /**
-   * Find article by id
-   */
-  findArticleById(id: string): Article | undefined {
-    return this.articles.find((article): boolean => article.id === id);
+    return monthlyArticles;
   }
 }
 </script>
@@ -117,7 +105,7 @@ export default class ArchivesPage extends Vue {
 <style scoped lang="stylus" rel="stylesheet/stylus">
 .section-item
   margin 48px auto 24px auto
-  >>> .v-timeline-item
+  >>> .v-timeline-item .v-card__text
     .v-card::before, .v-card::after
       display none
 </style>
