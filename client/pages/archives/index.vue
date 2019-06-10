@@ -15,15 +15,15 @@
       v-flex(md10 wrap)
         v-timeline(dense)
           // Year
-          v-timeline-item(color="accent" large)
+          v-timeline-item(color="accent" large fill-dot)
             template(#icon)
-              span.white--text
+              span.subheading.white--text
                 | {{ year }}
             div.py-4
 
           template(v-for="monthlyArticle in monthlyArticles")
             // Month
-            v-timeline-item(color="accent")
+            v-timeline-item(color="accent" fill-dot)
               template(#icon)
                 span.white--text
                   | {{ monthlyArticle.month }}
