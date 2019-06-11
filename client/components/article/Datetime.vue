@@ -28,7 +28,7 @@
           | {{ postMonth }}
 
     // Tooltip
-    span {{ $d(postDate.toDate(), 'short', this.$i18n.locale) }}
+    span {{ $d(postDate.toDate(), 'short', $i18n.locale) }}
 </template>
 
 <script lang="ts">

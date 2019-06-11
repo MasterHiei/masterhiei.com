@@ -153,7 +153,7 @@ const config: NuxtConfiguration = {
   },
 
   /*
-   ** markdownit configuration
+   ** Markdown-it configuration
    */
   markdownit: {
     injected: true,
