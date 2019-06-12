@@ -3,11 +3,11 @@ import HttpException from './HttpException';
 /**
  * 500 Internal Server Error
  */
-class InternalServerError extends HttpException {
+class InternalServerException extends HttpException {
   // Constructor function
   public constructor(message: string) {
-    super(500, message);
+    super(500, { error: { msg: message } });
   }
 }
 
-export default InternalServerError;
+export default InternalServerException;

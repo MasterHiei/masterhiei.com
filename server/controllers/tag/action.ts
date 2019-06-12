@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { validationResult } from 'express-validator/check';
 import ArticleModel from '../../models/article';
 import { Tag } from '@/models/tag';
-import InternalServerError from '../../exceptions/InternalServerError';
+import InternalServerException from '../../exceptions/InternalServerException';
 
 /**
  * Get all tags in article
@@ -23,7 +23,7 @@ const index = (_: Request, res: Response, next: NextFunction): void => {
     })
     .catch((): void => {
       // Pass error to Express
-      next(new InternalServerError('Failed to query documents.'));
+      next(new InternalServerException('Failed to query documents.'));
     });
 };
 
@@ -57,7 +57,7 @@ const show = (req: Request, res: Response, next: NextFunction): void => {
     })
     .catch((): void => {
       // Pass error to Express
-      next(new InternalServerError('Failed to query documents.'));
+      next(new InternalServerException('Failed to query documents.'));
     });
 };
 

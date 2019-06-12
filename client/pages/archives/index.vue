@@ -11,26 +11,45 @@
       the-calendar(:data="yearMonthDay")
 
     // Timeline
-    v-timeline(align-top dense)
-      v-timeline-item(
-        v-for="(article, index) in articles"
-        :key="index"
-        color="accent"
-        small
-      )
-        article-list-item(:article="article")
+    v-layout(justify-center wrap)
+      v-flex(md10 wrap)
+        v-timeline(dense)
+          // Year
+          v-timeline-item(color="accent" large fill-dot)
+            template(#icon)
+              span.subheading.white--text
+                | {{ year }}
+            div.py-4
+
+          template(v-for="monthlyArticle in monthlyArticles")
+            // Month
+            v-timeline-item(color="accent" fill-dot)
+              template(#icon)
+                span.white--text
+                  | {{ monthlyArticle.month }}
+              div.py-3
+
+            // Articles
+            v-timeline-item(
+              v-for="article in monthlyArticle.articles"
+              :key="article.id  "
+              color="accent"
+              small
+            )
+              v-layout(justify-center wrap)
+                v-flex(md10 wrap)
+                  article-list-item(:article="article")
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
 import dayjs from 'dayjs';
-import includes from 'lodash/includes';
 import { Article } from '@/models/article';
 
 // Interface declaration
-declare interface CreatedMonth {
-  id: Article['id'];
-  month: number;
+declare interface MonthlyArticle {
+  month: string;
+  articles: Article[];
 }
 
 @Component({
@@ -54,21 +73,31 @@ declare interface CreatedMonth {
 export default class ArchivesPage extends Vue {
   // Data
   articles: Article[] = [];
+  year = dayjs().year();
 
   // Computed
 
   /**
-   * Article created month list
+   * Article list grouped by created month
    */
-  get months(): CreatedMonth[] {
-    const months: CreatedMonth[] = [];
+  get monthlyArticles(): MonthlyArticle[] {
+    const monthlyArticles: MonthlyArticle[] = [];
+    const months: number[] = [];
     this.articles.forEach((article): void => {
-      const month = dayjs(article.created_at).month();
-      if (!includes(months, { month: month })) {
-        months.push({ id: article.id, month: month });
+      const createdAt = dayjs(article.created_at);
+      const month = createdAt.month();
+      if (months.includes(month)) {
+        monthlyArticles[monthlyArticles.length - 1].articles.push(article);
+      } else {
+        const monthlyArticle: MonthlyArticle = {
+          month: this.$i18n.d(createdAt.toDate(), 'month', this.$i18n.locale),
+          articles: [article],
+        };
+        monthlyArticles.push(monthlyArticle);
+        months.push(month);
       }
     });
-    return months;
+    return monthlyArticles;
   }
 }
 </script>
@@ -76,4 +105,7 @@ export default class ArchivesPage extends Vue {
 <style scoped lang="stylus" rel="stylesheet/stylus">
 .section-item
   margin 48px auto 24px auto
+  >>> .v-timeline-item .v-card__text
+    .v-card::before, .v-card::after
+      display none
 </style>

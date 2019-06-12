@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { Request, Response, NextFunction } from 'express';
 import ArticleModel from '../../models/article';
-import InternalServerError from '../../exceptions/InternalServerError';
+import InternalServerException from '../../exceptions/InternalServerException';
 
 /**
  * Return articles created in last year
@@ -45,7 +45,7 @@ const index = (_: Request, res: Response, next: NextFunction): void => {
     })
     .catch((): void => {
       // Pass error to Express
-      next(new InternalServerError('Failed to query documents.'));
+      next(new InternalServerException('Failed to query documents.'));
     });
 };
 

@@ -22,6 +22,7 @@
         v-for="(page, index) in pages"
         :key="index"
         :to="page.path"
+        active-class=""
         nuxt
         exact
       )

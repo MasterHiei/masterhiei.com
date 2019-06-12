@@ -1,5 +1,5 @@
 <template lang="pug">
-  article(data-aos="zoom-in")
+  article(data-aos="fade-up")
     v-card.post
       // Image
       v-card-title.post-image

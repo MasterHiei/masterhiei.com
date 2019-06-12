@@ -80,3 +80,6 @@ dist
 # IDE
 .idea
 .vscode
+
+# PWA
+sw.*

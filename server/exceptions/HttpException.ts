@@ -4,10 +4,10 @@
 class HttpException extends Error {
   // Properties declaration
   public status: number;
-  public message: string;
+  public message: any;
 
   // Constructor function
-  public constructor(status: number, message: string) {
+  public constructor(status: number, message: any) {
     super(message);
     this.status = status;
     this.message = message;

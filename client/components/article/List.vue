@@ -92,7 +92,7 @@ export default class List extends Vue {
   &-item
     padding 0 8px
     margin-bottom 25px
-    @media (max-width $grid-breakpoints.sm)
+    +breakpoints(sm)
       padding 0
 
   // Actions

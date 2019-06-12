@@ -166,7 +166,7 @@ $mb = 120px
       transition-delay .1s
       .header-logo
         margin 0
-      @media (max-width $grid-breakpoints.sm)
+      +breakpoints(sm)
         padding 0
         & >>> .v-toolbar__content
           padding 0

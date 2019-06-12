@@ -2,7 +2,7 @@ import { Article } from '../../server/models/article';
 
 // Article type declaration
 export interface Article {
-  id: Article['_id'];
+  id: string;
   title: Article['title'];
   content: Article['content'];
   image: Article['image'];

@@ -18,17 +18,7 @@
         article-list-item(:article="article")
 
     // Infinite loading
-    no-ssr
-      infinite-loading(
-        spinner="waveDots"
-        @infinite="fetchArticles"
-      )
-        template(#no-results)
-          error(:error="{ statusCode: 404, message: 'No Results.' }")
-        template(#no-more)
-          div
-        template(#error)
-          div
+    v-infinite-loading(:infinite="fetchArticles")
 </template>
 
 <script lang="ts">
@@ -39,8 +29,7 @@ import { StateChanger } from 'vue-infinite-loading';
 @Component({
   components: {
     ArticleListItem: () => import('@/components/article/ListItem.vue'),
-    InfiniteLoading: () => import('vue-infinite-loading'),
-    Error: () => import('@/layouts/error.vue'),
+    VInfiniteLoading: () => import('@/components/util/VInfiniteLoading.vue'),
   },
 
   // Transition animation
@@ -84,15 +73,12 @@ export default class TagPage extends Vue {
 .section-item
   margin: 48px auto 24px auto
 .post-list
-  @media (max-width $grid-breakpoints.md)
+  +breakpoints(md)
     justify-content center
   // Item
   &-item
     padding 0 8px
     margin-bottom 25px
-    @media (max-width $grid-breakpoints.sm)
+    +breakpoints(sm)
       padding 0
-  // Infinite loading
-  .infinite-loading-container
-    margin-top 16px
 </style>

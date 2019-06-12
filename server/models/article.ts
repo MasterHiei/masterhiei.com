@@ -1,8 +1,8 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Document, Schema, Types } from 'mongoose';
 
 // Document type declaration
 export interface Article extends Document {
-  _id: Schema.Types.ObjectId;
+  _id: Types.ObjectId;
   title: string;
   content: string;
   image: string;
