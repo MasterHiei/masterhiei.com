@@ -20,7 +20,7 @@ const options: VuetifyOptions = {
   },
   themeCache: new LRU({
     max: 10,
-    maxAge: 1000 * 60 * 60,
+    maxAge: 60 * 60 * 24 * 7,
   }),
   customProperties: true,
   cspNonce: 'Q1veajC7P6p',

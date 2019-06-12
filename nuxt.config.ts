@@ -7,8 +7,11 @@ import dateTimeFormats from './client/assets/locales/dateTimeFormats';
 // Load environment variables from .env file
 require('dotenv').config();
 
-// Source directory
+/** Source directory */
 const srcDir = 'client/';
+
+/** Seconds in a day */
+const day = 60 * 60 * 24;
 
 // Nuxt configuration options
 const config: NuxtConfiguration = {
@@ -31,7 +34,7 @@ const config: NuxtConfiguration = {
       },
       {
         rel: 'stylesheet',
-        href: 'https://use.fontawesome.com/releases/v5.8.2/css/all.css',
+        href: 'https://use.fontawesome.com/releases/v5.9.0/css/all.css',
       },
     ],
   },
@@ -74,6 +77,7 @@ const config: NuxtConfiguration = {
     '@nuxtjs/auth',
     ['@nuxtjs/dotenv', { path: __dirname }],
     '@nuxtjs/markdownit',
+    '@nuxtjs/pwa',
     [
       'nuxt-i18n',
       {
@@ -119,7 +123,7 @@ const config: NuxtConfiguration = {
   ],
 
   /*
-   ** Nuxt Auth modules
+   ** Nuxt Auth options
    */
   auth: {
     plugins: ['~plugins/auth'],
@@ -153,12 +157,66 @@ const config: NuxtConfiguration = {
   },
 
   /*
-   ** Markdown-it configuration
+   ** Markdown-it options
    */
   markdownit: {
     injected: true,
     breaks: true,
     typographer: true,
+  },
+
+  // Workbox options
+  workbox: {
+    dev: env.isDev,
+    runtimeCaching: [
+      // Local API
+      {
+        urlPattern: `.*${env.API_PREFIX}/.*`,
+        handler: 'staleWhileRevalidate',
+        strategyOptions: {
+          cacheName: 'local-api-cache',
+          cacheExpiration: {
+            maxAgeSeconds: 1 * day,
+          },
+        },
+      },
+
+      // GitHub API
+      {
+        urlPattern: 'https://api.github.com/.*',
+        handler: 'staleWhileRevalidate',
+        strategyOptions: {
+          cacheName: 'github-api-cache',
+          cacheExpiration: {
+            maxAgeSeconds: 1 * day,
+          },
+        },
+      },
+
+      // Google fonts
+      {
+        urlPattern: 'https://fonts.googleapis.com/.*',
+        handler: 'cacheFirst',
+        strategyOptions: {
+          cacheName: 'google-fonts-cache',
+          cacheExpiration: {
+            maxAgeSeconds: 30 * day,
+          },
+        },
+      },
+
+      // Font Awesome
+      {
+        urlPattern: 'https://use.fontawesome.com/.*',
+        handler: 'cacheFirst',
+        strategyOptions: {
+          cacheName: 'font-awesome-cache',
+          cacheExpiration: {
+            maxAgeSeconds: 30 * day,
+          },
+        },
+      },
+    ],
   },
 
   /*
