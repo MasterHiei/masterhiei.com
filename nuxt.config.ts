@@ -178,6 +178,9 @@ const config: NuxtConfiguration = {
           cacheExpiration: {
             maxAgeSeconds: 1 * day,
           },
+          cacheableResponse: {
+            statuses: [0, 200],
+          },
         },
       },
 
@@ -189,6 +192,9 @@ const config: NuxtConfiguration = {
           cacheName: 'github-api-cache',
           cacheExpiration: {
             maxAgeSeconds: 1 * day,
+          },
+          cacheableResponse: {
+            statuses: [0, 200],
           },
         },
       },
@@ -202,6 +208,9 @@ const config: NuxtConfiguration = {
           cacheExpiration: {
             maxAgeSeconds: 30 * day,
           },
+          cacheableResponse: {
+            statuses: [0, 200],
+          },
         },
       },
 
@@ -213,6 +222,9 @@ const config: NuxtConfiguration = {
           cacheName: 'font-awesome-cache',
           cacheExpiration: {
             maxAgeSeconds: 30 * day,
+          },
+          cacheableResponse: {
+            statuses: [0, 200],
           },
         },
       },

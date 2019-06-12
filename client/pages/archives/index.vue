@@ -36,8 +36,8 @@
               color="accent"
               small
             )
-              v-layout(justify-center wrap)
-                v-flex(md10 wrap)
+              v-layout.my-2(justify-center wrap)
+                v-flex(md8 wrap)
                   article-list-item(:article="article")
 </template>
 

@@ -78,7 +78,7 @@ export default class TagPage extends Vue {
   // Item
   &-item
     padding 0 8px
-    margin-bottom 25px
+    margin-bottom 40px
     +breakpoints(sm)
       padding 0
 </style>

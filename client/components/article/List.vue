@@ -91,7 +91,7 @@ export default class List extends Vue {
   // Item
   &-item
     padding 0 8px
-    margin-bottom 25px
+    margin 6px 0 36px 0
     +breakpoints(sm)
       padding 0
 
