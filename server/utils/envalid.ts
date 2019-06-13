@@ -7,12 +7,9 @@ export interface Env extends CleanEnv {
   API_PREFIX: string;
   DB_URI: string;
   DB_NAME: string;
-  TOKEN_SECRET: string;
-  TOKEN_EXPIRES_IN: string;
   GITHUB_OWNER: string;
   GITHUB_CLIENT_ID: string;
   GITHUB_CLIENT_SECRET: string;
-  BCRYPT_SALT_ROUND: number;
   COMMENTS_PEPO: string;
   COMMENTS_LABEL: string;
   COMMENTS_LIMIT: number;
@@ -27,12 +24,9 @@ const validateEnv = (): Readonly<Env> =>
     API_PREFIX: str(),
     DB_URI: str(),
     DB_NAME: str(),
-    TOKEN_SECRET: str(),
-    TOKEN_EXPIRES_IN: str(),
     GITHUB_OWNER: str(),
     GITHUB_CLIENT_ID: str(),
     GITHUB_CLIENT_SECRET: str(),
-    BCRYPT_SALT_ROUND: num(),
     COMMENTS_PEPO: str(),
     COMMENTS_LABEL: str(),
     COMMENTS_LIMIT: num(),

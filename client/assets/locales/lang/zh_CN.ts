@@ -54,32 +54,4 @@ export default {
     experience: '经历',
     skill: '技术栈',
   },
-  auth: {
-    register: '注册',
-    registerLink: '这里',
-    registerPromotion: '还没有帐号？点击{link}注册吧！',
-    login: '登录',
-    loginWithGithub: '使用Github账号登录',
-    loginWithGoogle: '使用Google账号登录',
-    loginPromotion: '知道吗？登录之后就可以留言了哦~',
-    logout: '退出',
-    email: '邮箱',
-    username: '用户名',
-    usernameTips: '允许：英文字母、数字、空格、符号（-._）',
-    password: '密码',
-    passwordTips: '必须：字母和数字，允许：下划线',
-  },
-  post: '发布',
-  dialog: {
-    title: '确认',
-    agree: '确定',
-    cancel: '取消',
-  },
-  errors: {
-    auth: {
-      invalid: '邮箱地址或者密码错误',
-      existed: '糟糕，该账号已经被注册了',
-    },
-    failed: '糟糕，系统出现了一些问题，请稍后重试或联系管理员。',
-  },
 };

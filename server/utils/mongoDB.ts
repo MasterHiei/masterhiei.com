@@ -23,7 +23,6 @@ const start = (): void => {
   // Listen for mongoose connection successful
   mongoose.connection.on('connected', (): void => {
     // Create models
-    require('../models/user');
     require('../models/article');
 
     // Print message

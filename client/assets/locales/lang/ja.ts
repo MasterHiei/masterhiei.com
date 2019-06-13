@@ -55,33 +55,4 @@ export default {
     experience: '経歴',
     skill: '技術スタック',
   },
-  auth: {
-    register: '登録',
-    registerLink: 'こちら',
-    registerPromotion: 'アカウントの作成は{link}へ',
-    login: 'ログイン',
-    loginWithGithub: 'Githubアカウントでログイン',
-    loginWithGoogle: 'Googleアカウントでログイン',
-    loginPromotion: 'ねぇ、コメントを投稿してみませんか？',
-    logout: 'ログアウト',
-    email: 'メールアドレス',
-    username: 'ユーザ名',
-    usernameTips: '可：半角スペース、記号（-._）',
-    password: 'パスワード',
-    passwordTips: '必須：半角英数字、可：下線',
-  },
-  post: '投稿',
-  dialog: {
-    title: '確認',
-    agree: 'はい',
-    cancel: 'いええ',
-  },
-  errors: {
-    auth: {
-      invalid: 'メールアドレスかパスワードが間違っています',
-      existed: 'このアカウントが既に存在します',
-    },
-    failed:
-      '何か問題が起こったようです。もう一度お試し、もしくは管理者に連絡してください。',
-  },
 };

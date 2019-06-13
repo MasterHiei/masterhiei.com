@@ -29,7 +29,7 @@ import { StateChanger } from 'vue-infinite-loading';
 @Component({
   components: {
     ArticleListItem: () => import('@/components/article/ListItem.vue'),
-    VInfiniteLoading: () => import('@/components/util/VInfiniteLoading.vue'),
+    VInfiniteLoading: () => import('@/components/ui/VInfiniteLoading.vue'),
   },
 
   // Transition animation

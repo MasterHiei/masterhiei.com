@@ -42,7 +42,7 @@ const config: NuxtConfiguration = {
   /*
    ** Customize the progress-bar color
    */
-  loading: '@/components/layout/loading.vue',
+  loading: '@/components/ui/loading.vue',
 
   /*
    ** Global CSS
@@ -61,7 +61,6 @@ const config: NuxtConfiguration = {
     { src: '~plugins/aos', ssr: false },
     '~plugins/axios',
     '~plugins/vuetify',
-    '~plugins/veeValidate',
     { src: '~plugins/vueLazyLoad', ssr: false },
   ],
 
@@ -74,7 +73,6 @@ const config: NuxtConfiguration = {
    */
   modules: [
     '@nuxtjs/axios',
-    '@nuxtjs/auth',
     ['@nuxtjs/dotenv', { path: __dirname }],
     '@nuxtjs/markdownit',
     '@nuxtjs/pwa',
@@ -121,40 +119,6 @@ const config: NuxtConfiguration = {
       },
     ],
   ],
-
-  /*
-   ** Nuxt Auth options
-   */
-  auth: {
-    plugins: ['~plugins/auth'],
-    scopeKey: 'role',
-    strategies: {
-      local: {
-        endpoints: {
-          login: {
-            url: `/login`,
-            method: 'post',
-            propertyName: 'token',
-          },
-          logout: {
-            url: `/logout`,
-            method: 'post',
-          },
-          user: {
-            url: `/users/me`,
-            method: 'get',
-            propertyName: 'user',
-          },
-        },
-      },
-
-      github: {
-        client_id: env.GITHUB_CLIENT_ID,
-        client_secret: env.GITHUB_CLIENT_SECRET,
-        scope: ['read:user'],
-      },
-    },
-  },
 
   /*
    ** Markdown-it options
