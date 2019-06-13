@@ -2,8 +2,8 @@
   	<h1>masterhiei.com</h1>
 </div>
 
-<p align="center">
- 	<a href="https://badge.fury.io/gh/MasterHiei%2Fmasterhiei.com" title="GitHub version"><img src="https://badge.fury.io/gh/MasterHiei%2Fmasterhiei.com.svg" alt="GitHub Version"></a>
+<p>
+ 	  <a href="https://badge.fury.io/gh/MasterHiei%2Fmasterhiei.com" title="GitHub version"><img src="https://badge.fury.io/gh/MasterHiei%2Fmasterhiei.com.svg" alt="GitHub Version"></a>
   	<a href="https://circleci.com/gh/MasterHiei/masterhiei.com" title="build version"><img src="https://circleci.com/gh/MasterHiei/masterhiei.com.svg?style=shield" alt="Build Version"></a>
   	<a href="https://codecov.io/gh/MasterHiei/masterhiei.com" title="coverage status"><img src="https://codecov.io/gh/MasterHiei/masterhiei.com/branch/master/graph/badge.svg" alt="Coverage Status"></a>
   	<a href="https://david-dm.org/MasterHiei/masterhiei.com" title="dependencies status"><img src="https://david-dm.org/MasterHiei/masterhiei.com/status.svg" alt="Dependencies Status"></a>
@@ -41,7 +41,7 @@ $ yarn test # or npm run test
 
 > We used [**webpack-bundle-analyzer**](<https://github.com/webpack-contrib/webpack-bundle-analyzer>) to help us optimize our application bundle size.  
 >
-> Run `$ yarn analyze` to start local server, and an interacive treemap like below will be created.
+> Run `$ yarn analyze`(or `$ npm run analyze`) to start local server, and create an interacive treemap like below.
 
 ![**webpack-bundle-analyzer**](https://raw.githubusercontent.com/MasterHiei/Resources/master/bundle-after.png)
 
