@@ -56,8 +56,8 @@
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.11",
     "lru-cache": "^5.1.1",
-    "mavon-editor": "^2.7.4",
-    "mongoose": "^5.5.14",
+    "mavon-editor": "^2.7.5",
+    "mongoose": "^5.5.15",
     "morgan": "^1.9.1",
     "nuxt": "^2.8.1",
     "nuxt-device-detect": "^1.1.5",
@@ -120,7 +120,7 @@
     "typescript": "^3.5.1",
     "vue": "^2.6.10",
     "vue-template-compiler": "^2.6.10",
-    "webpack": "^4.33.0",
+    "webpack": "^4.34.0",
     "webpack-bundle-analyzer": "^3.3.2"
   }
 }
