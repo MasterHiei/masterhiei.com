@@ -1,6 +1,10 @@
 import { CleanEnv, cleanEnv, host, port, str, num } from 'envalid';
 
-// Environment variables declaration
+/**
+ * Environment variables declaration
+ * @interface Env
+ * @extends CleanEnv
+ */
 export interface Env extends CleanEnv {
   HOST: string;
   PORT: number;
@@ -16,7 +20,7 @@ export interface Env extends CleanEnv {
   PAGE_LIMIT: number;
 }
 
-// Validate
+/** A sanitized, immutable environment object */
 const validateEnv = (): Readonly<Env> =>
   cleanEnv(process.env, {
     HOST: host(),

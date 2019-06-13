@@ -111,7 +111,7 @@ export default class IndexPage extends Vue {
    * Season
    */
   get season(): Record<string, string> {
-    const month = this.now.month();
+    const month = this.now.month() + 1;
 
     // Spring
     if (month >= 3 && month <= 5) {

@@ -1,6 +1,9 @@
 import { Article } from '../../server/models/article';
 
-// Article type declaration
+/**
+ * Article of API response
+ * @interface Article
+ */
 export interface Article {
   id: string;
   title: Article['title'];

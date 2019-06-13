@@ -46,9 +46,15 @@ import { Component, Vue } from 'nuxt-property-decorator';
 import dayjs from 'dayjs';
 import { Article } from '@/models/article';
 
-// Interface declaration
+/**
+ * An list include articles created at same month
+ * @interface MonthlyArticle
+ */
 declare interface MonthlyArticle {
+  /** Numebr of created month */
   month: string;
+
+  /** Article list */
   articles: Article[];
 }
 
