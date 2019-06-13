@@ -48,7 +48,15 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator';
-import { Error } from '@/models/error';
+
+/**
+ * Nuxt error page prop
+ * @interface Error
+ */
+export interface Error {
+  statusCode: number;
+  message: string;
+}
 
 @Component
 export default class ErrorPage extends Vue {

@@ -5,13 +5,26 @@ const types = {
   OPEN_NAV_DRAWER: 'OPEN_NAV_DRAWER',
 };
 
-// Interface
+/**
+ * Root interface of Vuex state
+ * @interface RootState
+ */
 export interface RootState {}
 
+/**
+ * Vuex states declaration
+ * @interface State
+ */
 interface State {
+  /** Display control of mobile navigation drawer */
   showNavDrawer: boolean;
 }
 
+/**
+ * Vuex actions declaration
+ * @interface Actions
+ * @extends ActionTree
+ */
 interface Actions<S, R> extends ActionTree<S, R> {
   /**
    * Fetch data on server initialization
@@ -20,22 +33,31 @@ interface Actions<S, R> extends ActionTree<S, R> {
   nuxtServerInit(context: ActionContext<S, R>): Promise<void>;
 }
 
-// State
-export const state = (): RootState => ({
+/** Default value of Vuex states */
+export const state = (): State => ({
   showNavDrawer: false,
 });
 
-// Getters
+/**
+ * Vuex getters
+ * @implements GetterTree
+ */
 export const getters: GetterTree<RootState, RootState> = {};
 
-// Actions
+/**
+ * Vuex actions
+ * @implements Actions
+ */
 export const actions: Actions<RootState, RootState> = {
   async nuxtServerInit({ dispatch }): Promise<void> {
     await dispatch('issue/fetch');
   },
 };
 
-// Mutations
+/**
+ * Vuex mutations
+ * @implements MutationTree
+ */
 export const mutations: MutationTree<State> = {
   /**
    * Open navigation drawer

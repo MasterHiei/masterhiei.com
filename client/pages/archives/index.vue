@@ -36,8 +36,8 @@
               color="accent"
               small
             )
-              v-layout(justify-center wrap)
-                v-flex(md10 wrap)
+              v-layout.my-2(justify-center wrap)
+                v-flex(md8 wrap)
                   article-list-item(:article="article")
 </template>
 
@@ -46,9 +46,15 @@ import { Component, Vue } from 'nuxt-property-decorator';
 import dayjs from 'dayjs';
 import { Article } from '@/models/article';
 
-// Interface declaration
+/**
+ * An list include articles created at same month
+ * @interface MonthlyArticle
+ */
 declare interface MonthlyArticle {
+  /** Numebr of created month */
   month: string;
+
+  /** Article list */
   articles: Article[];
 }
 

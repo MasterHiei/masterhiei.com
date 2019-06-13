@@ -37,16 +37,26 @@ const deconstructIssue = (data: any): Issue => {
   return issue;
 };
 
-// Mutation types declaration
+/** Mutation types */
 const types = {
   FETCH: 'FETCH',
   FETCH_ONE: 'FETCH_ONE',
 };
 
+/**
+ * States of issue store declaration
+ * @interface State
+ */
 interface State {
+  /** GitHub issues */
   issues: Issue[];
 }
 
+/**
+ * Actions of issue store declaration
+ * @interface Actions
+ * @extends ActionTree
+ */
 interface Actions<S, R> extends ActionTree<S, R> {
   /**
    * Fetch issue data
@@ -62,15 +72,18 @@ interface Actions<S, R> extends ActionTree<S, R> {
   fetchOneById(context: ActionContext<S, R>, id: string): Promise<void>;
 }
 
-// Name
+/** Store namespace */
 export const name = 'issue';
 
-// State
+/** Default value of issue sates */
 export const state = (): State => ({
   issues: [],
 });
 
-// Getters
+/**
+ * Issue store getters
+ * @implements GetterTree
+ */
 export const getters: GetterTree<State, RootState> = {
   /**
    * Find an Issue by Gitalk ID
@@ -88,7 +101,10 @@ export const getters: GetterTree<State, RootState> = {
   },
 };
 
-// Actions
+/**
+ * Issue store actions
+ * @implements Actions
+ */
 export const actions: Actions<State, RootState> = {
   async fetch({ commit }): Promise<void> {
     const response = await axios.get(`/repos/${owner}/${repo}/issues`, {
@@ -118,7 +134,10 @@ export const actions: Actions<State, RootState> = {
   },
 };
 
-// Mutations
+/**
+ * Issue store mutations
+ * @implements MutationTree
+ */
 export const mutations: MutationTree<State> = {
   /**
    * Mutate issues state from API response

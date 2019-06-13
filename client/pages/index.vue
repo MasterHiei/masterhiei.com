@@ -8,7 +8,7 @@
       xs11
       wrap
     )
-      v-card(class="today-card pa-3")
+      v-card(class="today-card")
         // Season
         v-flex(
           class="today-title text-xs-center"
@@ -111,7 +111,7 @@ export default class IndexPage extends Vue {
    * Season
    */
   get season(): Record<string, string> {
-    const month = this.now.month();
+    const month = this.now.month() + 1;
 
     // Spring
     if (month >= 3 && month <= 5) {
@@ -166,6 +166,7 @@ export default class IndexPage extends Vue {
   // Today card
   .today
     &-card
+      padding 16px
       box-shadow 0 1px 6px rgba(0, 0, 0, .12), 0 1px 4px rgba(0, 0, 0, .24)
     &-title
       color var(--v-secondary-darken2)
@@ -177,6 +178,7 @@ export default class IndexPage extends Vue {
         margin  0 4% 4% 4%
         border 1px solid var(--v-secondary-darken2)
     &-date
+      margin-bottom 8px
       .day
         color var(--v-accent-base)
         font-weight 500

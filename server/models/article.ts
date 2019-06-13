@@ -1,6 +1,10 @@
 import mongoose, { Document, Schema, Types } from 'mongoose';
 
-// Document type declaration
+/**
+ * Article document declaration
+ * @interface Article
+ * @extends Document
+ */
 export interface Article extends Document {
   _id: Types.ObjectId;
   title: string;
@@ -13,7 +17,10 @@ export interface Article extends Document {
   updated_at: Date;
 }
 
-// Input type declaration
+/**
+ * Input type declaration
+ * @interface ArticleInput
+ */
 export interface ArticleInput {
   title: Article['title'];
   content: Article['content'];
@@ -21,7 +28,7 @@ export interface ArticleInput {
   tags: Article['tags'];
 }
 
-// Schema type declaration
+/** Article schema declaration */
 const articleSchema = new Schema(
   {
     title: {
