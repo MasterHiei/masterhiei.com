@@ -60,7 +60,6 @@ const config: NuxtConfiguration = {
   plugins: [
     { src: '~plugins/aos', ssr: false },
     '~plugins/axios',
-    '~plugins/hljs',
     '~plugins/vuetify',
     { src: '~plugins/vueLazyLoad', ssr: false },
   ],
@@ -75,7 +74,6 @@ const config: NuxtConfiguration = {
   modules: [
     '@nuxtjs/axios',
     ['@nuxtjs/dotenv', { path: __dirname }],
-    '@nuxtjs/markdownit',
     '@nuxtjs/pwa',
     [
       'nuxt-i18n',
@@ -121,20 +119,8 @@ const config: NuxtConfiguration = {
     ],
   ],
 
-  /*
-   ** Markdown-it options
-   */
-  markdownit: {
-    injected: true,
-    html: true,
-    xhtmlOut: true,
-    breaks: true,
-    typographer: true,
-  },
-
   // Workbox options
   workbox: {
-    dev: env.isDev,
     runtimeCaching: [
       // Local API
       {

@@ -49,7 +49,11 @@
                 | {{ $t('article.stars', { number: article.stars }) }}
 
           // Text
-          v-flex(v-html="sanitizedHTML" class="post-text" wrap)
+          v-flex.markdown-body(
+            v-html="renderedMD"
+            class="post-text"
+            wrap
+          )
 
           // TODO: Footer
           v-flex(tag="footer" pa-2 style="display: none;")
@@ -75,9 +79,9 @@
 
 <script lang="ts">
 import { Component, Vue, namespace } from 'nuxt-property-decorator';
+import md from '@/utils/markdownIt';
 import * as issue from '@/store/issue';
 import { Article } from '@/models/article';
-import sanitizeHTML from '@/utils/sanitizer';
 
 // Vuex module
 const Issue = namespace(issue.name);
@@ -101,15 +105,6 @@ const Issue = namespace(issue.name);
   async fetch({ store, params }) {
     // Fetch issue by id
     await store.dispatch('issue/fetchOneById', params.id);
-  },
-
-  mounted() {
-    this.$nextTick(() => {
-      // Code highlighting
-      Array.from(this.$el.querySelectorAll('pre code'), elm => {
-        this.$hljs.highlightBlock(elm);
-      });
-    });
   },
 
   // Transition animation
@@ -137,11 +132,11 @@ export default class ArticlePage extends Vue {
   }
 
   /**
-   * Sanitize HTML string
+   * Return rendered markdown HTML
    */
-  get sanitizedHTML(): string {
-    const md = this.$md.render(this.article.content);
-    return sanitizeHTML(md);
+  get renderedMD(): string {
+    const rendered = md.render(this.article.content);
+    return rendered;
   }
 
   // SEO
@@ -177,6 +172,9 @@ export default class ArticlePage extends Vue {
   // Content
   &-content
     padding 40px 50px
+    >>> .markdown-body .anchor
+      font-size 24px
+      margin-top 4px
 
   // Tag
   &-tag
