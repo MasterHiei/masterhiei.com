@@ -60,6 +60,7 @@ const config: NuxtConfiguration = {
   plugins: [
     { src: '~plugins/aos', ssr: false },
     '~plugins/axios',
+    '~plugins/hljs',
     '~plugins/vuetify',
     { src: '~plugins/vueLazyLoad', ssr: false },
   ],
@@ -125,6 +126,8 @@ const config: NuxtConfiguration = {
    */
   markdownit: {
     injected: true,
+    html: true,
+    xhtmlOut: true,
     breaks: true,
     typographer: true,
   },

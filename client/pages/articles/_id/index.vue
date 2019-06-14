@@ -8,7 +8,7 @@
           img(:src="article.image" :alt="article.title")
 
         // Content
-        v-card-text(class="post-content text-xs-center")
+        v-card-text(class="post-content")
           // Header
           v-flex(tag="header" wrap)
             // Tags
@@ -21,10 +21,7 @@
                 | \#{{ tag }}
 
             // Title
-            v-flex(
-              class="post-title title font-weight-bold"
-              wrap
-            )
+            v-flex(class="post-title" wrap)
               span
                 | {{ article.title }}
 
@@ -80,7 +77,7 @@
 import { Component, Vue, namespace } from 'nuxt-property-decorator';
 import * as issue from '@/store/issue';
 import { Article } from '@/models/article';
-import sanitizeHTML from '@/common/sanitizer';
+import sanitizeHTML from '@/utils/sanitizer';
 
 // Vuex module
 const Issue = namespace(issue.name);
@@ -104,6 +101,15 @@ const Issue = namespace(issue.name);
   async fetch({ store, params }) {
     // Fetch issue by id
     await store.dispatch('issue/fetchOneById', params.id);
+  },
+
+  mounted() {
+    this.$nextTick(() => {
+      // Code highlighting
+      Array.from(this.$el.querySelectorAll('pre code'), elm => {
+        this.$hljs.highlightBlock(elm);
+      });
+    });
   },
 
   // Transition animation
@@ -176,14 +182,18 @@ export default class ArticlePage extends Vue {
   &-tag
     font-size 11px
     margin-bottom 26px
+    text-align center
     a
       margin-right 4px
       color var(--v-secondary-darken2)
 
   // Title
   &-title
-    position relative
+    font-size 20px
+    font-weight 700
     margin-bottom 25px
+    text-align center
+    position relative
     & >>> time
       position absolute
       top -10px
@@ -192,6 +202,7 @@ export default class ArticlePage extends Vue {
   // Detail
   &-detail
     font-size 13px
+    text-align center
     .detail-item
       color var(--v-secondary-darken2)
       margin-right 20px
