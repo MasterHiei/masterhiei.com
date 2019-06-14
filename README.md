@@ -1,6 +1,4 @@
-<div style="text-align:center;">
-  	<h1>masterhiei.com</h1>
-</div>
+# masterhiei.com
 
 <p>
  	  <a href="https://badge.fury.io/gh/MasterHiei%2Fmasterhiei.com" title="GitHub version"><img src="https://badge.fury.io/gh/MasterHiei%2Fmasterhiei.com.svg" alt="GitHub Version"></a>
@@ -17,8 +15,8 @@
 
 ## Setup
 
-> :warning:   
-> *You need to create a `.env` file on the root directory, and it will be loaded automatically.*   
+> :warning:
+> *You need to create a `.env` file on the root directory, and it will be loaded automatically.*
 > *If you are not sure what you should do, please check the `.env.sample` file.*
 
 ``` bash
@@ -39,10 +37,16 @@ $ yarn test # or npm run test
 
 - Reduce bundle size with webpack
 
-> We used [**webpack-bundle-analyzer**](<https://github.com/webpack-contrib/webpack-bundle-analyzer>) to help us optimize our application bundle size.  
+> We used [**webpack-bundle-analyzer**](<https://github.com/webpack-contrib/webpack-bundle-analyzer>) to help us optimize our application bundle size.
 >
 > Run `$ yarn analyze`(or `$ npm run analyze`) to start local server, and create an interacive treemap like below.
 
-![**webpack-bundle-analyzer**](https://raw.githubusercontent.com/MasterHiei/Resources/master/bundle-after.png)
+- Before optimization
+
+> ![**bundle-size-now**](<https://raw.githubusercontent.com/MasterHiei/Resources/master/bundle-before.png>)
+
+- After optimization
+
+> ![**bundle-size-now**](<https://raw.githubusercontent.com/MasterHiei/Resources/master/bundle-size-20190615.png>)
 
 For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
