@@ -47,7 +47,7 @@ const config: NuxtConfiguration = {
   /*
    ** Global CSS
    */
-  css: ['~assets/style/app', 'animate.css/animate.min.css'],
+  css: ['~assets/style/stylus/app', 'animate.css/animate.min.css'],
 
   /**
    * Source directory
@@ -192,7 +192,10 @@ const config: NuxtConfiguration = {
     transpile: ['vuetify/lib'],
     loaders: {
       stylus: {
-        import: ['~assets/style/variables', '~assets/style/mixins'],
+        import: [
+          '~assets/style/stylus/variables',
+          '~assets/style/stylus/mixins',
+        ],
       },
     },
     splitChunks: {

@@ -73,11 +73,12 @@
 
     // TODO: Sidebar
     v-flex(md2 pa-3 wrap)
-      v-card(:class="{ 'sticky': isSticky}")
+      v-card.sidebar(:class="{ 'sticky': isSticky}")
         | adasdasd
 </template>
 
 <script lang="ts">
+import { clearTimeout, setTimeout } from 'timers';
 import { Component, Vue, namespace } from 'nuxt-property-decorator';
 import md from '@/utils/markdownIt';
 import * as issue from '@/store/issue';
@@ -117,10 +118,11 @@ export default class ArticlePage extends Vue {
   // Data
   article!: Article;
   isSticky = false;
+  timer: NodeJS.Timeout | null = null;
 
   // Hooks
   mounted() {
-    window.addEventListener('scroll', this.didScroll);
+    window.addEventListener('scroll', this.didScroll, { passive: true });
   }
 
   beforeDestroy() {
@@ -153,11 +155,19 @@ export default class ArticlePage extends Vue {
    * Trigger on page scroll
    */
   didScroll(): void {
-    if (this.$refs.article instanceof Vue) {
-      const article = this.$refs.article as Vue;
-      const articleTop = article.$el.getBoundingClientRect().top;
-      this.isSticky = articleTop <= 64;
+    // Clear timer
+    if (this.timer) {
+      clearTimeout(this.timer);
     }
+
+    // Timer function
+    this.timer = setTimeout((): void => {
+      if (this.$refs.article instanceof Vue) {
+        const article = this.$refs.article as Vue;
+        const articleTop = article.$el.getBoundingClientRect().top;
+        this.isSticky = articleTop <= 64;
+      }
+    }, 16);
   }
 
   // SEO
@@ -177,6 +187,9 @@ export default class ArticlePage extends Vue {
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
+.sidebar
+  transition .3s
+
 .sticky
   position fixed
   top 64px
@@ -199,9 +212,13 @@ export default class ArticlePage extends Vue {
   // Content
   &-content
     padding 40px 50px
-    >>> .markdown-body .anchor
-      font-size 24px
-      margin-top 4px
+    >>> .markdown-body
+      .anchor
+        color var(--v-accent-base)
+        font-size 24px
+        margin-top 4px
+      .markdown-it-toc
+        display none
 
   // Tag
   &-tag
