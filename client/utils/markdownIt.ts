@@ -1,6 +1,7 @@
 import MarkdownIt from 'markdown-it';
 import markdownItEmoji from 'markdown-it-emoji';
 import markdownItAnchor from 'markdown-it-anchor';
+import markdownItToc from 'markdown-it-table-of-contents';
 import hljs from './hljs';
 
 import 'github-markdown-css/github-markdown.css';
@@ -26,11 +27,14 @@ const md = new MarkdownIt({
 
 // Use plugins
 md.use(markdownItEmoji);
-
 md.use(markdownItAnchor, {
   permalink: true,
   permalinkClass: 'anchor',
   permalinkBefore: true,
+});
+md.use(markdownItToc, {
+  containerClass: 'markdown-it-toc',
+  includeLevel: [1, 2, 3],
 });
 
 export default md;
