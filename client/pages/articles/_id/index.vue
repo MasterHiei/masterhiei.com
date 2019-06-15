@@ -2,7 +2,7 @@
   v-layout(justify-center wrap)
     v-flex(md6 pa-3 wrap)
       // Article
-      v-card(tag="article" class="post")
+      v-card(ref="article" tag="article" class="post")
         // Image
         v-card-title.post-image.pa-0
           img(:src="article.image" :alt="article.title")
@@ -73,7 +73,7 @@
 
     // TODO: Sidebar
     v-flex(md2 pa-3 wrap)
-      v-card
+      v-card(:class="{ 'sticky': isSticky}")
         | adasdasd
 </template>
 
@@ -116,6 +116,16 @@ const Issue = namespace(issue.name);
 export default class ArticlePage extends Vue {
   // Data
   article!: Article;
+  isSticky = false;
+
+  // Hooks
+  mounted() {
+    window.addEventListener('scroll', this.didScroll);
+  }
+
+  beforeDestroy() {
+    window.removeEventListener('scroll', this.didScroll);
+  }
 
   // Computed
   @Issue.Getter('findOneById') findIssueById;
@@ -139,6 +149,17 @@ export default class ArticlePage extends Vue {
     return rendered;
   }
 
+  /**
+   * Trigger on page scroll
+   */
+  didScroll(): void {
+    if (this.$refs.article instanceof Vue) {
+      const article = this.$refs.article as Vue;
+      const articleTop = article.$el.getBoundingClientRect().top;
+      this.isSticky = articleTop <= 64;
+    }
+  }
+
   // SEO
   head() {
     return {
@@ -156,6 +177,12 @@ export default class ArticlePage extends Vue {
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
+.sticky
+  position fixed
+  top 64px
+  background-color transparent
+  box-shadow none
+
 .post
   margin-bottom 50px
   // Link
