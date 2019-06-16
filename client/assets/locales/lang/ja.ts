@@ -23,6 +23,7 @@ export default {
     views: '閲覧数 {number}',
     comments: 'コメント {number}',
     stars: 'いいね {number}',
+    toc: '目次',
   },
   tag: {
     title: 'タグ一覧',

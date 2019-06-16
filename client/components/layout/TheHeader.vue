@@ -207,7 +207,7 @@ $mb = 120px
     .hidden-text
       max-width 0
       opacity 0
-      transition .5s ease-in
+      transition all .5s ease-in
 
     &:hover .hidden-text
       max-width 1em

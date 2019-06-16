@@ -35,6 +35,7 @@ md.use(markdownItAnchor, {
 md.use(markdownItToc, {
   containerClass: 'markdown-it-toc',
   includeLevel: [1, 2, 3],
+  listType: 'ol',
 });
 
 export default md;
