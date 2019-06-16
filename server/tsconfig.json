@@ -22,7 +22,6 @@
       ]
     },
     "types": [
-      "../types",
       "jest",
       "supertest",
     ]

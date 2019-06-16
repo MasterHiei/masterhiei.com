@@ -27,7 +27,6 @@
       ]
     },
     "types": [
-      "./types",
       "@nuxtjs/axios",
       "@nuxt/vue-app",
       "dayjs",
