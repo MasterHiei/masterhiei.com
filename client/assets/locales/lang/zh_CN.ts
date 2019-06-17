@@ -1,5 +1,5 @@
 export default {
-  link: {
+  menu: {
     locale: '简体中文',
     index: '首页',
     tags: '标签',
@@ -11,10 +11,6 @@ export default {
     summer: '夏',
     autumn: '秋',
     winter: '冬',
-  },
-  loading: {
-    noResult: '然而，什么都没有发生。',
-    error: '我们计划在下一个补丁中修复这个问题。',
   },
   article: {
     recommend: '推荐文章',

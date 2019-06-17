@@ -1,5 +1,5 @@
 export default {
-  link: {
+  menu: {
     locale: '日本語',
     index: 'ホーム',
     tags: 'タグ',
@@ -11,11 +11,6 @@ export default {
     summer: '夏',
     autumn: '秋',
     winter: '冬',
-  },
-  loading: {
-    noResult: 'データがありません。',
-    error:
-      '何か問題が起こったようです。しばらくしてからもう一度お試しください。',
   },
   article: {
     recommend: 'おすすめ記事',

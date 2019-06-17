@@ -272,11 +272,11 @@ export default class ArticlePage extends Vue {
       font-weight 500
       margin-bottom 8px
       .v-icon
-        margin 0 6px 2px 0
+        margin 0 6px 3px 0
     .toc-body
-      & >>> li
+      >>> li
         padding 3px 0
-      & >>> ol
+      >>> ol
         list-style-type disc
         padding-left 20px
         ol
@@ -345,7 +345,7 @@ export default class ArticlePage extends Vue {
     margin-bottom 25px
     text-align center
     position relative
-    & >>> time
+    >>> time
       position absolute
       top -10px
       left -60px

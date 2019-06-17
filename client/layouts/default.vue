@@ -20,6 +20,10 @@
       background-color="transparent"
     )
 
+    // Search dialog
+    the-search-dialog
+
+    // ScrollTo button
     the-scroll-to-btn(:show="showScrollToBtn")
 </template>
 
@@ -31,6 +35,7 @@ import throttle from 'lodash/throttle';
   components: {
     TheHeader: () => import('@/components/layout/TheHeader.vue'),
     TheFooter: () => import('@/components/layout/TheFooter.vue'),
+    TheSearchDialog: () => import('@/components/ui/TheSearchDialog.vue'),
     TheScrollToBtn: () => import('@/components/ui/TheScrollToBtn.vue'),
   },
 })
