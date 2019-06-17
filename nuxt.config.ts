@@ -204,7 +204,7 @@ const config: NuxtConfiguration = {
       commons: true,
     },
     analyze: {
-      analyzerMode: 'server',
+      analyzerMode: env.isDev ? 'server' : 'disabled',
     },
 
     /*

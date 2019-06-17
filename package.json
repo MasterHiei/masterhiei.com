@@ -12,7 +12,6 @@
     "generate": "cross-env NODE_ENV=production nuxt generate",
     "lint": "eslint --ext .ts,.vue --ignore-path .gitignore .",
     "lintfix": "eslint --fix --ext .ts,.vue --ignore-path .gitignore .",
-    "precommit": "npm run lint",
     "test": "jest --forceExit --detectOpenHandles --verbose"
   },
   "jest": {
