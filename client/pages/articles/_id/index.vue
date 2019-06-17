@@ -96,6 +96,7 @@
 
       // TOC
       v-flex(
+        v-if="tocHTML.length > 0"
         id="table-of-contents"
         :class="{ 'sticky': isSticky}"
         wrap
@@ -112,8 +113,8 @@
 </template>
 
 <script lang="ts">
-import { clearTimeout, setTimeout } from 'timers';
 import { Component, Vue, namespace } from 'nuxt-property-decorator';
+import throttle from 'lodash/throttle';
 import md from '@/utils/markdownIt';
 import * as issue from '@/store/issue';
 import { Article } from '@/models/article';
@@ -153,35 +154,33 @@ export default class ArticlePage extends Vue {
   article!: Article;
   tocHTML = '';
   isSticky = false;
-  timer: NodeJS.Timeout | null = null;
 
   // Hooks
   mounted() {
+    // Generate TOC
+    if (this.$refs.article instanceof Vue) {
+      const article = this.$refs.article as Vue;
+      const tocElms = article.$el.getElementsByClassName('markdown-it-toc');
+      if (tocElms.length > 0) {
+        this.tocHTML = tocElms[0].innerHTML;
+      }
+    }
+
     // Execute only desktop and tablet device
     if (this.$device.isDesktopOrTablet) {
-      // Generate TOC
-      if (this.$refs.article instanceof Vue) {
-        const article = this.$refs.article as Vue;
-        const tocElms = article.$el.getElementsByClassName('markdown-it-toc');
-        if (tocElms.length > 0) {
-          this.tocHTML = tocElms[0].innerHTML;
-        }
-      }
+      // Listen page scroll event
+      document.addEventListener('scroll', throttle(this.didScroll, 1000 / 60), {
+        passive: true,
+      });
 
       // Trigger scroll event one time on page load
       this.didScroll();
-
-      // Listen page scroll event
-      window.addEventListener('scroll', this.didScroll, { passive: true });
     }
   }
 
   beforeDestroy() {
-    // Execute only desktop and tablet device
-    if (this.$device.isDesktopOrTablet) {
-      // Remove listener
-      window.removeEventListener('scroll', this.didScroll);
-    }
+    // Remove listener
+    document.removeEventListener('scroll', throttle(this.didScroll, 1000 / 60));
   }
 
   // Computed
@@ -212,19 +211,11 @@ export default class ArticlePage extends Vue {
    * Trigger on page scroll
    */
   didScroll(): void {
-    // Clear timer
-    if (this.timer) {
-      clearTimeout(this.timer);
+    if (this.$refs.divider instanceof Vue) {
+      const divider = this.$refs.divider as Vue;
+      const dividerBottom = divider.$el.getBoundingClientRect().bottom;
+      this.isSticky = dividerBottom <= 64;
     }
-
-    // Timer function
-    this.timer = setTimeout((): void => {
-      if (this.$refs.divider instanceof Vue) {
-        const divider = this.$refs.divider as Vue;
-        const dividerTop = divider.$el.getBoundingClientRect().bottom;
-        this.isSticky = dividerTop <= 64;
-      }
-    }, 16);
   }
 
   // SEO

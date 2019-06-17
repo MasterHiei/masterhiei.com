@@ -28,6 +28,7 @@ const md = new MarkdownIt({
 // Use plugins
 md.use(markdownItEmoji);
 md.use(markdownItAnchor, {
+  level: [1, 2, 3],
   permalink: true,
   permalinkClass: 'anchor',
   permalinkBefore: true,

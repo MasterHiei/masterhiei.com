@@ -1,8 +1,5 @@
 <template lang="pug">
-  v-app(
-    v-scroll="onScrollOrResize"
-    v-resize="onScrollOrResize"
-  )
+  v-app
     // Header
     the-header(:didScroll="didScroll")
 
@@ -27,8 +24,8 @@
 </template>
 
 <script lang="ts">
-import { clearTimeout, setTimeout } from 'timers';
 import { Component, Vue } from 'nuxt-property-decorator';
+import throttle from 'lodash/throttle';
 
 @Component({
   components: {
@@ -42,14 +39,43 @@ export default class DefaultLayout extends Vue {
   didScroll = false;
   showScrollToBtn = false;
   scrollPercent = 0;
-  timer: NodeJS.Timeout | null = null;
+
+  // Hooks
+  mounted() {
+    // Listen page scroll and resize event
+    document.addEventListener(
+      'scroll',
+      throttle(this.didScrollOrResize, 1000 / 60),
+      { passive: true }
+    );
+    document.addEventListener(
+      'resize',
+      throttle(this.didScrollOrResize, 1000 / 60),
+      { passive: true }
+    );
+
+    // Trigger event one time on page load
+    this.didScrollOrResize();
+  }
+
+  beforeDestroy() {
+    // Remove all listener
+    document.removeEventListener(
+      'scroll',
+      throttle(this.didScrollOrResize, 1000 / 60)
+    );
+    document.removeEventListener(
+      'resize',
+      throttle(this.didScrollOrResize, 1000 / 60)
+    );
+  }
 
   // Methods
 
   /**
    * Trigger event on page scroll
    */
-  onScrollOrResize() {
+  didScrollOrResize() {
     const scrollOffset =
       window.pageYOffset ||
       document.documentElement.scrollTop ||
@@ -58,24 +84,16 @@ export default class DefaultLayout extends Vue {
     // Page did scroll
     this.didScroll = scrollOffset > 0;
 
-    // Clear timer
-    if (this.timer) {
-      clearTimeout(this.timer);
-    }
+    // Control ScrollToBtn
+    this.showScrollToBtn = scrollOffset >= 60;
 
-    // Timer function
-    this.timer = setTimeout((): void => {
-      // Control ScrollToBtn
-      this.showScrollToBtn = scrollOffset >= 60;
-
-      // Calculate scroll percentage
-      const docHeight = document.documentElement.scrollHeight;
-      const winHeight =
-        window.innerHeight || document.documentElement.clientHeight;
-      this.scrollPercent = Math.floor(
-        (scrollOffset / (docHeight - winHeight)) * 100
-      );
-    }, 30);
+    // Calculate scroll percentage
+    const docHeight = document.documentElement.scrollHeight;
+    const winHeight =
+      window.innerHeight || document.documentElement.clientHeight;
+    this.scrollPercent = Math.floor(
+      (scrollOffset / (docHeight - winHeight)) * 100
+    );
   }
 }
 </script>
