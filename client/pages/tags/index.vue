@@ -41,7 +41,7 @@ import sample from 'lodash/sample';
 
 @Component({
   components: {
-    TheBar: () => import('@/components/chart/TheBar.vue'),
+    TheBar: () => import('@/components/ui/chart/TheBar.vue'),
   },
 
   // Hooks

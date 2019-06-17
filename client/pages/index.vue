@@ -79,7 +79,7 @@ import dayjs, { Dayjs } from 'dayjs';
 
 @Component({
   components: {
-    ArticleList: () => import('@/components/article/List.vue'),
+    ArticleList: () => import('@/components/ui/article/List.vue'),
   },
 
   // Hooks

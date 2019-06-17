@@ -124,8 +124,8 @@ const Issue = namespace(issue.name);
 
 @Component({
   components: {
-    PostDateTime: () => import('@/components/article/Datetime.vue'),
-    TheGitalk: () => import('@/components/comment/TheGitalk.vue'),
+    PostDateTime: () => import('@/components/ui/article/Datetime.vue'),
+    TheGitalk: () => import('@/components/ui/TheGitalk.vue'),
   },
 
   // Hooks

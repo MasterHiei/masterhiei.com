@@ -31,7 +31,7 @@ import throttle from 'lodash/throttle';
   components: {
     TheHeader: () => import('@/components/layout/TheHeader.vue'),
     TheFooter: () => import('@/components/layout/TheFooter.vue'),
-    TheScrollToBtn: () => import('@/components/layout/TheScrollToBtn.vue'),
+    TheScrollToBtn: () => import('@/components/ui/TheScrollToBtn.vue'),
   },
 })
 export default class DefaultLayout extends Vue {
