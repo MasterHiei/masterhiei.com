@@ -123,7 +123,7 @@ export default class TagsPage extends Vue {
       .tag-label
         font-size 1rem
         margin 10px
-        transition .3s
+        transition all .3s
         &:hover
           color #FFF !important
           background var(--v-accent-base) !important

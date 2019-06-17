@@ -27,6 +27,7 @@
 </template>
 
 <script lang="ts">
+import { clearTimeout, setTimeout } from 'timers';
 import { Component, Vue } from 'nuxt-property-decorator';
 
 @Component({
@@ -41,6 +42,7 @@ export default class DefaultLayout extends Vue {
   didScroll = false;
   showScrollToBtn = false;
   scrollPercent = 0;
+  timer: NodeJS.Timeout | null = null;
 
   // Methods
 
@@ -56,16 +58,24 @@ export default class DefaultLayout extends Vue {
     // Page did scroll
     this.didScroll = scrollOffset > 0;
 
-    // Control ScrollToBtn
-    this.showScrollToBtn = scrollOffset >= 60;
+    // Clear timer
+    if (this.timer) {
+      clearTimeout(this.timer);
+    }
 
-    // Calculate scroll percentage
-    const docHeight = document.documentElement.scrollHeight;
-    const winHeight =
-      window.innerHeight || document.documentElement.clientHeight;
-    this.scrollPercent = Math.floor(
-      (scrollOffset / (docHeight - winHeight)) * 100
-    );
+    // Timer function
+    this.timer = setTimeout((): void => {
+      // Control ScrollToBtn
+      this.showScrollToBtn = scrollOffset >= 60;
+
+      // Calculate scroll percentage
+      const docHeight = document.documentElement.scrollHeight;
+      const winHeight =
+        window.innerHeight || document.documentElement.clientHeight;
+      this.scrollPercent = Math.floor(
+        (scrollOffset / (docHeight - winHeight)) * 100
+      );
+    }, 30);
   }
 }
 </script>

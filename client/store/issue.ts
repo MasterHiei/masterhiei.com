@@ -2,7 +2,7 @@ import { ActionTree, MutationTree, GetterTree, ActionContext } from 'vuex';
 import axios from '@/api/axios/github';
 import { RootState } from 'store';
 import { Issue, Label } from '@/models/issue';
-import { generateId } from '@/common/gitalk';
+import { generateId } from '@/utils/gitalk';
 
 // Get environment variables
 const clientId = process.env.GITHUB_CLIENT_ID;

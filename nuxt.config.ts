@@ -47,7 +47,7 @@ const config: NuxtConfiguration = {
   /*
    ** Global CSS
    */
-  css: ['~assets/style/app', 'animate.css/animate.min.css'],
+  css: ['~assets/style/stylus/app', 'animate.css/animate.min.css'],
 
   /**
    * Source directory
@@ -74,7 +74,6 @@ const config: NuxtConfiguration = {
   modules: [
     '@nuxtjs/axios',
     ['@nuxtjs/dotenv', { path: __dirname }],
-    '@nuxtjs/markdownit',
     '@nuxtjs/pwa',
     [
       'nuxt-i18n',
@@ -120,18 +119,8 @@ const config: NuxtConfiguration = {
     ],
   ],
 
-  /*
-   ** Markdown-it options
-   */
-  markdownit: {
-    injected: true,
-    breaks: true,
-    typographer: true,
-  },
-
   // Workbox options
   workbox: {
-    dev: env.isDev,
     runtimeCaching: [
       // Local API
       {
@@ -203,7 +192,10 @@ const config: NuxtConfiguration = {
     transpile: ['vuetify/lib'],
     loaders: {
       stylus: {
-        import: ['~assets/style/variables', '~assets/style/mixins'],
+        import: [
+          '~assets/style/stylus/variables',
+          '~assets/style/stylus/mixins',
+        ],
       },
     },
     splitChunks: {

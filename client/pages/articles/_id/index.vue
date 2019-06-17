@@ -1,14 +1,14 @@
 <template lang="pug">
   v-layout(justify-center wrap)
-    v-flex(md6 pa-3 wrap)
+    v-flex(class="post" md5 wrap)
       // Article
-      v-card(tag="article" class="post")
+      v-card(ref="article" tag="article")
         // Image
         v-card-title.post-image.pa-0
           img(:src="article.image" :alt="article.title")
 
         // Content
-        v-card-text(class="post-content text-xs-center")
+        v-card-text(class="post-content")
           // Header
           v-flex(tag="header" wrap)
             // Tags
@@ -21,10 +21,7 @@
                 | \#{{ tag }}
 
             // Title
-            v-flex(
-              class="post-title title font-weight-bold"
-              wrap
-            )
+            v-flex(class="post-title" wrap)
               span
                 | {{ article.title }}
 
@@ -52,7 +49,11 @@
                 | {{ $t('article.stars', { number: article.stars }) }}
 
           // Text
-          v-flex(v-html="sanitizedHTML" class="post-text" wrap)
+          v-flex.markdown-body(
+            v-html="renderedMD"
+            class="post-text"
+            wrap
+          )
 
           // TODO: Footer
           v-flex(tag="footer" pa-2 style="display: none;")
@@ -70,17 +71,52 @@
       // Gitalk
       the-gitalk(:articleId="article.id")
 
-    // TODO: Sidebar
-    v-flex(md2 pa-3 wrap)
-      v-card
-        | adasdasd
+    // Sidebar
+    v-flex(
+      v-if="$device.isDesktopOrTablet"
+      class="sidebar"
+      md2
+      wrap
+    )
+      // My profile
+      v-flex.my-profile(wrap)
+        v-flex.my-profile-avatar(wrap)
+          img(
+            src="https://avatars1.githubusercontent.com/u/20240686?v=4"
+            :alt="$i18n.t('profile.name')"
+          )
+
+        v-flex.my-profile-name(wrap)
+          | {{ $t('profile.name') }}
+
+        v-flex.my-profile-position(wrap)
+          | {{ $t('profile.position') }}
+
+      v-divider.sidebar-divider(ref="divider")
+
+      // TOC
+      v-flex(
+        id="table-of-contents"
+        :class="{ 'sticky': isSticky}"
+        wrap
+      )
+        v-flex.toc-title(wrap)
+          v-icon
+            | fas fa-list-ul
+          | {{ $t('article.toc') }}
+
+        v-flex.toc-body(
+          v-html="tocHTML"
+          wrap
+        )
 </template>
 
 <script lang="ts">
+import { clearTimeout, setTimeout } from 'timers';
 import { Component, Vue, namespace } from 'nuxt-property-decorator';
+import md from '@/utils/markdownIt';
 import * as issue from '@/store/issue';
 import { Article } from '@/models/article';
-import sanitizeHTML from '@/common/sanitizer';
 
 // Vuex module
 const Issue = namespace(issue.name);
@@ -115,6 +151,38 @@ const Issue = namespace(issue.name);
 export default class ArticlePage extends Vue {
   // Data
   article!: Article;
+  tocHTML = '';
+  isSticky = false;
+  timer: NodeJS.Timeout | null = null;
+
+  // Hooks
+  mounted() {
+    // Execute only desktop and tablet device
+    if (this.$device.isDesktopOrTablet) {
+      // Generate TOC
+      if (this.$refs.article instanceof Vue) {
+        const article = this.$refs.article as Vue;
+        const tocElms = article.$el.getElementsByClassName('markdown-it-toc');
+        if (tocElms.length > 0) {
+          this.tocHTML = tocElms[0].innerHTML;
+        }
+      }
+
+      // Trigger scroll event one time on page load
+      this.didScroll();
+
+      // Listen page scroll event
+      window.addEventListener('scroll', this.didScroll, { passive: true });
+    }
+  }
+
+  beforeDestroy() {
+    // Execute only desktop and tablet device
+    if (this.$device.isDesktopOrTablet) {
+      // Remove listener
+      window.removeEventListener('scroll', this.didScroll);
+    }
+  }
 
   // Computed
   @Issue.Getter('findOneById') findIssueById;
@@ -131,11 +199,32 @@ export default class ArticlePage extends Vue {
   }
 
   /**
-   * Sanitize HTML string
+   * Return rendered markdown HTML
    */
-  get sanitizedHTML(): string {
-    const md = this.$md.render(this.article.content);
-    return sanitizeHTML(md);
+  get renderedMD(): string {
+    const rendered = md.render(this.article.content);
+    return rendered;
+  }
+
+  // Methods
+
+  /**
+   * Trigger on page scroll
+   */
+  didScroll(): void {
+    // Clear timer
+    if (this.timer) {
+      clearTimeout(this.timer);
+    }
+
+    // Timer function
+    this.timer = setTimeout((): void => {
+      if (this.$refs.divider instanceof Vue) {
+        const divider = this.$refs.divider as Vue;
+        const dividerTop = divider.$el.getBoundingClientRect().bottom;
+        this.isSticky = dividerTop <= 64;
+      }
+    }, 16);
   }
 
   // SEO
@@ -155,7 +244,68 @@ export default class ArticlePage extends Vue {
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
+// Sidebar
+.sidebar
+  max-width 300px
+  padding 16px 24px
+  &-divider
+    padding-bottom 24px
+
+  // Profile
+  .my-profile
+    padding-bottom 24px
+    &-avatar
+      img
+        width 100%
+        height auto
+        display block
+    &-name
+      font-size 24px
+      font-weight 500
+      text-align center
+      margin 8px 0
+    &-position
+      font-size 16px
+      text-align center
+
+  // Sticky style
+  .sticky
+    position fixed
+    top 64px
+    background-color transparent
+    box-shadow none
+    .toc-title
+      padding-top 0
+
+  // TOC
+  #table-of-contents
+    .toc-title
+      font-size 24px
+      font-weight 700
+      margin-bottom 8px
+      .v-icon
+        margin 0 6px 4px 0
+    .toc-body
+      & >>> li
+        padding 3px 0
+      & >>> ol
+        list-style-type disc
+        padding-left 20px
+        ol
+          list-style-type circle
+          padding-left 20px
+          ol
+            list-style-type square
+            padding-left 20px
+        a
+          font-size 16px
+          &:hover
+            color var(--v-accent-base)
+            text-decoration underline
+
+// Article
 .post
+  padding 16px 24px
   margin-bottom 50px
   // Link
   a
@@ -171,19 +321,30 @@ export default class ArticlePage extends Vue {
   // Content
   &-content
     padding 40px 50px
+    >>> .markdown-body
+      .anchor
+        color var(--v-accent-base)
+        font-size 24px
+        margin-top 4px
+      .markdown-it-toc
+        display none
 
   // Tag
   &-tag
     font-size 11px
     margin-bottom 26px
+    text-align center
     a
       margin-right 4px
       color var(--v-secondary-darken2)
 
   // Title
   &-title
-    position relative
+    font-size 20px
+    font-weight 700
     margin-bottom 25px
+    text-align center
+    position relative
     & >>> time
       position absolute
       top -10px
@@ -192,6 +353,7 @@ export default class ArticlePage extends Vue {
   // Detail
   &-detail
     font-size 13px
+    text-align center
     .detail-item
       color var(--v-secondary-darken2)
       margin-right 20px

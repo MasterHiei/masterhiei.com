@@ -22,6 +22,7 @@ export default {
     views: '阅读 {number}',
     comments: '回复 {number}',
     stars: '点赞 {number}',
+    toc: '目录',
   },
   tag: {
     title: '文章标签',

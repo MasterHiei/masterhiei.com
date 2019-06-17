@@ -6,8 +6,8 @@
 import { Component, Vue, Prop } from 'nuxt-property-decorator';
 import Gitalk from 'gitalk';
 import 'gitalk/dist/gitalk.css';
-import '@/assets/style/gitalk.styl';
-import { generateId } from '@/common/gitalk';
+import '@/assets/style/stylus/gitalk.styl';
+import { generateId } from '@/utils/gitalk';
 
 @Component
 export default class TheGitalk extends Vue {

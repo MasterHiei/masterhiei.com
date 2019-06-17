@@ -48,4 +48,4 @@ rules:
   '@typescript-eslint/no-unused-vars':
     - error
     -
-      argsIgnorePattern: next
+      argsIgnorePattern: __
