@@ -6,6 +6,10 @@ export default {
     archives: 'アーカイブ',
     about: 'サイト関連',
   },
+  search: {
+    title: '検索',
+    result: '検索結果：{number}件',
+  },
   season: {
     spring: '春',
     summer: '夏',

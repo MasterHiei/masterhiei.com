@@ -6,6 +6,10 @@ export default {
     archives: '归档',
     about: '关于',
   },
+  search: {
+    title: '搜索',
+    result: '当前共搜索到 {number} 篇文章',
+  },
   season: {
     spring: '春',
     summer: '夏',
