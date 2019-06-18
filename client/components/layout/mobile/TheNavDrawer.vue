@@ -41,7 +41,7 @@
         template(#activator)
           v-list-tile
             v-list-tile-title
-              | {{ $t('link.locale') }}
+              | {{ $t('menu.locale') }}
         v-list-tile(
           v-for="(locale, index) in locales"
           :key="index"

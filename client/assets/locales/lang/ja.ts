@@ -1,21 +1,20 @@
 export default {
-  link: {
+  menu: {
     locale: '日本語',
     index: 'ホーム',
     tags: 'タグ',
     archives: 'アーカイブ',
     about: 'サイト関連',
   },
+  search: {
+    title: '検索',
+    result: '検索結果：{number}件',
+  },
   season: {
     spring: '春',
     summer: '夏',
     autumn: '秋',
     winter: '冬',
-  },
-  loading: {
-    noResult: 'データがありません。',
-    error:
-      '何か問題が起こったようです。しばらくしてからもう一度お試しください。',
   },
   article: {
     recommend: 'おすすめ記事',

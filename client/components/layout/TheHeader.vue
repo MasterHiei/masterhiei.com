@@ -1,6 +1,6 @@
 <template lang="pug">
   header.header
-    // Nav drawer
+    // Mobile nav drawer
     the-nav-drawer(
       v-if="$device.isMobile"
       :pages="pages"
@@ -106,22 +106,22 @@ export default class TheHeader extends Vue {
       {
         path: this.localePath('index'),
         icon: 'fas fa-home',
-        text: this.$i18n.t('link.index'),
+        text: this.$i18n.t('menu.index'),
       },
       {
         path: this.localePath('tags'),
         icon: 'fas fa-tags',
-        text: this.$i18n.t('link.tags'),
+        text: this.$i18n.t('menu.tags'),
       },
       {
         path: this.localePath('archives'),
         icon: 'fas fa-archive',
-        text: this.$i18n.t('link.archives'),
+        text: this.$i18n.t('menu.archives'),
       },
       {
         path: this.localePath('about'),
         icon: 'fas fa-portrait',
-        text: this.$i18n.t('link.about'),
+        text: this.$i18n.t('menu.about'),
       },
     ];
   }
@@ -168,7 +168,7 @@ $mb = 120px
         margin 0
       +breakpoints(sm)
         padding 0
-        & >>> .v-toolbar__content
+        >>> .v-toolbar__content
           padding 0
 
   // Background

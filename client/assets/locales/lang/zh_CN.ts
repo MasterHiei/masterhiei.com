@@ -1,20 +1,20 @@
 export default {
-  link: {
+  menu: {
     locale: '简体中文',
     index: '首页',
     tags: '标签',
     archives: '归档',
     about: '关于',
   },
+  search: {
+    title: '搜索',
+    result: '当前共搜索到 {number} 篇文章',
+  },
   season: {
     spring: '春',
     summer: '夏',
     autumn: '秋',
     winter: '冬',
-  },
-  loading: {
-    noResult: '然而，什么都没有发生。',
-    error: '我们计划在下一个补丁中修复这个问题。',
   },
   article: {
     recommend: '推荐文章',

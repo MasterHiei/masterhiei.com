@@ -5,14 +5,13 @@
   "author": "MasterHiei",
   "private": true,
   "scripts": {
+    "analyze": "cross-env NODE_ENV=development nuxt build --a",
     "dev": "nodemon",
-    "build": "nuxt build",
-    "analyze": "nuxt build --a",
+    "build": "cross-env NODE_ENV=production nuxt build",
     "start": "cross-env NODE_ENV=production nuxt start",
     "generate": "cross-env NODE_ENV=production nuxt generate",
     "lint": "eslint --ext .ts,.vue --ignore-path .gitignore .",
     "lintfix": "eslint --fix --ext .ts,.vue --ignore-path .gitignore .",
-    "precommit": "npm run lint",
     "test": "jest --forceExit --detectOpenHandles --verbose"
   },
   "jest": {

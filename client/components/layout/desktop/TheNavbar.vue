@@ -1,5 +1,7 @@
 <template lang="pug">
-  v-toolbar-items
+  v-toolbar-items(
+    :class="didScroll ? 'button-sticky' : 'button-transparent'"
+  )
     // Pages
     v-toolbar-items(
       v-for="(page, index) in pages"
@@ -8,7 +10,6 @@
       v-btn(
         active-class=""
         class="toolbar-item-link"
-        :class="didScroll ? 'button-sticky' : 'button-transparent'"
         :to="page.path"
         flat
         nuxt
@@ -18,17 +19,13 @@
           | {{ page.icon }}
         | {{ page.text }}
 
-    // Localization
+    // Language menu
     v-toolbar-items
       v-menu(offset-y transition="slide-y-transition")
-        v-btn(
-          :class="didScroll ? 'button-sticky' : 'button-transparent'"
-          slot="activator"
-          flat
-        )
+        v-btn(slot="activator" flat)
           v-icon(class="mr-1" small)
             | fas fa-globe
-          | {{ $t('link.locale') }}
+          | {{ $t('menu.locale') }}
 
         v-list
           v-list-tile(
@@ -41,10 +38,17 @@
             v-list-tile-title.text-xs-center
               v-flex(tag="span" class="primary-text body-2")
                 | {{ locale.name }}
+
+    // Search button
+    v-toolbar-items
+      v-btn(flat @click.stop="openSearchDialog")
+        v-icon(class="mr-1" small)
+          | fas fa-search
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator';
+import { Mutation } from 'vuex-class';
 import { NuxtVueI18n } from 'nuxt-i18n/types/vue';
 
 @Component
@@ -56,6 +60,7 @@ export default class TheHeader extends Vue {
   readonly locales!: (string | NuxtVueI18n.Options.LocaleObject)[];
 
   // Methods
+  @Mutation('OPEN_SEARCH_DIALOG') openSearchDialog;
 
   /**
    * Switch locale
@@ -69,15 +74,16 @@ export default class TheHeader extends Vue {
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
 .button-transparent
-  color var(--v-secondary-base)
-  & >>> .v-btn__content::after
+  .v-toolbar__items >>> .v-btn
+    color var(--v-secondary-base)
+  .toolbar-item-link >>> .v-btn__content::after
     background-color var(--v-secondary-base) !important
 
-.button-sticky
+.button-sticky .v-toolbar__items >>> .v-btn
   color var(--v-primary-base)
 
 .toolbar-item-link
-  & >>> .v-btn__content::after
+  >>> .v-btn__content::after
     content ''
     position absolute
     left 0

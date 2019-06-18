@@ -3,6 +3,7 @@ import { ActionTree, MutationTree, GetterTree, ActionContext } from 'vuex';
 // Mutation types declaration
 const types = {
   OPEN_NAV_DRAWER: 'OPEN_NAV_DRAWER',
+  OPEN_SEARCH_DIALOG: 'OPEN_SEARCH_DIALOG',
 };
 
 /**
@@ -18,6 +19,9 @@ export interface RootState {}
 interface State {
   /** Display control of mobile navigation drawer */
   showNavDrawer: boolean;
+
+  /** Display control of search dialog */
+  showSearchDialog: boolean;
 }
 
 /**
@@ -36,6 +40,7 @@ interface Actions<S, R> extends ActionTree<S, R> {
 /** Default value of Vuex states */
 export const state = (): State => ({
   showNavDrawer: false,
+  showSearchDialog: false,
 });
 
 /**
@@ -65,5 +70,13 @@ export const mutations: MutationTree<State> = {
    */
   [types.OPEN_NAV_DRAWER](state): void {
     state.showNavDrawer = !state.showNavDrawer;
+  },
+
+  /**
+   * Open search dialog
+   * @param state Vuex state
+   */
+  [types.OPEN_SEARCH_DIALOG](state): void {
+    state.showSearchDialog = !state.showSearchDialog;
   },
 };

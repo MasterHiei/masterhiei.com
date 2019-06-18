@@ -40,9 +40,9 @@ const config: NuxtConfiguration = {
   },
 
   /*
-   ** Customize the progress-bar color
+   ** Nuxt loading component
    */
-  loading: '@/components/ui/loading.vue',
+  loading: '@/components/ui/TheLoading.vue',
 
   /*
    ** Global CSS
@@ -204,7 +204,7 @@ const config: NuxtConfiguration = {
       commons: true,
     },
     analyze: {
-      analyzerMode: 'server',
+      analyzerMode: env.isDev ? 'server' : 'disabled',
     },
 
     /*

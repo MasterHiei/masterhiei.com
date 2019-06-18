@@ -96,12 +96,13 @@
 
       // TOC
       v-flex(
+        v-if="tocHTML.length > 0"
         id="table-of-contents"
         :class="{ 'sticky': isSticky}"
         wrap
       )
         v-flex.toc-title(wrap)
-          v-icon
+          v-icon(size="20")
             | fas fa-list-ul
           | {{ $t('article.toc') }}
 
@@ -112,8 +113,8 @@
 </template>
 
 <script lang="ts">
-import { clearTimeout, setTimeout } from 'timers';
 import { Component, Vue, namespace } from 'nuxt-property-decorator';
+import throttle from 'lodash/throttle';
 import md from '@/utils/markdownIt';
 import * as issue from '@/store/issue';
 import { Article } from '@/models/article';
@@ -123,8 +124,8 @@ const Issue = namespace(issue.name);
 
 @Component({
   components: {
-    PostDateTime: () => import('@/components/article/Datetime.vue'),
-    TheGitalk: () => import('@/components/comment/TheGitalk.vue'),
+    PostDateTime: () => import('@/components/ui/article/Datetime.vue'),
+    TheGitalk: () => import('@/components/ui/TheGitalk.vue'),
   },
 
   // Hooks
@@ -153,35 +154,33 @@ export default class ArticlePage extends Vue {
   article!: Article;
   tocHTML = '';
   isSticky = false;
-  timer: NodeJS.Timeout | null = null;
 
   // Hooks
   mounted() {
+    // Generate TOC
+    if (this.$refs.article instanceof Vue) {
+      const article = this.$refs.article as Vue;
+      const tocElms = article.$el.getElementsByClassName('markdown-it-toc');
+      if (tocElms.length > 0) {
+        this.tocHTML = tocElms[0].innerHTML;
+      }
+    }
+
     // Execute only desktop and tablet device
     if (this.$device.isDesktopOrTablet) {
-      // Generate TOC
-      if (this.$refs.article instanceof Vue) {
-        const article = this.$refs.article as Vue;
-        const tocElms = article.$el.getElementsByClassName('markdown-it-toc');
-        if (tocElms.length > 0) {
-          this.tocHTML = tocElms[0].innerHTML;
-        }
-      }
+      // Listen page scroll event
+      document.addEventListener('scroll', throttle(this.didScroll, 1000 / 60), {
+        passive: true,
+      });
 
       // Trigger scroll event one time on page load
       this.didScroll();
-
-      // Listen page scroll event
-      window.addEventListener('scroll', this.didScroll, { passive: true });
     }
   }
 
   beforeDestroy() {
-    // Execute only desktop and tablet device
-    if (this.$device.isDesktopOrTablet) {
-      // Remove listener
-      window.removeEventListener('scroll', this.didScroll);
-    }
+    // Remove listener
+    document.removeEventListener('scroll', throttle(this.didScroll, 1000 / 60));
   }
 
   // Computed
@@ -212,19 +211,11 @@ export default class ArticlePage extends Vue {
    * Trigger on page scroll
    */
   didScroll(): void {
-    // Clear timer
-    if (this.timer) {
-      clearTimeout(this.timer);
+    if (this.$refs.divider instanceof Vue) {
+      const divider = this.$refs.divider as Vue;
+      const dividerBottom = divider.$el.getBoundingClientRect().bottom;
+      this.isSticky = dividerBottom <= 64;
     }
-
-    // Timer function
-    this.timer = setTimeout((): void => {
-      if (this.$refs.divider instanceof Vue) {
-        const divider = this.$refs.divider as Vue;
-        const dividerTop = divider.$el.getBoundingClientRect().bottom;
-        this.isSticky = dividerTop <= 64;
-      }
-    }, 16);
   }
 
   // SEO
@@ -260,12 +251,11 @@ export default class ArticlePage extends Vue {
         height auto
         display block
     &-name
-      font-size 24px
+      font-size 20px
       font-weight 500
       text-align center
       margin 8px 0
     &-position
-      font-size 16px
       text-align center
 
   // Sticky style
@@ -274,21 +264,19 @@ export default class ArticlePage extends Vue {
     top 64px
     background-color transparent
     box-shadow none
-    .toc-title
-      padding-top 0
 
   // TOC
   #table-of-contents
     .toc-title
-      font-size 24px
-      font-weight 700
+      font-size 20px
+      font-weight 500
       margin-bottom 8px
       .v-icon
-        margin 0 6px 4px 0
+        margin 0 6px 3px 0
     .toc-body
-      & >>> li
+      >>> li
         padding 3px 0
-      & >>> ol
+      >>> ol
         list-style-type disc
         padding-left 20px
         ol
@@ -298,7 +286,6 @@ export default class ArticlePage extends Vue {
             list-style-type square
             padding-left 20px
         a
-          font-size 16px
           &:hover
             color var(--v-accent-base)
             text-decoration underline
@@ -322,10 +309,23 @@ export default class ArticlePage extends Vue {
   &-content
     padding 40px 50px
     >>> .markdown-body
-      .anchor
-        color var(--v-accent-base)
+      h1, h2, h3
+        cursor pointer
+        &:hover .anchor
+          display block
+        .anchor
+          display none
+          color var(--v-accent-base)
+          margin-top 4px
+      h1 .anchor
         font-size 24px
-        margin-top 4px
+        margin-left -16px
+      h2 .anchor
+        font-size 20px
+        margin-left -14px
+      h3 .anchor
+        font-size 18px
+        margin-left -13px
       .markdown-it-toc
         display none
 
@@ -345,7 +345,7 @@ export default class ArticlePage extends Vue {
     margin-bottom 25px
     text-align center
     position relative
-    & >>> time
+    >>> time
       position absolute
       top -10px
       left -60px

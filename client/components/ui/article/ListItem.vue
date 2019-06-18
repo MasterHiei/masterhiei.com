@@ -126,7 +126,7 @@ export default class ListItem extends Vue {
   // Detail
   &-content
     padding 25px 25px 35px 25px
-    & >>> time
+    >>> time
       position absolute
       top 20px
       right 20px

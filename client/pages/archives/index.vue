@@ -60,8 +60,8 @@ declare interface MonthlyArticle {
 
 @Component({
   components: {
-    TheCalendar: () => import('@/components/chart/TheCalendar.vue'),
-    ArticleListItem: () => import('@/components/article/ListItem.vue'),
+    TheCalendar: () => import('@/components/ui/chart/TheCalendar.vue'),
+    ArticleListItem: () => import('@/components/ui/article/ListItem.vue'),
   },
 
   // Hooks

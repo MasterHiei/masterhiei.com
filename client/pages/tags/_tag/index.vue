@@ -28,7 +28,7 @@ import { StateChanger } from 'vue-infinite-loading';
 
 @Component({
   components: {
-    ArticleListItem: () => import('@/components/article/ListItem.vue'),
+    ArticleListItem: () => import('@/components/ui/article/ListItem.vue'),
     VInfiniteLoading: () => import('@/components/ui/VInfiniteLoading.vue'),
   },
 
