@@ -52,16 +52,17 @@ export default class TheSearchDialog extends Vue {
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
 #search-card
-  padding 24px 60px
+  padding 24px 60px 48px 60px
   #search-form
     padding 0
     >>> .v-input__icon .v-icon
       font-size 18px
   #search-result
     padding 0
-    min-height 400px
+    height 480px
+    overflow hidden
     #search-result-stats
-      margin-bottom 8px
+      margin-bottom 12px
       font-size 12px
       font-weight 500
       color var(--v-secondary-darken4)

@@ -294,6 +294,9 @@ export default class ArticlePage extends Vue {
 .post
   padding 16px 24px
   margin-bottom 50px
+  min-width 640px
+  +screen-width-less-than(sm)
+    min-width 0
   // Link
   a
     &:hover
