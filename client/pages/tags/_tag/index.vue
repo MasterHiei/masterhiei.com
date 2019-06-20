@@ -73,12 +73,12 @@ export default class TagPage extends Vue {
 .section-item
   margin: 48px auto 24px auto
 .post-list
-  +breakpoints(md)
+  +screen-width-less-than(md)
     justify-content center
   // Item
   &-item
     padding 0 8px
     margin-bottom 40px
-    +breakpoints(sm)
+    +screen-width-less-than(sm)
       padding 0
 </style>

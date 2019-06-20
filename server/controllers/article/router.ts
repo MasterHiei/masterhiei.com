@@ -6,7 +6,7 @@ import action from './action';
 const path = '/articles';
 const router = Router();
 
-router.route(path).get(validator.queries, action.index);
-router.route(`${path}/:id`).get(validator.params, action.show);
+router.route(path).get(validator.index, action.index);
+router.route(`${path}/:id`).get(validator.show, action.show);
 
 export default router;

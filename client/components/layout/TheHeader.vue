@@ -166,7 +166,7 @@ $mb = 120px
       transition-delay .1s
       .header-logo
         margin 0
-      +breakpoints(sm)
+      +screen-width-less-than(sm)
         padding 0
         >>> .v-toolbar__content
           padding 0

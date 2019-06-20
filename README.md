@@ -11,13 +11,13 @@
 
 ## Introduction
 
-> :beginner:Still developing. :zap:Powered by Nuxt.js, Express and TypeScript.
+:beginner:Still developing. :zap:Powered by Nuxt.js, Express and TypeScript.
 
 ## Setup
 
-> :warning:  
-> *You need to create a `.env` file on the root directory, and it will be loaded automatically.*  
-> *If you are not sure what you should do, please check the `.env.sample` file.*
+:warning:  
+*You need to create a `.env` file on the root directory, and it will be loaded automatically.*  
+*If you are not sure what you should do, please check the `.env.sample` file.*
 
 ``` bash
 # install dependencies
@@ -34,10 +34,6 @@ $ yarn test # or npm run test
 ```
 
 ## Directory Structure
-
-- The base directory of Nuxt.js
-
-  Check the [official documents](<https://nuxtjs.org/guide/directory-structure>) of Nuxt.js.
 
 - Directories
 
@@ -76,16 +72,18 @@ $ yarn test # or npm run test
   |
   |── yarn.lock                        # Yarn lock file
   ```
+  
+  For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org) and [Express.js docs](https://expressjs.com).
 
 ## Optimization
 
 - Reduce bundle size with webpack
 
-> We used [**webpack-bundle-analyzer**](<https://github.com/webpack-contrib/webpack-bundle-analyzer>) to help us optimize our application bundle size.
->
-> Run `$ yarn analyze`(or `$ npm run analyze`) to start local server, and create an interacive treemap.
->
-> There are two examples below show the effect of our work.
+  [**webpack-bundle-analyzer**](https://github.com/webpack-contrib/webpack-bundle-analyzer) help us optimize our application bundle size.
+
+  Run `$ yarn analyze`(or `$ npm run analyze`) to start local server, and create an interactive treemap.
+
+  There are two examples below show the effect of our work.
 
 - Before optimization
 
@@ -94,5 +92,3 @@ $ yarn test # or npm run test
 - After optimization
 
   ![**bundle-size-now**](<https://raw.githubusercontent.com/MasterHiei/Resources/master/bundle-size-20190615.png>)
-
-For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).

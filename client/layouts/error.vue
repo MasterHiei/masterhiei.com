@@ -7,7 +7,7 @@
       my-3
       wrap
     )
-      v-card.box
+      v-card.error-box
         // Ghost
         .ghost
           - for (let i = 0; i < 6; i += 1)
@@ -28,9 +28,9 @@
         .description
           .description-container
             .description-title
-              | Oops!
+              | {{ friendlyError.title }}
             .description-text
-              | {{ message }}
+              | {{ friendlyError.message }}
           // Button
           v-layout(justify-center wrap)
             v-flex(wrap)
@@ -43,7 +43,7 @@
                 exact
                 @click="backToHome"
               )
-                | Go to the homepage?
+                | {{ $t('error.backToHome') }}
 </template>
 
 <script lang="ts">
@@ -69,13 +69,22 @@ export default class ErrorPage extends Vue {
   // Computed
 
   /**
-   * Error message
+   * Friendly error
    */
-  get message(): string {
-    if (this.error != null && this.error.statusCode === 404) {
-      return 'Sorry! We could not find the page you were looking for. You can return to our home page.';
-    } else {
-      return 'Some errors occurred. I must be punished for this unacceptable failure!';
+  get friendlyError(): object {
+    const status = this.error ? this.error.statusCode : 500;
+    switch (status) {
+      case 404:
+        return {
+          title: '404 Not Found',
+          message: this.$i18n.t('error.notFound'),
+        };
+      case 500:
+      default:
+        return {
+          title: '500 Internal Server Error',
+          message: this.$i18n.t('error.internalServer'),
+        };
     }
   }
 
@@ -120,12 +129,10 @@ $shadow-color = #3B3769
 $text-color = #8C8AA7
 
 #error
-  height 450px
-
-  .box
+  .error-box
     background-color $box-color
     width 100%
-    height 450px
+    height 500px
     padding 30px 50px
     border-radius 8px
 
@@ -133,7 +140,7 @@ $text-color = #8C8AA7
     .ghost
       padding 15px 25px 25px
       position absolute
-      top 30%
+      top 100px
       left 50%
       transform translate(-50%, -30%)
 
@@ -277,13 +284,13 @@ $text-color = #8C8AA7
       &-shadow
         height 20px
         margin 0 auto
-        box-shadow 0 50px 15px 5px $shadow-color
+        box-shadow 0 45px 30px 5px $shadow-color
         animation smallnbig 3s ease-in-out infinite
 
     // Error description
     .description
       position absolute
-      bottom 35px
+      bottom 50px
       left 50%
       transform translateX(-50%)
 
@@ -307,7 +314,8 @@ $text-color = #8C8AA7
         width 100%
         height 50px
         line-height 50px
-        font-size 16px
+        font-size 18px
+        font-weight 500
         margin 25px 0 0 0
 
 // Animation keyframes
