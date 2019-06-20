@@ -2,19 +2,10 @@ import { query } from 'express-validator/check';
 import { sanitizeQuery, sanitizeParam } from 'express-validator/filter';
 
 /**
- * Validate for queries
+ * Validation for page, limit
  */
-const queries = [
-  // Page
-  query('page')
-    .not()
-    .isEmpty()
-    .withMessage('Missing field.')
-    .isInt()
-    .withMessage('The field must be a number.'),
-
-  // Limit
-  query('limit')
+const show = [
+  query(['page', 'limit'])
     .not()
     .isEmpty()
     .withMessage('Missing field.')
@@ -22,16 +13,8 @@ const queries = [
     .withMessage('The field must be a number.'),
 
   // Sanitization
-  sanitizeQuery('page').toInt(),
-  sanitizeQuery('limit').toInt(),
-];
-
-/**
- * Validate for params
- */
-const params = [
-  // Sanitization
+  sanitizeQuery(['page', 'limit']).toInt(),
   sanitizeParam('tag').trim(),
 ];
 
-export default { queries, params };
+export default { show };

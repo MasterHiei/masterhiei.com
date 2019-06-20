@@ -3,19 +3,10 @@ import { sanitizeQuery } from 'express-validator/filter';
 import mongoose from 'mongoose';
 
 /**
- * Validate for queries
+ * Validation for page and limit
  */
-const queries = [
-  // Page
-  query('page')
-    .not()
-    .isEmpty()
-    .withMessage('Missing field.')
-    .isInt()
-    .withMessage('The field must be a number.'),
-
-  // Limit
-  query('limit')
+const index = [
+  query(['page', 'limit'])
     .not()
     .isEmpty()
     .withMessage('Missing field.')
@@ -23,14 +14,13 @@ const queries = [
     .withMessage('The field must be a number.'),
 
   // Sanitization
-  sanitizeQuery('page').toInt(),
-  sanitizeQuery('limit').toInt(),
+  sanitizeQuery(['page', 'limit']).toInt(),
 ];
 
 /**
- * Validate for params
+ * Validation for id
  */
-const params = [
+const show = [
   // ID
   param('id').custom(
     (value: any): Promise<any> => {
@@ -44,4 +34,4 @@ const params = [
   ),
 ];
 
-export default { queries, params };
+export default { index, show };

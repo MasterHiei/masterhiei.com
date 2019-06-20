@@ -7,8 +7,6 @@ const path = '/tags';
 const router = Router();
 
 router.route(path).get(action.index);
-router
-  .route(`${path}/:tag`)
-  .get(validator.params, validator.queries, action.show);
+router.route(`${path}/:tag`).get(validator.show, action.show);
 
 export default router;
