@@ -5,6 +5,7 @@ import dropRight from 'lodash/dropRight';
 import sortBy from 'lodash/sortBy';
 import app from '../app';
 import ArticleModel, { Article } from '../models/article';
+import mongoDB from './utils/mongoDB';
 import mockGenerator from './__mocks__/article';
 
 // Base url
@@ -15,26 +16,16 @@ const url = '/api/v1/articles';
 // Instance of test server, request and data
 let server: Server, agent: SuperTest<Test>;
 
-// Before all tests
+// Create a test server and connect to db before all tests start
 beforeAll((done): void => {
-  // Create a test server
   server = app.listen(4000);
   agent = request(server);
-  mongoose
-    .connect('mongodb://127.0.0.1:27017', {
-      dbName: 'test_db_masterhiei_com',
-      useNewUrlParser: true,
-      useCreateIndex: true,
-      useFindAndModify: false,
-    })
-    .then((): void => done());
+  mongoDB.connect(done);
 });
 
-// Close test server
+// Disconnect db and close server after all tests done
 afterAll((done): void => {
-  mongoose.disconnect().then((): void => {
-    server.close(done);
-  });
+  mongoDB.disconnect(server, done);
 });
 
 // Routing tests
