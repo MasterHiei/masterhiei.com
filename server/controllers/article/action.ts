@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { validationResult } from 'express-validator/check';
+import { validationResult } from 'express-validator';
 import ArticleModel from '../../models/article';
 import InternalServerException from '../../exceptions/InternalServerException';
 import NotFoundException from '../../exceptions/NotFoundException';

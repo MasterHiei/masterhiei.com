@@ -13,11 +13,7 @@ const connect = (done: jest.DoneCallback): void => {
       useCreateIndex: true,
       useFindAndModify: false,
     })
-    .then((): void => {
-      if (done) {
-        done();
-      }
-    });
+    .then((): void => done());
 };
 
 /**
