@@ -47,7 +47,7 @@
     "dayjs": "^1.8.14",
     "echarts": "^4.2.1",
     "envalid": "^5.0.0",
-    "express-validator": "^5.3.1",
+    "express-validator": "^6.0.0",
     "gitalk": "^1.5.0",
     "github-markdown-css": "^3.0.1",
     "highlight.js": "^9.15.8",
@@ -61,12 +61,12 @@
     "morgan": "^1.9.1",
     "nuxt": "^2.8.1",
     "nuxt-device-detect": "^1.1.5",
-    "nuxt-i18n": "^5.12.4",
+    "nuxt-i18n": "^5.12.5",
     "nuxt-property-decorator": "^2.3.0",
     "vue-infinite-loading": "^2.4.4",
     "vue-lazyload": "^1.2.6",
     "vue-scrollto": "^2.15.0",
-    "vuetify": "^1.5.14",
+    "vuetify": "^1.5.16",
     "vuetify-loader": "^1.2.2"
   },
   "devDependencies": {
@@ -92,7 +92,7 @@
     "eslint-config-standard": "^12.0.0",
     "eslint-loader": "^2.1.2",
     "eslint-plugin-import": "^2.17.3",
-    "eslint-plugin-jest": "^22.6.4",
+    "eslint-plugin-jest": "^22.7.0",
     "eslint-plugin-node": "^9.1.0",
     "eslint-plugin-nuxt": "^0.4.3",
     "eslint-plugin-prettier": "^3.1.0",
@@ -116,7 +116,7 @@
     "typescript": "^3.5.2",
     "vue": "^2.6.10",
     "vue-template-compiler": "^2.6.10",
-    "webpack": "^4.34.0",
+    "webpack": "^4.35.0",
     "webpack-bundle-analyzer": "^3.3.2"
   }
 }
