@@ -203,9 +203,7 @@ const config: NuxtConfiguration = {
       pages: true,
       commons: true,
     },
-    analyze: {
-      analyzerMode: env.isDev ? 'server' : 'disabled',
-    },
+    analyze: env.isDev,
 
     /*
      ** You can extend webpack config here
