@@ -47,7 +47,7 @@ const config: NuxtConfiguration = {
   /*
    ** Global CSS
    */
-  css: ['~assets/style/stylus/app', 'animate.css/animate.min.css'],
+  css: ['~assets/style/stylus/app'],
 
   /**
    * Source directory

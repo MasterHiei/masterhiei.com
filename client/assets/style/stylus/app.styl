@@ -32,3 +32,28 @@ a
 
 .warning-text
     color var(--v-warning-base) !important
+
+// Page transition
+.page-enter-active
+    animation-name fadeInUp
+    animation-duration .5s
+    animation-fill-mode both
+
+.page-leave-active
+    animation-name fadeOut
+    animation-duration .5s
+    animation-fill-mode both
+
+@keyframes fadeInUp
+    from
+        opacity 0
+        transform translate3d(0, 100px, 0)
+    to
+        opacity 1
+        transform translate3d(0, 0, 0)
+
+@keyframes fadeOut
+    from
+        opacity 1
+    to
+        opacity 0

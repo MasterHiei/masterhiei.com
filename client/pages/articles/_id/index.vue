@@ -144,10 +144,7 @@ const Issue = namespace(issue.name);
   },
 
   // Transition animation
-  transition: {
-    enterActiveClass: 'animated slideInLeft',
-    leaveActiveClass: 'animated slideOutRight',
-  },
+  transition: 'page',
 })
 export default class ArticlePage extends Vue {
   // Data

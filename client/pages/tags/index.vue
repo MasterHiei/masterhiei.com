@@ -51,10 +51,7 @@ import sample from 'lodash/sample';
   },
 
   // Transition animation
-  transition: {
-    enterActiveClass: 'animated slideInLeft',
-    leaveActiveClass: 'animated slideOutRight',
-  },
+  transition: 'page',
 })
 export default class TagsPage extends Vue {
   // Data
