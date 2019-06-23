@@ -71,10 +71,7 @@ declare interface MonthlyArticle {
   },
 
   // Transition animation
-  transition: {
-    enterActiveClass: 'animated slideInLeft',
-    leaveActiveClass: 'animated slideOutRight',
-  },
+  transition: 'page',
 })
 export default class ArchivesPage extends Vue {
   // Data

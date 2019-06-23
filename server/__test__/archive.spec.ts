@@ -76,7 +76,7 @@ describe('Testing Tag Routing', (): void => {
       });
 
       // Test
-      it('Return status 200 with a object includes articles created in last year and date statistics', async (): Promise<
+      it('Returns status 200 with an object includes articles created in last year and date statistics', async (): Promise<
         void
       > => {
         // Test status code
@@ -113,7 +113,7 @@ describe('Testing Tag Routing', (): void => {
 
     // Success but no results
     describe('Success but no results', (): void => {
-      it('Return status 200 with a empty list', async (): Promise<void> => {
+      it('Returns status 200 with a empty list', async (): Promise<void> => {
         const response = await agent.get(url);
         expect(response.status).toBe(200);
         expect(response.body.articles).toEqual([]);

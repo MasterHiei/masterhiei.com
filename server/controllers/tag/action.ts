@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { validationResult } from 'express-validator/check';
+import { validationResult } from 'express-validator';
 import ArticleModel from '../../models/article';
 import { Tag } from '@/models/tag';
 import InternalServerException from '../../exceptions/InternalServerException';
@@ -34,7 +34,7 @@ const index = (_: Request, res: Response, next: NextFunction): void => {
  * @param next NextFunction
  */
 const show = (req: Request, res: Response, next: NextFunction): void => {
-  // Check validation result
+  // Handle validation errors
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     res.status(422).json({ errors: errors.array() });

@@ -1,17 +1,17 @@
 import { Request, Response, NextFunction } from 'express';
-import { validationResult } from 'express-validator/check';
+import { validationResult } from 'express-validator';
 import ArticleModel from '../../models/article';
 import InternalServerException from '../../exceptions/InternalServerException';
 import NotFoundException from '../../exceptions/NotFoundException';
 
 /**
- * Return articles using passed parameters
+ * Returns articles using passed parameters
  * @param req Request
  * @param res Response
  * @param next NextFunction
  */
 const index = (req: Request, res: Response, next: NextFunction): void => {
-  // Check validation result
+  // Handle validation errors
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     res.status(422).json({ errors: errors.array() });
@@ -41,13 +41,13 @@ const index = (req: Request, res: Response, next: NextFunction): void => {
 };
 
 /**
- * Return an article depending the ID
+ * Returns an article depending the ID
  * @param req Request
  * @param res Response
  * @param next NextFunction
  */
 const show = (req: Request, res: Response, next: NextFunction): void => {
-  // Check validation result
+  // Handle validation errors
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     res.status(422).json({ errors: errors.array() });

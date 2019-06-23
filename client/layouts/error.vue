@@ -48,6 +48,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator';
+import throttle from 'lodash/throttle';
 
 /**
  * Nuxt error page prop
@@ -113,11 +114,14 @@ export default class ErrorPage extends Vue {
 
   // Hooks
   mounted() {
-    document.addEventListener('mousemove', this.mousemove);
+    document.addEventListener('mousemove', throttle(this.mousemove, 1000 / 60));
   }
 
   beforeDestroy() {
-    document.removeEventListener('mousemove', this.mousemove);
+    document.removeEventListener(
+      'mousemove',
+      throttle(this.mousemove, 1000 / 60)
+    );
   }
 }
 </script>

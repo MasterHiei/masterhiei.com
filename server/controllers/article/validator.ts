@@ -1,27 +1,25 @@
-import { query, param } from 'express-validator/check';
-import { sanitizeQuery } from 'express-validator/filter';
+import { query, param } from 'express-validator';
 import mongoose from 'mongoose';
 
 /**
- * Validation for page and limit
+ * Validation for /articles/
  */
 const index = [
+  // Validate page and limit
   query(['page', 'limit'])
     .not()
     .isEmpty()
     .withMessage('Missing field.')
     .isInt()
-    .withMessage('The field must be a number.'),
-
-  // Sanitization
-  sanitizeQuery(['page', 'limit']).toInt(),
+    .withMessage('The field must be a number.')
+    .toInt(),
 ];
 
 /**
- * Validation for id
+ * Validation for /articles/:id
  */
 const show = [
-  // ID
+  // Validate article id
   param('id').custom(
     (value: any): Promise<any> => {
       // Check param is a mongoose ObjectId

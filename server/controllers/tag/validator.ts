@@ -1,20 +1,26 @@
-import { query } from 'express-validator/check';
-import { sanitizeQuery, sanitizeParam } from 'express-validator/filter';
+import { query, param } from 'express-validator';
 
 /**
- * Validation for page, limit
+ * Validation for /tags/:tag
  */
 const show = [
+  // Validate page and limit
   query(['page', 'limit'])
     .not()
     .isEmpty()
     .withMessage('Missing field.')
     .isInt()
-    .withMessage('The field must be a number.'),
+    .withMessage('The field must be a number.')
+    .toInt(),
 
-  // Sanitization
-  sanitizeQuery(['page', 'limit']).toInt(),
-  sanitizeParam('tag').trim(),
+  // Validate tag
+  param('tag')
+    .trim()
+    .not()
+    .isEmpty()
+    .withMessage('Missing field.')
+    .isString()
+    .withMessage('The field must be a string.'),
 ];
 
 export default { show };

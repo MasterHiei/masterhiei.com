@@ -47,7 +47,7 @@ const config: NuxtConfiguration = {
   /*
    ** Global CSS
    */
-  css: ['~assets/style/stylus/app', 'animate.css/animate.min.css'],
+  css: ['~assets/style/stylus/app'],
 
   /**
    * Source directory
@@ -203,9 +203,7 @@ const config: NuxtConfiguration = {
       pages: true,
       commons: true,
     },
-    analyze: {
-      analyzerMode: env.isDev ? 'server' : 'disabled',
-    },
+    analyze: env.isDev,
 
     /*
      ** You can extend webpack config here

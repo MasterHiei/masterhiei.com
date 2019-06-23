@@ -22,7 +22,7 @@ export default class TheBar extends Vue {
   // Coumputed
 
   /**
-   * Return a reversed tags array
+   * Returns a reversed tags array
    */
   get dataset(): Tag[] {
     return this.data.slice().reverse();

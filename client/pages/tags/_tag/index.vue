@@ -33,10 +33,7 @@ import { StateChanger } from 'vue-infinite-loading';
   },
 
   // Transition animation
-  transition: {
-    enterActiveClass: 'animated slideInLeft',
-    leaveActiveClass: 'animated slideOutRight',
-  },
+  transition: 'page',
 })
 export default class TagPage extends Vue {
   // Data

@@ -92,10 +92,7 @@ import dayjs, { Dayjs } from 'dayjs';
   },
 
   // Transition animation
-  transition: {
-    enterActiveClass: 'animated slideInLeft',
-    leaveActiveClass: 'animated slideOutRight',
-  },
+  transition: 'page',
 })
 export default class IndexPage extends Vue {
   // Computed

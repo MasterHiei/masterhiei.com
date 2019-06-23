@@ -51,10 +51,7 @@ import sample from 'lodash/sample';
   },
 
   // Transition animation
-  transition: {
-    enterActiveClass: 'animated slideInLeft',
-    leaveActiveClass: 'animated slideOutRight',
-  },
+  transition: 'page',
 })
 export default class TagsPage extends Vue {
   // Data
@@ -63,7 +60,7 @@ export default class TagsPage extends Vue {
   // Methods
 
   /**
-   * Return a random vuetify color
+   * Returns a random vuetify color
    */
   randomColor(): string {
     const platte = [

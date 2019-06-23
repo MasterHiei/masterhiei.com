@@ -17,7 +17,7 @@ const mockResponse = (): any => {
 describe('Testing Express Error Handling Middleware', (): void => {
   // Internal server error
   describe('500 Internal Server Error', (): void => {
-    it('Return status 500 with error message', (): void => {
+    it('Returns status 500 with error message', (): void => {
       const req = jest.fn() as any;
       const res = mockResponse();
       const next = jest.fn();
@@ -41,7 +41,7 @@ describe('Testing Express Error Handling Middleware', (): void => {
 
   // Not Found
   describe('404 Not Found', (): void => {
-    it('Return status 404 with error message and parameter id', (): void => {
+    it('Returns status 404 with error message and parameter id', (): void => {
       const req = jest.fn() as any;
       const res = mockResponse();
       const next = jest.fn();
