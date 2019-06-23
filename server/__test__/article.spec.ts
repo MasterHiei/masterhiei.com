@@ -51,7 +51,7 @@ describe('Testing Article Routing', (): void => {
       });
 
       // Test
-      it('Return status 200 with a article list', async (): Promise<void> => {
+      it('Returns status 200 with an article list', async (): Promise<void> => {
         const response = await agent
           .get(url)
           .query({ page: 1, limit: mocks.length - 1 });
@@ -69,7 +69,7 @@ describe('Testing Article Routing', (): void => {
 
     // Missing all params
     describe('Failure: Missing all params', (): void => {
-      it('Return status 422', async (): Promise<void> => {
+      it('Returns status 422', async (): Promise<void> => {
         const response = await agent.get(url);
         expect(response.status).toBe(422);
       });
@@ -77,7 +77,7 @@ describe('Testing Article Routing', (): void => {
 
     // Missing page
     describe('Failure: Missing page', (): void => {
-      it('Return status 422', async (): Promise<void> => {
+      it('Returns status 422', async (): Promise<void> => {
         const response = await agent.get(url).query({ limit: 4 });
         expect(response.status).toBe(422);
       });
@@ -85,7 +85,7 @@ describe('Testing Article Routing', (): void => {
 
     // Missing limit
     describe('Failure: Missing limit', (): void => {
-      it('Return status 422', async (): Promise<void> => {
+      it('Returns status 422', async (): Promise<void> => {
         const response = await agent.get(url).query({ page: 1 });
         expect(response.status).toBe(422);
       });
@@ -93,7 +93,7 @@ describe('Testing Article Routing', (): void => {
 
     // Incorrect page type
     describe('Failure: Incorrect page type', (): void => {
-      it('Return status 422', async (): Promise<void> => {
+      it('Returns status 422', async (): Promise<void> => {
         const response = await agent.get(url).query({ page: 'a' });
         expect(response.status).toBe(422);
       });
@@ -101,7 +101,7 @@ describe('Testing Article Routing', (): void => {
 
     // Incorrect limit type
     describe('Failure: Incorrect limit type', (): void => {
-      it('Return status 422', async (): Promise<void> => {
+      it('Returns status 422', async (): Promise<void> => {
         const response = await agent.get(url).query({ limit: 'b' });
         expect(response.status).toBe(422);
       });
@@ -129,7 +129,9 @@ describe('Testing Article Routing', (): void => {
       });
 
       // Test
-      it('Return status 200 with a article object', async (): Promise<void> => {
+      it('Returns status 200 with an article object', async (): Promise<
+        void
+      > => {
         const response = await agent.get(`${url}/${mock._id}`);
         expect(response.status).toBe(200);
 
@@ -141,7 +143,7 @@ describe('Testing Article Routing', (): void => {
 
     // Incorrect id type
     describe('Failure: Incorrect id type', (): void => {
-      it('Return status 422', async (): Promise<void> => {
+      it('Returns status 422', async (): Promise<void> => {
         const response = await agent.get(`${url}/id`);
         expect(response.status).toBe(422);
       });
@@ -149,7 +151,7 @@ describe('Testing Article Routing', (): void => {
 
     // No result
     describe('Failure: No result', (): void => {
-      it('Return status 404', async (): Promise<void> => {
+      it('Returns status 404', async (): Promise<void> => {
         const id = mongoose.Types.ObjectId();
         const response = await agent.get(`${url}/${id}`);
         expect(response.status).toBe(404);

@@ -6,7 +6,7 @@ import mongoose, { Document, Schema, Types } from 'mongoose';
  * @extends Document
  */
 export interface Article extends Document {
-  _id: Types.ObjectId;
+  id: Types.ObjectId;
   title: string;
   content: string;
   image: string;

@@ -4,7 +4,7 @@ import ArticleModel from '../../models/article';
 import InternalServerException from '../../exceptions/InternalServerException';
 
 /**
- * Return articles created in last year
+ * Returns articles created in last year
  * @param _ Request
  * @param res Response
  * @param next NextFunction

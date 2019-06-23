@@ -195,7 +195,7 @@ export default class ArticlePage extends Vue {
   }
 
   /**
-   * Return rendered markdown HTML
+   * Returns rendered markdown HTML
    */
   get renderedMD(): string {
     const rendered = md.render(this.article.content);

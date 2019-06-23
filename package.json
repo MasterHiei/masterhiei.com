@@ -47,6 +47,7 @@
     "echarts": "^4.2.1",
     "envalid": "^5.0.0",
     "express-validator": "^6.0.1",
+    "fuse.js": "^3.4.5",
     "gitalk": "^1.5.0",
     "github-markdown-css": "^3.0.1",
     "highlight.js": "^9.15.8",

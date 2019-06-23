@@ -60,7 +60,7 @@ export default class TagsPage extends Vue {
   // Methods
 
   /**
-   * Return a random vuetify color
+   * Returns a random vuetify color
    */
   randomColor(): string {
     const platte = [
