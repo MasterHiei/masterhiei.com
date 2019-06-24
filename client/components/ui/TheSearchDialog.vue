@@ -1,7 +1,7 @@
 <template lang="pug">
   v-dialog(
     v-model="show"
-    max-width="80%"
+    max-width="85%"
     lazy
   )
     v-card#search-card
@@ -212,13 +212,15 @@ export default class TheSearchDialog extends Vue {
 <style scoped lang="stylus" rel="stylesheet/stylus">
 #search-card
   padding 24px 60px 48px 60px
+  +screen-width-less-than(sm)
+    padding  0 16px 12px 16px
   #search-form
     padding 0
     >>> .v-input__icon .v-icon
       font-size 18px
   #search-result
     padding 0
-    height 540px
+    height 500px
     overflow hidden
     #search-result-stats
       margin-bottom 12px
