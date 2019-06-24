@@ -168,8 +168,14 @@ export default class TheSearchDialog extends Vue {
     // Emphasize keywords
     const emphasized = this.emphasizedContent(slicedContent, this.keywords);
 
-    // Sanitize html string and return
-    return sanitizeHTML(emphasized) + '...';
+    // Sanitize html string
+    const sanitized = sanitizeHTML(emphasized, {
+      allowedTags: ['em'],
+      allowedAttributes: { em: ['class'] },
+    });
+
+    // Add suffix and return
+    return sanitized + '...';
   }
 
   /**
