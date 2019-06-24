@@ -8,13 +8,15 @@
       // Search form
       v-card-title#search-form
         v-text-field(
-          v-model="keywords"
+          id="search-input"
+          v-model.trim="keywords"
           :label="$t('search.title')"
           :loading="loading"
           prepend-inner-icon="fas fa-search"
           single-line
           color="accent"
           type="search"
+          autofocus
         )
 
       // Search result
@@ -54,17 +56,21 @@
                 )
                   | {{ tag }}
 
-              // TODO: Content
-              v-flex.list-item-content(wrap)
-                | {{ article.content.slice(0, 100) + '...' }}
+              // Content
+              v-flex.list-item-content(
+                v-html="strippedContent(article.content)"
+                wrap
+              )
 
               v-divider.mt-3.mr-1
 </template>
 
 <script lang="ts">
+import { setTimeout } from 'timers';
 import { Component, Vue, Watch } from 'nuxt-property-decorator';
 import { State } from 'vuex-class';
 import debounce from 'lodash/debounce';
+import markdownIt from 'markdown-it';
 
 @Component
 export default class TheSearchDialog extends Vue {
@@ -79,7 +85,7 @@ export default class TheSearchDialog extends Vue {
   // Hooks
   created() {
     // Set debouec function
-    this.debounceSearch = debounce(this.search, 1000);
+    this.debounceSearch = debounce(this.search, 500);
   }
 
   // Watch
@@ -87,7 +93,14 @@ export default class TheSearchDialog extends Vue {
   // Show dialog if state changed
   @Watch('showSearchDialog')
   onDialogStateChanged(): void {
+    // Show dialog
     this.show = true;
+
+    // Focus search input
+    const searchInput = document.getElementById('search-input');
+    if (searchInput) {
+      setTimeout(() => searchInput.focus(), 1000 / 60);
+    }
   }
 
   // Call search API if state changed
@@ -112,17 +125,61 @@ export default class TheSearchDialog extends Vue {
    */
   async search(): Promise<void> {
     // Return if blank
-    if (!this.keywords.trim()) {
+    if (!this.keywords) {
       return;
     }
 
     // Call search API
     this.loading = true;
+    this.searchResult = [];
     const { articles } = await this.$axios.$get('/search', {
-      params: { keywords: this.keywords.trim() },
+      params: { keywords: this.keywords },
     });
     this.searchResult = articles;
     this.loading = false;
+  }
+
+  /**
+   * Returns stripped article content
+   */
+  strippedContent(content: string): string {
+    // Parse markdown
+    const tokens = markdownIt().parse(content, {});
+
+    // Strip markdown
+    let strippedContent = '';
+    tokens.forEach((token): void => {
+      if (token.type === 'inline' && token.content !== '[[toc]]') {
+        strippedContent += `${token.content} `;
+      }
+    });
+
+    if (!this.keywords) {
+      return strippedContent.slice(0, 150) + '...';
+    }
+
+    // Emphasize keywords
+    return this.emphasizedContent(content, this.keywords);
+  }
+
+  /**
+   * Returns emphasized keyword
+   */
+  emphasizedContent(content: string, keyword: string): string {
+    const regex = new RegExp(keyword, 'ig');
+    const keyIndex = content.search(regex);
+    if (keyIndex > -1) {
+      // Slice 150 characters beginning at 20 characters before keyword
+      const preIndex = keyIndex > 20 ? keyIndex - 20 : 0;
+      const slicedContent = content.slice(preIndex, 150);
+
+      // Emphasize whole of keyword
+      const word = content.slice(keyIndex, keyIndex + keyword.length);
+      const emphasizedWord = `<em class="search-keyword">${word}</em>`;
+      return slicedContent.replace(regex, emphasizedWord) + '...';
+    }
+    // TODO: Emphasize multiple keywords
+    return content.slice(0, 150) + '...';
   }
 
   /**
@@ -158,8 +215,8 @@ export default class TheSearchDialog extends Vue {
         margin 8px 0
       .list-item
         &-title
-          display block
-          font-size 18px
+          display inline-block
+          font-size 20px
           font-weight 500
           margin-bottom 4px
           cursor pointer
@@ -181,4 +238,9 @@ export default class TheSearchDialog extends Vue {
               text-decoration underline
         &-content
           font-size 14px
+          >>> .search-keyword
+            padding 1px 4px
+            font-size 0.9em
+            color var(--v-accent-base)
+            background-color var(--v-secondary-lighten1)
 </style>
