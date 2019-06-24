@@ -136,8 +136,10 @@ export default class ListItem extends Vue {
       font-size 11px
       margin-bottom 26px
       a
-        margin-right 4px
+        margin-right 8px
         color var(--v-secondary-darken2)
+        &:last-child
+          margin-right 0
 
     // Title
     &-title

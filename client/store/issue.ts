@@ -114,7 +114,7 @@ export const actions: Actions<State, RootState> = {
         labels: label,
       },
     });
-    if (response != null) {
+    if (response != null && response.data.length > 0) {
       commit(types.FETCH, response.data);
     }
   },
@@ -128,7 +128,7 @@ export const actions: Actions<State, RootState> = {
         labels: `${label},${gitalkId}`,
       },
     });
-    if (response != null && Array.isArray(response.data)) {
+    if (response != null && response.data.length > 0) {
       commit(types.FETCH_ONE, response.data[0]);
     }
   },

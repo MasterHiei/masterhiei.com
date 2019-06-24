@@ -9,6 +9,7 @@ export default {
   search: {
     title: '検索',
     result: '検索結果：{number}件',
+    tags: 'タグ：',
   },
   season: {
     spring: '春',
