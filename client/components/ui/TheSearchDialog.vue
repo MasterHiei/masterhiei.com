@@ -99,8 +99,14 @@ export default class TheSearchDialog extends Vue {
 
     // Focus search input
     const searchInput = document.getElementById('search-input');
-    if (searchInput) {
-      setTimeout(() => searchInput.focus(), 1000 / 60);
+    if (searchInput instanceof HTMLInputElement) {
+      setTimeout(() => {
+        searchInput.focus();
+
+        // Move cursor after the last character
+        const textLength = searchInput.value.length;
+        searchInput.setSelectionRange(textLength, textLength);
+      }, 1000 / 60);
     }
   }
 
