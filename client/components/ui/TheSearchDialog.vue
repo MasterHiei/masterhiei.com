@@ -71,6 +71,7 @@ import { Component, Vue, Watch } from 'nuxt-property-decorator';
 import { State } from 'vuex-class';
 import debounce from 'lodash/debounce';
 import markdownIt from 'markdown-it';
+import sanitizeHTML from 'sanitize-html';
 
 @Component
 export default class TheSearchDialog extends Vue {
@@ -158,8 +159,17 @@ export default class TheSearchDialog extends Vue {
       return strippedContent.slice(0, 150) + '...';
     }
 
+    // Slice 150 characters beginning at 20 characters before keyword
+    const regex = new RegExp(this.keywords, 'ig');
+    const keyIndex = content.search(regex);
+    const preIndex = keyIndex > 20 ? keyIndex - 20 : 0;
+    const slicedContent = strippedContent.slice(preIndex, 150);
+
     // Emphasize keywords
-    return this.emphasizedContent(content, this.keywords);
+    const emphasized = this.emphasizedContent(slicedContent, this.keywords);
+
+    // Sanitize html string and return
+    return sanitizeHTML(emphasized) + '...';
   }
 
   /**
@@ -169,17 +179,24 @@ export default class TheSearchDialog extends Vue {
     const regex = new RegExp(keyword, 'ig');
     const keyIndex = content.search(regex);
     if (keyIndex > -1) {
-      // Slice 150 characters beginning at 20 characters before keyword
-      const preIndex = keyIndex > 20 ? keyIndex - 20 : 0;
-      const slicedContent = content.slice(preIndex, 150);
-
       // Emphasize whole of keyword
       const word = content.slice(keyIndex, keyIndex + keyword.length);
       const emphasizedWord = `<em class="search-keyword">${word}</em>`;
-      return slicedContent.replace(regex, emphasizedWord) + '...';
+      return content.replace(regex, emphasizedWord);
     }
-    // TODO: Emphasize multiple keywords
-    return content.slice(0, 150) + '...';
+
+    // Emphasize multiple keywords
+    const keywords = keyword.split(' ');
+    if (keywords.length > 1) {
+      let emphasizedContent = content;
+      for (const keyword of keywords) {
+        emphasizedContent = this.emphasizedContent(emphasizedContent, keyword);
+      }
+      return emphasizedContent;
+    }
+
+    // Returns 150 characters from the beginning
+    return content.slice(0, 150);
   }
 
   /**
@@ -201,16 +218,16 @@ export default class TheSearchDialog extends Vue {
       font-size 18px
   #search-result
     padding 0
-    height 480px
+    height 540px
     overflow hidden
     #search-result-stats
-      margin-bottom 4px
+      margin-bottom 12px
       font-size 12px
       font-weight 500
       color var(--v-secondary-darken3)
     #search-result-list
       padding 0
-      max-height 480px
+      max-height 100%
       .list-container .list-item
         margin 8px 0
       .list-item
@@ -232,15 +249,17 @@ export default class TheSearchDialog extends Vue {
           .tags
             margin-right 8px
             color var(--v-secondary-darken3)
+            text-decoration underline
             &:last-child
               margin-right 0
             &:hover
-              text-decoration underline
+              color var(--v-accent-base)
         &-content
           font-size 14px
           >>> .search-keyword
-            padding 1px 4px
+            padding 1px 4px 1px 2px
             font-size 0.9em
+            font-weight 500
             color var(--v-accent-base)
             background-color var(--v-secondary-lighten1)
 </style>
