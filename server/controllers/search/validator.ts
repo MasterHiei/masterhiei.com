@@ -4,7 +4,7 @@ import { query } from 'express-validator';
  * Validation for /search
  */
 const index = [
-  // Validate page and limit
+  // Validate keywords
   query('keywords')
     .trim()
     .not()

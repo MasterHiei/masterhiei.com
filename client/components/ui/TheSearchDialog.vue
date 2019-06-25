@@ -23,7 +23,7 @@
       v-card-text#search-result
         // Search result stats
         v-flex#search-result-stats(wrap)
-          | {{ $t('search.result', { number: searchNumber }) }}
+          | {{ $t('search.result', { number: resultNumber }) }}
 
         // Search result list
         v-container#search-result-list.scroll-y
@@ -78,7 +78,8 @@ export default class TheSearchDialog extends Vue {
   // Data
   @State showSearchDialog;
   show = false;
-  keywords = '';
+  oldKeywords = '';
+  keywordsProxy = '';
   debounceSearch = (): void => {};
   loading = false;
   searchResult = [];
@@ -110,18 +111,31 @@ export default class TheSearchDialog extends Vue {
     }
   }
 
-  // Call search API if state changed
-  @Watch('keywords')
-  onKeywordsChanged(): void {
-    this.debounceSearch();
+  // Computed
+
+  /**
+   * Returns keywords with trimming
+   */
+  get keywords(): string {
+    const regex = new RegExp(' {2,}', 'g');
+    if (regex.test(this.keywordsProxy)) {
+      return this.keywordsProxy.replace(regex, ' ');
+    }
+    return this.keywordsProxy;
   }
 
-  // Computed
+  /**
+   * Call when keywords changed
+   */
+  set keywords(keywords: string) {
+    this.keywordsProxy = keywords;
+    this.debounceSearch();
+  }
 
   /**
    * Count number of search result
    */
-  get searchNumber(): number {
+  get resultNumber(): number {
     return this.searchResult ? this.searchResult.length : 0;
   }
 
@@ -131,18 +145,24 @@ export default class TheSearchDialog extends Vue {
    * Search articles by keywords
    */
   async search(): Promise<void> {
-    // Return if blank
-    if (!this.keywords) {
+    // Return if blank or no change
+    const keywords = this.keywords;
+    if (!keywords || keywords === this.oldKeywords) {
       return;
     }
 
-    // Call search API
+    // Start loading and clear result list
     this.loading = true;
     this.searchResult = [];
+
+    // Call search API
     const { articles } = await this.$axios.$get('/search', {
-      params: { keywords: this.keywords },
+      params: { keywords },
     });
+
+    // Stop loading and save data
     this.searchResult = articles;
+    this.oldKeywords = keywords;
     this.loading = false;
   }
 
@@ -171,7 +191,7 @@ export default class TheSearchDialog extends Vue {
     const preIndex = keyIndex > 20 ? keyIndex - 20 : 0;
     const slicedContent = strippedContent.slice(preIndex, 150);
 
-    // Emphasize keywords
+    // TODO: Emphasize keywords
     const emphasized = this.emphasizedContent(slicedContent, this.keywords);
 
     // Sanitize html string
