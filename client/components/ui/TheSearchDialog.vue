@@ -58,7 +58,7 @@
 
               // Content
               v-flex.list-item-content(
-                v-html="strippedContent(article.content)"
+                v-html="strip(article.content)"
                 wrap
               )
 
@@ -169,66 +169,49 @@ export default class TheSearchDialog extends Vue {
   /**
    * Returns stripped article content
    */
-  strippedContent(content: string): string {
+  strip(content: string): string {
     // Parse markdown
     const tokens = markdownIt().parse(content, {});
 
     // Strip markdown
-    let strippedContent = '';
+    let stripped = '';
     tokens.forEach((token): void => {
       if (token.type === 'inline' && token.content !== '[[toc]]') {
-        strippedContent += `${token.content} `;
+        stripped += `${token.content} `;
       }
     });
 
+    // Returns scliced content if keywords is empty
     if (!this.keywords) {
-      return strippedContent.slice(0, 150) + '...';
+      return stripped.slice(0, 150) + '...';
     }
 
-    // Slice 150 characters beginning at 20 characters before keyword
-    const regex = new RegExp(this.keywords, 'ig');
-    const keyIndex = content.search(regex);
-    const preIndex = keyIndex > 20 ? keyIndex - 20 : 0;
-    const slicedContent = strippedContent.slice(preIndex, 150);
+    // Emphasize keywords
+    const keywords = [this.keywords].concat(this.keywords.split(' '));
+    const pattern = keywords.join('|');
+    const regex = new RegExp(`(${pattern})`, 'ig');
+    const keyIndex = stripped.search(regex);
+    if (keyIndex > -1) {
+      // Slice and sanitize text
+      const sliceIndex = keyIndex > 20 ? keyIndex - 20 : 0;
+      const sliced = content.slice(sliceIndex, 150);
+      const replcace = '<em class="search-keyword">$&</em>';
+      const emphasized = sliced.replace(regex, replcace);
+      return this.sanitize(emphasized) + '...';
+    }
 
-    // TODO: Emphasize keywords
-    const emphasized = this.emphasizedContent(slicedContent, this.keywords);
-
-    // Sanitize html string
-    const sanitized = sanitizeHTML(emphasized, {
+    // Returns scliced content if no keyword matched
+    return stripped.slice(0, 150) + '...';
+  }
+  /**
+   * Sanitize content
+   */
+  sanitize(content: string): string {
+    const sanitized = sanitizeHTML(content, {
       allowedTags: ['em'],
       allowedAttributes: { em: ['class'] },
     });
-
-    // Add suffix and return
-    return sanitized + '...';
-  }
-
-  /**
-   * Returns emphasized keyword
-   */
-  emphasizedContent(content: string, keyword: string): string {
-    const regex = new RegExp(keyword, 'ig');
-    const keyIndex = content.search(regex);
-    if (keyIndex > -1) {
-      // Emphasize whole of keyword
-      const word = content.slice(keyIndex, keyIndex + keyword.length);
-      const emphasizedWord = `<em class="search-keyword">${word}</em>`;
-      return content.replace(regex, emphasizedWord);
-    }
-
-    // Emphasize multiple keywords
-    const keywords = keyword.split(' ');
-    if (keywords.length > 1) {
-      let emphasizedContent = content;
-      for (const keyword of keywords) {
-        emphasizedContent = this.emphasizedContent(emphasizedContent, keyword);
-      }
-      return emphasizedContent;
-    }
-
-    // Returns 150 characters from the beginning
-    return content.slice(0, 150);
+    return sanitized;
   }
 
   /**
