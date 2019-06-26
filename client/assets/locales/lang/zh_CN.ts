@@ -8,7 +8,8 @@ export default {
   },
   search: {
     title: '搜索',
-    result: '当前共搜索到 {number} 篇文章',
+    result: '已搜索到 {number} 篇相关文章',
+    tags: '标签：',
   },
   season: {
     spring: '春',

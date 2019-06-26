@@ -1,48 +1,29 @@
 <template lang="pug">
   header.header
-    // Mobile nav drawer
-    the-nav-drawer(
-      v-if="$device.isMobile"
-      :pages="pages"
-      :locales="locales"
-    )
-
-    // Nav
     v-flex(class="header-present" pa-0 wrap)
-      v-toolbar(
-        :class="didScroll ? 'nav-sticky' : 'nav-transparent'"
-        class="header-nav"
-        :flat="!didScroll"
-        height="60"
-        app
+      // Mobile nav drawer
+      the-nav-drawer(
+        v-if="$device.isMobile"
+        :pages="pages"
+        :locales="locales"
       )
 
-        // Mobile navbar
-        the-navbar-mobile(
-          v-if="$device.isMobile"
-          :didScroll="didScroll"
-          :pages="pages"
-          :locales="locales"
-        )
+      // Mobile navbar
+      the-navbar-mobile(
+        v-if="$device.isMobile"
+        :pages="pages"
+        :locales="locales"
+        :class="didScroll ? 'nav-sticky' : 'nav-transparent'"
+      )
 
-        v-spacer
-
-        // Logo
-        v-toolbar-title.header-logo
-          n-link(:to="localePath('index')" extra)
-            img(src="/logo.png" alt="logo")
-
-        v-spacer
-
-        // Desktop navbar
-        the-navbar-desktop(
-          v-if="$device.isDesktopOrTablet"
-          :didScroll="didScroll"
-          :pages="pages"
-          :locales="locales"
-        )
-
-        v-spacer
+      // Desktop navbar
+      the-navbar-desktop(
+        v-else
+        :didScroll="didScroll"
+        :pages="pages"
+        :locales="locales"
+        :class="didScroll ? 'nav-sticky' : 'nav-transparent'"
+      )
 
     // Background
     div.header-background
@@ -149,13 +130,19 @@ $mb = 120px
   // Container
   &-present
     height 60px
+    >>> .v-icon
+     transition color .3s cubic-bezier(0.25, 0.8, 0.5, 1) !important
     // Animation
     .nav-transparent
       position relative !important
       padding 15px 0
       background-color transparent
+      >>> .v-icon
+        color var(--v-secondary-base)
     .nav-sticky
       background-color white
+      >>> .v-icon
+        color var(--v-primary-base)
 
     // Nav
     .header-nav
