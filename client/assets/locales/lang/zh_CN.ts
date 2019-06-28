@@ -55,6 +55,10 @@ export default {
     position: 'iOS & （伪）全栈程序员',
     experience: '经历',
     skill: '技术栈',
+    desc2017:
+      '主要负责各类企业级后台管理系统的开发工作，同时也涉及了少量黑盒测试以及相关测试用例的编写。相关技术：HTML&CSS、JavaScript、Struts2、Spring framework、Oracle、PostgreSQL等。',
+    desc2018:
+      '转型负责iOS原生应用开发，并逐步开始参与项目的架构设计。主要项目类型：会员积分管理App、银行自助开户App。相关技术：RxSwift、PromiseKit、Alamofire、RealmSwift、Firebase、Google Tag Manager等。',
   },
   error: {
     backToHome: '返回首页',

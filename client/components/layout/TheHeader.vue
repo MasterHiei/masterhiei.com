@@ -11,6 +11,7 @@
       // Mobile navbar
       the-navbar-mobile(
         v-if="$device.isMobile"
+        :didScroll="didScroll"
         :pages="pages"
         :locales="locales"
         :class="didScroll ? 'nav-sticky' : 'nav-transparent'"

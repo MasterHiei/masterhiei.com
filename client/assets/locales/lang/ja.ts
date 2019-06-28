@@ -55,6 +55,10 @@ export default {
     position: 'iOS & フルスタック（仮）エンジニア',
     experience: '経歴',
     skill: '技術スタック',
+    desc2017:
+      '企業向け業務管理システムの開発を担当し、小さな挫折を繰り返しながら成長してきた。使用した技術：HTML&CSS、JavaScript、Struts2、Spring framework、Oracle、PostgreSQL等。',
+    desc2018:
+      'グループの移動のため、Swift/Objective-Cを用いたネイティブアプリの開発に転生した。開発実績：店舗向け販促アプリ、銀行向け口座開設アプリ。使用した技術：RxSwift、PromiseKit、Alamofire、RealmSwift、Firebase、Google Tag Manager等。',
   },
   error: {
     backToHome: 'ホーム画面に戻る',

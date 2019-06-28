@@ -3,7 +3,7 @@
     v-layout(justify-center wrap)
         // My card
         v-flex(md8 xs11 wrap)
-          v-card(class="pb-5")
+          v-card.my-card.pb-5
             // My Avatar
             v-flex(class="text-xs-center" pb-4 wrap)
               img(
@@ -12,70 +12,74 @@
               )
 
             // My Info
-            v-layout(class="text-xs-center" justify-center wrap)
+            v-layout.my-info(wrap)
               v-flex(md10 xs11 wrap)
                 // Profile
                 v-flex(tag="section")
                   v-flex(class="title font-weight-bold" wrap)
                     | {{ $t('profile.name') }}
 
-                  v-flex(class="subheading" mt-2 wrap)
+                  v-flex(class="subheading" mt-3 wrap)
                     | {{ $t('profile.position') }}
 
-                // TODO: Need mobile version
                 // Experiences
-                v-flex(tag="section" class="section-padding")
+                v-flex.info-exp(tag="section")
                   // Title
-                  v-flex(tag="span" class="headline font-weight-bold d-block" mb-4)
-                    v-icon(class="mb-1" left)
+                  v-flex.section-title(wrap)
+                    v-icon
                       | fas fa-briefcase
                     | {{ $t('profile.experience') }}
 
                   // Contents
-                  v-timeline
+                  v-timeline.my-3(:dense="$device.isMobile")
                     v-timeline-item(
-                      v-for="(experience, index) in experiences"
+                      v-for="(exp, index) in experiences"
                       :key="index"
                       color="accent"
                       small
                     )
-                      v-card(class="experience-card" tile :data-aos="experience.aos")
+                      v-card.exp-card(
+                        :data-aos="$device.isMobile ? 'fade-up' : exp.aos"
+                      )
                         v-card-title
                           v-flex(tag="span" class="body-2 accent-text")
-                            | {{ experience.date }}
+                            | {{ exp.date }}
 
                         v-card-text(class="py-0")
                           v-flex(tag="span" class="title d-block")
                             v-icon(class="mr-2 mb-2" color="primary lighten-1")
-                              | {{ experience.icon }}
-                            | {{ experience.title }}
+                              | {{ exp.icon }}
+                            | {{ exp.title }}
 
                           v-flex(tag="span" class="caption secondary-text d-block")
-                            | {{ experience.position }}
+                            | {{ exp.position }}
 
                         v-card-text(class="text-xs-left px-4")
-                          p
-                            | {{ experience.desc }}
+                          | {{ exp.desc }}
 
                 // Skills
-                v-flex(tag="section" class="section-padding" data-aos="zoom-in")
+                v-flex(
+                  tag="section"
+                  class="info-skill"
+                  data-aos="zoom-in"
+                )
                   // Title
-                  v-flex(tag="span" class="headline font-weight-bold d-block" mb-2)
-                    v-icon(class="mb-1" left)
+                  v-flex.section-title(wrap)
+                    v-icon
                       | fas fa-wrench
                     | {{ $t('profile.skill') }}
 
-                  // Contents
-                  v-layout(wrap)
+                  // Content
+                  v-layout.skill-list(wrap)
                     v-flex(
                       v-for="(skill, index) in skills"
                       :key="index"
+                      class="skill"
                       md6
-                      my-2
-                      px-2
-                    wrap
+                      xs12
+                      wrap
                     )
-                      span {{ skill.name }}
+                      | {{ skill.name }}
 
                       v-progress-linear(
                         :value="skill.percentage"
@@ -100,10 +104,10 @@ export default class AboutPage extends Vue {
    */
   get skills() {
     return [
-      { name: 'Swift', percentage: '72' },
-      { name: 'Java', percentage: '60' },
-      { name: 'JavaScript', percentage: '65' },
-      { name: 'HTML & CSS', percentage: '59' },
+      { name: 'Swift', percentage: '76' },
+      { name: 'Java', percentage: '55' },
+      { name: 'HTML & CSS', percentage: '60' },
+      { name: 'JavaScript', percentage: '72' },
       { name: 'SQL', percentage: '61' },
       { name: 'Coding Style', percentage: '80' },
     ];
@@ -120,8 +124,7 @@ export default class AboutPage extends Vue {
         icon: 'fab fa-apple',
         title: 'iOS',
         position: 'Developer',
-        desc:
-          'Had the opportunity to develop iOS Apps with Swift, and built something like Membership App and Bank Account Opening App. Technology consists of RxSwift, Realm Database, Jenkins, fastlane.',
+        desc: this.$i18n.t('profile.desc2018'),
       },
       {
         aos: 'fade-left',
@@ -129,8 +132,7 @@ export default class AboutPage extends Vue {
         icon: 'fab fa-java',
         title: 'Java',
         position: 'Developer',
-        desc:
-          'The beginning of my career. Built or enhanced enterprise management system with Java. Technology consists of HTML & CSS, jQuery, Spring Framework, Apache Struts, and RDBMS like PostgreSQL, Oracle Database.',
+        desc: this.$i18n.t('profile.desc2017'),
       },
     ];
   }
@@ -138,15 +140,27 @@ export default class AboutPage extends Vue {
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-#my-avatar
-  border-radius 50%
-  margin-top -75px
-  width 150px
-  height 150px
+.my-card
+  #my-avatar
+    border-radius 50%
+    margin-top -75px
+    width 150px
+    height 150px
+  .info-exp, .info-skill
+    margin-top 30px
+    .section-title
+      font-size 24px
+      font-weight 700
+      padding-bottom 16px
+      .v-icon
+        color var(--v-primary-base)
+        margin 0 8px 4px 0
 
-.section-padding
-  padding-top 60px
-
-.experience-card
-  border-top 4px solid var(--v-accent-base)
+  .my-info
+    text-align center
+    justify-content center
+    .info-exp .exp-card
+      border-top 4px solid var(--v-accent-base)
+    .info-skill .skill-list .skill
+      padding 4px
 </style>
