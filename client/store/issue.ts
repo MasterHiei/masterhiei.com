@@ -1,6 +1,6 @@
 import { ActionTree, MutationTree, GetterTree, ActionContext } from 'vuex';
-import axios from '@/api/axios/github';
 import { RootState } from 'store';
+import axios from '@/api/axios/github';
 import { Issue, Label } from '@/models/issue';
 import { generateId } from '@/utils/gitalk';
 

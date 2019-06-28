@@ -23,8 +23,8 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
-import { Article } from '@/models/article';
 import { StateChanger } from 'vue-infinite-loading';
+import { Article } from '@/models/article';
 
 @Component({
   components: {
