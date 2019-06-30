@@ -115,6 +115,7 @@
 
 <script lang="ts">
 import { Component, Vue, namespace } from 'nuxt-property-decorator';
+import axios from 'axios';
 import throttle from 'lodash/throttle';
 import md from '@/utils/markdownIt';
 import * as issue from '@/store/issue';
@@ -219,9 +220,47 @@ export default class ArticlePage extends Vue {
   /**
    * Toggle star
    */
-  toggleStar(): void {
+  async toggleStar(): Promise<void> {
+    // Check Gitalk login status
+    const valid = await this.validateToken();
+    if (!valid) {
+      // TODO: Show unauthorized alert
+      console.log('Your are not logged in!');
+      return;
+    }
+
     // TODO: Call star API
     console.log('It is not working now!');
+  }
+
+  /**
+   * Validate GitHub access token is stored in local storage
+   */
+  async validateToken(): Promise<boolean> {
+    // Get token from localStorage
+    const localToken = window.localStorage.getItem('GT_ACCESS_TOKEN');
+
+    // Returns false if token is empty
+    if (!localToken) {
+      return false;
+    }
+
+    try {
+      // Validate token with GitHub API
+      const clientId = process.env.GITHUB_CLIENT_ID || '';
+      const clientSecret = process.env.GITHUB_CLIENT_SECRET || '';
+      const { status } = await axios.get(
+        `https://api.github.com/applications/${clientId}/tokens/${localToken}`,
+        {
+          timeout: 60 * 1000,
+          auth: { username: clientId, password: clientSecret },
+        }
+      );
+      return status >= 200 && status < 300;
+    } catch {
+      // Returns false if error occurred
+      return false;
+    }
   }
 
   // SEO
