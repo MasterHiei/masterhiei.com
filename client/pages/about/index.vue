@@ -136,6 +136,13 @@ export default class AboutPage extends Vue {
       },
     ];
   }
+
+  // SEO
+  head() {
+    return {
+      title: this.$i18n.t('title.about'),
+    };
+  }
 }
 </script>
 

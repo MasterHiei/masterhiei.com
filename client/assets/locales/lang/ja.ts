@@ -1,4 +1,11 @@
 export default {
+  title: {
+    index: 'ホーム',
+    tags: 'タグ一覧',
+    tag: 'タグ: {name}',
+    archives: 'アーカイブ',
+    about: 'サイト関連',
+  },
   menu: {
     locale: '日本語',
     index: 'ホーム',

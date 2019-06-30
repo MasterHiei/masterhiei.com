@@ -92,6 +92,20 @@ export default class TagsPage extends Vue {
       this.localePath({ name: 'tags-tag', params: { tag: tag } })
     );
   }
+
+  // SEO
+  head() {
+    return {
+      title: this.$i18n.t('title.tags'),
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.tags.join(', '),
+        },
+      ],
+    };
+  }
 }
 </script>
 

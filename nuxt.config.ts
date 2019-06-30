@@ -1,6 +1,5 @@
 import NuxtConfiguration from '@nuxt/config';
 import VuetifyLoaderPlugin from 'vuetify-loader/lib/plugin';
-import pkg from './package.json';
 import env from './server/utils/envalid';
 import dateTimeFormats from './client/assets/locales/dateTimeFormats';
 
@@ -19,11 +18,16 @@ const config: NuxtConfiguration = {
    ** Headers of the page
    */
   head: {
-    title: `Master Hiei's Blog`,
+    title: 'masterhiei.com',
+    titleTemplate: '%s - masterhiei.com',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: pkg.description },
+      {
+        hid: 'description',
+        name: 'description',
+        content: 'Powered by Nuxt.js, Express and TypeScript.',
+      },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },

@@ -144,6 +144,13 @@ export default class IndexPage extends Vue {
       poem: '《江雪》- 孤舟蓑笠翁，独釣寒江雪。',
     };
   }
+
+  // SEO
+  head() {
+    return {
+      title: this.$i18n.t('title.index'),
+    };
+  }
 }
 </script>
 

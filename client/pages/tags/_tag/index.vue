@@ -63,6 +63,13 @@ export default class TagPage extends Vue {
       $state.complete();
     }
   }
+
+  // SEO
+  head() {
+    return {
+      title: this.$i18n.t('title.tag', { name: this.$route.params.tag }),
+    };
+  }
 }
 </script>
 

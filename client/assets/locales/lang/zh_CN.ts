@@ -1,4 +1,11 @@
 export default {
+  title: {
+    index: '首页',
+    tags: '文章标签',
+    tag: '标签: {name}',
+    archives: '文章归档',
+    about: '关于',
+  },
   menu: {
     locale: '简体中文',
     index: '首页',
