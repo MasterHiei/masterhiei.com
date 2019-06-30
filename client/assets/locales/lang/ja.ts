@@ -31,6 +31,7 @@ export default {
     comments: 'コメント {number}',
     stars: 'いいね {number}',
     toc: '目次',
+    promotion: 'いいね',
   },
   tag: {
     title: 'タグ一覧',

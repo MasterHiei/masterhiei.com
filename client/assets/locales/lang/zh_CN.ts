@@ -31,6 +31,7 @@ export default {
     comments: '回复 {number}',
     stars: '点赞 {number}',
     toc: '目录',
+    promotion: '点个赞',
   },
   tag: {
     title: '文章标签',

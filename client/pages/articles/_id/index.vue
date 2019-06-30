@@ -1,5 +1,6 @@
 <template lang="pug">
   v-layout(justify-center wrap)
+    // Main content
     v-flex(class="post" md5 wrap)
       // Article
       v-card(ref="article" tag="article")
@@ -37,7 +38,7 @@
                 | {{ $t('article.views', { number: article.views }) }}
 
               // Comments
-              a(class="detail-item" v-scroll-to="{ el: '#comments' }")
+              a(class="detail-item" href="#comments")
                 v-icon(small)
                   | far fa-comments
                 | {{ $t('article.comments', { number: commentCount }) }}
@@ -55,26 +56,26 @@
             wrap
           )
 
-          // TODO: Footer
-          v-flex(tag="footer" pa-2 style="display: none;")
-            // Star
-            v-flex(wrap)
-              v-tooltip(top)
-                template(#activator="{ on }")
-                  v-btn(v-on="on" icon)
-                    v-icon(color="accent" small)
-                      | fas fa-heart
-                span star
-
-            // Social
+          // Sidebar-left
+          v-flex.sidebar-left(wrap)
+            v-tooltip(top)
+              template(#activator="{ on }")
+                v-badge(color="transparent")
+                  button.sidebar-left-button(v-on="on" @click="toggleStar")
+                    v-icon(color="accent" size="24")
+                      | far fa-heart
+                  template(#badge)
+                    span.accent-text {{ article.stars }}
+              span.body-2
+                | {{ $t('article.promotion') }}
 
       // Gitalk
       the-gitalk(:articleId="article.id")
 
-    // Sidebar
+    // Sidebar-right
     v-flex(
       v-if="$device.isDesktopOrTablet"
-      class="sidebar"
+      class="sidebar-right"
       md2
       wrap
     )
@@ -92,7 +93,7 @@
         v-flex.my-profile-position(wrap)
           | {{ $t('profile.position') }}
 
-      v-divider.sidebar-divider(ref="divider")
+      v-divider.sidebar-right-divider(ref="divider")
 
       // TOC
       v-flex(
@@ -211,8 +212,16 @@ export default class ArticlePage extends Vue {
     if (this.$refs.divider instanceof Vue) {
       const divider = this.$refs.divider as Vue;
       const dividerBottom = divider.$el.getBoundingClientRect().bottom;
-      this.isSticky = dividerBottom <= 64;
+      this.isSticky = dividerBottom <= 80;
     }
+  }
+
+  /**
+   * Toggle star
+   */
+  toggleStar(): void {
+    // TODO: Call star API
+    console.log('It is not working now!');
   }
 
   // SEO
@@ -232,8 +241,34 @@ export default class ArticlePage extends Vue {
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-// Sidebar
-.sidebar
+// Left sidebar
+.sidebar-left
+  position fixed
+  top 300px
+  left 16%
+  width 40px
+  text-align center
+  >>> .v-badge__badge
+    top -8px
+    right -16px
+  &-button
+    height 40px
+    width 40px
+    border-radius 50%
+    transition background-color .3s
+    &:hover
+      background-color var(--v-secondary-darken1)
+    &:focus
+      outline none
+  +screen-width-less-than(sm)
+    position static
+    width 100%
+    margin-top 30px
+    &-button:hover
+      background-color var(--v-secondary-base)
+
+// Right sidebar
+.sidebar-right
   max-width 300px
   padding 16px 24px
   &-divider
@@ -258,7 +293,7 @@ export default class ArticlePage extends Vue {
   // Sticky style
   .sticky
     position fixed
-    top 64px
+    top 80px
     background-color transparent
     box-shadow none
 
