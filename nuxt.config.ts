@@ -143,7 +143,11 @@ const config: NuxtConfiguration = {
 
       // GitHub API
       {
-        urlPattern: 'https://api.github.com/.*',
+        urlPattern: 'https://api.github.com/applications/.*',
+        handler: 'networkOnly',
+      },
+      {
+        urlPattern: 'https://api.github.com/repos/.*',
         handler: 'staleWhileRevalidate',
         strategyOptions: {
           cacheName: 'github-api-cache',

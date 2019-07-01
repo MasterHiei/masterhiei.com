@@ -49,33 +49,36 @@
                   | far fa-heart
                 | {{ $t('article.stars', { number: article.stars }) }}
 
-          // Text
+          // Body
           v-flex.markdown-body(
             v-html="renderedMD"
             class="post-text"
             wrap
           )
 
-          // Sidebar-left
-          v-flex.sidebar-left(wrap)
+          // Footer
+          v-flex.post-footer(tag="footer" wrap)
             v-tooltip(top)
               template(#activator="{ on }")
-                v-badge(color="transparent")
-                  button.sidebar-left-button(v-on="on" @click="toggleStar")
-                    v-icon(color="accent" size="24")
-                      | far fa-heart
-                  template(#badge)
-                    span.accent-text {{ article.stars }}
+                v-btn(
+                  v-on="on"
+                  depressed
+                  @click="toggleStar"
+                )
+                  v-icon(color="accent" size="24")
+                    | far fa-heart
+                  span
+                    | {{ article.stars }}
               span.body-2
                 | {{ $t('article.promotion') }}
 
       // Gitalk
       the-gitalk(:articleId="article.id")
 
-    // Sidebar-right
+    // Sidebar
     v-flex(
       v-if="$device.isDesktopOrTablet"
-      class="sidebar-right"
+      class="sidebar"
       md2
       wrap
     )
@@ -93,7 +96,7 @@
         v-flex.my-profile-position(wrap)
           | {{ $t('profile.position') }}
 
-      v-divider.sidebar-right-divider(ref="divider")
+      v-divider.sidebar-divider(ref="divider")
 
       // TOC
       v-flex(
@@ -281,33 +284,20 @@ export default class ArticlePage extends Vue {
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
 // Left sidebar
-.sidebar-left
-  position fixed
-  top 300px
-  left 16%
-  width 40px
+.post-footer
+  width 100%
+  margin-top 40px
   text-align center
   >>> .v-badge__badge
-    top -8px
-    right -16px
-  &-button
-    height 40px
-    width 40px
-    border-radius 50%
-    transition background-color .3s
-    &:hover
-      background-color var(--v-secondary-darken1)
-    &:focus
-      outline none
-  +screen-width-less-than(sm)
-    position static
-    width 100%
-    margin-top 30px
-    &-button:hover
-      background-color var(--v-secondary-base)
+    top 8px
+    right -20px
+  >>> .v-btn__content span
+    display inline-block
+    margin-left 6px
+    color var(--v-accent-base)
 
 // Right sidebar
-.sidebar-right
+.sidebar
   max-width 300px
   padding 16px 24px
   &-divider
