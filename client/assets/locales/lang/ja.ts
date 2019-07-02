@@ -25,13 +25,10 @@ export default {
     winter: '冬',
   },
   article: {
-    recommend: 'おすすめ記事',
     list: '新着記事',
     views: '閲覧数 {number}',
     comments: 'コメント {number}',
-    stars: 'いいね {number}',
     toc: '目次',
-    promotion: 'いいね',
   },
   tag: {
     title: 'タグ一覧',

@@ -43,34 +43,12 @@
                   | far fa-comments
                 | {{ $t('article.comments', { number: commentCount }) }}
 
-              // Stars
-              span.detail-item
-                v-icon(small)
-                  | far fa-heart
-                | {{ $t('article.stars', { number: article.stars }) }}
-
           // Body
           v-flex.markdown-body(
             v-html="renderedMD"
             class="post-text"
             wrap
           )
-
-          // Footer
-          v-flex.post-footer(tag="footer" wrap)
-            v-tooltip(top)
-              template(#activator="{ on }")
-                v-btn(
-                  v-on="on"
-                  depressed
-                  @click="toggleStar"
-                )
-                  v-icon(color="accent" size="24")
-                    | far fa-heart
-                  span
-                    | {{ article.stars }}
-              span.body-2
-                | {{ $t('article.promotion') }}
 
       // Gitalk
       the-gitalk(:articleId="article.id")
@@ -118,7 +96,6 @@
 
 <script lang="ts">
 import { Component, Vue, namespace } from 'nuxt-property-decorator';
-import axios from 'axios';
 import throttle from 'lodash/throttle';
 import md from '@/utils/markdownIt';
 import * as issue from '@/store/issue';
@@ -220,52 +197,6 @@ export default class ArticlePage extends Vue {
     }
   }
 
-  /**
-   * Toggle star
-   */
-  async toggleStar(): Promise<void> {
-    // Check Gitalk login status
-    const valid = await this.validateToken();
-    if (!valid) {
-      // TODO: Show unauthorized alert
-      console.log('Your are not logged in!');
-      return;
-    }
-
-    // TODO: Call star API
-    console.log('It is not working now!');
-  }
-
-  /**
-   * Validate GitHub access token is stored in local storage
-   */
-  async validateToken(): Promise<boolean> {
-    // Get token from localStorage
-    const localToken = window.localStorage.getItem('GT_ACCESS_TOKEN');
-
-    // Returns false if token is empty
-    if (!localToken) {
-      return false;
-    }
-
-    try {
-      // Validate token with GitHub API
-      const clientId = process.env.GITHUB_CLIENT_ID || '';
-      const clientSecret = process.env.GITHUB_CLIENT_SECRET || '';
-      const { status } = await axios.get(
-        `https://api.github.com/applications/${clientId}/tokens/${localToken}`,
-        {
-          timeout: 60 * 1000,
-          auth: { username: clientId, password: clientSecret },
-        }
-      );
-      return status >= 200 && status < 300;
-    } catch {
-      // Returns false if error occurred
-      return false;
-    }
-  }
-
   // SEO
   head() {
     return {
@@ -283,20 +214,7 @@ export default class ArticlePage extends Vue {
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-// Left sidebar
-.post-footer
-  width 100%
-  margin-top 40px
-  text-align center
-  >>> .v-badge__badge
-    top 8px
-    right -20px
-  >>> .v-btn__content span
-    display inline-block
-    margin-left 6px
-    color var(--v-accent-base)
-
-// Right sidebar
+// Sidebar
 .sidebar
   max-width 300px
   padding 16px 24px

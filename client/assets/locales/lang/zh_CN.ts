@@ -25,13 +25,10 @@ export default {
     winter: '冬',
   },
   article: {
-    recommend: '推荐文章',
     list: '最新文章',
     views: '阅读 {number}',
     comments: '回复 {number}',
-    stars: '点赞 {number}',
     toc: '目录',
-    promotion: '点个赞',
   },
   tag: {
     title: '文章标签',
