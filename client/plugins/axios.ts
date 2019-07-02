@@ -1,7 +1,7 @@
-import axios from '@/api/axios/github';
 import { Context, ErrorParams } from '@nuxt/vue-app';
 import { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 import * as NuxtAxios from '@nuxtjs/axios/node_modules/axios';
+import axios from '@/api/axios/github';
 
 /**
  * Hanlding axios exception

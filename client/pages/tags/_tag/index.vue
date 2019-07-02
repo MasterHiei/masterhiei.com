@@ -23,8 +23,8 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
-import { Article } from '@/models/article';
 import { StateChanger } from 'vue-infinite-loading';
+import { Article } from '@/models/article';
 
 @Component({
   components: {
@@ -62,6 +62,13 @@ export default class TagPage extends Vue {
     } else {
       $state.complete();
     }
+  }
+
+  // SEO
+  head() {
+    return {
+      title: this.$i18n.t('title.tag', { name: this.$route.params.tag }),
+    };
   }
 }
 </script>

@@ -102,6 +102,13 @@ export default class ArchivesPage extends Vue {
     });
     return monthlyArticles;
   }
+
+  // SEO
+  head() {
+    return {
+      title: this.$i18n.t('title.archives'),
+    };
+  }
 }
 </script>
 

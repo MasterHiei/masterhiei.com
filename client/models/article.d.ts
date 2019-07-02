@@ -10,7 +10,6 @@ export interface Article {
   content: Article['content'];
   image: Article['image'];
   tags: Article['tags'];
-  stars: Article['stars'];
   views: Article['views'];
   created_at: Article['created_at'];
   updated_at: Article['updated_at'];

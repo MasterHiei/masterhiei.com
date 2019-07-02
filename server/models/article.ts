@@ -11,7 +11,6 @@ export interface Article extends Document {
   content: string;
   image: string;
   tags: string[];
-  stars: number;
   views: number;
   created_at: Date;
   updated_at: Date;
@@ -46,10 +45,6 @@ const articleSchema = new Schema(
     tags: {
       type: [String],
       default: [],
-    },
-    stars: {
-      type: Number,
-      default: 0,
     },
     views: {
       type: Number,

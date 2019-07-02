@@ -52,12 +52,6 @@
             v-icon(small)
               | far fa-comments
             | {{ $t('article.comments', { number: commentCount }) }}
-
-          // Stars
-          span.detail-item
-            v-icon(small)
-              | far fa-heart
-            | {{ $t('article.stars', { number: article.stars }) }}
 </template>
 
 <script lang="ts">

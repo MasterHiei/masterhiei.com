@@ -1,5 +1,6 @@
 <template lang="pug">
   v-layout(justify-center wrap)
+    // Main content
     v-flex(class="post" md5 wrap)
       // Article
       v-card(ref="article" tag="article")
@@ -37,36 +38,17 @@
                 | {{ $t('article.views', { number: article.views }) }}
 
               // Comments
-              a(class="detail-item" v-scroll-to="{ el: '#comments' }")
+              a(class="detail-item" href="#comments")
                 v-icon(small)
                   | far fa-comments
                 | {{ $t('article.comments', { number: commentCount }) }}
 
-              // Stars
-              span.detail-item
-                v-icon(small)
-                  | far fa-heart
-                | {{ $t('article.stars', { number: article.stars }) }}
-
-          // Text
+          // Body
           v-flex.markdown-body(
             v-html="renderedMD"
             class="post-text"
             wrap
           )
-
-          // TODO: Footer
-          v-flex(tag="footer" pa-2 style="display: none;")
-            // Star
-            v-flex(wrap)
-              v-tooltip(top)
-                template(#activator="{ on }")
-                  v-btn(v-on="on" icon)
-                    v-icon(color="accent" small)
-                      | fas fa-heart
-                span star
-
-            // Social
 
       // Gitalk
       the-gitalk(:articleId="article.id")
@@ -211,7 +193,7 @@ export default class ArticlePage extends Vue {
     if (this.$refs.divider instanceof Vue) {
       const divider = this.$refs.divider as Vue;
       const dividerBottom = divider.$el.getBoundingClientRect().bottom;
-      this.isSticky = dividerBottom <= 64;
+      this.isSticky = dividerBottom <= 80;
     }
   }
 
@@ -258,7 +240,7 @@ export default class ArticlePage extends Vue {
   // Sticky style
   .sticky
     position fixed
-    top 64px
+    top 80px
     background-color transparent
     box-shadow none
 

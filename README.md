@@ -47,7 +47,7 @@ $ yarn test # or npm run test
   |
   |── client                           # The base directory of Nuxt.js
   |
-  |── server                           # Express directories
+  |── server                           # The base directory of Express
   |
   |── types                            # Contains TypeScript difinition file
   |
@@ -61,7 +61,7 @@ $ yarn test # or npm run test
   |
   |── .gitignore                       # Ignoring files in Git
   |
-  |── .prettierrc.json                 # Prettire configuration file
+  |── .prettierrc.json                 # Prettier configuration file
   |
   |── nodemon.json                     # Nodemon configuration file
   |
@@ -84,12 +84,14 @@ $ yarn test # or npm run test
 
   Run `$ yarn analyze`(or `$ npm run analyze`) to start local server, and create an interactive treemap.
 
-  There are two examples below show the effect of our work.
+- Examples
 
-- Before optimization
+  For example, in the following graph, you will know who is the fattest boy in your project, and you can do anything to make them better also.
 
-  ![**bundle-size-now**](<https://raw.githubusercontent.com/MasterHiei/Resources/master/bundle-before.png>)
+  - Before optimization
 
-- After optimization
+    ![**bundle-size-now**](<https://raw.githubusercontent.com/MasterHiei/Resources/master/bundle-before.png>)
 
-  ![**bundle-size-now**](<https://raw.githubusercontent.com/MasterHiei/Resources/master/bundle-size-20190615.png>)
+  - After optimization
+
+    ![**bundle-size-now**](<https://raw.githubusercontent.com/MasterHiei/Resources/master/bundle-size-20190615.png>)
