@@ -13,7 +13,7 @@ const errorHandler = (
   error: (params: ErrorParams) => void
 ): void => {
   const statusCode = e.response ? e.response.status : 500;
-  error({ statusCode: statusCode, message: e.message });
+  error({ statusCode, message: e.message });
 };
 
 export default ({ $axios, error }: Context): void => {

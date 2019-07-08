@@ -20,7 +20,7 @@
           :key="index"
           color="accent lighten-1"
         )
-          template(v-slot:badge)
+          template(#badge)
             span {{ tag.value }}
           v-chip(
             class="tag-label elevation-3"
@@ -63,7 +63,7 @@ export default class TagsPage extends Vue {
    * Returns a random vuetify color
    */
   randomColor(): string {
-    const platte = [
+    const platter = [
       'red',
       'pink',
       'purple',
@@ -81,16 +81,14 @@ export default class TagsPage extends Vue {
       'orange',
       'deep-orange',
     ];
-    return `${sample(platte)} lighten-4`;
+    return `${sample(platter)} lighten-4`;
   }
 
   /**
    * Transition to tag page
    */
   transiTo(tag): void {
-    this.$router.push(
-      this.localePath({ name: 'tags-tag', params: { tag: tag } })
-    );
+    this.$router.push(this.localePath({ name: 'tags-tag', params: { tag } }));
   }
 
   // SEO

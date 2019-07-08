@@ -29,6 +29,6 @@ const options: VuetifyOptions = {
 // Use Vuetify
 Vue.use(Vuetify, {
   iconfont: 'fa',
-  theme: theme,
-  options: options,
+  theme,
+  options,
 });

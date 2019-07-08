@@ -56,7 +56,7 @@ const config: NuxtConfiguration = {
   /**
    * Source directory
    */
-  srcDir: srcDir,
+  srcDir,
 
   /*
    ** Plugins to load before mounting the App
@@ -83,7 +83,7 @@ const config: NuxtConfiguration = {
       'nuxt-i18n',
       {
         vueI18n: {
-          dateTimeFormats: dateTimeFormats,
+          dateTimeFormats,
           fallbackLocale: 'zh',
         },
         vueI18nLoader: true,

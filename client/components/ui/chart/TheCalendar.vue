@@ -67,14 +67,12 @@ export default class TheCalendar extends Vue {
     );
     const number = data.value[1];
     if (number === 0) {
-      return this.$i18n
-        .t('archives.chart.tooltip.noData', { date: date })
-        .toString();
+      return this.$i18n.t('archives.chart.tooltip.noData', { date }).toString();
     }
     return this.$i18n
       .t('archives.chart.tooltip.normal', {
-        date: date,
-        number: number,
+        date,
+        number,
       })
       .toString();
   }

@@ -30,7 +30,7 @@ const deconstructIssue = (data: any): Issue => {
   // Remake issue
   const issue: Issue = {
     id: data.id,
-    labels: labels,
+    labels,
     comments: data.comments,
   };
 
