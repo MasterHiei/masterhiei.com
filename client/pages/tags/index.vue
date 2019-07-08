@@ -88,9 +88,7 @@ export default class TagsPage extends Vue {
    * Transition to tag page
    */
   transiTo(tag): void {
-    this.$router.push(
-      this.localePath({ name: 'tags-tag', params: { tag: tag } })
-    );
+    this.$router.push(this.localePath({ name: 'tags-tag', params: { tag } }));
   }
 
   // SEO
