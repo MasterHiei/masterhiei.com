@@ -50,7 +50,7 @@
     "fuse.js": "^3.4.5",
     "gitalk": "^1.5.0",
     "github-markdown-css": "^3.0.1",
-    "highlight.js": "^9.15.8",
+    "highlight.js": "^9.15.9",
     "lodash": "^4.17.15",
     "lru-cache": "^5.1.1",
     "markdown-it": "^9.0.1",
@@ -78,7 +78,7 @@
     "@types/dotenv": "^6.1.1",
     "@types/echarts": "^4.1.9",
     "@types/faker": "^4.1.5",
-    "@types/jest": "^24.0.15",
+    "@types/jest": "^24.0.16",
     "@types/lodash": "^4.14.136",
     "@types/markdown-it": "^0.0.8",
     "@types/mongoose": "^5.5.11",
@@ -94,7 +94,7 @@
     "eslint-config-standard": "^13.0.1",
     "eslint-loader": "^2.2.1",
     "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-jest": "^22.14.0",
+    "eslint-plugin-jest": "^22.14.1",
     "eslint-plugin-node": "^9.1.0",
     "eslint-plugin-nuxt": "^0.4.3",
     "eslint-plugin-prettier": "^3.1.0",
@@ -120,6 +120,6 @@
     "vue": "^2.6.10",
     "vue-template-compiler": "^2.6.10",
     "webpack": "^4.38.0",
-    "webpack-bundle-analyzer": "^3.3.2"
+    "webpack-bundle-analyzer": "^3.4.1"
   }
 }
