@@ -8,7 +8,7 @@ import sortBy from 'lodash/sortBy';
 import app from '../app';
 import ArticleModel, { Article } from '../models/article';
 import mongoDB from './utils/mongoDB';
-import mockGenerator from './__mocks__/article';
+import mocksGenerator from './__mocks__/article';
 
 // Base url
 const url = '/api/v1/tags';
@@ -42,7 +42,7 @@ describe('Testing Tag Routing', (): void => {
       // Insert mock data to database
       beforeEach(
         async (done): Promise<void> => {
-          mocks = await ArticleModel.insertMany(mockGenerator());
+          mocks = await ArticleModel.insertMany(mocksGenerator());
           done();
         }
       );
@@ -92,7 +92,7 @@ describe('Testing Tag Routing', (): void => {
       // Insert mock data to database
       beforeAll(
         async (done): Promise<void> => {
-          mocks = await ArticleModel.insertMany(mockGenerator());
+          mocks = await ArticleModel.insertMany(mocksGenerator());
           done();
         }
       );

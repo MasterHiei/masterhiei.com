@@ -6,7 +6,7 @@ import { ArticleInput } from '../../models/article';
  * @param num dataCount defaults to 3
  * @returns List of articles
  */
-const mockGenerator = (num = 3): ArticleInput[] => {
+const mocksGenerator = (num = 3): ArticleInput[] => {
   const mocks: ArticleInput[] = [];
   for (let index = 0; index < num; index += 1) {
     const mock: ArticleInput = {
@@ -20,4 +20,4 @@ const mockGenerator = (num = 3): ArticleInput[] => {
   return mocks;
 };
 
-export default mockGenerator;
+export default mocksGenerator;

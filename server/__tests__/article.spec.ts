@@ -6,7 +6,7 @@ import sortBy from 'lodash/sortBy';
 import app from '../app';
 import ArticleModel, { Article } from '../models/article';
 import mongoDB from './utils/mongoDB';
-import mockGenerator from './__mocks__/article';
+import mocksGenerator from './__mocks__/article';
 
 // Base url
 const url = '/api/v1/articles';
@@ -40,7 +40,7 @@ describe('Testing Article Routing', (): void => {
       // Insert mock data to database
       beforeEach(
         async (done): Promise<void> => {
-          mocks = await ArticleModel.insertMany(mockGenerator());
+          mocks = await ArticleModel.insertMany(mocksGenerator());
           done();
         }
       );
@@ -117,7 +117,7 @@ describe('Testing Article Routing', (): void => {
       // Insert mock data to database
       beforeAll(
         async (done): Promise<void> => {
-          const mocks = await ArticleModel.insertMany(mockGenerator());
+          const mocks = await ArticleModel.insertMany(mocksGenerator());
           mock = mocks[0];
           done();
         }

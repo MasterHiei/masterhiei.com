@@ -46,7 +46,7 @@ const show = (req: Request, res: Response, next: NextFunction): void => {
   const skip = (page - 1) * limit;
 
   // Find data from database
-  const tag = req.params.tag;
+  const { tag } = req.params as any;
   ArticleModel.find({ tags: tag })
     .skip(skip)
     .limit(limit)
