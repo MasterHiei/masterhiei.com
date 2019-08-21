@@ -1,15 +1,26 @@
 import faker from 'faker';
-import { ArticleInput } from '../../models/article';
+import { Article } from '../../models/article';
 
 /**
- * Generate random data
- * @param num dataCount defaults to 3
- * @returns List of articles
+ * Article type for testing
+ * @interface ArticleTest
  */
-const mocksGenerator = (num = 3): ArticleInput[] => {
-  const mocks: ArticleInput[] = [];
+export interface ArticleTest {
+  title: Article['title'];
+  content: Article['content'];
+  image: Article['image'];
+  tags: Article['tags'];
+}
+
+/**
+ * Generate mock data of article
+ * @param num Count of generated data, defaults to 3
+ * @returns Mock data of article
+ */
+const mocksGenerator = (num = 3): ArticleTest[] => {
+  const mocks: ArticleTest[] = [];
   for (let index = 0; index < num; index += 1) {
-    const mock: ArticleInput = {
+    const mock: ArticleTest = {
       title: faker.lorem.words(),
       content: faker.lorem.paragraphs(),
       image: faker.image.image(),

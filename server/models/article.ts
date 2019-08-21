@@ -16,17 +16,6 @@ export interface Article extends Document {
   updated_at: Date;
 }
 
-/**
- * Input type declaration
- * @interface ArticleInput
- */
-export interface ArticleInput {
-  title: Article['title'];
-  content: Article['content'];
-  image: Article['image'];
-  tags: Article['tags'];
-}
-
 /** Article schema declaration */
 const articleSchema = new Schema(
   {
@@ -43,7 +32,7 @@ const articleSchema = new Schema(
       default: '/sites/upload/cover-2.jpg',
     },
     tags: {
-      type: [String],
+      type: Array,
       default: [],
     },
     views: {
