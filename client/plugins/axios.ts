@@ -17,22 +17,16 @@ const errorHandler = (
 };
 
 export default ({ $axios, error }: Context): void => {
-  // Handling error for customized axios
+  // Handling error for customized axios instance
   axios.interceptors.request.use(
     (config): AxiosRequestConfig => config,
-    (e: AxiosError): void => {
-      errorHandler(e, error);
-    }
+    (e: AxiosError): void => errorHandler(e, error)
   );
   axios.interceptors.response.use(
     (res): AxiosResponse => res,
-    (e: AxiosError): void => {
-      errorHandler(e, error);
-    }
+    (e: AxiosError): void => errorHandler(e, error)
   );
 
   // Handling error for Nuxt axios
-  $axios.onError((e): void => {
-    errorHandler(e, error);
-  });
+  $axios.onError((e): void => errorHandler(e, error));
 };
