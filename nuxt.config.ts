@@ -73,6 +73,19 @@ const config: NuxtConfiguration = {
   },
 
   /*
+   ** Nuxt.js build modules
+   */
+  buildModules: ['@nuxt/typescript-build'],
+
+  /*
+   ** Nuxt.js typescript settings
+   */
+  typescript: {
+    typeCheck: true,
+    ignoreNotFoundWarnings: true,
+  },
+
+  /*
    ** Nuxt.js modules
    */
   modules: [
