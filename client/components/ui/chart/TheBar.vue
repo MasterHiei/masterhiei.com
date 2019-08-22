@@ -114,10 +114,13 @@ export default class TheBar extends Vue {
       });
 
       // Set click event on echarts
-      const me = this;
+      const self = this;
       echarts.on('click', function(params): void {
-        me.$router.push(
-          me.localePath({ name: 'tags-tag', params: { tag: params.data.name } })
+        self.$router.push(
+          self.localePath({
+            name: 'tags-tag',
+            params: { tag: params.data.name },
+          })
         );
       });
     });

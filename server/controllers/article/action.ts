@@ -55,7 +55,7 @@ const show = (req: Request, res: Response, next: NextFunction): void => {
   }
 
   // Find data from database
-  const id = req.params.id;
+  const { id } = req.params as any;
   ArticleModel.findByIdAndUpdate(id, { $inc: { views: 1 } }, { new: true })
     .exec()
     .then((article): void => {

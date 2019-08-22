@@ -28,7 +28,7 @@
     },
     "types": [
       "@nuxtjs/axios",
-      "@nuxt/vue-app",
+      "@nuxt/types",
       "dayjs",
       "nuxt-i18n",
       "nuxt-device-detect",
