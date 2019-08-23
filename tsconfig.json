@@ -31,7 +31,6 @@
       "@nuxt/types",
       "dayjs",
       "nuxt-i18n",
-      "nuxt-device-detect",
       "vue-infinite-loading",
       "jest"
     ]
