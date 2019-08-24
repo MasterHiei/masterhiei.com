@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.6.0",
-    "@nuxtjs/device": "^1.2.2",
+    "@nuxtjs/device": "^1.2.3",
     "@nuxtjs/dotenv": "^1.4.0",
     "@nuxtjs/pwa": "^3.0.0-beta.16",
     "aos": "^3.0.0-beta.6",
@@ -87,7 +87,7 @@
     "@types/sanitize-html": "^1.20.1",
     "@types/supertest": "^2.0.8",
     "codecov": "^3.5.0",
-    "eslint": "^6.2.1",
+    "eslint": "^6.2.2",
     "eslint-config-prettier": "^6.1.0",
     "eslint-config-standard": "^14.0.1",
     "eslint-loader": "^2.2.1",

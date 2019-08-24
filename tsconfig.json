@@ -28,6 +28,7 @@
     },
     "types": [
       "@nuxtjs/axios",
+      "@nuxtjs/device",
       "@nuxt/types",
       "dayjs",
       "nuxt-i18n",
