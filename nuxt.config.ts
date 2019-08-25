@@ -1,4 +1,4 @@
-import NuxtConfiguration from '@nuxt/config';
+import { Configuration } from '@nuxt/types';
 import VuetifyLoaderPlugin from 'vuetify-loader/lib/plugin';
 import env from './server/utils/envalid';
 import dateTimeFormats from './client/assets/locales/dateTimeFormats';
@@ -6,14 +6,11 @@ import dateTimeFormats from './client/assets/locales/dateTimeFormats';
 // Load environment variables from .env file
 require('dotenv').config();
 
-/** Source directory */
-const srcDir = 'client/';
-
 /** Seconds in a day */
 const day = 60 * 60 * 24;
 
 // Nuxt configuration options
-const config: NuxtConfiguration = {
+const config: Configuration = {
   /*
    ** Headers of the page
    */
@@ -56,7 +53,7 @@ const config: NuxtConfiguration = {
   /**
    * Source directory
    */
-  srcDir,
+  srcDir: 'client/',
 
   /*
    ** Plugins to load before mounting the App
@@ -90,6 +87,7 @@ const config: NuxtConfiguration = {
    */
   modules: [
     '@nuxtjs/axios',
+    '@nuxtjs/device',
     ['@nuxtjs/dotenv', { path: __dirname }],
     '@nuxtjs/pwa',
     [
@@ -124,7 +122,6 @@ const config: NuxtConfiguration = {
         },
       },
     ],
-    'nuxt-device-detect',
     [
       'vue-scrollto/nuxt',
       {
