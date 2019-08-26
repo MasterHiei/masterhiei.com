@@ -58,7 +58,7 @@
     "markdown-it-anchor": "^5.2.4",
     "markdown-it-emoji": "^1.4.0",
     "markdown-it-table-of-contents": "^0.4.4",
-    "mongoose": "^5.6.10",
+    "mongoose": "^5.6.11",
     "morgan": "^1.9.1",
     "nuxt": "^2.9.1",
     "nuxt-i18n": "^6.0.2",
