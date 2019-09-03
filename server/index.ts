@@ -1,38 +1,32 @@
-import consola from 'consola';
-import { Nuxt, Builder } from 'nuxt';
-import config from '../nuxt.config';
-import app from './app';
-import mongoDB from './utils/mongoDB';
+import express from 'express';
+import morgan from 'morgan';
+import bodyParser from 'body-parser';
 import env from './utils/envalid';
-
-// Get environment variables
-const { isDev, HOST, PORT } = env;
+import mongoDB from './utils/mongoDB';
+import routes from './routes';
+import errorHandler from './middleware/errorHandler';
 
 // Start mongoDB service
 mongoDB.start();
 
-// Start server with Nuxt.js
-const start = async (): Promise<void> => {
-  // Instantiate Nuxt.js with the configuration
-  config.dev = isDev;
-  const nuxt = new Nuxt(config);
-  await nuxt.ready();
+// Get environment variables
+const { API_PREFIX } = env;
 
-  // Render every route with Nuxt.js
-  app.use(nuxt.render);
+// Create Express server
+const app = express();
 
-  // Build only in dev mode with hot-reloading
-  if (config.dev) {
-    const builder = new Builder(nuxt);
-    await builder.build();
-  }
+// Express middleware configuration
+app.use(bodyParser.json());
+app.use(
+  morgan('dev', {
+    skip: (req): boolean => req.baseUrl !== API_PREFIX,
+  })
+);
 
-  // Listen the server
-  app.listen(PORT, HOST, (): void =>
-    consola.ready({
-      message: `Server is listening on http://${HOST}:${PORT}`,
-      badge: true,
-    })
-  );
-};
-start();
+// Primary app routes
+app.use(routes);
+
+// Error handler
+app.use(errorHandler);
+
+export default app;

@@ -6,10 +6,10 @@
   "private": true,
   "scripts": {
     "analyze": "cross-env NODE_ENV=development nuxt build --a",
-    "dev": "nodemon",
-    "build": "cross-env NODE_ENV=production nuxt build",
-    "start": "cross-env NODE_ENV=production nuxt start",
-    "generate": "cross-env NODE_ENV=production nuxt generate",
+    "dev": "nuxt-ts",
+    "build": "cross-env NODE_ENV=production nuxt-ts build",
+    "start": "cross-env NODE_ENV=production nuxt-ts start",
+    "generate": "cross-env NODE_ENV=production nuxt-ts generate",
     "lint": "eslint --ext .ts,.vue --ignore-path .gitignore .",
     "lintfix": "eslint --fix --ext .ts,.vue --ignore-path .gitignore .",
     "test": "jest --forceExit --detectOpenHandles --verbose"
@@ -36,13 +36,13 @@
     "collectCoverage": true
   },
   "dependencies": {
+    "@nuxt/typescript-runtime": "^0.1.4",
     "@nuxtjs/axios": "^5.6.0",
     "@nuxtjs/device": "^1.2.3",
     "@nuxtjs/dotenv": "^1.4.0",
     "@nuxtjs/pwa": "^3.0.0-beta.16",
     "aos": "^3.0.0-beta.6",
     "body-parser": "^1.19.0",
-    "cross-env": "^5.2.1",
     "crypto-js": "^3.1.9-1",
     "dayjs": "^1.8.16",
     "echarts": "^4.2.1",
@@ -113,7 +113,6 @@
     "stylus-loader": "^3.0.2",
     "supertest": "^4.0.2",
     "ts-jest": "^24.0.2",
-    "ts-node": "^8.3.0",
     "typescript": "^3.6.2",
     "vue": "^2.6.10",
     "vue-template-compiler": "^2.6.10",

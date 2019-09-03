@@ -3,10 +3,10 @@ import request, { SuperTest, Test } from 'supertest';
 import mongoose from 'mongoose';
 import dropRight from 'lodash/dropRight';
 import sortBy from 'lodash/sortBy';
-import app from '../app';
 import ArticleModel, { Article } from '../models/article';
 import mongoDB from './utils/mongoDB';
 import mocksGenerator from './__mocks__/article';
+import app from '..';
 
 // Base url
 const url = '/api/v1/articles';

@@ -7,7 +7,12 @@ import env from './envalid';
  */
 const start = (): void => {
   // Get environment variables
-  const { isDev, DB_URI, DB_NAME } = env;
+  const { isDev, isTest, DB_URI, DB_NAME } = env;
+
+  // Should not work for test environment
+  if (isTest) {
+    return;
+  }
 
   // Enable debugging if in development environment
   mongoose.set('debug', isDev);

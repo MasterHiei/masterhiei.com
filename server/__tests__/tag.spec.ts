@@ -5,10 +5,10 @@ import map from 'lodash/map';
 import flatMap from 'lodash/flatMap';
 import flatten from 'lodash/flatten';
 import sortBy from 'lodash/sortBy';
-import app from '../app';
 import ArticleModel, { Article } from '../models/article';
 import mongoDB from './utils/mongoDB';
 import mocksGenerator from './__mocks__/article';
+import app from '..';
 
 // Base url
 const url = '/api/v1/tags';
