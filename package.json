@@ -102,7 +102,6 @@
     "faker": "^4.1.0",
     "jest": "^24.9.0",
     "jest-junit": "^8.0.0",
-    "nodemon": "^1.19.1",
     "prettier": "^1.18.2",
     "pug": "^2.0.4",
     "pug-plain-loader": "^1.0.0",

@@ -3,6 +3,31 @@ import consola from 'consola';
 import env from './envalid';
 
 /**
+ * Add mongoose interceptors
+ */
+const addInterceptors = (): void => {
+  // Listen for mongoose connection successful
+  mongoose.connection.on('connected', (): void => {
+    // Create models
+    require('../models/article');
+
+    // Print message
+    consola.ready({
+      message: 'MongoDB Connected',
+      badge: true,
+    });
+  });
+
+  // Listen for mongoose connection failed
+  mongoose.connection.on('error', (error): void => {
+    consola.error({
+      message: `MongoDB connection error: ${error}`,
+      badge: true,
+    });
+  });
+};
+
+/**
  * Start mongoDB service
  */
 const start = (): void => {
@@ -25,25 +50,8 @@ const start = (): void => {
     useFindAndModify: false,
   });
 
-  // Listen for mongoose connection successful
-  mongoose.connection.on('connected', (): void => {
-    // Create models
-    require('../models/article');
-
-    // Print message
-    consola.ready({
-      message: 'MongoDB Connected',
-      badge: true,
-    });
-  });
-
-  // Listen for mongoose connection failed
-  mongoose.connection.on('error', (error): void => {
-    consola.error({
-      message: `MongoDB connection error: ${error}`,
-      badge: true,
-    });
-  });
+  // Add interceptors
+  addInterceptors();
 };
 
 export default { start };
