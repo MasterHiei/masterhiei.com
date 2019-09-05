@@ -9,7 +9,7 @@ import mocksGenerator from './__mocks__/article';
 import app from '..';
 
 // Base url
-const url = '/api/v1/articles';
+const url = '/articles';
 
 // Get environment variables
 

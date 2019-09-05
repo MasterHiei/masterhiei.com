@@ -11,7 +11,7 @@ import mocksGenerator from './__mocks__/article';
 import app from '..';
 
 // Base url
-const url = '/api/v1/tags';
+const url = '/tags';
 
 // Get environment variables
 

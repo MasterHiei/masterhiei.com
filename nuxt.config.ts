@@ -82,7 +82,7 @@ const config: Configuration = {
     ignoreNotFoundWarnings: true,
   },
 
-  serverMiddleware: [{ path: '/routes', handler: '../server' }],
+  serverMiddleware: [{ path: env.API_PREFIX, handler: '../server' }],
 
   /*
    ** Nuxt.js modules
