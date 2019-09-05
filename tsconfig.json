@@ -35,5 +35,8 @@
       "vue-infinite-loading",
       "jest"
     ]
-  }
+  },
+  "exclude": [
+    "node_modules"
+  ]
 }

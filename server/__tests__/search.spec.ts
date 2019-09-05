@@ -1,13 +1,13 @@
 import { Server } from 'http';
 import request, { SuperTest, Test } from 'supertest';
-import app from '../app';
 import ArticleModel, { Article } from '../models/article';
 import fuse from '../utils/fuse';
 import mongoDB from './utils/mongoDB';
 import mocksGenerator from './__mocks__/article';
+import app from '..';
 
 // Base url
-const url = '/api/v1/search';
+const url = '/search';
 
 // Get environment variables
 
