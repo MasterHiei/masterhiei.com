@@ -29,7 +29,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator';
 import { Mutation } from 'vuex-class';
-import { NuxtVueI18n } from 'nuxt-i18n/types/vue';
+import { NuxtVueI18n } from 'nuxt-i18n/types/nuxt-i18n';
 
 @Component({
   components: {
