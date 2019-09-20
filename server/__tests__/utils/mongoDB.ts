@@ -12,6 +12,7 @@ const connect = (done: jest.DoneCallback): void => {
       useNewUrlParser: true,
       useCreateIndex: true,
       useFindAndModify: false,
+      useUnifiedTopology: true,
     })
     .then((): void => done());
 };

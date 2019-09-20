@@ -60,7 +60,7 @@
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'nuxt-property-decorator';
 import { State } from 'vuex-class';
-import { NuxtVueI18n } from 'nuxt-i18n/types/vue';
+import { NuxtVueI18n } from 'nuxt-i18n/types/nuxt-i18n';
 
 @Component
 export default class TheNavDrawer extends Vue {

@@ -58,7 +58,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator';
-import { NuxtVueI18n } from 'nuxt-i18n/types/vue';
+import { NuxtVueI18n } from 'nuxt-i18n/types/nuxt-i18n';
 
 @Component({
   components: {
@@ -112,7 +112,8 @@ export default class TheHeader extends Vue {
    * Global locale
    */
   get locales(): (string | NuxtVueI18n.Options.LocaleObject)[] {
-    return this.$i18n.locales.filter(locale => {
+    const locales = this.$i18n.locales || [];
+    return locales.filter(locale => {
       if (typeof locale !== 'string') {
         return locale.code !== this.$i18n.locale;
       } else {

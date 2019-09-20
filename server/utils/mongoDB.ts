@@ -12,18 +12,12 @@ const addInterceptors = (): void => {
     require('../models/article');
 
     // Print message
-    consola.ready({
-      message: 'MongoDB Connected',
-      badge: true,
-    });
+    consola.ready('MongoDB Connected');
   });
 
   // Listen for mongoose connection failed
   mongoose.connection.on('error', (error): void => {
-    consola.error({
-      message: `MongoDB connection error: ${error}`,
-      badge: true,
-    });
+    consola.error(`MongoDB connection error: ${error}`);
   });
 };
 
@@ -48,6 +42,7 @@ const start = (): void => {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
+    useUnifiedTopology: true,
   });
 
   // Add interceptors
