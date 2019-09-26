@@ -12,16 +12,14 @@ parserOptions:
 
 extends:
     - '@nuxtjs/eslint-config-typescript'
-    - plugin:nuxt/recommended
+    - 'plugin:@typescript-eslint/recommended'
+    - plugin:jest/recommended
     - plugin:prettier/recommended
     - prettier
     - prettier/vue
-    - 'plugin:@typescript-eslint/recommended'
-    - 'prettier/@typescript-eslint'
 
 plugins:
-  - prettier
-  - '@typescript-eslint'
+  - vue
 
 rules:
   no-console: off
@@ -29,6 +27,13 @@ rules:
   semi:
     - error
     - always
+  camelcase:
+    - error
+    - allow:
+      - created_at
+      - updated_at
+      - client_id
+      - client_secret
   vue/max-attributes-per-line: off
   comma-dangle:
     - error
