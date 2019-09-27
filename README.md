@@ -49,7 +49,7 @@ $ yarn test # or npm run test
   |
   |── server                           # The base directory of Express
   |
-  |── types                            # Contains TypeScript difinition file
+  |── types                            # Contains TypeScript declaration file
   |
   |── .editorconfig                    # Coding style configuration file of editor
   |
