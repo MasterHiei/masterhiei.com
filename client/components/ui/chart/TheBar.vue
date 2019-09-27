@@ -1,6 +1,6 @@
 <template lang="pug">
   figure
-    div(id="chart-bar" :style="barStyle")
+    div(id="chart-bar" :style="barChartStyle")
 </template>
 
 <script lang="ts">
@@ -29,10 +29,13 @@ export default class TheBar extends Vue {
   }
 
   /**
-   * Bar contaner style
+   * Returns bar chart style
    */
-  get barStyle(): string {
-    return `height: ${this.dataset.length * 40}px;`;
+  get barChartStyle(): string {
+    const minHeight = 240;
+    const flexibleHeight = this.dataset.length * 40;
+    const height = flexibleHeight >= minHeight ? flexibleHeight : minHeight;
+    return `height: ${height}px;`;
   }
 
   /**

@@ -72,7 +72,15 @@ const config: Configuration = {
   /*
    ** Nuxt.js build modules
    */
-  buildModules: ['@nuxt/typescript-build'],
+  buildModules: [
+    '@nuxt/typescript-build',
+    [
+      '@nuxtjs/eslint-module',
+      {
+        cache: true,
+      },
+    ],
+  ],
 
   /*
    ** Nuxt.js typescript settings
