@@ -35,9 +35,6 @@ rules:
       - client_id
       - client_secret
   vue/max-attributes-per-line: off
-  comma-dangle:
-    - error
-    - always-multiline
   new-cap: off
   prettier/prettier:
     - error
